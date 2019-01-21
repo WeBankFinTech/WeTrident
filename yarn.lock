@@ -655,6 +655,13 @@
     react-native-animatable "^1.2.3"
     uuid "^3.1.0"
 
+"@unpourtous/react-native-touchable@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@unpourtous/react-native-touchable/-/react-native-touchable-1.0.3.tgz#92ed3af0253a7ad894d46d0ce662e5b9c9800030"
+  integrity sha512-OefsGWMV3LuEo8iUE4VFfdsM7Qyr0rAvhsgYV7LCTgohAUl4lV5mjYp5vnjRsFL5tqfN/VIzeAzP/2ITbgNkdg==
+  dependencies:
+    prop-types "^15.6.0"
+
 abab@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/abab/-/abab-2.0.0.tgz#aba0ab4c5eee2d4c79d3487d85450fb2376ebb0f"

@@ -8,13 +8,12 @@ import {
   applyMiddleware
 } from 'redux'
 import thunk from 'redux-thunk'
-import createLogger from 'redux-logger'
-import ServerEnv from './api/ServerEnv'
 import AppContainer from './container/AppContainer'
 // import { RNEnv } from 'utils'
 import WeNavigator, { navReduxMiddleware } from './navigation/WeNavigator'
 import AppNavigator from './navigation/AppNavigator'
 import reducer from './reducer'
+// import createLogger from 'redux-logger'
 
 const middlewares = []
 // if (RNEnv.isDev() && RNEnv.isRemoteDebug()) {
@@ -58,8 +57,7 @@ export default class AppEntry extends Component {
       <Provider store={this.store}>
         <AppContainer
           initProps={{
-            ...this.props,
-            env: ServerEnv.ENV_PREFIX
+            ...this.props
           }}>
           <WeNavigator />
         </AppContainer>
