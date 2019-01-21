@@ -1,7 +1,7 @@
 /**
  * Created by sines on 2018-02-23T10:25:07.640Z.
  */
-import { createSceneConnect } from 'utils'
+import { createSceneConnect } from '../../../../utils'
 // import ChartExampleService from './ChartExampleService'
 // import global from 'apps/webankPro/container'
 import ModulePrivate from '../actionsReducer'

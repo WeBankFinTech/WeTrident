@@ -1,4 +1,4 @@
-import { createModuleConnect } from 'utils'
+import { createModuleConnect } from './../../../utils'
 /**
  * Created by sines on 2018-02-23T10:24:03.393Z.
  */

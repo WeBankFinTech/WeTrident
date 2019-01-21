@@ -45,7 +45,7 @@ export default class AppEntry extends Component {
   constructor (props) {
     super(props)
     this.store = createStore(
-      reducer(this.getEntryScene()),
+      reducer(AppNavigator.example.ChartExampleScene.toString()),
       window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
       middleware
     )

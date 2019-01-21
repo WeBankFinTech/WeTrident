@@ -117,7 +117,7 @@ function createSceneConnect (config = {}) {
 
       componentWillMount () {
         if (autoResetState === true) {
-          this.props.resetState()
+          // this.props.resetState()
         }
       }
       componentDidMount () {

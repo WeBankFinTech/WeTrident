@@ -1,9 +1,7 @@
-import URLUtils from '../../../utils/URLUtils'
+import URLUtils from '../../utils/URLUtils'
 import { MyStackNavigator } from './WeNavigator'
 import AppNavigator from './AppNavigator'
 import _ from 'lodash'
-import {Statistics} from 'plugins'
-import {Zilean} from 'utils'
 import {PopupStub} from '@unpourtous/react-native-popup-stub'
 
 // gets the current screen from navigation state
@@ -55,8 +53,6 @@ export default (entryScene) => {
       // 过滤参数
       const lastSceneURL = AppNavigator.currentSceneURL || 'null'
       const currentSceneURL = URLUtils.appendParams(toRouteName || 'null', currentParams)
-      Statistics.reportPageEnd(lastSceneURL)
-      Statistics.reportPageStart(currentSceneURL)
 
       if (fromSceneKey && fromSceneKey !== toSceneKey) {
         //* 如果有注册onPause，则调用
@@ -64,9 +60,6 @@ export default (entryScene) => {
           AppNavigator.lifecycleCallback.onPause[fromSceneKey] && AppNavigator.lifecycleCallback.onPause[fromSceneKey](fromRouteName, toRouteName)
         }
 
-        //* 自动清理非global的Popup
-        Zilean.clearIntervalByScope(Zilean.scope.scene)
-        Zilean.clearTimeoutByScope(Zilean.scope.scene)
         // WARNING 这里是不应该去改Popup的状态的，但是不这样处理，可能会出现页面跳转了，Popup还在的情况，
         // 所以临时先在跳转时去掉所有的Popup, 终极解决需要Popup里面支持状态保存和回复，包括页面级别的状态和全局的状态
         const globalPopups = new Map()
@@ -92,24 +85,6 @@ export default (entryScene) => {
       AppNavigator.lastSceneURL = lastSceneURL
       AppNavigator.currentSceneURL = currentSceneURL
       console.log('currentScene change')
-    }
-    if (AppNavigator.currentScene && AppNavigator.currentScene.routeName) {
-      const routeName = AppNavigator.currentScene.routeName
-      if (action.type === 'Navigation/NAVIGATE') {
-        navTimeConsuming[routeName] = {
-          startTime: new Date().getTime()
-        }
-      }
-      if (action.type === 'Navigation/COMPLETE_TRANSITION' &&
-        navTimeConsuming[routeName] &&
-        navTimeConsuming[routeName].startTime) {
-        const endTime = new Date().getTime()
-        navTimeConsuming[routeName].endTime = endTime
-
-        console.log(routeName + ' 切换耗时 ' + (endTime - navTimeConsuming[routeName].startTime))
-        Statistics.reportTimeConsuming(routeName, navTimeConsuming[routeName].startTime, endTime)
-        delete navTimeConsuming[routeName]
-      }
     }
     return nextState
   }
