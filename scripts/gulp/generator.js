@@ -5,23 +5,25 @@ var execSync = (cmd) => {
 var chalk = require('chalk')
 var inquirer = require('inquirer')
 var _ = require('lodash')
-var dyRouter = require('../dyLoad/astTransformRouter.1')
+// var dyRouter = require('../dyLoad/astTransformRouter.1')
 
 var fs = require('fs')
 var path = require('path')
 
+var fse = require('fs-extra')
+var hogan = require('hogan.js')
+
 var config = {
   testBasePath: 'src/__tests__/',
   basePath: 'src/',
-  appName: '.',
   moduleTplPath: './scripts/gulp/codeTemplate/moduleTpl',
   sceneTplPath: './scripts/gulp/codeTemplate/sceneTpl',
   sceneTestTplPath: './scripts/gulp/codeTemplate/sceneTpl/SceneRender-test.js'
 }
 
-var appPath = config.basePath + 'apps/' + config.appName
+var appPath = config.basePath + 'core'
 var appTestPath = config.testBasePath
-var appModulesPath = config.basePath + 'apps/' + config.appName + '/modules'
+var appModulesPath = config.basePath + 'core/modules'
 
 const getModuleList = (appModulesPath) => {
   const moduleList = []
@@ -60,8 +62,6 @@ var getAllFileUnderDir = function (dir, fileList = []) {
   return fileList
 }
 
-var fse = require('fs-extra')
-var hogan = require('hogan.js')
 var renderTemplate = (templateFileAbsPath, content, targetFileAbsPath, cb) => {
   fse.readFile(templateFileAbsPath, (err, data) => {
     if (!err) {
@@ -134,53 +134,51 @@ const _generatorScene = (moduleName) => {
         })
 
         // 生成测试用例
-        const sceneTestTplPath = config.sceneTestFilePath
-        if (!fs.existsSync(appTestPath + 'modules/' + moduleName)) {
-          fs.mkdirSync(appTestPath + 'modules/' + moduleName)
-        }
-        const sceneTestFilePath = appTestPath + 'modules/' + moduleName + '/' + sceneName + '-test.js'
-        execSync(`cp -r ${sceneTestTplPath} ${sceneTestFilePath}`)
-        renderTemplate(sceneTestFilePath, {
-          author: author,
-          createTime: new Date().toISOString(),
-          sceneName,
-          serviceName,
-          moduleName
-        }, sceneTestFilePath)
+        // const sceneTestTplPath = config.sceneTestFilePath
+        // if (!fs.existsSync(appTestPath + 'modules/' + moduleName)) {
+        //   fs.mkdirSync(appTestPath + 'modules/' + moduleName)
+        // }
+        // const sceneTestFilePath = appTestPath + 'modules/' + moduleName + '/' + sceneName + '-test.js'
+        // execSync(`cp -r ${sceneTestTplPath} ${sceneTestFilePath}`)
+        // renderTemplate(sceneTestFilePath, {
+        //   author: author,
+        //   createTime: new Date().toISOString(),
+        //   sceneName,
+        //   serviceName,
+        //   moduleName
+        // }, sceneTestFilePath)
 
-        const insertImport = `${prefix}import ${sceneName} from './${sceneName}'
-/* {{&insertImport}}`
+        //       // 插入reducer
+        //       const combineReducersFilePath = modulePath + '/combineReducers.js'
+        //       const insertReducerItem = `${prefix}[require('./${sceneName}').default]: require('./${sceneName}').default.reducer,
+        // /* {{&insertReducerItem}}`
+        //       renderTemplate(combineReducersFilePath, {insertReducerItem}, combineReducersFilePath)
+        //
+        //       // 插入路由
+        //       const routerFilePath = modulePath + '/routers.js'
+        //       const insertRouterItem = `${prefix}[require('./${sceneName}').default]: {
+        //   screen: require('./${sceneName}/actionsReducer').default(require('./${sceneName}').default),
+        //   navigationOptions: () => ({
+        //     title: '${sceneName}'
+        //   })
+        // },
+        // /* {{&insertRouterItem}}`
+        //       renderTemplate(routerFilePath, {insertRouterItem}, routerFilePath, () => {
+        //         // TODO 创建scene时自动更新模块的动态路由
+        //         // dyRouter.generateModuleDyRouter(moduleName)
+        //       })
 
-        // 插入reducer
-        const combineReducersFilePath = modulePath + '/combineReducers.js'
-        const insertReducerItem = `${prefix}[${sceneName}]: ${sceneName}.reducer,
-  /* {{&insertReducerItem}}`
-        renderTemplate(combineReducersFilePath, {insertReducerItem, insertImport}, combineReducersFilePath)
-
-        // 插入路由
-        const routerFilePath = modulePath + '/routers.js'
-        const insertRouterItem = `${prefix}[${sceneName}]: {
-    screen: ${sceneName},
-    navigationOptions: () => ({
-      title: '${sceneName}'
-    })
-  },
-  /* {{&insertRouterItem}}`
-        renderTemplate(routerFilePath, {insertRouterItem, insertImport}, routerFilePath, () => {
-          // 创建scene时自动更新模块的动态路由
-          dyRouter.generateModuleDyRouter(moduleName)
+        // 插入 sceneList
+        const sceneListFilePath = modulePath + '/sceneList.js'
+        const insertSceneItem = `${prefix}require('./${sceneName}').default,
+  /* {{&insertSceneItem}}`
+        renderTemplate(sceneListFilePath, {insertSceneItem}, sceneListFilePath, () => {
+          // TODO 创建scene时自动更新模块的动态路由
+          // dyRouter.generateModuleDyRouter(moduleName)
         })
 
         setTimeout(() => {
-          // inquirer.prompt([{
-          //   type: 'confirm',
-          //   message: chalk.green(`\nContinue create more Scene (module: ${moduleName}) ? \n`),
-          //   name: 'continueCreateScene'
-          // }]).then(answers => {
-          //   if (answers.continueCreateScene) {
           _generatorScene(moduleName)
-          //   }
-          // })
         }, 500)
       }, () => {
         console.log(chalk.red('Input Scene name error!'))
@@ -231,6 +229,9 @@ var _generatorModule = function () {
       const appReducerPath = path.join(appModulesPath, 'reducer.js')
       const appRouterPath = path.join(appModulesPath, 'routers.js')
 
+      console.log('appReducerPath', appReducerPath)
+      console.log('appRouterPath', appRouterPath)
+
       const insertImportModule = `${prefix}import ${moduleName} from './${moduleName}'
 /* {{&insertImportModule}}`
 
@@ -243,8 +244,8 @@ var _generatorModule = function () {
       const insertModuleRouter = `${prefix}[${moduleName}]: ${moduleName}.routers,
   /* {{&insertModuleRouter}}`
       renderTemplate(appRouterPath, {insertImportModule, insertModuleRouter}, appRouterPath, () => {
-        // 创建module的时候同时更新全局的dyRouter配置
-        dyRouter.generateGlobalDyRouter()
+        // TODO 创建module的时候同时更新全局的dyRouter配置
+        // dyRouter.generateGlobalDyRouter()
       })
 
       // 提示是否继续创建Scene

@@ -25,9 +25,16 @@
   },
   "devDependencies": {
     "babel-jest": "23.6.0",
+    "gulp-eslint": "^5.0.0",
+    "gulp-modify-file": "^1.0.1",
+    "gulp-rename": "^1.4.0",
+    "gulp-replace-src": "^0.0.1",
+    "gulp-shell": "^0.6.5",
+    "hogan.js": "^3.0.2",
     "jest": "23.6.0",
     "metro-react-native-babel-preset": "0.51.1",
-    "react-test-renderer": "16.6.3"
+    "react-test-renderer": "16.6.3",
+    "yargs": "^12.0.5"
   },
   "jest": {
     "preset": "react-native"

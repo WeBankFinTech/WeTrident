@@ -4,15 +4,10 @@
  */
 import { combineReducers } from 'redux'
 import ModulePrivate from './actionsReducer'
-// @AUTO_CODE
-/* */import ChartExampleScene from './ChartExampleScene'
-/* {{&insertImport}} */
-// @AUTO_CODE
 
 export default combineReducers({
   [ModulePrivate]: ModulePrivate.reducer,
-  // @AUTO_CODE
-  /* */[ChartExampleScene]: ChartExampleScene.reducer,
-  /* {{&insertReducerItem}} */
-  // @AUTO_CODE
+  ...(require('./sceneList').default.map(item => ({
+    [item]: item.reducer
+  })))
 })

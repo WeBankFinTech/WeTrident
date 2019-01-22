@@ -30,5 +30,5 @@ export default {
   navBarBg: '#171a23',
   navBarHomeBg: '#00000000',
   placeholderColor: '#cdcdce',
-  grayOpacityMaskBg: 'rgba(0, 0, 0, 0.6)'
+  grayOpacityMaskBg: 'rgba(0, 0, 0, 0.6)',
 }

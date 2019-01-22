@@ -6,15 +6,21 @@
  * Created by sines on 2018-02-23T10:25:07.640Z.
  */
 import React, { Component } from 'react'
+import { Text } from 'react-native'
 import connect from './actionsReducer'
+import WeTouchable from '@unpourtous/react-native-touchable/library/WeTouchable'
 
 // import PropTypes from 'prop-types'
 // import ChartExampleService from './ChartExampleService'
-// import {AppNavigator} from 'apps/webankPro/navigation'
+import { AppNavigator } from 'apps/webankPro/navigation'
 
 class ChartExampleScene extends Component {
   render () {
-    return null
+    return <WeTouchable onPress={() => {
+      AppNavigator.example.EScene()
+    }}>
+      <Text>Test Jump</Text>
+    </WeTouchable>
   }
 }
 
