@@ -7,14 +7,13 @@
  */
 import React, { Component } from 'react'
 import { Text } from 'react-native'
-import connect from './actionsReducer'
 import WeTouchable from '@unpourtous/react-native-touchable/library/WeTouchable'
 
 // import PropTypes from 'prop-types'
 // import ChartExampleService from './ChartExampleService'
 import { AppNavigator } from 'apps/webankPro/navigation'
 
-class ChartExampleScene extends Component {
+export default class ChartExampleScene extends Component {
   render () {
     return <WeTouchable onPress={() => {
       AppNavigator.example.AScene()
@@ -24,4 +23,3 @@ class ChartExampleScene extends Component {
   }
 }
 
-export default connect(ChartExampleScene)
