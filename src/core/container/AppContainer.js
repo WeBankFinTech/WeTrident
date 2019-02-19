@@ -3,7 +3,6 @@ import React, { Component } from 'react'
 import {
   View
 } from 'react-native'
-import ProUI from '../values/pro'
 
 import connect from './actionsReducer'
 import { PopupStub } from '@unpourtous/react-native-popup-stub'
@@ -37,7 +36,6 @@ class AppContainer extends Component {
       flexDirection: 'column',
       justifyContent: 'flex-start',
       alignContent: 'center',
-      backgroundColor: ProUI.color.pageBackground
     }}>
       {this.props.children}
       <PopupStub ref={_ref => {

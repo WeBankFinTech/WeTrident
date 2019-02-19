@@ -17,7 +17,7 @@ import { AppNavigator } from 'apps/webankPro/navigation'
 class ChartExampleScene extends Component {
   render () {
     return <WeTouchable onPress={() => {
-      AppNavigator.example.EScene()
+      AppNavigator.example.AScene()
     }}>
       <Text>Test Jump</Text>
     </WeTouchable>

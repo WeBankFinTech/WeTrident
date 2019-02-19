@@ -1,18 +1,15 @@
 /* eslint-disable no-undef */
+/**
+ * Utils for react native environment detection
+ */
 export default class RNEnv {
-  static APP_INFO = null
-
-  static setAppInfo (appInfo) {
-    RNEnv.APP_INFO = appInfo
-  }
-
   /**
-   * 原生是否是debug模式
+   * If the native is in Debug mode
    */
-  static isNativeDebug () {
-    // 如果APP_INFO不存在是返回false的
-    return !!(RNEnv.APP_INFO && RNEnv.APP_INFO.isDebug === 1)
-  }
+  // static isNativeDebug () {
+  //   // TODO 不能这样判断, 要用通用的判断
+  //   return !!(RNEnv.APP_INFO && RNEnv.APP_INFO.isDebug === 1)
+  // }
 
   /**
    * 是否Dev模式
@@ -21,12 +18,8 @@ export default class RNEnv {
     return __DEV__
   }
 
-  static isCloseLog () {
-    return false
-  }
-
   /**
-   * 是否正在远程调试
+   * If react native current in remote debug mode
    */
   static isRemoteDebug () {
     return window.navigator && window.navigator.userAgent !== undefined

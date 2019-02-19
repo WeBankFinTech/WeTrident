@@ -33,7 +33,7 @@ const stackConfig = {
     headerBackTitle: null,
     headerTitleAllowFontScaling: false,
     headerStyle: {
-      backgroundColor: ProUI.color.primary,
+      // backgroundColor: ProUI.color.primary,
 
       paddingTop: Platform.select({
         android: dimens.STATUS_BAR_HEIGHT,
@@ -46,14 +46,14 @@ const stackConfig = {
       // marginTop: -dimens.STATUS_BAR_HEIGHT
     },
     headerBackTitleStyle: {
-      color: ProUI.color.lightPrimary
+      // color: ProUI.color.lightPrimary
     },
     headerTitleStyle: {
       width: dimens.WINDOW_WIDTH - 140,   // React Navigation Header: DeviceWidth - (TITLE_OFFSET + headerLeftWidth) * 2
-      fontSize: ProUI.fontSize.xlarge,
+      // fontSize: ProUI.fontSize.xlarge,
       fontWeight: 'normal',
       textAlign: 'center',
-      color: ProUI.color.lightPrimary
+      // color: ProUI.color.lightPrimary
     },
     // headerLeft: () => (<NavBackButton onPress={() => AppNavigator.goBack()} />)
   },
@@ -64,7 +64,7 @@ const stackConfig = {
   //   }
   // }),
   cardStyle: {
-    backgroundColor: ProUI.color.pageBackground
+    // backgroundColor: ProUI.color.pageBackground
   }
 }
 
