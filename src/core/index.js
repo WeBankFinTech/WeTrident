@@ -3,10 +3,10 @@
  */
 import React, { Component } from 'react'
 import AppContainer from './container/AppContainer'
-import WeNavigator, { navReduxMiddleware } from './navigation/WeNavigator'
+import WeNavigator, { navReduxMiddleware } from '../library/navigation/WeNavigator'
 import reducer from './reducer'
 import Trident from '../library/Trident'
-import { AppNavigator } from './navigation'
+import { AppNavigator } from '../library/navigation'
 
 export default class AppEntry extends Component {
   static propTypes = {}
@@ -21,10 +21,7 @@ export default class AppEntry extends Component {
       <Trident
         entryScene={AppNavigator.example.ChartExampleScene.toString()}
         reducer={reducer}>
-        <AppContainer
-          initProps={{
-            ...this.props
-          }}>
+        <AppContainer initProps={{ ...this.props }}>
           <WeNavigator/>
         </AppContainer>
       </Trident>

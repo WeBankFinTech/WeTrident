@@ -17,9 +17,9 @@ import { generateRouteName } from '../../utils'
 const isDyLoad = require('./dyConfig.json').isDyLoad
 let modules
 if (isDyLoad) {
-  modules = require('./../modules/dyIndex').default
+  // modules = require('../../core/modules/dyIndex').default
 } else {
-  modules = require('./../modules/index').default
+  modules = require('../../core/modules').default
 }
 
 let AppNavigator = require('./AppNavigator').default

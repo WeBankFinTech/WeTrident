@@ -426,41 +426,41 @@ class AppNavigator {
 const appNavigator = new AppNavigator()
 
 if (isDyLoad) {
-  Object.keys(require('./dynamic/dyRouterRequire').default).forEach(moduleKey => {
-    Object.defineProperty(appNavigator, moduleKey, {
-      get: function () {
-        const moduleName = moduleKey
-        let moduleReducer
-        if (!this._cachedModuleReducer[moduleName]) {
-          // console.time('DyLoadModule ' + moduleKey)
-          if (require('./dynamic/dyReducerRequire').default[moduleName]) {
-            moduleReducer = require('./dynamic/dyReducerRequire').default[moduleName]()
-          }
-
-          // 更新了reducer，需要replace一下
-          if (this.store) {
-            const createRootReducer = require('../reducer').default
-            this.store.replaceReducer(createRootReducer(undefined, moduleName, moduleReducer))
-          }
-
-          // console.timeEnd('DyLoadModule ' + moduleKey)
-          this._cachedModuleReducer[moduleName] = moduleReducer
-        }
-
-        const dyNavMethods = {}
-        dyNavMethods[moduleName] = {}
-        if (require('./dynamic/dyRouterRequire').default[moduleName]) {
-          _.mapValues(require('./dynamic/dyRouterRequire').default[moduleName](), (router, sceneName) => {
-            const routeName = generateRouteName(moduleName, sceneName)
-            appNavigator.routersConfig[routeName] = router
-            const func = params => this._navigate(routeName, params, router)
-            func.toString = () => routeName
-            dyNavMethods[moduleName][sceneName] = func
-          })
-        }
-        return dyNavMethods[moduleName]
-      }
-    })
-  })
+  // Object.keys(require('./dynamic/dyRouterRequire').default).forEach(moduleKey => {
+  //   Object.defineProperty(appNavigator, moduleKey, {
+  //     get: function () {
+  //       const moduleName = moduleKey
+  //       let moduleReducer
+  //       if (!this._cachedModuleReducer[moduleName]) {
+  //         // console.time('DyLoadModule ' + moduleKey)
+  //         if (require('./dynamic/dyReducerRequire').default[moduleName]) {
+  //           moduleReducer = require('./dynamic/dyReducerRequire').default[moduleName]()
+  //         }
+  //
+  //         // 更新了reducer，需要replace一下
+  //         if (this.store) {
+  //           const createRootReducer = require('../../core/reducer').default
+  //           this.store.replaceReducer(createRootReducer(undefined, moduleName, moduleReducer))
+  //         }
+  //
+  //         // console.timeEnd('DyLoadModule ' + moduleKey)
+  //         this._cachedModuleReducer[moduleName] = moduleReducer
+  //       }
+  //
+  //       const dyNavMethods = {}
+  //       dyNavMethods[moduleName] = {}
+  //       if (require('./dynamic/dyRouterRequire').default[moduleName]) {
+  //         _.mapValues(require('./dynamic/dyRouterRequire').default[moduleName](), (router, sceneName) => {
+  //           const routeName = generateRouteName(moduleName, sceneName)
+  //           appNavigator.routersConfig[routeName] = router
+  //           const func = params => this._navigate(routeName, params, router)
+  //           func.toString = () => routeName
+  //           dyNavMethods[moduleName][sceneName] = func
+  //         })
+  //       }
+  //       return dyNavMethods[moduleName]
+  //     }
+  //   })
+  // })
 }
 export default appNavigator

@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux'
 import container from './container'
-import navigation from './navigation/navigation'
+import navigation from '../library/navigation/navigation'
 
-const isDyLoad = require('./navigation/dyConfig.json').isDyLoad
+const isDyLoad = require('../library/navigation/dyConfig.json').isDyLoad
 
 let modules
 if (isDyLoad) {
-  modules = require('./modules/dyIndex').default
+  // modules = require('./modules/dyIndex').default
 } else {
   modules = require('./modules/index').default
 }
