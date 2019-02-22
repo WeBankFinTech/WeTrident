@@ -6,7 +6,7 @@
  * Created by sines on 2018-02-23T10:25:07.640Z.
  */
 import React, { Component } from 'react'
-import { Text } from 'react-native'
+import { View, Text } from 'react-native'
 import WeTouchable from '@unpourtous/react-native-touchable/library/WeTouchable'
 
 // import PropTypes from 'prop-types'
@@ -15,11 +15,23 @@ import { AppNavigator } from 'apps/webankPro/navigation'
 
 export default class ChartExampleScene extends Component {
   render () {
-    return <WeTouchable onPress={() => {
-      AppNavigator.example.AScene()
-    }}>
-      <Text>Test Jump</Text>
-    </WeTouchable>
+    const {
+      count,
+      addCount,
+    } = this.props
+    return <View>
+      <WeTouchable onPress={() => {
+        AppNavigator.example.AScene()
+      }}>
+        <Text>Test Jump</Text>
+      </WeTouchable>
+
+      <WeTouchable onPress={() => {
+        addCount(1)
+      }}>
+        <Text>Scene Count {count}</Text>
+      </WeTouchable>
+
+    </View>
   }
 }
-

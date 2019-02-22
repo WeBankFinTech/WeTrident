@@ -7,14 +7,15 @@ import { createModuleConnect } from './../../../utils'
 const moduleConfig = {
   moduleName: 'example',
   initialState: {
+    count: 0
   },
   actions: {
-    // addModuleCount: v => v
+    addCount: v => v
   },
   asyncActions: (actions) => ({
   }),
   reducers: {
-    // addModuleCount: (state, action) => ({...state, count: action.payload})
+    addCount: (state, action)  => ({...state, count: state.count + action.payload})
   }
 }
 

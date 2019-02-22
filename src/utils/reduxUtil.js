@@ -237,8 +237,8 @@ function createSceneConnect (config = {}) {
         })
         // 注意层叠顺序
         const mapDispatchToProps = {
-          ...globalActions,
           ...moduleActions,
+          ...globalActions,
           ...newActionCreators,
           ...decorateAsyncActions(namespace, asyncActions(newActionCreators))
         }
@@ -284,9 +284,9 @@ function createModuleConnect (config) {
 
   // 创建带命名空间的同步 actions
   const _actions = createActions({
-    [namespace]: {
-      ...actions
-    }
+      [namespace]: {
+        ...actions
+      }
   })[_.camelCase(namespace)]
 
   // 将传入的 reducers 合并为一个 reducer
