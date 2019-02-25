@@ -30,6 +30,7 @@ export default class ChartExampleScene extends Component {
         addModuleCount,
         addGlobalCount,
 
+        // TODO 这样直接放出来，会导致 navigatoion 下面的方法被滥用
         navigation: {
           setParams,
           getParams
