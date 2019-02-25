@@ -14,16 +14,28 @@ import WeTouchable from '@unpourtous/react-native-touchable/library/WeTouchable'
 import { AppNavigator } from 'apps/webankPro/navigation'
 
 export default class ChartExampleScene extends Component {
+  static navigationOptions = ({ navigation: { state: { params = {} } } }) => ({
+    headerTitle: params.title || ''
+  })
+
   render () {
     const {
-      count,
-      moduleCount,
-      globalCount,
+      props: {
 
-      addCount,
-      addModuleCount,
-      addGlobalCount
-    } = this.props
+        count,
+        moduleCount,
+        globalCount,
+
+        addCount,
+        addModuleCount,
+        addGlobalCount,
+
+        navigation: {
+          setParams,
+          getParams
+        }
+      },
+    } = this
     return <View>
       <WeTouchable onPress={() => {
         AppNavigator.example.ChartExampleScene()
@@ -35,6 +47,8 @@ export default class ChartExampleScene extends Component {
         addCount(1)
         addModuleCount(5)
         addGlobalCount(10)
+
+        setParams({title: 'Custom Title' + globalCount})
       }}>
         <Text>Scene Count {count}</Text>
         <Text>Module Count {moduleCount}</Text>

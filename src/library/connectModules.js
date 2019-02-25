@@ -5,20 +5,6 @@ export default (moduleList, container) => {
   const reducers = {}
   const routers = {}
 
-  const mapRouter = (sceneList) => {
-    const routerConfigs = {}
-    sceneList.forEach(scene => {
-      routerConfigs[scene] = {
-        screen: scene,
-        navigationOptions: () => ({
-          title: scene.toString()
-        })
-      }
-    })
-    return routerConfigs
-  }
-
-
   moduleList.forEach(moduleItem => {
     const wrappedModule = createModuleConnect(moduleItem)()
 
@@ -35,7 +21,15 @@ export default (moduleList, container) => {
         }
       }, {}))
     })
-    routers[moduleItem.moduleName] = mapRouter(wrappedSceneList)
+    routers[moduleItem.moduleName] = wrappedSceneList.reduce((result, scene) => ({
+      ...result,
+      [scene]: {
+        screen: scene,
+        navigationOptions: () => ({
+          title: scene.toString()
+        })
+      }
+    }), {})
   })
 
   return {
