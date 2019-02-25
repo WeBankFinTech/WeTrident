@@ -20,13 +20,14 @@ export default (moduleList, container) => {
 
 
   moduleList.forEach(moduleItem => {
-    const wrappedModule = createModuleConnect(moduleItem.config)(moduleItem.component)
+    const wrappedModule = createModuleConnect(moduleItem)()
 
     const wrappedSceneList = []
-    reducers[moduleItem.config.moduleName] = combineReducers({
+    reducers[moduleItem.moduleName] = combineReducers({
       ['modulePrivate']: wrappedModule.reducer,
-      ...(moduleItem.sceneList.reduce((result, sceneItem) => {
-        const wrappedScene = createSceneConnect(sceneItem.createConfig(container, wrappedModule))(sceneItem.component)
+      ...(moduleItem.sceneList.reduce((result, getSceneItem) => {
+        const sceneConfig = getSceneItem(container, wrappedModule)
+        const wrappedScene = createSceneConnect(sceneConfig)(sceneConfig.component)
         wrappedSceneList.push(wrappedScene)
         return {
           ...result,
@@ -34,7 +35,7 @@ export default (moduleList, container) => {
         }
       }, {}))
     })
-    routers[moduleItem.config.moduleName] = mapRouter(wrappedSceneList)
+    routers[moduleItem.moduleName] = mapRouter(wrappedSceneList)
   })
 
   return {

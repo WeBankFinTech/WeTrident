@@ -1,10 +1,11 @@
 /**
  * Created by erichua on 2019-02-23T10:25:07.640Z.
  */
-
-const createConfig = (global, ModulePrivate) => ({
+export default (global, ModulePrivate) => ({
   moduleName: ModulePrivate.moduleName,
   sceneName: 'ChartExampleScene',
+  component: require('./ChartExampleScene').default,
+
   /**
    * 定义scene级别数据的初始值
    */
@@ -71,8 +72,3 @@ const createConfig = (global, ModulePrivate) => ({
    */
   autoResetState: true
 })
-
-export default {
-  createConfig,
-  component: require('./ChartExampleScene').default
-}

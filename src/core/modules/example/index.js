@@ -4,27 +4,21 @@
  */
 import { createSceneConnect } from 'library/reduxUtils'
 
-let sceneList = [
-  require('./ChartExampleScene').default,
-  /* {{&insertSceneItem}} */
-]
-
-const config = {
-  moduleName: 'example2',
+export default {
+  moduleName: 'example',
   initialState: {
     moduleCount: 0
   },
+  sceneList: [
+    require('./ChartExampleScene').default,
+    /* {{&insertSceneItem}} */
+  ],
   actions: {
     addModuleCount: v => v
   },
-  asyncActions: (actions) => ({
-  }),
+  asyncActions: (actions) => ({}),
   reducers: {
-    addModuleCount: (state, action)  => ({...state, moduleCount: state.moduleCount + action.payload})
+    addModuleCount: (state, action) => ({ ...state, moduleCount: state.moduleCount + action.payload })
   }
 }
 
-export default {
-  sceneList,
-  config
-}

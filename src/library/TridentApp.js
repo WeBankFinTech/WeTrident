@@ -11,11 +11,12 @@ import combineAppReducers from './combineAppReducers'
 import createTridentNavigator from './navigation/WeNavigator'
 import { generateRouteName } from './Navigation'
 import { createGlobalConnect } from './reduxUtils'
-import wrapModules from './wrapModules'
+import connectModules from './connectModules'
 import { AppNavigator } from './navigation'
 
 export default class TridentApp extends Component {
-  init () {
+  constructor () {
+    super(...arguments)
     const middlewares = []
     middlewares.push(createLogger(require('./reduxConfig').default.logger))
     console.ignoredYellowBox = [
@@ -27,17 +28,17 @@ export default class TridentApp extends Component {
     const middleware = applyMiddleware(...middlewares)
 
     // 路由名称为`moduleName.sceneName`
-    const wrappedContainer = createGlobalConnect(this.props.container.config)(this.props.container.component)
-    const wrappedModules = wrapModules(this.props.modules, wrappedContainer)
+    const connectedContainer = createGlobalConnect(this.props.container)(this.props.container.component)
+    const connectedModules = connectModules(this.props.modules, connectedContainer)
 
     const flatRouters = (() => {
       let result = {}
-      const moduleNames = Object.keys(wrappedModules.routers)
+      const moduleNames = Object.keys(connectedModules.routers)
       for (let moduleName of moduleNames) {
-        const sceneNames = Object.keys(wrappedModules.routers[moduleName])
+        const sceneNames = Object.keys(connectedModules.routers[moduleName])
         for (let sceneName of sceneNames) {
           let routeName = generateRouteName(moduleName, sceneName)
-          result[routeName] = wrappedModules.routers[moduleName][sceneName]
+          result[routeName] = connectedModules.routers[moduleName][sceneName]
         }
       }
       return result
@@ -48,17 +49,12 @@ export default class TridentApp extends Component {
     this.WeNavigator = createTridentNavigator(flatRouters)
 
     const store = createStore(
-      combineAppReducers(undefined, wrappedContainer, wrappedModules, this.WeNavigator.MyStackNavigator),
+      combineAppReducers(undefined, connectedContainer, connectedModules, this.WeNavigator.MyStackNavigator),
       undefined,
       middleware
     )
 
     this.store = store
-  }
-
-  constructor () {
-    super(...arguments)
-    this.init()
   }
 
   render () {
