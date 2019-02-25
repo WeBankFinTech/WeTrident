@@ -1,20 +1,8 @@
-import { combineReducers } from 'redux'
-import combineModuleReducers from '../../library/reduxUtils/combineModuleReducers'
-import mapRouter from '../../library/navigation/mapRouter'
+import wrapModules from 'library/wrapModules'
 
-const moduleList =  require('./moduleList').default
-const reducers = {}
-moduleList.forEach((moduleItem) => {
-  reducers[moduleItem] = combineModuleReducers(moduleItem)
-})
+const moduleList = [
+  require('./example').default,
+  // 这里添加模块
+]
 
-const routers = {}
-moduleList.forEach((item) => {
-  routers[item] = mapRouter(item.sceneList)
-})
-
-export default {
-  routers: routers,
-  reducer: combineReducers(reducers),
-  toString: () => 'modules'
-}
+export default wrapModules(moduleList)

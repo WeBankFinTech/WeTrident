@@ -1,4 +1,4 @@
-import { createGlobalConnect } from '../../utils'
+import { createGlobalConnect } from 'library/reduxUtils'
 
 const AppContainerConfig = {
   initialState: {

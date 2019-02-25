@@ -1,12 +1,11 @@
 {
-  "private": true,
-  "name": "apps/webankPro/values",
+  "name": "library",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "Trident.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "MIT"
+  "license": "ISC"
 }

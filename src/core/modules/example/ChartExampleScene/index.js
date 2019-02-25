@@ -1,7 +1,8 @@
 /**
  * Created by erichua on 2019-02-23T10:25:07.640Z.
  */
-import { createSceneConnect } from '../../../../utils'
+import { createSceneConnect } from 'library/reduxUtils'
+import global from '../../../container'
 import ModulePrivate from '../actionsReducer'
 
 const sceneConfig = {
@@ -61,8 +62,7 @@ const sceneConfig = {
    * 将global级别的actions映射到props
    */
   globalActions: {
-    // updateGlobalCount: global.actions.updateCount,
-    // addCount: global.actions.addCount
+    addCount: global.actions.addCount
   },
 
   /**

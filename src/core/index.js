@@ -3,10 +3,9 @@
  */
 import React, { Component } from 'react'
 import AppContainer from './container/AppContainer'
-import WeNavigator, { navReduxMiddleware } from '../library/navigation/WeNavigator'
-import reducer from './reducer'
-import Trident from '../library/Trident'
-import { AppNavigator } from '../library/navigation'
+import WeNavigator, { navReduxMiddleware } from 'library/navigation/WeNavigator'
+import Trident from 'library/Trident'
+import { AppNavigator } from 'library/navigation'
 
 export default class AppEntry extends Component {
   static propTypes = {}
@@ -19,8 +18,9 @@ export default class AppEntry extends Component {
     // All you need to setup
     return (
       <Trident
-        entryScene={AppNavigator.example.ChartExampleScene.toString()}
-        reducer={reducer}>
+        container={require('./container').default}
+        modules={require('./modules').default}
+        entryScene={AppNavigator.example.ChartExampleScene.toString()}>
         <AppContainer initProps={{ ...this.props }}>
           <WeNavigator/>
         </AppContainer>

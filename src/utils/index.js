@@ -22,7 +22,6 @@
 // import SM from './encrypt/SM'
 //
 // export * from './Misc'
-export * from './reduxUtil'
 // export * from './md5Utils'
 // export {default as RenderUtils} from './RenderUtils'
 //

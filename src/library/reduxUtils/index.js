@@ -8,14 +8,14 @@ import {
 } from 'redux-actions'
 import { connect } from 'react-redux'
 import _ from 'lodash'
-import RNEnv from './RNEnv'
+import RNEnv from '../../utils/RNEnv'
 import PropTypes from 'prop-types'
 // import {NotifyHelper} from 'apps/webankPro/serviceHelper'
 const URL = require('url')
 
-const GLOBAL_STATE_KEY = 'container'
+const GLOBAL_STATE_KEY = 'global'
 const GLOBAL_NAVIGATION_KEY = 'navigation'
-const MODULE_STATE_KEY = 'ModulePrivate'
+const MODULE_STATE_KEY = 'modulePrivate'
 const MODULE_SCENE_SEPARATOR = '-'
 const SCENE_ACTION_SEPARATOR = '/'
 

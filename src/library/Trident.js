@@ -7,10 +7,10 @@ import { createLogger } from 'redux-logger'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Provider } from 'react-redux'
+import combineAppReducers from './combineAppReducers'
 
 export default class Trident extends Component {
   static propTypes = {
-    reducer: PropTypes.func,
     entryScene: PropTypes.string
   }
 
@@ -25,9 +25,8 @@ export default class Trident extends Component {
     // middlewares.push(navReduxMiddleware)
     const middleware = applyMiddleware(...middlewares)
 
-    const reducer = this.props.reducer(undefined)
     const store = createStore(
-      reducer,
+      combineAppReducers(undefined, this.props.container, this.props.modules),
       window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
       middleware
     )

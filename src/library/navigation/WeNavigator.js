@@ -6,7 +6,6 @@ import {
   addNavigationHelpers
 } from 'react-navigation'
 import { connect } from 'react-redux'
-import { ProUI, dimens } from 'apps/webankPro/values'
 // import NavBackButton from '../bizComponents/button/NavBackButton'
 import {
   createReduxBoundAddListener,
@@ -25,7 +24,6 @@ if (isDyLoad) {
 let AppNavigator = require('./AppNavigator').default
 
 // import CardStackStyleInterpolator from 'react-navigation/src/views/CardStack/CardStackStyleInterpolator'
-const toobarHeight = Platform.OS === 'ios' ? dimens.NAV_BAR_HEIGHT : dimens.TOTAL_NAV_BAR_HEIGHT
 
 const stackConfig = {
   navigationOptions: {
@@ -33,39 +31,16 @@ const stackConfig = {
     headerBackTitle: null,
     headerTitleAllowFontScaling: false,
     headerStyle: {
-      // backgroundColor: ProUI.color.primary,
-
-      paddingTop: Platform.select({
-        android: dimens.STATUS_BAR_HEIGHT,
-        ios: 0
-      }),
-      height: toobarHeight,
       borderWidth: 0,
       borderBottomWidth: 0,
-      elevation: 0       // remove shadow on Android
-      // marginTop: -dimens.STATUS_BAR_HEIGHT
-    },
-    headerBackTitleStyle: {
-      // color: ProUI.color.lightPrimary
+      elevation: 0
     },
     headerTitleStyle: {
-      width: dimens.WINDOW_WIDTH - 140,   // React Navigation Header: DeviceWidth - (TITLE_OFFSET + headerLeftWidth) * 2
-      // fontSize: ProUI.fontSize.xlarge,
       fontWeight: 'normal',
-      textAlign: 'center',
-      // color: ProUI.color.lightPrimary
-    },
-    // headerLeft: () => (<NavBackButton onPress={() => AppNavigator.goBack()} />)
+      textAlign: 'center'
+    }
   },
-  headerMode: 'screen',
-  // transitionConfig: () => ({
-  //   screenInterpolator: sceneProps => {
-  //     return CardStackStyleInterpolator.forHorizontal(sceneProps)
-  //   }
-  // }),
-  cardStyle: {
-    // backgroundColor: ProUI.color.pageBackground
-  }
+  headerMode: 'screen'
 }
 
 let MyStackNavigator

@@ -1,8 +1,8 @@
-import { createModuleConnect } from './../../../utils'
 /**
  * Created by sines on 2018-02-23T10:24:03.393Z.
  */
 // import * as services from './services'
+import { createModuleConnect } from 'library/reduxUtils'
 
 const moduleConfig = {
   moduleName: 'example',
