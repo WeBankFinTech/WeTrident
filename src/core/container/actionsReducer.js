@@ -2,15 +2,15 @@ import { createGlobalConnect } from 'library/reduxUtils'
 
 const AppContainerConfig = {
   initialState: {
-    count: 0
+    globalCount: 0
   },
   actions: {
-    addCount: v => v
+    addGlobalCount: v => v
   },
   asyncActions: (actions) => ({
   }),
   reducers: {
-    addCount: (state, action) => ({...state, count: state.count + action.payload})
+    addGlobalCount: (state, action) => ({...state, globalCount: state.globalCount + action.payload})
   }
 }
 export default createGlobalConnect(AppContainerConfig)

@@ -17,7 +17,12 @@ export default class ChartExampleScene extends Component {
   render () {
     const {
       count,
+      moduleCount,
+      globalCount,
+
       addCount,
+      addModuleCount,
+      addGlobalCount
     } = this.props
     return <View>
       <WeTouchable onPress={() => {
@@ -28,8 +33,12 @@ export default class ChartExampleScene extends Component {
 
       <WeTouchable onPress={() => {
         addCount(1)
+        addModuleCount(5)
+        addGlobalCount(10)
       }}>
         <Text>Scene Count {count}</Text>
+        <Text>Module Count {moduleCount}</Text>
+        <Text>Global Count {globalCount}</Text>
       </WeTouchable>
 
     </View>

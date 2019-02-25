@@ -7,15 +7,15 @@ import { createModuleConnect } from 'library/reduxUtils'
 const moduleConfig = {
   moduleName: 'example',
   initialState: {
-    count: 0
+    moduleCount: 0
   },
   actions: {
-    addCount: v => v
+    addModuleCount: v => v
   },
   asyncActions: (actions) => ({
   }),
   reducers: {
-    addCount: (state, action)  => ({...state, count: state.count + action.payload})
+    addModuleCount: (state, action)  => ({...state, moduleCount: state.moduleCount + action.payload})
   }
 }
 

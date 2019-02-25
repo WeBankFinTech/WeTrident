@@ -11,7 +11,6 @@ import combineAppReducers from './combineAppReducers'
 
 export default class Trident extends Component {
   static propTypes = {
-    entryScene: PropTypes.string
   }
 
   init () {

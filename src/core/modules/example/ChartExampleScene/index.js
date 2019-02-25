@@ -34,35 +34,38 @@ const sceneConfig = {
    * 定义scene级别的reducer
    */
   reducers: {
-    addCount: (state, action) => ({...state, count: state.count + action.payload}),
+    addCount: (state, action) => ({
+      ...state,
+      count: state.count + action.payload
+    })
   },
 
   /**
    * 将module级别的共享数据映射到props.modulePrivate
    */
   mapModuleState: state => ({
-    count: state.count
+    moduleCount: state.moduleCount,
   }),
 
   /**
    * 将global级别的共享数据映射到props
    */
   mapGlobalState: state => ({
-    count: state.count
+    globalCount: state.globalCount
   }),
 
   /**
    * 将module级别的actions映射到props
    */
   moduleActions: {
-    addCount: ModulePrivate.actions.addCount
+    addModuleCount: ModulePrivate.actions.addModuleCount
   },
 
   /**
    * 将global级别的actions映射到props
    */
   globalActions: {
-    addCount: global.actions.addCount
+    addGlobalCount: global.actions.addGlobalCount
   },
 
   /**

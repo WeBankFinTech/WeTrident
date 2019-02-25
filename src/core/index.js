@@ -16,11 +16,11 @@ export default class AppEntry extends Component {
 
   render () {
     // All you need to setup
+    // entryScene={AppNavigator.example.ChartExampleScene.toString()}
     return (
       <Trident
         container={require('./container').default}
-        modules={require('./modules').default}
-        entryScene={AppNavigator.example.ChartExampleScene.toString()}>
+        modules={require('./modules').default}>
         <AppContainer initProps={{ ...this.props }}>
           <WeNavigator/>
         </AppContainer>
