@@ -1,9 +1,16 @@
 import { combineReducers } from 'redux'
-import navigation from 'library/navigation/navigation'
 
-export default (entryScene, container, modules) => {
+export default (entryScene, container, modules, navigator) => {
+  const createNavReducer = (entryScene, navigator) => {
+    const entryAction = navigator.router.getActionForPathAndParams(entryScene)
+    const initialState = navigator.router.getStateForAction(entryAction)
+    return (state, action) => {
+      return navigator.router.getStateForAction(action, state || initialState)
+    }
+  }
+
   let reducers = combineReducers({
-    [navigation]: navigation.reducer(entryScene),
+    navigation: createNavReducer(entryScene, navigator),
     [container]: container.reducer,
     [modules]: modules.reducer
   })

@@ -4,7 +4,6 @@ import {
   View
 } from 'react-native'
 
-import connect from './actionsReducer'
 import { PopupStub } from '@unpourtous/react-native-popup-stub'
 import PropTypes from 'prop-types'
 
@@ -13,20 +12,6 @@ import PropTypes from 'prop-types'
 class AppContainer extends Component {
   constructor (props) {
     super(props)
-  }
-
-  // 监听原生的反向通知
-  getChildContext () {
-    return {
-      initDataAfterLoginSuccess: (initParams) => {
-        return this._initDataAfterLoginSuccess(initParams).then((result) => {
-          if (result) {
-            this._onBaseDataRequestSuccess(result)
-          }
-          return Promise.resolve(result)
-        }, () => Promise.reject())
-      }
-    }
   }
 
   render () {
@@ -47,8 +32,4 @@ class AppContainer extends Component {
   }
 }
 
-AppContainer.childContextTypes = {
-  initDataAfterLoginSuccess: PropTypes.func
-}
-
-export default connect(AppContainer)
+export default AppContainer

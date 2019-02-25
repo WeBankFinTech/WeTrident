@@ -13,4 +13,6 @@ const AppContainerConfig = {
     addGlobalCount: (state, action) => ({...state, globalCount: state.globalCount + action.payload})
   }
 }
-export default createGlobalConnect(AppContainerConfig)
+
+export default AppContainerConfig
+// export default createGlobalConnect(AppContainerConfig)

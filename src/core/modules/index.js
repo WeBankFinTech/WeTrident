@@ -1,8 +1,5 @@
-import wrapModules from 'library/wrapModules'
-
-const moduleList = [
+export default [
   require('./example').default,
+  require('./example2').default,
   // 这里添加模块
 ]
-
-export default wrapModules(moduleList)

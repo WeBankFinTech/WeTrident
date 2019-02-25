@@ -10,7 +10,7 @@ let sceneList = [
 ]
 
 const config = {
-  moduleName: 'example2',
+  moduleName: 'example',
   initialState: {
     moduleCount: 0
   },

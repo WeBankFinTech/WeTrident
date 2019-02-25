@@ -26,7 +26,7 @@ export default class ChartExampleScene extends Component {
     } = this.props
     return <View>
       <WeTouchable onPress={() => {
-        AppNavigator.example2.ChartExampleScene()
+        AppNavigator.example2.AScene()
       }}>
         <Text>Test Jump</Text>
       </WeTouchable>

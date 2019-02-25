@@ -1,21 +1,13 @@
 import { combineReducers } from 'redux'
+import { createModuleConnect, createSceneConnect } from './reduxUtils'
 
-export default (moduleList) => {
+export default (moduleList, container) => {
   const reducers = {}
-  // combineReducers
-  moduleList.forEach((moduleItem) => {
-    reducers[moduleItem] = combineReducers({
-      ['modulePrivate']: moduleItem.reducer,
-      ...(moduleItem.sceneList.reduce((result, sceneItem) => ({
-        ...result,
-        [sceneItem]: sceneItem.reducer
-      }), {}))
-    })
-  })
+  const routers = {}
 
-  const mapRouter = (sceneConfig) => {
+  const mapRouter = (sceneList) => {
     const routerConfigs = {}
-    sceneConfig.forEach(scene => {
+    sceneList.forEach(scene => {
       routerConfigs[scene] = {
         screen: scene,
         navigationOptions: () => ({
@@ -26,9 +18,23 @@ export default (moduleList) => {
     return routerConfigs
   }
 
-  const routers = {}
-  moduleList.forEach((item) => {
-    routers[item] = mapRouter(item.sceneList)
+
+  moduleList.forEach(moduleItem => {
+    const wrappedModule = createModuleConnect(moduleItem.config)(moduleItem.component)
+
+    const wrappedSceneList = []
+    reducers[moduleItem.config.moduleName] = combineReducers({
+      ['modulePrivate']: wrappedModule.reducer,
+      ...(moduleItem.sceneList.reduce((result, sceneItem) => {
+        const wrappedScene = createSceneConnect(sceneItem.createConfig(container, wrappedModule))(sceneItem.component)
+        wrappedSceneList.push(wrappedScene)
+        return {
+          ...result,
+          [wrappedScene]: wrappedScene.reducer
+        }
+      }, {}))
+    })
+    routers[moduleItem.config.moduleName] = mapRouter(wrappedSceneList)
   })
 
   return {
