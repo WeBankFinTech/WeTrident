@@ -11,7 +11,7 @@ import {
   createReduxBoundAddListener,
   createReactNavigationReduxMiddleware
 } from 'react-navigation-redux-helpers'
-import { generateRouteName } from '../../utils'
+import { generateRouteName } from '../Navigation'
 
 let AppNavigator = require('./AppNavigator').default
 
