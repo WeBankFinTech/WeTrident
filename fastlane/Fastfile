@@ -13,38 +13,35 @@
 # Uncomment the line if you want fastlane to automatically update itself
 # update_fastlane
 
-before_all do
-  ensure_git_branch
-  ensure_git_status_clean
-  git_pull
-end
-
-
 platform :ios do
-
   desc 'Fetch certificates and provisioning profiles'
-  lane :certificates do
-    match(app_identifier: 'test.soga', type: 'development', readonly: true)
-    match(app_identifier: 'test.soga', type: 'appstore', readonly: true)
-  end
-
-  desc 'Build the iOS application.'
   private_lane :build do
-    certificates
     increment_build_number(xcodeproj: './ios/soga.xcodeproj')
-    gym(scheme: 'name', project: './ios/soga.xcodeproj')
+    build_app(workspace: "./ios/soga.xcworkspace", scheme: "soga", export_xcargs: "-allowProvisioningUpdates")
   end
 
   desc "Push a new beta build to TestFlight"
   lane :beta do
-    increment_build_number(xcodeproj: "./ios/soga.xcodeproj")
-    build_app(workspace: "./ios/soga.xcworkspace", scheme: "soga", export_xcargs: "-allowProvisioningUpdates")
+    build
+    # increment_build_number(xcodeproj: "./ios/soga.xcodeproj")
+    # build_app(workspace: "./ios/soga.xcworkspace", scheme: "soga", export_xcargs: "-allowProvisioningUpdates")
+    push_to_git_remote
     upload_to_testflight(
       skip_waiting_for_build_processing: true
     )
+    commit_version_bump(message: 'Bump build', xcodeproj: './ios/soga.xcodeproj')
   end
 end
 
 platform :android do
+  desc 'Build the Android application.'
+  private_lane :build do
+    gradle(task: 'clean', project_dir: 'android/')
+    gradle(task: 'assemble', build_type: 'Release', project_dir: 'android/')
+  end
 
+  desc 'Ship to Playstore Beta.'
+  lane :beta do
+    build
+  end
 end

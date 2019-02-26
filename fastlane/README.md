@@ -16,16 +16,20 @@ or alternatively using `brew cask install fastlane`
 
 # Available Actions
 ## iOS
-### ios certificates
-```
-fastlane ios certificates
-```
-Fetch certificates and provisioning profiles
 ### ios beta
 ```
 fastlane ios beta
 ```
 Push a new beta build to TestFlight
+
+----
+
+## Android
+### android beta
+```
+fastlane android beta
+```
+Ship to Playstore Beta.
 
 ----
 
