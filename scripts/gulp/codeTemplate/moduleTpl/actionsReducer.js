@@ -2,7 +2,7 @@
  * Created by {{author}} on {{createTime}}.
  */
 
-import { createModuleConnect } from 'utils'
+import { createModuleConnect } from 'library/reduxUtils'
 // import * as services from './services'
 
 const moduleConfig = {

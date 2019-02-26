@@ -6,22 +6,56 @@
  * Created by sines on 2018-02-23T10:25:07.640Z.
  */
 import React, { Component } from 'react'
-import { Text } from 'react-native'
-import connect from './actionsReducer'
+import { View, Text } from 'react-native'
 import WeTouchable from '@unpourtous/react-native-touchable/library/WeTouchable'
 
 // import PropTypes from 'prop-types'
 // import ChartExampleService from './ChartExampleService'
 import { AppNavigator } from 'apps/webankPro/navigation'
 
-class ChartExampleScene extends Component {
+export default class ChartExampleScene extends Component {
+  static navigationOptions = ({ navigation: { state: { params = {} } } }) => ({
+    headerTitle: params.title || ''
+  })
+
   render () {
-    return <WeTouchable onPress={() => {
-      AppNavigator.example.EScene()
-    }}>
-      <Text>Test Jump</Text>
-    </WeTouchable>
+    const {
+      props: {
+
+        count,
+        moduleCount,
+        globalCount,
+
+        addCount,
+        addModuleCount,
+        addGlobalCount,
+
+        // TODO 这样直接放出来，会导致 navigatoion 下面的方法被滥用
+        navigation: {
+          setParams,
+          getParams
+        }
+      },
+    } = this
+    return <View>
+      <WeTouchable onPress={() => {
+        AppNavigator.example.ChartExampleScene()
+      }}>
+        <Text>Test Jump</Text>
+      </WeTouchable>
+
+      <WeTouchable onPress={() => {
+        addCount(1)
+        addModuleCount(5)
+        addGlobalCount(10)
+
+        setParams({title: 'Custom Title' + globalCount})
+      }}>
+        <Text>Scene Count {count}</Text>
+        <Text>Module Count {moduleCount}</Text>
+        <Text>Global Count {globalCount}</Text>
+      </WeTouchable>
+
+    </View>
   }
 }
-
-export default connect(ChartExampleScene)

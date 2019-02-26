@@ -1,7 +1,7 @@
 /**
  * Created by erichua on 2019-01-22T08:26:49.198Z.
  */
-import { createSceneConnect } from 'utils'
+import { createSceneConnect } from 'library/reduxUtils'
 // import AService from './AService'
 // import global from 'apps/webankPro/container'
 import ModulePrivate from '../actionsReducer'
