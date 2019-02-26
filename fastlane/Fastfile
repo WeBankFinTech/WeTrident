@@ -1,0 +1,50 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+before_all do
+  ensure_git_branch
+  ensure_git_status_clean
+  git_pull
+end
+
+
+platform :ios do
+
+  desc 'Fetch certificates and provisioning profiles'
+  lane :certificates do
+    match(app_identifier: 'test.soga', type: 'development', readonly: true)
+    match(app_identifier: 'test.soga', type: 'appstore', readonly: true)
+  end
+
+  desc 'Build the iOS application.'
+  private_lane :build do
+    certificates
+    increment_build_number(xcodeproj: './ios/soga.xcodeproj')
+    gym(scheme: 'name', project: './ios/soga.xcodeproj')
+  end
+
+  desc "Push a new beta build to TestFlight"
+  lane :beta do
+    increment_build_number(xcodeproj: "./ios/soga.xcodeproj")
+    build_app(workspace: "./ios/soga.xcworkspace", scheme: "soga", export_xcargs: "-allowProvisioningUpdates")
+    upload_to_testflight(
+      skip_waiting_for_build_processing: true
+    )
+  end
+end
+
+platform :android do
+
+end
