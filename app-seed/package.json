@@ -25,7 +25,7 @@
     "url": "^0.11.0",
     "url-search-params": "^1.1.0",
 
-    "@unpourtous/trident": "1.1.0"
+    "@unpourtous/trident": "https://github.com/erichua23/soga.git"
   },
   "devDependencies": {
     "babel-jest": "23.6.0",
