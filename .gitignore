@@ -56,5 +56,6 @@ buck-out/
 *.jsbundle
 
 ios/Pods/
+app-seed/ios/Pods/
 
 fastlane/report.xml
