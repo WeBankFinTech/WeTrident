@@ -1,7 +1,7 @@
 /**
  * Created by erichua on 2019-01-22T08:26:49.198Z.
  */
-import { createSceneConnect } from '@unpourtous/trident-core'
+import { createSceneConnect } from '@unpourtous/trident'
 // import AService from './AService'
 // import global from 'apps/webankPro/container'
 import ModulePrivate from '../actionsReducer'

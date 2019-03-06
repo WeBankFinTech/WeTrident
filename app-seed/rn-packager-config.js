@@ -8,7 +8,7 @@ module.exports = {
    */
   resolver: {
     extraNodeModules: {
-      // '@unpourtous/trident-core': path.resolve(__dirname, '../trident-core/index.js'),
+      // '@unpourtous/trident': path.resolve(__dirname, '../trident-core/index.js'),
     },
   },
   // watchFolders: [tridentCoreDevModulesPath]

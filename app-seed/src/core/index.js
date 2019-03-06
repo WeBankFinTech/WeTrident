@@ -3,7 +3,7 @@
  */
 import React, { Component } from 'react'
 // import AppContainer from './container/AppContainer'
-import TridentApp from '@unpourtous/trident-core/library/TridentApp'
+import TridentApp from '@unpourtous/trident/TridentApp'
 
 export default class AppEntry extends Component {
   render () {

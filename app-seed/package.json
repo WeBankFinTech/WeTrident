@@ -23,7 +23,9 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "url": "^0.11.0",
-    "url-search-params": "^1.1.0"
+    "url-search-params": "^1.1.0",
+
+    "@unpourtous/trident": "1.1.0"
   },
   "devDependencies": {
     "babel-jest": "23.6.0",

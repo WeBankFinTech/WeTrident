@@ -11,7 +11,7 @@ import WeTouchable from '@unpourtous/react-native-touchable/library/WeTouchable'
 
 // import PropTypes from 'prop-types'
 // import ChartExampleService from './ChartExampleService'
-import { AppNavigator } from '@unpourtous/trident-core'
+import { AppNavigator } from '@unpourtous/trident'
 
 export default class ChartExampleScene extends Component {
   static navigationOptions = ({ navigation: { state: { params = {} } } }) => ({

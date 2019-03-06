@@ -59,3 +59,5 @@ ios/Pods/
 app-seed/ios/Pods/
 
 fastlane/report.xml
+
+lab/

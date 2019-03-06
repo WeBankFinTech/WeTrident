@@ -1,4 +1,4 @@
-import { createSceneConnect } from '@unpourtous/trident-core'
+import { createSceneConnect } from '@unpourtous/trident'
 
 const AppContainerConfig = {
   initialState: {

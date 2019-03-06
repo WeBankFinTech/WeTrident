@@ -2,7 +2,7 @@
  * 负责导出此模块的reducer和router到App级别
  * Created by sines on 2018-02-23T10:24:03.394Z.
  */
-import { createSceneConnect } from '@unpourtous/trident-core'
+import { createSceneConnect } from '@unpourtous/trident'
 
 export default {
   moduleName: 'example',
