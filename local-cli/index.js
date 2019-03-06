@@ -59,6 +59,8 @@ function _init () {
     execSync(installCommand, {stdio: 'inherit'});
 
     execSync('cp -r node_modules/@unpourtous/trident/app-seed/* ./', {stdio: 'inherit'});
+
+    execSync('yarn', {stdio: 'inherit'});
   } catch (err) {
     console.error(err);
     console.error(`Command \`${installCommand}\` failed.`);
