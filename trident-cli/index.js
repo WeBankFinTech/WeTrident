@@ -28,9 +28,6 @@ function _init () {
     version: '0.0.1',
     private: true,
     scripts: {
-      start: 'react-native start',
-      ios: 'react-native run-ios',
-      android: 'react-native run-android',
     }
   }
   var shell = require('shelljs');
@@ -38,6 +35,33 @@ function _init () {
   if (!shell.which('git')) {
     shell.echo('Sorry, this script requires git');
     shell.exit(1);
+  }
+
+  shell.exec('mkdir ' + options.name)
+
+  const root = '../' + options.name
+
+  if (!fs.existsSync(root)) {
+    fs.mkdirSync(root);
+  }
+
+  fs.writeFileSync(
+    path.join(root, 'package.json'),
+    JSON.stringify(packageJson),
+  );
+  process.chdir(root);
+
+  let installCommand = `yarn add https://github.com/erichua23/soga.git#v1.0.0 --exact`;
+  if (options.verbose) {
+    installCommand += ' --verbose';
+  }
+
+  try {
+    execSync(installCommand, {stdio: 'inherit'});
+  } catch (err) {
+    console.error(err);
+    console.error(`Command \`${installCommand}\` failed.`);
+    process.exit(1);
   }
 }
 
