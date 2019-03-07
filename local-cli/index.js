@@ -50,7 +50,7 @@ function _init () {
 
   process.chdir(root);
 
-  let installCommand = `yarn add https://github.com/erichua23/soga.git --exact`;
+  let installCommand = `npm install https://github.com/erichua23/soga.git --exact`;
   if (options.verbose) {
     installCommand += ' --verbose';
   }
@@ -60,7 +60,7 @@ function _init () {
 
     execSync('cp -r node_modules/@unpourtous/trident/app-seed/* ./', {stdio: 'inherit'});
 
-    execSync('yarn', {stdio: 'inherit'});
+    execSync('npm install', {stdio: 'inherit'});
   } catch (err) {
     console.error(err);
     console.error(`Command \`${installCommand}\` failed.`);
