@@ -15,5 +15,8 @@
     "url": "https://github.com/erichua23/soga/issues"
   },
   "homepage": "https://github.com/erichua23/soga#readme",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "replace-in-file": "^3.4.3"
+  }
 }
