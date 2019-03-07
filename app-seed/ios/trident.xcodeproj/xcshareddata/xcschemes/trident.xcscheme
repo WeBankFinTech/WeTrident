@@ -30,7 +30,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
                BuildableName = "trident.app"
-               BlueprintName = "trident"
+               BlueprintName = "Develop"
                ReferencedContainer = "container:trident.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -43,8 +43,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "tridentTests.xctest"
-               BlueprintName = "tridentTests"
+               BuildableName = "DevelopTests.xctest"
+               BlueprintName = "DevelopTests"
                ReferencedContainer = "container:trident.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -61,8 +61,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "tridentTests.xctest"
-               BlueprintName = "tridentTests"
+               BuildableName = "DevelopTests.xctest"
+               BlueprintName = "DevelopTests"
                ReferencedContainer = "container:trident.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -72,7 +72,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
             BuildableName = "trident.app"
-            BlueprintName = "trident"
+            BlueprintName = "Develop"
             ReferencedContainer = "container:trident.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -95,7 +95,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
             BuildableName = "trident.app"
-            BlueprintName = "trident"
+            BlueprintName = "Develop"
             ReferencedContainer = "container:trident.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -114,7 +114,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
             BuildableName = "trident.app"
-            BlueprintName = "trident"
+            BlueprintName = "Develop"
             ReferencedContainer = "container:trident.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
