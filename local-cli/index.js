@@ -51,16 +51,18 @@ function _init () {
   process.chdir(root);
 
   let installCommand = `npm install https://github.com/erichua23/soga.git --exact`;
-  if (options.verbose) {
-    installCommand += ' --verbose';
-  }
+  installCommand += ' --verbose';
 
   try {
     execSync(installCommand, {stdio: 'inherit'});
 
     execSync('cp -r node_modules/@unpourtous/trident/app-seed/* ./', {stdio: 'inherit'});
 
-    execSync('npm install', {stdio: 'inherit'});
+    execSync('yarn --verbose', {stdio: 'inherit'});
+
+    process.chdir('ios')
+
+    execSync('pod install --verbose', {stdio: 'inherit'});
   } catch (err) {
     console.error(err);
     console.error(`Command \`${installCommand}\` failed.`);
