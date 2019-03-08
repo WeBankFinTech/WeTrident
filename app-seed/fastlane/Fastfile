@@ -16,24 +16,17 @@
 platform :ios do
   desc 'Fetch certificates and provisioning profiles'
   private_lane :build do
-    increment_build_number(xcodeproj: './ios/soga.xcodeproj')
-    build_app(workspace: "./ios/soga.xcworkspace", scheme: "soga", export_xcargs: "-allowProvisioningUpdates")
+    increment_build_number(xcodeproj: './ios/trident.xcodeproj')
+    build_app(workspace: "./ios/trident.xcworkspace", scheme: "Build", export_xcargs: "-allowProvisioningUpdates")
   end
 
   desc "Push a new beta build to TestFlight"
   lane :beta do
-    update_info_plist(
-      plist_path: "soga/Info.plist",
-      xcodeproj: "./ios/soga.xcodeproj",
-      display_name: "Soga App Name",
-      app_identifier: "test.soga"
-    )
     build
-    push_to_git_remote
     upload_to_testflight(
       skip_waiting_for_build_processing: true
     )
-    commit_version_bump(message: 'Bump build', xcodeproj: './ios/soga.xcodeproj')
+    commit_version_bump(message: 'Bump build', xcodeproj: './ios/trident.xcodeproj')
   end
 end
 
