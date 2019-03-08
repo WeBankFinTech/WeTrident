@@ -63,16 +63,17 @@ function _init () {
 
     execSync('pod install --verbose', { stdio: 'inherit' })
 
-  //   try {
-  //     const changes = replaceInFile.sync({
-  //       files: './trident.xcodeproj/project.pbxproj',
-  //       from: /org.reactjs.native.example/g,
-  //       to: 'test.erichua.bundleid',
-  //     })
-  //     console.log('Modified files:', changes.join(', '))
-  //   } catch (error) {
-  //     console.error('Error occurred:', error)
-  //   }
+    //   try {
+    //     const changes = replaceInFile.sync({
+    //       files: './trident.xcodeproj/project.pbxproj',
+    //       from: /org.reactjs.native.example/g,
+    //       to: 'test.erichua.bundleid',
+    //     })
+    //     console.log('Modified files:', changes.join(', '))
+    //   } catch (error) {
+    //     console.error('Error occurred:', error)
+    //   }
+    process.chdir('../../')
     _custom()
   } catch (err) {
     console.error(err)
@@ -82,9 +83,12 @@ function _init () {
 }
 
 function _custom () {
+  process.chdir(root + '/ios')
   const targetProjectName = options.name + '.xcodeproj'
   const targetWorkspaceName = options.name + '.xcworkspace'
   const targetWorkspaceData = options.name + '.xcworkspace/contents.xcworkspacedata'
+  const fastlaneFileName = 'fastlane/Fastfile'
+  const bundleName = options.bundleId
 
   try {
     if (fs.existsSync('trident.xcodeproj')) {
@@ -107,13 +111,29 @@ function _custom () {
   }
 
   try {
+    if (bundleName) {
+      // replace bundle id
+      const changes = replaceInFile.sync({
+        files: './' + targetProjectName + '/project.pbxproj',
+        from: /org.reactjs.native.example/g,
+        to: bundleName,
+      })
+      console.log('bundle Modified files:', changes.join(', '))
+    }
+  } catch (err) {
+    console.error(err)
+    process.exit(1)
+  }
+
+  try {
     // replace bundle id
+    process.chdir('..')
     const changes = replaceInFile.sync({
-      files: './' + targetProjectName + '/project.pbxproj',
-      from: /org.reactjs.native.example/g,
-      to: 'test.erichua.bundleid',
+      files: fastlaneFileName,
+      from: /trident/g,
+      to: options.name,
     })
-    console.log('Modified files:', changes.join(', '))
+    console.log('bundle Modified files:', changes.join(', '))
   } catch (err) {
     console.error(err)
     process.exit(1)
