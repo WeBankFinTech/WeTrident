@@ -1104,7 +1104,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = test.soga;
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example;
 				PRODUCT_NAME = trident;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1124,7 +1124,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = test.soga;
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example;
 				PRODUCT_NAME = trident;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
