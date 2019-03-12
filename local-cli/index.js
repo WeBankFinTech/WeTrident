@@ -84,7 +84,9 @@ function _init () {
 
 function _custom () {
   process.chdir(root + '/ios')
+  const projectName = options.name
   const targetProjectName = options.name + '.xcodeproj'
+  const targetAppName = options.name + '.app'
   const targetWorkspaceName = options.name + '.xcworkspace'
   const targetWorkspaceData = options.name + '.xcworkspace/contents.xcworkspacedata'
   const fastlaneFileName = 'fastlane/Fastfile'
@@ -98,19 +100,38 @@ function _custom () {
       execSync('mv trident.xcworkspace ' + targetWorkspaceName)
     }
 
-    const changes = replaceInFile.sync({
+    let changes = replaceInFile.sync({
       files: './' + targetWorkspaceData,
       from: /trident.xcodeproj/g,
       to: targetProjectName,
     })
-    console.log('Modified files:', changes.join(', '))
-  } catch (err) {
-    console.error(err)
-    console.error(`Command \`${installCommand}\` failed.`)
-    process.exit(1)
-  }
 
-  try {
+    console.log('Modified files:', changes.join(', '))
+
+    changes = replaceInFile.sync({
+      files: './' + targetWorkspaceData,
+      from: /trident.app/g,
+      to: targetAppName,
+    })
+    console.log('Modified files:', changes.join(', '))
+
+    // /ios/trident.xcodeproj/xcshareddata/xcschemes/Build.xcscheme
+    changes = replaceInFile.sync({
+      files: [
+        path.join(targetProjectName, '/xcshareddata/xcschemes/Build.xcscheme'),
+
+        // Splash Screen Text
+        'trident/Base.lproj/LaunchScreen.xib',
+
+        // Splash Screen Text
+        'trident/Info.plist'
+      ],
+      from: /trident/g,
+      to: projectName,
+    })
+    console.log('bundle Modified files:', changes.join(', '))
+
+
     if (bundleName) {
       // replace bundle id
       const changes = replaceInFile.sync({
@@ -120,20 +141,22 @@ function _custom () {
       })
       console.log('bundle Modified files:', changes.join(', '))
     }
-  } catch (err) {
-    console.error(err)
-    process.exit(1)
-  }
 
-  try {
     // replace bundle id
     process.chdir('..')
-    const changes = replaceInFile.sync({
+    changes = replaceInFile.sync({
       files: fastlaneFileName,
       from: /trident/g,
       to: options.name,
     })
     console.log('bundle Modified files:', changes.join(', '))
+  } catch (err) {
+    console.error(err)
+    console.error(`Command \`${installCommand}\` failed.`)
+    process.exit(1)
+  }
+
+  try {
   } catch (err) {
     console.error(err)
     process.exit(1)
