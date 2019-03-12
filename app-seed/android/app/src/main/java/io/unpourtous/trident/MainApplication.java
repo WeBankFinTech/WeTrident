@@ -1,4 +1,4 @@
-package com.soga;
+package io.unpourtous.trident;
 
 import android.app.Application;
 
@@ -8,8 +8,12 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 
+import org.reactnative.example.BuildConfig;
+
 import java.util.Arrays;
 import java.util.List;
+
+//import org.reactjs.native.example.BuildConfig;
 
 public class MainApplication extends Application implements ReactApplication {
 

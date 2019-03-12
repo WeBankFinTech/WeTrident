@@ -1,4 +1,4 @@
-package com.soga;
+package io.unpourtous.trident;
 
 import com.facebook.react.ReactActivity;
 
