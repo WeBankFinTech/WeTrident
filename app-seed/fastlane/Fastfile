@@ -26,7 +26,6 @@ platform :ios do
     upload_to_testflight(
       skip_waiting_for_build_processing: true
     )
-    commit_version_bump(message: 'Bump build', xcodeproj: './ios/trident.xcodeproj')
   end
 end
 
