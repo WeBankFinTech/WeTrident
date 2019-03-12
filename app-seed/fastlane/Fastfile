@@ -14,15 +14,15 @@
 # update_fastlane
 
 platform :ios do
-  desc 'Fetch certificates and provisioning profiles'
-  private_lane :build do
+  desc "Build the iOS package"
+  lane :release do
     increment_build_number(xcodeproj: './ios/trident.xcodeproj')
     build_app(workspace: "./ios/trident.xcworkspace", scheme: "Build", export_xcargs: "-allowProvisioningUpdates")
   end
 
   desc "Push a new beta build to TestFlight"
   lane :beta do
-    build
+    release
     upload_to_testflight(
       skip_waiting_for_build_processing: true
     )
@@ -31,13 +31,13 @@ end
 
 platform :android do
   desc 'Build the Android application.'
-  private_lane :build do
+  lane :release do
     gradle(task: 'clean', project_dir: 'android/')
-    gradle(task: 'assemble', build_type: 'Release', project_dir: 'android/')
-  end
-
-  desc 'Ship to Playstore Beta.'
-  lane :beta do
-    build
+    gradle(
+      task: 'assemble', 
+      build_type: 'Release', 
+      project_dir: 'android/'
+    )
+    puts "\nAPK path is: #{Actions.lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]}"
   end
 end
