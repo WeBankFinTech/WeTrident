@@ -156,10 +156,16 @@ function _custom () {
     process.exit(1)
   }
 
-  try {
-  } catch (err) {
-    console.error(err)
-    process.exit(1)
-  }
+  process.chdir('android')
+  changes = replaceInFile.sync({
+    files: [
+      'app/build.gradle',
+      'app/src/main/AndroidManifest.xml',
+      'app/src/main/java/io/unpourtous/trident/MainApplication.java'
+    ],
+    from: /org.reactnative.example/g,
+    to: options.bundleId,
+  })
+  console.log('bundle Modified files:', changes.join(', '))
 }
 
