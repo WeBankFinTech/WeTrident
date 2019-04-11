@@ -1,15 +1,26 @@
 /**
  * 负责导出此模块的reducer和router到App级别
- * Created by {{author}} on {{createTime}}.
+ * Created by sines on 2018-02-23T10:24:03.394Z.
  */
-import reducer from './combineReducers'
-import routers from './routers'
-import ModulePrivate from './actionsReducer'
+import { createSceneConnect } from '@unpourtous/trident'
 
-const module = {
-  reducer,
-  routers,
-  toString: () => ModulePrivate.moduleName
+export default {
+  moduleName: 'example',
+  initialState: {
+    moduleCount: 0
+  },
+  sceneList: [
+    // require('./ChartExampleScene').default,
+    /* {{&insertSceneItem}} */
+  ],
+  actions: {
+    addModuleCount: v => v
+  },
+  asyncActions: (actions) => ({
+
+  }),
+  reducers: {
+    addModuleCount: (state, action) => ({ ...state, moduleCount: state.moduleCount + action.payload })
+  }
 }
 
-export default module

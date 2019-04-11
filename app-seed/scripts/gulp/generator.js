@@ -1,6 +1,6 @@
 // var commonArgsDesc = require('./config/commonArgsDesc')
 var execSync = (cmd) => {
-  require('child_process').execSync(cmd, {stdio: [0, 1, 2]})
+  require('child_process').execSync(cmd, { stdio: [0, 1, 2] })
 }
 var chalk = require('chalk')
 var inquirer = require('inquirer')
@@ -13,17 +13,48 @@ var path = require('path')
 var fse = require('fs-extra')
 var hogan = require('hogan.js')
 
-var config = {
+const babelParser = require('@babel/parser')
+const babelTraverse = require('@babel/traverse').default
+const generate = require('babel-generator').default
+const t = require('@babel/types')
+
+const config = {
   testBasePath: 'src/__tests__/',
   basePath: 'src/',
   moduleTplPath: './scripts/gulp/codeTemplate/moduleTpl',
   sceneTplPath: './scripts/gulp/codeTemplate/sceneTpl',
+
   sceneTestTplPath: './scripts/gulp/codeTemplate/sceneTpl/SceneRender-test.js'
+}
+const insertModuleList = () => {
+  var modulesIndexPath = path.join(config.basePath, 'core/modules/index.js')
+  const fileContent = fs.readFileSync(modulesIndexPath).toString()
+
+  const estree = babelParser.parse(fileContent, {
+    sourceType: 'module'
+  })
+  babelTraverse(estree, {
+    enter (path) {
+      // console.log(path.node.type)
+      if (path.node.type === 'ExportDefaultDeclaration') {
+        path.traverse({
+          ArrayExpression (path) {
+            const requireCallExpression = t.callExpression(t.identifier('require'), [t.stringLiteral('./test')])
+            const newMember = t.memberExpression(requireCallExpression, t.identifier('default'))
+            path.node.elements.push(newMember)
+          }
+        })
+      }
+    }
+  })
+
+  const output = generate(estree, { retainLines: true, auxiliaryCommentBefore: 'test' })
+  fs.writeFileSync(modulesIndexPath, output.code)
 }
 
 var appPath = config.basePath + 'core'
 var appTestPath = config.testBasePath
-var appModulesPath = config.basePath + 'core/modules'
+var appModulesPath = path.join(config.basePath, 'core/modules')
 
 const getModuleList = (appModulesPath) => {
   const moduleList = []

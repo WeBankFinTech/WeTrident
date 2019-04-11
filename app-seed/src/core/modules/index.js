@@ -1,4 +1,4 @@
 export default [
-  require('./example').default,
-  // 这里添加模块
-]
+require('./example').default,
+require('./test').default,
+  require("./test").default];

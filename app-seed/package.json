@@ -8,9 +8,12 @@
   },
   "dependencies": {
     "@babel/core": "^7.0.0-0",
+    "@babel/parser": "^7.4.2",
+    "@babel/traverse": "^7.4.0",
     "@unpourtous/react-native-popup-stub": "^1.4.6",
     "@unpourtous/react-native-touchable": "^1.0.3",
     "@unpourtous/trident": "git+https://github.com/erichua23/soga.git",
+    "babel-generator": "^6.26.1",
     "moment": "^2.23.0",
     "react": "16.6.3",
     "react-native": "^0.57.8",
@@ -26,6 +29,7 @@
     "url-search-params": "^1.1.0"
   },
   "devDependencies": {
+    "@babel/types": "^7.4.0",
     "babel-jest": "23.6.0",
     "gulp-eslint": "^5.0.0",
     "gulp-modify-file": "^1.0.1",
