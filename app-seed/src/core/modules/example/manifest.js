@@ -1,1 +1,1 @@
-export default [require('./ChartExampleScene').default, require("./IIIScene").default];
+export default [require('./ChartExampleScene').default]
