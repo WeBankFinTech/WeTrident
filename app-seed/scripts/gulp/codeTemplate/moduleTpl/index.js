@@ -1,26 +1,24 @@
 /**
  * 负责导出此模块的reducer和router到App级别
- * Created by sines on 2018-02-23T10:24:03.394Z.
+ *
+ * Created by {{author}} on {{createAt}}.
  */
 import { createSceneConnect } from '@unpourtous/trident'
 
 export default {
-  moduleName: 'example',
+  moduleName: 'TplModuleName',
   initialState: {
-    moduleCount: 0
+    // moduleCount: 0
   },
-  sceneList: [
-    // require('./ChartExampleScene').default,
-    /* {{&insertSceneItem}} */
-  ],
+  sceneList: require('./manifest'),
   actions: {
-    addModuleCount: v => v
+    // addModuleCount: v => v
   },
   asyncActions: (actions) => ({
 
   }),
   reducers: {
-    addModuleCount: (state, action) => ({ ...state, moduleCount: state.moduleCount + action.payload })
+    // addModuleCount: (state, action) => ({ ...state, moduleCount: state.moduleCount + action.payload })
   }
 }
 

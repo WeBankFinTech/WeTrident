@@ -3,21 +3,21 @@
  */
 export default (global, ModulePrivate) => ({
   moduleName: ModulePrivate.moduleName,
-  sceneName: 'ChartExampleScene',
-  component: require('./ChartExampleScene').default,
+  sceneName: 'TplScene',
+  component: require('./TplScene').default,
 
   /**
    * 定义scene级别数据的初始值
    */
   initialState: {
-    count: 0,
+    // count: 0,
   },
 
   /**
    * 定义scene级别的actions
    */
   actions: {
-    addCount: v => v,
+    // addCount: v => v,
   },
 
   /**
@@ -32,31 +32,31 @@ export default (global, ModulePrivate) => ({
    * 定义scene级别的reducer
    */
   reducers: {
-    addCount: (state, action) => ({
-      ...state,
-      count: state.count + action.payload
-    })
+    // addCount: (state, action) => ({
+    //   ...state,
+    //   count: state.count + action.payload
+    // })
   },
 
   /**
    * 将module级别的共享数据映射到props.modulePrivate
    */
   mapModuleState: state => ({
-    moduleCount: state.moduleCount,
+    // moduleCount: state.moduleCount,
   }),
 
   /**
    * 将global级别的共享数据映射到props
    */
   mapGlobalState: state => ({
-    globalCount: state.globalCount
+    // globalCount: state.globalCount
   }),
 
   /**
    * 将module级别的actions映射到props
    */
   moduleActions: {
-    addModuleCount: ModulePrivate.actions.addModuleCount
+    // addModuleCount: ModulePrivate.actions.addModuleCount
   },
 
   /**
