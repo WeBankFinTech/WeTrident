@@ -63,16 +63,6 @@ function _init () {
 
     execSync('pod install --verbose', { stdio: 'inherit' })
 
-    //   try {
-    //     const changes = replaceInFile.sync({
-    //       files: './trident.xcodeproj/project.pbxproj',
-    //       from: /org.reactjs.native.example/g,
-    //       to: 'test.erichua.bundleid',
-    //     })
-    //     console.log('Modified files:', changes.join(', '))
-    //   } catch (error) {
-    //     console.error('Error occurred:', error)
-    //   }
     process.chdir('../../')
     _custom()
   } catch (err) {
