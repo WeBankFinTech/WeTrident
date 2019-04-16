@@ -3,11 +3,11 @@
  * Created by sines on 2018-02-23T10:24:03.394Z.
  */import { createSceneConnect } from '@unpourtous/trident';
 export default {
-  moduleName: example,
+  moduleName: 'example',
   initialState: {
     moduleCount: 0
   },
-  sceneList: require('./manifest'),
+  sceneList: require('./manifest').default,
   actions: {
     addModuleCount: v => v
   },

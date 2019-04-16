@@ -1094,7 +1094,7 @@
 			baseConfigurationReference = 8ECA5888DC2D38A11C5B97F8 /* Pods-Develop.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = FQ4J64A9BU;
 				INFOPLIST_FILE = trident/Info.plist;
@@ -1115,7 +1115,7 @@
 			baseConfigurationReference = 3806B044B0C575FA66326757 /* Pods-Develop.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = FQ4J64A9BU;
 				INFOPLIST_FILE = trident/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
