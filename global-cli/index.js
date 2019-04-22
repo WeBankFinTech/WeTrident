@@ -10,15 +10,14 @@ const replaceInFile = require('replace-in-file')
 const options = require('minimist')(process.argv.slice(2))
 
 var CLI_MODULE_PATH = function () {
-  return '/Users/erichua/Projects/UnPourTous/soga/local-cli/index.js'
-  // return path.resolve(
-  //   process.cwd(),
-  //   'node_modules',
-  //   '@unpourtous',
-  //   'trident',
-  //   'local-cli',
-  //   'index.js'
-  // )
+  return path.resolve(
+    process.cwd(),
+    'node_modules',
+    '@unpourtous',
+    'trident',
+    'local-cli',
+    'index.js'
+  )
 }
 
 var REACT_NATIVE_PACKAGE_JSON_PATH = function () {
@@ -104,12 +103,12 @@ function init (name, options) {
   // validateProjectName(name)
 
   if (fs.existsSync(name)) {
-    // createAfterConfirmation(name, options)
+    createAfterConfirmation(name, options)
     // execSync('rm -rf test')
     // TODO remove dir
-  }
+  } else {
     createProject(name, options)
-  // }
+  }
 }
 
 function createProject(name, options) {
@@ -168,7 +167,7 @@ function run(root, projectName, options) {
     }
   }
   try {
-    // execSync(installCommand, {stdio: 'inherit'});
+    execSync(installCommand, {stdio: 'inherit'});
   } catch (err) {
     console.error(err);
     console.error('Command `' + installCommand + '` failed.');

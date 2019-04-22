@@ -20,7 +20,7 @@ function run (root) {
 }
 function _init (root, projectName) {
   const packageJson = {
-    name: options.name,
+    name: projectName,
     version: '0.0.1',
     private: true,
     scripts: {}
@@ -31,22 +31,22 @@ function _init (root, projectName) {
     shell.exit(1)
   }
 
-  // if (!fs.existsSync(root)) {
-  //   fs.mkdirSync(root)
-  // }
-  //
-  // fs.writeFileSync(
-  //   path.join(root, 'package.json'),
-  //   JSON.stringify(packageJson),
-  // )
+  if (!fs.existsSync(root)) {
+    fs.mkdirSync(root)
+  }
 
-  // process.chdir(root)
-  //
-  // let installCommand = `npm install https://github.com/erichua23/soga.git --exact`
-  // installCommand += ' --verbose'
+  fs.writeFileSync(
+    path.join(root, 'package.json'),
+    JSON.stringify(packageJson),
+  )
+
+  process.chdir(root)
+
+  let installCommand = `npm install https://github.com/erichua23/soga.git --exact`
+  installCommand += ' --verbose'
 
   try {
-    // execSync(installCommand, { stdio: 'inherit' })
+    execSync(installCommand, { stdio: 'inherit' })
 
     const appSeedPath = path.join(root, 'node_modules/@unpourtous/trident/app-seed')
     execSync(`cp -r ${appSeedPath}/* ./`, { stdio: 'inherit' })
@@ -58,7 +58,7 @@ function _init (root, projectName) {
     execSync('pod install --verbose', { stdio: 'inherit' })
 
     process.chdir('../../')
-    _custom(root)
+    _custom(root, projectName)
   } catch (err) {
     console.error(err)
     // console.error(`Command \`${installCommand}\` failed.`)
@@ -66,15 +66,14 @@ function _init (root, projectName) {
   }
 }
 
-function _custom (root) {
+function _custom (root, projectName, bundleId = 'test.cli.bundle') {
   process.chdir(path.join(root, 'ios'))
-  const projectName = options.name
-  const targetProjectName = options.name + '.xcodeproj'
-  const targetAppName = options.name + '.app'
-  const targetWorkspaceName = options.name + '.xcworkspace'
-  const targetWorkspaceData = options.name + '.xcworkspace/contents.xcworkspacedata'
+  const targetProjectName = projectName + '.xcodeproj'
+  const targetAppName = projectName + '.app'
+  const targetWorkspaceName = projectName + '.xcworkspace'
+  const targetWorkspaceData = projectName + '.xcworkspace/contents.xcworkspacedata'
   const fastlaneFileName = 'fastlane/Fastfile'
-  const bundleName = options.bundleId
+  const bundleName = bundleId
 
   try {
     if (fs.existsSync('trident.xcodeproj')) {
@@ -131,7 +130,7 @@ function _custom (root) {
     changes = replaceInFile.sync({
       files: fastlaneFileName,
       from: /trident/g,
-      to: options.name,
+      to: projectName,
     })
     console.log('bundle Modified files:', changes.join(', '))
   } catch (err) {
@@ -148,7 +147,7 @@ function _custom (root) {
       'app/src/main/java/io/unpourtous/trident/MainApplication.java'
     ],
     from: /org.reactnative.example/g,
-    to: options.bundleId,
+    to: bundleId,
   })
   console.log('bundle Modified files:', changes.join(', '))
 }
