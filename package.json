@@ -18,9 +18,7 @@
   "description": "",
   "dependencies": {
     "minimist": "^1.2.0",
-    "replace-in-file": "^3.4.3"
-  },
-  "devDependencies": {
+    "replace-in-file": "^3.4.3",
     "shelljs": "^0.8.3"
   }
 }
