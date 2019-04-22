@@ -1,61 +1,55 @@
 #!/usr/bin/env node
 const fs = require('fs')
 const path = require('path')
-const exec = require('child_process').exec
 const execSync = require('child_process').execSync
-const chalk = require('chalk')
-const prompt = require('prompt')
-const semver = require('semver')
 const replaceInFile = require('replace-in-file')
-
 const options = require('minimist')(process.argv.slice(2))
+const shell = require('shelljs')
 
-console.log(options)
+function run (root) {
+  console.log(options)
 
-const mainCmd = options._[0]
-const root = options.name
-switch (mainCmd) {
-  case 'init': {
-    _init()
-    break
-  }
-  case 'custom': {
-    _custom()
+  const cmd = options._[0]
+
+  switch (cmd) {
+    case 'init': {
+      const projectName = options._[1]
+      _init(root, projectName)
+    }
   }
 }
-
-function _init () {
+function _init (root, projectName) {
   const packageJson = {
     name: options.name,
     version: '0.0.1',
     private: true,
     scripts: {}
   }
-  var shell = require('shelljs')
 
   if (!shell.which('git')) {
     shell.echo('Sorry, this script requires git')
     shell.exit(1)
   }
 
-  if (!fs.existsSync(root)) {
-    fs.mkdirSync(root)
-  }
+  // if (!fs.existsSync(root)) {
+  //   fs.mkdirSync(root)
+  // }
+  //
+  // fs.writeFileSync(
+  //   path.join(root, 'package.json'),
+  //   JSON.stringify(packageJson),
+  // )
 
-  fs.writeFileSync(
-    path.join(root, 'package.json'),
-    JSON.stringify(packageJson),
-  )
-
-  process.chdir(root)
-
-  let installCommand = `npm install https://github.com/erichua23/soga.git --exact`
-  installCommand += ' --verbose'
+  // process.chdir(root)
+  //
+  // let installCommand = `npm install https://github.com/erichua23/soga.git --exact`
+  // installCommand += ' --verbose'
 
   try {
-    execSync(installCommand, { stdio: 'inherit' })
+    // execSync(installCommand, { stdio: 'inherit' })
 
-    execSync('cp -r node_modules/@unpourtous/trident/app-seed/* ./', { stdio: 'inherit' })
+    const appSeedPath = path.join(root, 'node_modules/@unpourtous/trident/app-seed')
+    execSync(`cp -r ${appSeedPath}/* ./`, { stdio: 'inherit' })
 
     execSync('yarn --verbose', { stdio: 'inherit' })
 
@@ -64,16 +58,16 @@ function _init () {
     execSync('pod install --verbose', { stdio: 'inherit' })
 
     process.chdir('../../')
-    _custom()
+    _custom(root)
   } catch (err) {
     console.error(err)
-    console.error(`Command \`${installCommand}\` failed.`)
+    // console.error(`Command \`${installCommand}\` failed.`)
     process.exit(1)
   }
 }
 
-function _custom () {
-  process.chdir(root + '/ios')
+function _custom (root) {
+  process.chdir(path.join(root, 'ios'))
   const projectName = options.name
   const targetProjectName = options.name + '.xcodeproj'
   const targetAppName = options.name + '.app'
@@ -142,7 +136,7 @@ function _custom () {
     console.log('bundle Modified files:', changes.join(', '))
   } catch (err) {
     console.error(err)
-    console.error(`Command \`${installCommand}\` failed.`)
+    // console.error(`Command \`${installCommand}\` failed.`)
     process.exit(1)
   }
 
@@ -157,5 +151,10 @@ function _custom () {
     to: options.bundleId,
   })
   console.log('bundle Modified files:', changes.join(', '))
+}
+
+module.exports = {
+  init: _init,
+  run
 }
 

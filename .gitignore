@@ -61,4 +61,5 @@ app-seed/ios/Pods/
 fastlane/report.xml
 
 lab/
+tmp/
 app-seed/fastlane/README.md

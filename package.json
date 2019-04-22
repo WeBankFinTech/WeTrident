@@ -17,6 +17,7 @@
   "homepage": "https://github.com/erichua23/soga#readme",
   "description": "",
   "dependencies": {
+    "minimist": "^1.2.0",
     "replace-in-file": "^3.4.3"
   }
 }

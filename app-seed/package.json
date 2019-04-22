@@ -14,6 +14,7 @@
     "@unpourtous/react-native-touchable": "^1.0.3",
     "@unpourtous/trident": "git+https://github.com/erichua23/soga.git",
     "babel-generator": "^6.26.1",
+    "minimist": "^1.2.0",
     "moment": "^2.23.0",
     "react": "16.6.3",
     "react-native": "^0.57.8",

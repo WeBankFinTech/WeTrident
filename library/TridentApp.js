@@ -42,7 +42,7 @@ export default class TridentApp extends Component {
       return result
     })()
 
-    AppNavigator.init(flatRouters)
+   AppNavigator.init(flatRouters)
 
     this.WeNavigator = createTridentNavigator(flatRouters)
 
