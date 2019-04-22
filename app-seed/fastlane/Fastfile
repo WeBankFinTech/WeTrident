@@ -36,7 +36,13 @@ platform :android do
     gradle(
       task: 'assemble', 
       build_type: 'Release', 
-      project_dir: 'android/'
+      project_dir: 'android/',
+      properties: {
+        "android.injected.signing.store.file" => "keystores/demo-release-keystore",
+        "android.injected.signing.store.password" => "12345678",
+        "android.injected.signing.key.alias" => "android.keystore",
+        "android.injected.signing.key.password" => "12345678",
+      }
     )
     puts "\nAPK path is: #{Actions.lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]}"
   end
