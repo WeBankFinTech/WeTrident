@@ -10,7 +10,7 @@ export default {
   initialState: {
     // moduleCount: 0
   },
-  sceneList: require('./manifest'),
+  sceneList: require('./manifest').default,
   actions: {
     // addModuleCount: v => v
   },

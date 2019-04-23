@@ -1,1 +1,1 @@
-export default [require('./example').default];
+export default [require("./example").default];

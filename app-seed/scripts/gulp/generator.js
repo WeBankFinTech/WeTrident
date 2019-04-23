@@ -189,6 +189,7 @@ function _generatorModule () {
       // TODO 输入检查
       const moduleTplPath = config.moduleTplPath
       const modulePath = appPath + '/modules/' + moduleName
+      const moduleIndexPath = appPath + '/modules/index.js'
 
       execSync(`cp -r ${moduleTplPath} ${modulePath}`)
 
@@ -197,7 +198,7 @@ function _generatorModule () {
       // 插入模块到模块列表
       const requireCallExpression = t.callExpression(t.identifier('require'), [t.stringLiteral('./' + moduleName)])
       const newMember = t.memberExpression(requireCallExpression, t.identifier('default'))
-      insertElementInList(path.join(modulePath, 'index.js'), newMember)
+      insertElementInList(moduleIndexPath, newMember)
 
       // 提示是否继续创建Scene
       setTimeout(() => {

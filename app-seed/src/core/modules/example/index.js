@@ -1,20 +1,24 @@
 /**
  * 负责导出此模块的reducer和router到App级别
- * Created by sines on 2018-02-23T10:24:03.394Z.
- */import { createSceneConnect } from '@unpourtous/trident';
+ *
+ * Created by erichua on 2019-04-23T03:47:47.051Z.
+ */
+import { createSceneConnect } from '@unpourtous/trident'
+
 export default {
   moduleName: 'example',
   initialState: {
-    moduleCount: 0
+    // moduleCount: 0
   },
   sceneList: require('./manifest').default,
   actions: {
-    addModuleCount: v => v
+    // addModuleCount: v => v
   },
-  asyncActions: actions => ({}),
+  asyncActions: (actions) => ({
+
+  }),
   reducers: {
-    addModuleCount: (state, action) => ({ ...state,
-      moduleCount: state.moduleCount + action.payload
-    })
+    // addModuleCount: (state, action) => ({ ...state, moduleCount: state.moduleCount + action.payload })
   }
-};
+}
+
