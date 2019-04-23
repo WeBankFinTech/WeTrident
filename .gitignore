@@ -57,6 +57,8 @@ buck-out/
 
 ios/Pods/
 app-seed/ios/Pods/
+app-seed/package-lock.json
+app-seed/yarn.lock
 
 fastlane/report.xml
 
