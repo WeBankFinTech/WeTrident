@@ -18,7 +18,14 @@
   "description": "",
   "dependencies": {
     "minimist": "^1.2.0",
-    "replace-in-file": "^3.4.3",
     "shelljs": "^0.8.3"
+  },
+  "devDependencies": {
+    "@babel/parser": "^7.4.3",
+    "@babel/traverse": "^7.4.3",
+    "@babel/types": "^7.4.0",
+    "babel-generator": "^6.26.1",
+    "inquirer": "^6.3.1",
+    "replace-in-file": "^3.4.4"
   }
 }

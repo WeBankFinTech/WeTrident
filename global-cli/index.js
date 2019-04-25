@@ -10,14 +10,15 @@ const replaceInFile = require('replace-in-file')
 const options = require('minimist')(process.argv.slice(2))
 
 var CLI_MODULE_PATH = function () {
-  return path.resolve(
-    process.cwd(),
-    'node_modules',
-    '@unpourtous',
-    'trident',
-    'local-cli',
-    'index.js'
-  )
+  return '/Users/erichua/Projects/UnPourTous/soga/local-cli/index.js'
+  // return path.resolve(
+  //   process.cwd(),
+  //   'node_modules',
+  //   '@unpourtous',
+  //   'trident',
+  //   'local-cli',
+  //   'index.js'
+  // )
 }
 
 var REACT_NATIVE_PACKAGE_JSON_PATH = function () {
@@ -41,8 +42,9 @@ if (fs.existsSync(cliPath)) {
 }
 
 var commands = options._
+console.log(options)
 if (cli) {
-  cli.run(path.resolve(commands[1]))
+  cli.run(path.resolve(commands[1] || '.'))
 } else {
   if (options._.length === 0 && (options.h || options.help)) {
     console.log([
