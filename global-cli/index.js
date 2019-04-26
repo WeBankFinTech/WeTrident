@@ -31,8 +31,17 @@ var REACT_NATIVE_PACKAGE_JSON_PATH = function () {
   )
 }
 
+// 基础命令
+// --help
+if (options._.length === 0 && (options.h || options.help)) {
+  printUsageGuide()
+  process.exit(0)
+}
+
+// --version
 if (options._.length === 0 && (options.v || options.version)) {
   printVersionsAndExit(REACT_NATIVE_PACKAGE_JSON_PATH())
+  process.exit(0)
 }
 
 var cli
@@ -42,45 +51,29 @@ if (fs.existsSync(cliPath)) {
 }
 
 var commands = options._
-console.log(options)
 if (cli) {
-  cli.run(path.resolve(commands[1] || '.'))
+  // 如果在Trident项目内，所有命令由local-cli接管
+  cli.run(path.resolve(options.name || '.'))
 } else {
-  if (options._.length === 0 && (options.h || options.help)) {
-    console.log([
-      '',
-      '  Usage: trident [command] [options]',
-      '',
-      '',
-      '  Commands:',
-      '',
-      '    init <ProjectName> [options]  generates a new project and installs its dependencies',
-      '',
-      '  Options:',
-      '',
-      '    -h, --help    output usage information',
-      '    -v, --version output the version number',
-      '',
-    ].join('\n'))
-    process.exit(0)
-  }
-
-  if (commands.length === 0) {
-    console.error(
-      'You did not pass any commands, run `react-native --help` to see a list of all available commands.'
-    )
-    process.exit(1)
-  }
-
+  // 如果在Trident项目外，理论上说只需要支持 --version 和 init命令
   switch (commands[0]) {
     case 'init':
       if (!commands[1]) {
         console.error(
-          'Usage: react-native init <ProjectName> [--verbose]'
+          'Usage: trident-cli init <ProjectName> [--verbose]'
         )
         process.exit(1)
       } else {
-        init(commands[1], options)
+        const projectName = commands[1]
+
+        // TODO
+        validateProjectName(name)
+
+        if (fs.existsSync(projectName)) {
+          console.log(`${projectName} already existed, please remove it before create a new one `)
+        } else {
+          createProject(projectName, options)
+        }
       }
       break
     default:
@@ -94,25 +87,52 @@ if (cli) {
   }
 }
 
-/**
- * @param name Project name, e.g. 'AwesomeApp'.
- * @param options.verbose If true, will run 'npm install' in verbose mode (for debugging).
- * @param options.version Version of React Native to install, e.g. '0.38.0'.
- * @param options.npm If true, always use the npm command line client,
- *                       don't use yarn even if available.
- */
-function init (name, options) {
-  // validateProjectName(name)
+function validateProjectName(name) {
+  if (!String(name).match(/^[$A-Z_][0-9A-Z_$]*$/i)) {
+    console.error(
+      '"%s" is not a valid name for a project. Please use a valid identifier ' +
+      'name (alphanumeric).',
+      name,
+    );
+    process.exit(1);
+  }
 
-  if (fs.existsSync(name)) {
-    createAfterConfirmation(name, options)
-    // execSync('rm -rf test')
-    // TODO remove dir
-  } else {
-    createProject(name, options)
+  if (name === 'React') {
+    console.error(
+      '"%s" is not a valid name for a project. Please do not use the ' +
+      'reserved word "React".',
+      name,
+    );
+    process.exit(1);
   }
 }
 
+/**
+ * print usage guide for trident-cli
+ */
+function printUsageGuide () {
+  console.log([
+    '',
+    '  Usage: trident [command] [options]',
+    '',
+    '',
+    '  Commands:',
+    '',
+    '    init <ProjectName> [options]  generates a new project and installs its dependencies',
+    '',
+    '  Options:',
+    '',
+    '    -h, --help    output usage information',
+    '    -v, --version output the version number',
+    '',
+  ].join('\n'))
+}
+
+/**
+ * create a new project
+ * @param name project name
+ * @param options arguments
+ */
 function createProject(name, options) {
   var root = path.resolve(name);
   var projectName = path.basename(root);
@@ -137,36 +157,21 @@ function createProject(name, options) {
   fs.writeFileSync(path.join(root, 'package.json'), JSON.stringify(packageJson));
   process.chdir(root);
 
-  run(root, projectName, options);
+  createNewProject(root, projectName, options);
 }
 
-function run(root, projectName, options) {
+function createNewProject(root, projectName, options) {
+  // 自定义版本
   const rnPackage = options.version;
   const forceNpmClient = options.npm;
-  const yarnVersion = (!forceNpmClient) && getYarnVersionIfAvailable();
   var installCommand;
-  if (options.installCommand) {
-    // In CI environments it can be useful to provide a custom command,
-    // to set up and use an offline mirror for installing dependencies, for example.
-    installCommand = options.installCommand;
-  } else {
-    if (yarnVersion) {
-      console.log('Using yarn v' + yarnVersion);
-      console.log('Installing ' + getInstallPackage(rnPackage) + '...');
-      installCommand = 'yarn add ' + getInstallPackage(rnPackage) + ' --exact';
-      if (options.verbose) {
-        installCommand += ' --verbose';
-      }
-    } else {
-      console.log('Installing ' + getInstallPackage(rnPackage) + '...');
-      if (!forceNpmClient) {
-        console.log('Consider installing yarn to make this faster: https://yarnpkg.com');
-      }
-      installCommand = 'npm install --save --save-exact ' + getInstallPackage(rnPackage);
-      if (options.verbose) {
-        installCommand += ' --verbose';
-      }
-    }
+  console.log('Installing ' + getInstallPackage(rnPackage) + '...')
+  if (!forceNpmClient) {
+    console.log('Consider installing yarn to make this faster: https://yarnpkg.com')
+  }
+  installCommand = 'npm install --save --save-exact ' + getInstallPackage(rnPackage)
+  if (options.verbose) {
+    installCommand += ' --verbose'
   }
   try {
     execSync(installCommand, {stdio: 'inherit'});
@@ -177,11 +182,11 @@ function run(root, projectName, options) {
   }
   // checkNodeVersion();
   cli = require(CLI_MODULE_PATH());
-  cli.init(root, projectName);
+  cli.init(root, projectName, bundleId);
 }
 
 function getInstallPackage(rnPackage) {
-  var packageToInstall = 'react-native';
+  var packageToInstall = '@unpourtous/trident';
   var isValidSemver = semver.valid(rnPackage);
   if (isValidSemver) {
     packageToInstall += '@' + isValidSemver;
@@ -190,56 +195,8 @@ function getInstallPackage(rnPackage) {
     packageToInstall = rnPackage;
   }
   // return packageToInstall;
-  // TODO 暂时写死
+  // FIXME TODO 暂时写死，以后要改成，github发布npm，这里根据版本号去npm取
   return 'https://github.com/erichua23/soga.git --exact'
-}
-
-// Use Yarn if available, it's much faster than the npm client.
-// Return the version of yarn installed on the system, null if yarn is not available.
-function getYarnVersionIfAvailable() {
-  var yarnVersion;
-  try {
-    // execSync returns a Buffer -> convert to string
-    if (process.platform.startsWith('win')) {
-      yarnVersion = (execSync('yarn --version').toString() || '').trim();
-    } else {
-      yarnVersion = (execSync('yarn --version 2>/dev/null').toString() || '').trim();
-    }
-  } catch (error) {
-    return null;
-  }
-  // yarn < 0.16 has a 'missing manifest' bug
-  try {
-    if (semver.gte(yarnVersion, '0.16.0')) {
-      return yarnVersion;
-    } else {
-      return null;
-    }
-  } catch (error) {
-    console.error('Cannot parse yarn version: ' + yarnVersion);
-    return null;
-  }
-}
-
-function createAfterConfirmation (name, options) {
-  prompt.start()
-
-  var property = {
-    name: 'yesno',
-    message: 'Directory ' + name + ' already exists. Continue?',
-    validator: /y[es]*|n[o]?/,
-    warning: 'Must respond yes or no',
-    default: 'no'
-  }
-
-  prompt.get(property, function (err, result) {
-    if (result.yesno[0] === 'y') {
-      createProject(name, options)
-    } else {
-      console.log('Project initialization canceled')
-      process.exit()
-    }
-  })
 }
 
 function printVersionsAndExit (reactNativePackageJsonPath) {

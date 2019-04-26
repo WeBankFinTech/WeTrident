@@ -5,7 +5,7 @@ const replaceInFile = require('replace-in-file')
 
 const shell = require('shelljs')
 
-function init (root, projectName) {
+function init (root, projectName, bundleId) {
   const packageJson = {
     name: projectName,
     version: '0.0.1',
@@ -44,7 +44,7 @@ function init (root, projectName) {
     process.chdir('ios')
     execSync('pod install --verbose', { stdio: 'inherit' })
 
-    replaceName(root, projectName)
+    replaceName(root, projectName, bundleId)
   } catch (err) {
     console.error(err)
     // console.error(`Command \`${installCommand}\` failed.`)
