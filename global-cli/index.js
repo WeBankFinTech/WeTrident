@@ -9,16 +9,20 @@ const semver = require('semver')
 const replaceInFile = require('replace-in-file')
 const options = require('minimist')(process.argv.slice(2))
 
-var CLI_MODULE_PATH = function () {
-  return '/Users/erichua/Projects/UnPourTous/soga/local-cli/index.js'
-  // return path.resolve(
-  //   process.cwd(),
-  //   'node_modules',
-  //   '@unpourtous',
-  //   'trident',
-  //   'local-cli',
-  //   'index.js'
-  // )
+var CLI_MODULE_PATH = function (useLocal) {
+  // TODO 本地调试用
+  if (useLocal) {
+    return '/Users/erichua/Projects/UnPourTous/soga/local-cli/index.js'
+  } else {
+    return path.resolve(
+      process.cwd(),
+      'node_modules',
+      '@unpourtous',
+      'trident',
+      'local-cli',
+      'index.js'
+    )
+  }
 }
 
 var REACT_NATIVE_PACKAGE_JSON_PATH = function () {
@@ -45,7 +49,7 @@ if (options._.length === 0 && (options.v || options.version)) {
 }
 
 var cli
-var cliPath = CLI_MODULE_PATH()
+var cliPath = CLI_MODULE_PATH(false)
 if (fs.existsSync(cliPath)) {
   cli = require(cliPath)
 }
@@ -53,24 +57,25 @@ if (fs.existsSync(cliPath)) {
 var commands = options._
 if (cli) {
   // 如果在Trident项目内，所有命令由local-cli接管
-  cli.run(path.resolve(options.name || '.'))
+  cli.run(path.resolve(options.name || '.'), options)
 } else {
   // 如果在Trident项目外，理论上说只需要支持 --version 和 init命令
   switch (commands[0]) {
     case 'init':
-      if (!commands[1]) {
+      if (!options.name) {
         console.error(
           'Usage: trident-cli init <ProjectName> [--verbose]'
         )
         process.exit(1)
       } else {
-        const projectName = commands[1]
+        const projectName = options.name
 
         // TODO
-        validateProjectName(name)
+        validateProjectName(projectName)
 
         if (fs.existsSync(projectName)) {
           console.log(`${projectName} already existed, please remove it before create a new one `)
+          return
         } else {
           createProject(projectName, options)
         }
@@ -163,12 +168,9 @@ function createProject(name, options) {
 function createNewProject(root, projectName, options) {
   // 自定义版本
   const rnPackage = options.version;
-  const forceNpmClient = options.npm;
   var installCommand;
   console.log('Installing ' + getInstallPackage(rnPackage) + '...')
-  if (!forceNpmClient) {
-    console.log('Consider installing yarn to make this faster: https://yarnpkg.com')
-  }
+
   installCommand = 'npm install --save --save-exact ' + getInstallPackage(rnPackage)
   if (options.verbose) {
     installCommand += ' --verbose'
@@ -181,8 +183,10 @@ function createNewProject(root, projectName, options) {
     process.exit(1);
   }
   // checkNodeVersion();
-  cli = require(CLI_MODULE_PATH());
-  cli.init(root, projectName, bundleId);
+
+  // 安装完成这时候一定是有的
+  cli = require(CLI_MODULE_PATH(false));
+  cli.init(root, projectName, options.bundleId);
 }
 
 function getInstallPackage(rnPackage) {
