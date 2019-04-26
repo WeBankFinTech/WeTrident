@@ -85,7 +85,6 @@ function replaceName (root, projectName, bundleId = 'test.cli.bundle') {
     console.log('Modified files:', changes.join(', '))
 
     // /ios/trident.xcodeproj/xcshareddata/xcschemes/Build.xcscheme
-    console.log(targetProjectName, targetProjectName)
     changes = replaceInFile.sync({
       files: [
         path.join(targetProjectName, '/xcshareddata/xcschemes/Build.xcscheme'),
