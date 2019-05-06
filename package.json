@@ -26,6 +26,7 @@
     "@babel/types": "^7.4.0",
     "babel-generator": "^6.26.1",
     "inquirer": "^6.3.1",
+    "node-version-compare": "^1.0.2",
     "replace-in-file": "^3.4.4"
   }
 }

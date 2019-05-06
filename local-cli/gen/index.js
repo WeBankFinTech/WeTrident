@@ -10,10 +10,8 @@ var _ = require('lodash')
 var fs = require('fs')
 var path = require('path')
 
-const babelParser = require('@babel/parser')
-const babelTraverse = require('@babel/traverse').default
-const generate = require('babel-generator').default
 const t = require('@babel/types')
+const { insertElementInList } = require('../utils/codeEdit')
 
 const replaceInFile = require('replace-in-file')
 
@@ -53,30 +51,6 @@ function checkNameValid (moduleName) {
     return false
   }
   return true
-}
-
-function insertElementInList (arrayFilePath, element) {
-  console.log(arrayFilePath)
-  const fileContent = fs.readFileSync(arrayFilePath).toString()
-
-  const estree = babelParser.parse(fileContent, {
-    sourceType: 'module'
-  })
-  babelTraverse(estree, {
-    enter (path) {
-      // console.log(path.node.type)
-      if (path.node.type === 'ExportDefaultDeclaration') {
-        path.traverse({
-          ArrayExpression (path) {
-            path.node.elements.push(element)
-          }
-        })
-      }
-    }
-  })
-
-  const output = generate(estree, { retainLines: true })
-  fs.writeFileSync(arrayFilePath, output.code)
 }
 
 function getSceneListUnderModulePath (modulesPath) {

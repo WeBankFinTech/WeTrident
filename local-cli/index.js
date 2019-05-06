@@ -1,11 +1,10 @@
 #!/usr/bin/env node
 const options = require('minimist')(process.argv.slice(2))
 
-
-function run (root, options) {
-  console.log(options)
-
+function run (root) {
   const cmd = options._[0]
+  const subCmd = options._[1]
+  console.log('root: ' + root)
 
   switch (cmd) {
     case 'init': {
@@ -17,38 +16,92 @@ function run (root, options) {
     }
     case 'gen': {
       const gen = require('./gen')
-      const projectName = options.name
+      const projectName = subCmd
       if (projectName === 'module') {
         gen.generatorModule()
       } else if (projectName === 'scene') {
         gen.generatorScene()
       } else {
-        console.warn('know type, use `gen module` or `gen scene` ')
+        console.warn('unknow type, use `gen module --name=` or `gen scene` ')
       }
       break
     }
-    case 'doctor': {
-      const errorList = []
-      // Android env
-      if (!process.env.ANDROID_HOME) {
-        errorList.push('Android environment not ready!')
+    case 'env': {
+      switch (subCmd) {
+        case 'check': {
+          const checkResult = require('./env').check()
+          checkResult.forEach(item => {
+            console.log(item)
+          })
+          if (checkResult) {
+            console.log('Everything is OK!')
+          }
+          break
+        }
+        case 'setup': {
+          const checkResult = require('./env').check()
+          require('./env').setup(checkResult)
+        }
       }
-
-      // TODO iOS env xcodebuild
-      // TODO pod version
-      // TODO npm version
-      // TODO fastlane env
-
-      printDoctorReport(errorList)
+      break
     }
-    case 'setupEnv': {
-      // 安装初始化环境
+    case 'plugin': {
+      switch (subCmd) {
+        case 'add': {
+          const pluginName = options._[2]
+          require('./plugin/add').run(root, pluginName)
+          break
+        }
+        case 'publish': {
+          const pluginName = options._[2]
+          require('./plugin/publish').run(root, pluginName)
+          break
+        }
+        case 'init': {
+          const pluginName = options._[2]
+          require('./plugin/init').run(root, pluginName)
+          break
+        }
+      }
     }
   }
 }
 
+function checkEnv () {
+  const errorList = []
+  // Android env
+  if (!process.env.ANDROID_HOME) {
+    errorList.push({
+      id: 'android',
+      desc: 'Android environment not ready!',
+      installCmd: undefined,
+      installGuide: 'Follow the docs https://developer.android.com/studio/install to setup android environment'
+    })
+  }
+
+  // TODO iOS env xcodebuild
+  // TODO pod exist and version check
+  if (false ) {
+    errorList.push({
+      id: 'android',
+      desc: 'Android environment not ready!',
+      installCmd: 'sudo gem install cocoapods',
+      installGuide: 'Follow the docs https://cocoapods.org/ to setup cocoapods environment'
+    })
+  }
+
+  // TODO npm version
+  // TODO fastlane env
+
+  return errorList
+}
+
 function printDoctorReport (errorList) {
-  errorList.forEach(item => console.log(item))
+  if (errorList.length === 0) {
+    console.log('Everything is OK!')
+  } else {
+    errorList.forEach(item => console.log(item.desc))
+  }
 }
 
 
