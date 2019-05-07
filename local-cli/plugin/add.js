@@ -16,7 +16,7 @@ const author = require('child_process').execSync('whoami').toString().trim()
 
 function run (projectRoot, name) {
   // TODO 真正的安装之前需要检查一下是否已经安装过
-  let installCommand = `npm install ${name}`
+  let installCommand = `npm install ${name} --save`
 
   // TODO 自动添加 trident-plugin 前缀
   installCommand += ' --verbose'
@@ -25,7 +25,7 @@ function run (projectRoot, name) {
     execSync(installCommand, { stdio: 'inherit' })
 
     // TODO 先暴力一点用replace
-    const requireCallExpression = t.callExpression(t.identifier('require'), [t.stringLiteral('./' + name.replace('@unpourtous/trident-plugin-', ''))])
+    const requireCallExpression = t.callExpression(t.identifier('require'), [t.stringLiteral(name)])
     const newMember = t.memberExpression(requireCallExpression, t.identifier('default'))
 
     const moduleIndexPath = path.join(projectRoot, 'src/core/modules/index.js')
