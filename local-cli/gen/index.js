@@ -14,25 +14,18 @@ const t = require('@babel/types')
 const { insertElementInList } = require('../utils/codeEdit')
 
 const replaceInFile = require('replace-in-file')
+const pathConfig = require('../utils/pathConfig')
 
 const author = require('child_process').execSync('whoami').toString().trim()
 
 const config = {
-  testBasePath: 'src/__tests__/',
-  basePath: 'src/',
-  moduleTplPath: './scripts/gulp/codeTemplate/moduleTpl',
-  sceneTplPath: './scripts/gulp/codeTemplate/sceneTpl',
-
-  sceneTestTplPath: './scripts/gulp/codeTemplate/sceneTpl/SceneRender-test.js'
+  moduleTplPath: './node_modules/@unpourtous/trident/local-cli/gen/codeTemplate/moduleTpl',
+  sceneTplPath: './node_modules/@unpourtous/trident/local-cli/gen/codeTemplate/sceneTpl'
 }
 
-var appPath = config.basePath + 'core'
-var appTestPath = config.testBasePath
-var appModulesPath = path.join(config.basePath, 'core/modules')
-
 const existedModuleList = []
-fs.readdirSync(appModulesPath).forEach(file => {
-  var filePath = path.join(appModulesPath, file)
+fs.readdirSync(pathConfig.modulesPath).forEach(file => {
+  var filePath = path.join(pathConfig.modulesPath, file)
   var stat = fs.statSync(filePath)
   if (stat.isDirectory(filePath)) {
     existedModuleList.push(file)
@@ -109,7 +102,7 @@ function _generatorScene (moduleName) {
           process.exit()
         }
 
-        const modulePath = appPath + '/modules/' + moduleName + '/'
+        const modulePath = pathConfig.modulesPath + moduleName + '/'
         const existedSceneList = getSceneListUnderModulePath(modulePath)
 
         sceneName = sceneName.endsWith('Scene') ? sceneName : (sceneName + 'Scene')
@@ -120,7 +113,7 @@ function _generatorScene (moduleName) {
         }
 
         const sceneTplPath = config.sceneTplPath
-        const sceneDir = appPath + '/modules/' + moduleName + '/' + sceneName
+        const sceneDir = pathConfig.modulesPath + moduleName + '/' + sceneName
         const scenePath = `${path.join(sceneDir, sceneName)}.js`
         const servicePath = `${path.join(sceneDir, serviceName)}.js`
         const indexPath = `${path.join(sceneDir, 'index.js')}`
@@ -162,8 +155,8 @@ function _generatorModule () {
 
       // TODO 输入检查
       const moduleTplPath = config.moduleTplPath
-      const modulePath = appPath + '/modules/' + moduleName
-      const moduleIndexPath = appPath + '/modules/index.js'
+      const modulePath = pathConfig.modulesPath + moduleName
+      const moduleIndexPath = pathConfig.modulesPath + 'index.js'
 
       execSync(`cp -r ${moduleTplPath} ${modulePath}`)
 
@@ -189,7 +182,7 @@ function _generatorModule () {
  * @param moduleName
  */
 function fillModuleName (moduleName) {
-  const moduleIndexPath = path.join(config.basePath, `core/modules/${moduleName}/index.js`)
+  const moduleIndexPath = path.join(pathConfig.modulesPath, `${moduleName}/index.js`)
   replaceInFile.sync({ files: moduleIndexPath, from: /TplModuleName/g, to: moduleName })
 
   replaceAuthorAndCreateTime([moduleIndexPath, moduleIndexPath.replace('index', 'manifest')])

@@ -27,6 +27,7 @@ function run (root) {
       break
     }
     case 'env': {
+      // TODO 每条命令添加参数检查
       switch (subCmd) {
         case 'check': {
           const checkResult = require('./env').check()
@@ -46,6 +47,7 @@ function run (root) {
       break
     }
     case 'plugin': {
+      // TODO 每条命令添加参数检查
       switch (subCmd) {
         case 'add': {
           const pluginName = options._[2]
