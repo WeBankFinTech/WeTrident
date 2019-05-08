@@ -15,8 +15,8 @@ import { generateRouteName } from '../Navigation'
 
 let AppNavigator = require('./AppNavigator').default
 
-const createTridentNavigator = (routers) => {
-  const stackConfig = {
+const createTridentNavigator = (routers, navigationConfig) => {
+  const stackConfig = navigationConfig || {
     navigationOptions: {
       gesturesEnabled: true,
       headerBackTitle: null,

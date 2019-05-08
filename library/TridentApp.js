@@ -14,10 +14,17 @@ import connectModules from './connectModules'
 import { AppNavigator } from './navigation'
 
 export default class TridentApp extends Component {
+  static propTypes = {
+    reduxConfig: PropTypes.object,
+    navigationConfig: PropTypes.object
+  }
+
   constructor () {
     super(...arguments)
     const middlewares = []
-    middlewares.push(createLogger(require('./reduxConfig').default.logger))
+    
+    const {reduxConfig, navigationConfig} = this.props
+    middlewares.push(createLogger(reduxConfig || require('./reduxConfig').default.logger))
     console.ignoredYellowBox = [
       'Task orphaned for request',
       'source.uri should not be an empty string'
@@ -42,9 +49,9 @@ export default class TridentApp extends Component {
       return result
     })()
 
-   AppNavigator.init(flatRouters)
+    AppNavigator.init(flatRouters)
 
-    this.WeNavigator = createTridentNavigator(flatRouters)
+    this.WeNavigator = createTridentNavigator(flatRouters, navigationConfig)
 
     const store = createStore(
       combineAppReducers(undefined, connectedContainer, connectedModules, this.WeNavigator.MyStackNavigator),
@@ -60,7 +67,7 @@ export default class TridentApp extends Component {
     return (
       <Provider store={this.store}>
         {/*<this.props.containerComponent initProps={{ ...this.props }}>*/}
-          <Navigator />
+        <Navigator />
         {/*</this.props.containerComponent>*/}
       </Provider>
     )
