@@ -6,13 +6,13 @@ function checkAllVersion () {
       'node',
       'node --version | cut -d " " -f 3 | sed -e "s/[ |v]//g"',
       '8.0.0',
-      '3.9.0',
+      null,
       ''
     ),
     checkCmdAndVersion(
       'git',
       'git --version | cut -d " " -f 3 | sed -e "s/ //g"',
-      '3.9.0',
+      '2.9.0',
       null,
       ''
     ),
