@@ -57,7 +57,7 @@ if (fs.existsSync(cliPath)) {
 var commands = options._
 if (cli) {
   // 如果在Trident项目内，所有命令由local-cli接管
-  cli.run(path.resolve(options.name || '.'), options)
+  cli.run(path.resolve(options.name || '.'))
 } else {
   // 如果在Trident项目外，理论上说只需要支持 --version 和 init命令
   switch (commands[0]) {

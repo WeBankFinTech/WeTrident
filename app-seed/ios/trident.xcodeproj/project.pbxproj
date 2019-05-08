@@ -17,6 +17,7 @@
 		5F3636FE2276CE4500FAB548 /* libRCTNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302DC1ABCB9D200DB3ED1 /* libRCTNetwork.a */; };
 		5F3636FF2276CE4900FAB548 /* libRCTImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302C01ABCB91800DB3ED1 /* libRCTImage.a */; };
 		5F3637002276CE4D00FAB548 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		5FD334922282BA7300C79312 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		97CF071B89F8AE53D1BDCD92 /* libPods-Develop.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D2824CAD790E81059F0AA52 /* libPods-Develop.a */; };
 /* End PBXBuildFile section */
 
@@ -339,6 +340,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5FD334922282BA7300C79312 /* libRCTAnimation.a in Frameworks */,
 				5F3637002276CE4D00FAB548 /* libRCTText.a in Frameworks */,
 				5F3636FF2276CE4900FAB548 /* libRCTImage.a in Frameworks */,
 				5F3636FE2276CE4500FAB548 /* libRCTNetwork.a in Frameworks */,
