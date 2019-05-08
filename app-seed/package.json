@@ -33,7 +33,6 @@
     "@babel/types": "^7.4.0",
     "babel-jest": "23.6.0",
     "gulp-eslint": "^5.0.0",
-    "gulp-modify-file": "^1.0.1",
     "gulp-rename": "^1.4.0",
     "gulp-replace-src": "^0.0.1",
     "gulp-shell": "^0.6.5",
