@@ -5,13 +5,24 @@
  */
 import React, { Component } from 'react'
 import { View, Text } from 'react-native'
-import { AppNavigator } from '@unpourtous/trident'
+import { WeBaseScene } from '@unpourtous/trident'
 
-
-export default class DemoScene extends Component {
+export default class DemoScene extends WeBaseScene {
   static navigationOptions = ({ navigation: { state: { params = {} } } }) => ({
     headerTitle: params.title || 'DemoScene'
   })
+
+  constructor () {
+    super(...arguments)
+  }
+
+  onPause (fromScene, toScene) {
+    super.onPause(fromScene, toScene)
+  }
+
+  onResume (fromScene, toScene) {
+    super.onResume(fromScene, toScene)
+  }
 
   render () {
     return (

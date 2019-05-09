@@ -2,7 +2,6 @@
  * Created by erichua on 26/12/2017.
  */
 import React, { Component } from 'react'
-// import AppContainer from './container/AppContainer'
 import { TridentApp } from '@unpourtous/trident'
 
 export default class AppEntry extends Component {

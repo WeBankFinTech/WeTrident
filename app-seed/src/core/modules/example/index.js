@@ -3,8 +3,6 @@
  *
  * Created by erichua on 2019-04-23T03:47:47.051Z.
  */
-import { createSceneConnect } from '@unpourtous/trident'
-
 export default {
   moduleName: 'example',
   initialState: {

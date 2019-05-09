@@ -1,5 +1,3 @@
-import { createSceneConnect } from '@unpourtous/trident'
-
 const AppContainerConfig = {
   initialState: {
     globalCount: 0
@@ -15,4 +13,3 @@ const AppContainerConfig = {
 }
 
 export default AppContainerConfig
-// export default createGlobalConnect(AppContainerConfig)
