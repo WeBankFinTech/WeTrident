@@ -1,11 +1,13 @@
 import { combineReducers } from 'redux'
 
-export default (entryScene, connectedContainer, modules, navigator) => {
+export default (entryScene, connectedContainer, modules, navigator, stateChangeListener = () => {}) => {
   const createNavReducer = (entryScene, navigator) => {
     const entryAction = navigator.router.getActionForPathAndParams(entryScene)
     const initialState = navigator.router.getStateForAction(entryAction)
     return (state, action) => {
-      return navigator.router.getStateForAction(action, state || initialState)
+      const nextState = navigator.router.getStateForAction(action, state || initialState)
+      stateChangeListener(state, nextState, action)
+      return nextState
     }
   }
 

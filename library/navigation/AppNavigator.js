@@ -421,6 +421,27 @@ class AppNavigator {
     // 已登录并且已开户的情况，或者支持客人态访问的页面，不关心登录态
     this.navigator.props.navigation.navigate(routeName, params)
   }
+
+  /**
+   * 直接根据连接跳转
+   * @param url scene unique deep link with params
+   */
+  jumpBySchema (url) {
+    // TODO 根据URL跳转到新的URL
+  }
+
+  /**
+   * 添加跳转的前置Hook
+   * @param url
+   * @param match
+   */
+  addJumpPreHook (url, match) {
+    // TODO 添加链接跳转的前置检查，可以拦截、替换
+  }
+
+  addJumpPostHook (url, match) {
+    // TODO 跳转到某个页面以后会调用
+  }
 }
 
 const appNavigator = new AppNavigator()
