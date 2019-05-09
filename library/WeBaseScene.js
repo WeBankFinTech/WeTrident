@@ -6,10 +6,9 @@ import { Component } from 'react'
 import {
   Keyboard
 } from 'react-native'
-import RNEnv from 'utils/RNEnv'
-import { AppNavigator } from '../TridentProxy'
-import moment from 'moment'
+import AppNavigator from './navigation/AppNavigator'
 import _ from 'lodash'
+import { generateRouteName } from './NavigationUtils'
 
 export default class WeBaseScene extends Component {
   constructor () {
@@ -77,7 +76,8 @@ export default class WeBaseScene extends Component {
    */
   _onResumeBase (fromScene, toScene) {
     const sceneKey = this.props.navigation.state.key
-    console.log(_.get(this, 'props.sceneName', ''), 'onResume ', sceneKey, 'from: ' + fromScene, 'to: ' + toScene)
+    const sceneDetailName = generateRouteName(_.get(this, 'props.moduleName', ''), _.get(this, 'props.sceneName', ''))
+    console.log(`${sceneDetailName}(${sceneKey})`, 'onResume', 'from: ' + fromScene, 'to: ' + toScene)
   }
 
   /**
@@ -86,7 +86,8 @@ export default class WeBaseScene extends Component {
   _onPauseBase (fromScene, toScene) {
     Keyboard.dismiss()
     const sceneKey = this.props.navigation.state.routeName
-    console.log(_.get(this, 'props.sceneName', ''), 'onPause, ', sceneKey, 'from: ' + fromScene, 'to: ' + toScene)
+    const sceneDetailName = generateRouteName(_.get(this, 'props.moduleName', ''), _.get(this, 'props.sceneName', ''))
+    console.log(`${sceneDetailName}(${sceneKey})`, 'onPause', 'from: ' + fromScene, 'to: ' + toScene)
   }
 
   // handleAppStateChange (nextAppState) {
@@ -120,23 +121,5 @@ export default class WeBaseScene extends Component {
    */
   setParams (params) {
     this.props.navigation.setParams({ ...this._getParams({}), ...params })
-  }
-
-  /**
-   * 提供一个统一、快速的方法来设置redux state
-   * @param sceneState - 需要更新的状态
-   */
-  setSceneState (sceneState) {
-    if (RNEnv.isDev()) {
-      const {
-        moduleName,
-        sceneName
-      } = this.props
-      const title = `[call stack] ${moduleName}-${sceneName}/setSceneState 更新字段：${Object.keys(sceneState || {}).join(', ')}`
-      console.groupCollapsed(title)
-      console.trace('call stack')
-      console.groupEnd()
-    }
-    this.props.setSceneStateThatOnlyUseInner(sceneState)
   }
 }

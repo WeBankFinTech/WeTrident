@@ -1,6 +1,7 @@
 /**
  * add by lehuading
  * 生成routeName的函数
+ * TODO 处理路径相关到内容, 例如路径匹配判断
  */
 
 const routeNameSeparator = '/'

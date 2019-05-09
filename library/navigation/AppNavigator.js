@@ -3,7 +3,7 @@
  */
 import _ from 'lodash'
 import { NavigationActions } from 'react-navigation'
-import { generateRouteName, separateRouteName } from '../Navigation'
+import { generateRouteName, separateRouteName } from '../NavigationUtils'
 
 const isDyLoad = require('./dyConfig.json').isDyLoad
 
