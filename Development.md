@@ -1,3 +1,9 @@
+## 基础结构说明
+
+## 构建工具链开发
+### global-cli 
+### local-cli
+
 ## app-seed更新
 
 ## 插件开发
