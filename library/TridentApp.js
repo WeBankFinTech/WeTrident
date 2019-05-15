@@ -36,8 +36,8 @@ export default class TridentApp extends Component {
     const middleware = applyMiddleware(...middlewares)
 
     // 路由名称为`moduleName.sceneName`
-    const connectedContainer = createGlobalConnect(this.props.container)(this.props.container.component)
-    const connectedModules = connectModules(this.props.modules, connectedContainer)
+    this.connectedContainer = createGlobalConnect(this.props.container)(this.props.container.component)
+    const connectedModules = connectModules(this.props.modules, this.connectedContainer)
 
     const flatRouters = (() => {
       let result = {}
@@ -59,7 +59,7 @@ export default class TridentApp extends Component {
     const store = createStore(
       combineAppReducers(
         undefined,
-        connectedContainer,
+        this.connectedContainer,
         connectedModules,
         this.WeNavigator.MyStackNavigator,
         (state, nextState, action) => {
@@ -125,6 +125,7 @@ export default class TridentApp extends Component {
             AppNavigator.currentSceneURL = currentSceneURL
             // console.log('currentScene change')
           }
+          const navTimeConsuming = {}
           if (AppNavigator.currentScene && AppNavigator.currentScene.routeName) {
             const routeName = AppNavigator.currentScene.routeName
             if (action.type === 'Navigation/NAVIGATE') {
@@ -157,9 +158,9 @@ export default class TridentApp extends Component {
     const Navigator = this.WeNavigator.stackNavigator
     return (
       <Provider store={this.store}>
-        {/*<this.props.containerComponent initProps={{ ...this.props }}>*/}
+        <this.connectedContainer initProps={{ ...this.props }}>
         <Navigator />
-        {/*</this.props.containerComponent>*/}
+        </this.connectedContainer>
       </Provider>
     )
   }

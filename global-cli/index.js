@@ -1,18 +1,21 @@
 #!/usr/bin/env node
 const fs = require('fs')
 const path = require('path')
-const exec = require('child_process').exec
 const execSync = require('child_process').execSync
-const chalk = require('chalk')
-const prompt = require('prompt')
 const semver = require('semver')
-const replaceInFile = require('replace-in-file')
 const options = require('minimist')(process.argv.slice(2))
 
-var CLI_MODULE_PATH = function (useLocal) {
+/**
+ * @return {string}
+ */
+var CLI_MODULE_PATH = function () {
   // TODO 本地调试用
-  if (useLocal) {
-    return '/Users/erichua/Projects/UnPourTous/soga/local-cli/index.js'
+  if (process.env.useLocal) {
+    return path.resolve(
+      process.cwd(),
+      'local-cli',
+      'index.js'
+    )
   } else {
     return path.resolve(
       process.cwd(),
@@ -25,6 +28,9 @@ var CLI_MODULE_PATH = function (useLocal) {
   }
 }
 
+/**
+ * @return {string}
+ */
 var REACT_NATIVE_PACKAGE_JSON_PATH = function () {
   return path.resolve(
     process.cwd(),
@@ -49,7 +55,7 @@ if (options._.length === 0 && (options.v || options.version)) {
 }
 
 var cli
-var cliPath = CLI_MODULE_PATH(false)
+var cliPath = CLI_MODULE_PATH()
 if (fs.existsSync(cliPath)) {
   cli = require(cliPath)
 }
@@ -185,8 +191,8 @@ function createNewProject(root, projectName, options) {
   // checkNodeVersion();
 
   // 安装完成这时候一定是有的
-  cli = require(CLI_MODULE_PATH(false));
-  cli.init(root, projectName, options.bundleId);
+  cli = require(CLI_MODULE_PATH());
+  cli.init({root, projectName, bundleId: options.bundleId});
 }
 
 function getInstallPackage(rnPackage) {

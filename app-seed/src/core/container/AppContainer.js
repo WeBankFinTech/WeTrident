@@ -1,21 +1,38 @@
 import React, { Component } from 'react'
 
 import {
-  View
+  View,
+  Linking
 } from 'react-native'
+import { AppNavigator } from '@unpourtous/trident'
 
-import { PopupStub } from '@unpourtous/react-native-popup-stub'
-import PropTypes from 'prop-types'
-
-// import TianYan, { Dashboard } from '@unpourtous/tianyan-react-native'
-
-class AppContainer extends Component {
+export default class AppContainer extends Component {
   constructor (props) {
     super(props)
   }
 
+  componentDidMount () {
+    Linking.addEventListener('url', ({ url }) => this._handleOpenURL(url))
+
+    // deal with the first launch
+    Linking.getInitialURL().then(this._handleOpenURL)
+  }
+
+  componentWillUnmount () {
+    Linking.removeEventListener('url', ({ url }) => this._handleOpenURL(url))
+  }
+
+  _handleOpenURL (url) {
+    console.log(url)
+    if (!url) {
+      return
+    }
+
+    AppNavigator.jumpByURL(url)
+  }
+
   render () {
-    return <View onLayout={this._updateWindowSize} style={{
+    return <View style={{
       flex: 1,
       alignSelf: 'stretch',
       flexDirection: 'column',
@@ -26,5 +43,3 @@ class AppContainer extends Component {
     </View>
   }
 }
-
-export default AppContainer

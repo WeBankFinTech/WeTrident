@@ -15,6 +15,12 @@
 #### env check/setup
 此命令用于在使用 trident 前检查当前开发环境缺少的依赖，
 
+#### 调试本地命令
+cli 在开发过程中需要进行调试，所以，必然会有需要用本地的global-cli调用本地的local-cli的情况，现在的脚本中已经支持了这种方式。需要调试cli脚本，只需要运行如下
+```
+export useLocal=true && ./global-cli/index.js init testProj
+```
+
 ## app-seed更新
 
 ## 业务插件开发
@@ -44,5 +50,5 @@ xcrun simctl openurl booted trident-scheme:///example/DemoScene?title=TestSchema
 ```shell
 # Android模拟schema拉起
 adb shell am start -W -a android.intent.action.VIEW -d "trident-scheme:///example/DemoScene?title=TestSchemaJump" org.reactnative.example
-
 ```
+

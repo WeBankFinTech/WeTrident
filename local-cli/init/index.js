@@ -2,8 +2,10 @@ const fs = require('fs')
 const path = require('path')
 const execSync = require('child_process').execSync
 const replaceInFile = require('replace-in-file')
+const chalk = require('chalk')
 
 const shell = require('shelljs')
+const inquirer = require('inquirer')
 
 function init (root, projectName, bundleId) {
   const packageJson = {
@@ -29,30 +31,42 @@ function init (root, projectName, bundleId) {
 
   process.chdir(root)
 
-  let installCommand = `npm install https://github.com/erichua23/soga.git --exact`
-  installCommand += ' --verbose'
+  inquirer.prompt([{
+    type: 'input',
+    message: chalk.green('\nPlease input your app\'s scheme in lowercase, without \'://\', like \'trident-app\'\n'),
+    name: 'scheme'
+  }]).then(answers => {
+    const scheme = answers.scheme
+    if (!scheme) {
+      console.warn('scheme invalid')
+      return
+    }
+    // TODO 换到从npm拉取
+    let installCommand = `npm install https://github.com/erichua23/soga.git --exact`
+    installCommand += ' --verbose'
 
-  try {
-    execSync(installCommand, { stdio: 'inherit' })
+    try {
+      execSync(installCommand, { stdio: 'inherit' })
 
-    const appSeedPath = path.join(root, 'node_modules/@unpourtous/trident/app-seed')
-    execSync(`cp -r ${appSeedPath}/* ./`, { stdio: 'inherit' })
+      const appSeedPath = path.join(root, 'node_modules/@unpourtous/trident/app-seed')
+      execSync(`cp -r ${appSeedPath}/* ./`, { stdio: 'inherit' })
 
-    execSync('yarn --verbose', { stdio: 'inherit' })
+      execSync('yarn --verbose', { stdio: 'inherit' })
 
     // TODO delay this to ios build phase ?
     process.chdir('ios')
     execSync('pod install --verbose', { stdio: 'inherit' })
 
-    replaceName(root, projectName, bundleId)
-  } catch (err) {
-    console.error(err)
-    // console.error(`Command \`${installCommand}\` failed.`)
-    process.exit(1)
-  }
+      replaceName(root, projectName, bundleId, scheme)
+    } catch (err) {
+      console.error(err)
+      // console.error(`Command \`${installCommand}\` failed.`)
+      process.exit(1)
+    }
+  })
 }
 
-function replaceName (root, projectName, bundleId = 'test.cli.bundle') {
+function replaceName (root, projectName, bundleId = 'test.cli.bundle', scheme) {
   process.chdir(path.join(root, 'ios'))
   const targetProjectName = projectName + '.xcodeproj'
   const targetAppName = projectName + '.app'
@@ -100,6 +114,15 @@ function replaceName (root, projectName, bundleId = 'test.cli.bundle') {
     })
     console.log('bundle Modified files:', changes.join(', '))
 
+    changes = replaceInFile.sync({
+      files: [
+        'trident/Info.plist'
+      ],
+      from: /trident-scheme/g,
+      to: scheme,
+    })
+    console.log('bundle Modified files:', changes.join(', '))
+
     if (bundleName) {
       // replace bundle id
       const changes = replaceInFile.sync({
@@ -133,6 +156,13 @@ function replaceName (root, projectName, bundleId = 'test.cli.bundle') {
     ],
     from: /org.reactnative.example/g,
     to: bundleId,
+  })
+  changes = replaceInFile.sync({
+    files: [
+      'app/src/main/AndroidManifest.xml'
+    ],
+    from: /trident-scheme/g,
+    to: scheme,
   })
   console.log('bundle Modified files:', changes.join(', '))
 }

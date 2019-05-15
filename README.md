@@ -1,20 +1,14 @@
-# Trident React Native framework
+# soga
 
-``` shell
-# create a new trident setup project
-
-# create a new module 
-trident-cli gen module 
-
-# create a new scene (in a module)
-trident-cli gen scene 
-
-# publish a module to npm 
-trident-cli publish $moduleName
+## 技术栈
+```
+1. nvm
+2. node
+3. fastlane 打包
+4. gulp 
 ```
 
-# use wml when develop library
-``` shell 
-wml list 
-wml start
-```
+
+## Pod
+### 1. Pod 安装
+### pod install 

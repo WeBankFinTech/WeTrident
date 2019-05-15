@@ -3,7 +3,8 @@
  */
 import _ from 'lodash'
 import { NavigationActions } from 'react-navigation'
-import { generateRouteName, separateRouteName } from '../NavigationUtils'
+import { separateRouteName } from '../NavigationUtils'
+import URL from 'url'
 
 const isDyLoad = require('./dyConfig.json').isDyLoad
 
@@ -54,6 +55,7 @@ class AppNavigator {
   _getRealRouteNames (sceneNames) {
     return sceneNames.map((sceneName) => this._getRealRouteName(sceneName))
   }
+
   _getRealRouteName (sceneName) {
     const routeNames = this._getRouteNames()
     // 1. 标准的路由名称
@@ -71,7 +73,7 @@ class AppNavigator {
   }
 
   addOnResumeCallback (sceneName, callback) {
-      // 首次添加
+    // 首次添加
     this.lifecycleCallback.onResume[sceneName] = callback
     if (this.pendingLifecycleCallback[sceneName]) {
       callback(this.pendingLifecycleCallback[sceneName].fromScene, this.pendingLifecycleCallback[sceneName].toScene)
@@ -186,19 +188,19 @@ class AppNavigator {
     if (isReplaceBackRouter) {
       // 替换返回的那个页面
       for (let j = 0; j < currentRouteIndex; ++j) {
-        actions.push(NavigationActions.navigate({...routerStack[j]}))
+        actions.push(NavigationActions.navigate({ ...routerStack[j] }))
       }
     } else {
       // 保留返回的那个页面
       for (let j = 0; j <= currentRouteIndex; ++j) {
-        actions.push(NavigationActions.navigate({...routerStack[j]}))
+        actions.push(NavigationActions.navigate({ ...routerStack[j] }))
       }
     }
 
     if (_.isPlainObject(newRouter)) {
       if (newRouter.routeName) {
         newRouter.routeName = String(newRouter.routeName)
-        actions.push(NavigationActions.navigate({...newRouter}))
+        actions.push(NavigationActions.navigate({ ...newRouter }))
       } else {
         console.error('router must has key "routeName"')
       }
@@ -206,7 +208,7 @@ class AppNavigator {
       newRouter = this._getRealRouteName(String(newRouter))
       actions.push(NavigationActions.navigate({ routeName: newRouter }))
     }
-    const resetAction = NavigationActions.reset({index: actions.length - 1, actions})
+    const resetAction = NavigationActions.reset({ index: actions.length - 1, actions })
     this.navigator.props.navigation.dispatch(resetAction)
   }
 
@@ -338,7 +340,7 @@ class AppNavigator {
     if (screen && screen.navigationOptions) { // 一部分Scene，为在Scene级别定义
       if (typeof screen.navigationOptions === 'function') {
         try {
-          ret = screen.navigationOptions({navigation: {state: {params: {}}}})
+          ret = screen.navigationOptions({ navigation: { state: { params: {} } } })
         } catch (e) {
           console.log(e)
         }
@@ -364,7 +366,7 @@ class AppNavigator {
 
     if (navigationOptions && typeof navigationOptions === 'function') {
       try {
-        ret = navigationOptions({navigation: {state: {params: {}}}})
+        ret = navigationOptions({ navigation: { state: { params: {} } } })
       } catch (e) {
         console.log(e)
       }
@@ -423,65 +425,52 @@ class AppNavigator {
   }
 
   /**
-   * 直接根据连接跳转
-   * @param url scene unique deep link with params
-   */
-  jumpBySchema (url) {
-    // TODO 根据URL跳转到新的URL
-  }
-
-  /**
    * 添加跳转的前置Hook
+   * TODO 添加链接跳转的前置检查，可以拦截、替换
    * @param url
    * @param match
    */
   addJumpPreHook (url, match) {
-    // TODO 添加链接跳转的前置检查，可以拦截、替换
   }
 
+  /**
+   * TODO 跳转到某个页面以后会调用
+   */
   addJumpPostHook (url, match) {
-    // TODO 跳转到某个页面以后会调用
+  }
+
+  jumpByURL (url) {
+    const tPath = this._parseTridentPath(url)
+    if (!tPath) {
+      console.warn('unknow path', url)
+      return
+    }
+
+    if (this[tPath.moduleName] && this[tPath.moduleName][tPath.sceneName]) {
+      this[tPath.moduleName][tPath.sceneName](tPath.params)
+    }
+  }
+
+  /**
+   * 检查是否是一个trident合法的path
+   * @private
+   */
+  _parseTridentPath (url) {
+    const parsedUrl = URL.parse(url, true)
+    if (parsedUrl.pathname && /^\/\w+\/\w+$/.test(parsedUrl.pathname)) {
+      const arr = parsedUrl.pathname.split('/')
+      const moduleName = arr[1]
+      const sceneName = arr[2]
+      return {
+        moduleName,
+        sceneName,
+        params: parsedUrl.query
+      }
+    } else {
+      return null
+    }
   }
 }
 
 const appNavigator = new AppNavigator()
-
-if (isDyLoad) {
-  // Object.keys(require('./dynamic/dyRouterRequire').default).forEach(moduleKey => {
-  //   Object.defineProperty(appNavigator, moduleKey, {
-  //     get: function () {
-  //       const moduleName = moduleKey
-  //       let moduleReducer
-  //       if (!this._cachedModuleReducer[moduleName]) {
-  //         // console.time('DyLoadModule ' + moduleKey)
-  //         if (require('./dynamic/dyReducerRequire').default[moduleName]) {
-  //           moduleReducer = require('./dynamic/dyReducerRequire').default[moduleName]()
-  //         }
-  //
-  //         // 更新了reducer，需要replace一下
-  //         if (this.store) {
-  //           const createRootReducer = require('../../core/reducer').default
-  //           this.store.replaceReducer(createRootReducer(undefined, moduleName, moduleReducer))
-  //         }
-  //
-  //         // console.timeEnd('DyLoadModule ' + moduleKey)
-  //         this._cachedModuleReducer[moduleName] = moduleReducer
-  //       }
-  //
-  //       const dyNavMethods = {}
-  //       dyNavMethods[moduleName] = {}
-  //       if (require('./dynamic/dyRouterRequire').default[moduleName]) {
-  //         _.mapValues(require('./dynamic/dyRouterRequire').default[moduleName](), (router, sceneName) => {
-  //           const routeName = generateRouteName(moduleName, sceneName)
-  //           appNavigator.routersConfig[routeName] = router
-  //           const func = params => this._navigate(routeName, params, router)
-  //           func.toString = () => routeName
-  //           dyNavMethods[moduleName][sceneName] = func
-  //         })
-  //       }
-  //       return dyNavMethods[moduleName]
-  //     }
-  //   })
-  // })
-}
 export default appNavigator
