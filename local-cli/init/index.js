@@ -51,7 +51,7 @@ function init (root, projectName, bundleId) {
       const appSeedPath = path.join(root, 'node_modules/@unpourtous/trident/app-seed')
       execSync(`cp -r ${appSeedPath}/* ./`, { stdio: 'inherit' })
 
-      execSync('yarn --verbose', { stdio: 'inherit' })
+      execSync('npm install --verbose', { stdio: 'inherit' })
 
     // TODO delay this to ios build phase ?
     process.chdir('ios')
