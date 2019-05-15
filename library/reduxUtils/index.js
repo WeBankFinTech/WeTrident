@@ -10,7 +10,6 @@ import { connect } from 'react-redux'
 import _ from 'lodash'
 import RNEnv from '../RNEnv'
 import PropTypes from 'prop-types'
-// import {NotifyHelper} from 'apps/webankPro/serviceHelper'
 
 const GLOBAL_STATE_KEY = 'global'
 const GLOBAL_NAVIGATION_KEY = 'navigation'

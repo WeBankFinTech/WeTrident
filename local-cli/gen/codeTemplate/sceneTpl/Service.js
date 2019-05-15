@@ -5,7 +5,6 @@
  */
 
 // 常用的import
-// import { WeApi } from 'apps/webankPro/api'
 class TplService {
 }
 export default new TplService()

@@ -5,7 +5,6 @@
  */
 
 // 常用的import
-// import { WeApi } from 'apps/webankPro/api'
 class DemoService {
 }
 export default new DemoService()
