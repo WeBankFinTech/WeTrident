@@ -177,7 +177,7 @@ function createNewProject(root, projectName, options) {
   var installCommand;
   console.log('Installing ' + getInstallPackage(rnPackage) + '...')
 
-  installCommand = 'npm install --save --save-exact ' + getInstallPackage(rnPackage)
+  installCommand = 'yarn add ' + getInstallPackage(rnPackage)
   if (options.verbose) {
     installCommand += ' --verbose'
   }
@@ -196,14 +196,14 @@ function createNewProject(root, projectName, options) {
 }
 
 function getInstallPackage(rnPackage) {
-  var packageToInstall = '@unpourtous/trident';
-  var isValidSemver = semver.valid(rnPackage);
-  if (isValidSemver) {
-    packageToInstall += '@' + isValidSemver;
-  } else if (rnPackage) {
-    // for tar.gz or alternative paths
-    packageToInstall = rnPackage;
-  }
+  // var packageToInstall = '@unpourtous/trident';
+  // var isValidSemver = semver.valid(rnPackage);
+  // if (isValidSemver) {
+  //   packageToInstall += '@' + isValidSemver;
+  // } else if (rnPackage) {
+  // for tar.gz or alternative paths
+  // packageToInstall = rnPackage;
+  // }
   // return packageToInstall;
   // FIXME TODO 暂时写死，以后要改成，github发布npm，这里根据版本号去npm取
   return 'https://github.com/erichua23/soga.git --exact'

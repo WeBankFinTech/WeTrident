@@ -42,7 +42,7 @@ function init (root, projectName, bundleId) {
       return
     }
     // TODO 换到从npm拉取
-    let installCommand = `npm install https://github.com/erichua23/soga.git --exact`
+    let installCommand = `yarn add https://github.com/erichua23/soga.git`
     installCommand += ' --verbose'
 
     try {
@@ -51,7 +51,7 @@ function init (root, projectName, bundleId) {
       const appSeedPath = path.join(root, 'node_modules/@unpourtous/trident/app-seed')
       execSync(`cp -r ${appSeedPath}/* ./`, { stdio: 'inherit' })
 
-      execSync('npm install --verbose', { stdio: 'inherit' })
+      execSync('yarn --verbose', { stdio: 'inherit' })
 
     // TODO delay this to ios build phase ?
     process.chdir('ios')
@@ -118,7 +118,7 @@ function replaceName (root, projectName, bundleId = 'test.cli.bundle', scheme) {
       files: [
         'trident/Info.plist'
       ],
-      from: /trident-scheme/g,
+      from: /demo-scheme/g,
       to: scheme,
     })
     console.log('bundle Modified files:', changes.join(', '))
@@ -161,7 +161,7 @@ function replaceName (root, projectName, bundleId = 'test.cli.bundle', scheme) {
     files: [
       'app/src/main/AndroidManifest.xml'
     ],
-    from: /trident-scheme/g,
+    from: /demo-scheme/g,
     to: scheme,
   })
   console.log('bundle Modified files:', changes.join(', '))

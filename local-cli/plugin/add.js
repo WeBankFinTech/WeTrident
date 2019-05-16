@@ -11,7 +11,7 @@ var path = require('path')
 
 function run (projectRoot, name) {
   // TODO 真正的安装之前需要检查一下是否已经安装过
-  let installCommand = `npm install ${name} --save --verbose`
+  let installCommand = `yarn add ${name} --save --verbose`
 
   // TODO 自动添加 trident-plugin 前缀
   try {

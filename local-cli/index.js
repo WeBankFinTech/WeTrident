@@ -94,7 +94,6 @@ function checkEnv () {
 
   // TODO npm version
   // TODO fastlane env
-
   return errorList
 }
 
