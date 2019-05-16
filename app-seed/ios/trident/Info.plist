@@ -29,7 +29,7 @@
 			<string>org.reactjs.native.example</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>trident-scheme</string>
+				<string>demo-scheme</string>
 			</array>
 		</dict>
 	</array>
