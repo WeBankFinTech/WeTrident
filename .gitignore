@@ -59,6 +59,7 @@ ios/Pods/
 app-seed/ios/Pods/
 app-seed/package-lock.json
 app-seed/yarn.lock
+app-seed/ios/Podfile.lock
 
 fastlane/report.xml
 
