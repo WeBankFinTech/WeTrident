@@ -1,5 +1,5 @@
 {
-  "name": "@unpourtous/trident-cli",
+  "name": "@webank/trident-cli",
   "version": "1.0.5",
   "description": "",
   "main": "index.js",
