@@ -10,7 +10,8 @@ const options = require('minimist')(process.argv.slice(2))
  */
 var CLI_MODULE_PATH = function () {
   // TODO 本地调试用
-  if (process.env.useLocal) {
+  console.log(typeof process.env.useLocal)
+  if (process.env.useLocal === 'true') {
     return path.resolve(
       process.cwd(),
       'local-cli',
@@ -56,56 +57,56 @@ if (options._.length === 0 && (options.v || options.version)) {
 
 var cli
 var cliPath = CLI_MODULE_PATH()
+console.log(cliPath)
 if (fs.existsSync(cliPath)) {
   cli = require(cliPath)
 }
 
 var commands = options._
-if (cli) {
-  // 如果在Trident项目内，所有命令由local-cli接管
-  cli.run(path.resolve(options.name || '.'))
-} else {
-  // 如果在Trident项目外，理论上说只需要支持 --version 和 init命令
-  switch (commands[0]) {
-    case 'init':
-      if (!options.name) {
-        console.error(
-          'Usage: trident-cli init <ProjectName> [--verbose]'
-        )
-        process.exit(1)
+// 如果在Trident项目外，理论上说只需要支持 --version 和 init命令
+switch (commands[0]) {
+  case 'init':
+    if (!options.name) {
+      console.error(
+        'Usage: trident-cli init --name=$projectName [--verbose]'
+      )
+      process.exit(1)
+    } else {
+      const projectName = options.name
+
+      // TODO
+      validateProjectName(projectName)
+
+      if (fs.existsSync(projectName)) {
+        console.log(`${projectName} already existed, please remove it before create a new one `)
+        return
       } else {
-        const projectName = options.name
-
-        // TODO
-        validateProjectName(projectName)
-
-        if (fs.existsSync(projectName)) {
-          console.log(`${projectName} already existed, please remove it before create a new one `)
-          return
-        } else {
-          createProject(projectName, options)
-        }
+        createProject(projectName, options)
       }
-      break
-    default:
+    }
+    break
+  default:
+    if (cli) { // 如果在Trident项目内，所有命令由local-cli接管
+      cli.run(path.resolve(options.name || '.'))
+    } else {
       console.error(
         'Command `%s` unrecognized. ' +
         'Make sure that you have run `npm install` and that you are inside a react-native project.',
         commands[0]
       )
       process.exit(1)
-      break
-  }
+    }
+    break
 }
 
-function validateProjectName(name) {
+function validateProjectName (name) {
   if (!String(name).match(/^[$A-Z_][0-9A-Z_$]*$/i)) {
     console.error(
       '"%s" is not a valid name for a project. Please use a valid identifier ' +
       'name (alphanumeric).',
       name,
-    );
-    process.exit(1);
+    )
+    process.exit(1)
   }
 
   if (name === 'React') {
@@ -113,8 +114,8 @@ function validateProjectName(name) {
       '"%s" is not a valid name for a project. Please do not use the ' +
       'reserved word "React".',
       name,
-    );
-    process.exit(1);
+    )
+    process.exit(1)
   }
 }
 
@@ -144,17 +145,17 @@ function printUsageGuide () {
  * @param name project name
  * @param options arguments
  */
-function createProject(name, options) {
-  var root = path.resolve(name);
-  var projectName = path.basename(root);
+function createProject (name, options) {
+  var root = path.resolve(name)
+  var projectName = path.basename(root)
 
   console.log(
     'This will walk you through creating a new React Native project in',
     root
-  );
+  )
 
   if (!fs.existsSync(root)) {
-    fs.mkdirSync(root);
+    fs.mkdirSync(root)
   }
 
   var packageJson = {
@@ -164,17 +165,17 @@ function createProject(name, options) {
     scripts: {
       start: 'node node_modules/react-native/local-cli/cli.js start'
     }
-  };
-  fs.writeFileSync(path.join(root, 'package.json'), JSON.stringify(packageJson));
-  process.chdir(root);
+  }
+  fs.writeFileSync(path.join(root, 'package.json'), JSON.stringify(packageJson))
+  process.chdir(root)
 
-  createNewProject(root, projectName, options);
+  createNewProject(root, projectName, options)
 }
 
-function createNewProject(root, projectName, options) {
+function createNewProject (root, projectName, options) {
   // 自定义版本
-  const rnPackage = options.version;
-  var installCommand;
+  const rnPackage = options.version
+  var installCommand
   console.log('Installing ' + getInstallPackage(rnPackage) + '...')
 
   installCommand = 'yarn add ' + getInstallPackage(rnPackage)
@@ -182,20 +183,20 @@ function createNewProject(root, projectName, options) {
     installCommand += ' --verbose'
   }
   try {
-    execSync(installCommand, {stdio: 'inherit'});
+    execSync(installCommand, { stdio: 'inherit' })
   } catch (err) {
-    console.error(err);
-    console.error('Command `' + installCommand + '` failed.');
-    process.exit(1);
+    console.error(err)
+    console.error('Command `' + installCommand + '` failed.')
+    process.exit(1)
   }
   // checkNodeVersion();
 
   // 安装完成这时候一定是有的
-  cli = require(CLI_MODULE_PATH());
-  cli.init({root, projectName, bundleId: options.bundleId});
+  cli = require(CLI_MODULE_PATH())
+  cli.init({ root, projectName, bundleId: options.bundleId })
 }
 
-function getInstallPackage(rnPackage) {
+function getInstallPackage (rnPackage) {
   // var packageToInstall = '@unpourtous/trident';
   // var isValidSemver = semver.valid(rnPackage);
   // if (isValidSemver) {
