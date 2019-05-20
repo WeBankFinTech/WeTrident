@@ -6,6 +6,7 @@ const chalk = require('chalk')
 
 const shell = require('shelljs')
 const inquirer = require('inquirer')
+const env = require('../env.js')
 
 function init (root, projectName, bundleId) {
   const packageJson = {
@@ -42,16 +43,16 @@ function init (root, projectName, bundleId) {
       return
     }
     // TODO 换到从npm拉取
-    let installCommand = `yarn add https://github.com/erichua23/soga.git`
+    let installCommand = `${env.npm_install_xxx} @webank/trident`
     installCommand += ' --verbose'
 
     try {
       execSync(installCommand, { stdio: 'inherit' })
 
-      const appSeedPath = path.join(root, 'node_modules/@unpourtous/trident/app-seed')
+      const appSeedPath = path.join(root, 'node_modules/@webank/trident/app-seed')
       execSync(`cp -r ${appSeedPath}/* ./`, { stdio: 'inherit' })
 
-      execSync('yarn --verbose', { stdio: 'inherit' })
+      execSync(`${env.npm_install_all} --verbose`, { stdio: 'inherit' })
 
     // TODO delay this to ios build phase ?
     process.chdir('ios')

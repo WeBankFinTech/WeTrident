@@ -6,12 +6,13 @@ var _ = require('lodash')
 // var dyRouter = require('../dyLoad/astTransformRouter.1')
 const t = require('@babel/types')
 const { insertElementInList } = require('../utils/codeEdit')
+const env = require('../env.js')
 
 var path = require('path')
 
 function run (projectRoot, name) {
   // TODO 真正的安装之前需要检查一下是否已经安装过
-  let installCommand = `yarn add ${name} --verbose`
+  let installCommand = `${env.npm_install_xxx} ${name} --verbose`
 
   // TODO 自动添加 trident-plugin 前缀
   try {

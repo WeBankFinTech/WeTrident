@@ -4,6 +4,7 @@ const path = require('path')
 const execSync = require('child_process').execSync
 const semver = require('semver')
 const options = require('minimist')(process.argv.slice(2))
+const env = require('./env.js')
 
 /**
  * @return {string}
@@ -21,7 +22,7 @@ var CLI_MODULE_PATH = function () {
     return path.resolve(
       process.cwd(),
       'node_modules',
-      '@unpourtous',
+      '@webank',
       'trident',
       'local-cli',
       'index.js'
@@ -36,7 +37,7 @@ var REACT_NATIVE_PACKAGE_JSON_PATH = function () {
   return path.resolve(
     process.cwd(),
     'node_modules',
-    '@unpourtous',
+    '@webank',
     'trident',
     'package.json'
   )
@@ -172,13 +173,19 @@ function createProject (name, options) {
   createNewProject(root, projectName, options)
 }
 
+/**
+ * 下载trident用于创建项目
+ * @param root
+ * @param projectName
+ * @param options
+ */
 function createNewProject (root, projectName, options) {
   // 自定义版本
   const rnPackage = options.version
   var installCommand
   console.log('Installing ' + getInstallPackage(rnPackage) + '...')
 
-  installCommand = 'yarn add ' + getInstallPackage(rnPackage)
+  installCommand = env.npm_install_xxx + getInstallPackage(rnPackage)
   if (options.verbose) {
     installCommand += ' --verbose'
   }
@@ -193,7 +200,7 @@ function createNewProject (root, projectName, options) {
 
   // 安装完成这时候一定是有的
   cli = require(CLI_MODULE_PATH())
-  cli.init({ root, projectName, bundleId: options.bundleId })
+  cli.init(root, projectName, options.bundleId)
 }
 
 function getInstallPackage (rnPackage) {
@@ -207,7 +214,7 @@ function getInstallPackage (rnPackage) {
   // }
   // return packageToInstall;
   // FIXME TODO 暂时写死，以后要改成，github发布npm，这里根据版本号去npm取
-  return 'https://github.com/erichua23/soga.git --exact'
+  return '@webank/trident --exact'
 }
 
 function printVersionsAndExit (reactNativePackageJsonPath) {
