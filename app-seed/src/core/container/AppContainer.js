@@ -4,7 +4,7 @@ import {
   View,
   Linking
 } from 'react-native'
-import { AppNavigator } from '@unpourtous/trident'
+import { AppNavigator } from '@webank/trident'
 
 export default class AppContainer extends Component {
   constructor (props) {

@@ -5,7 +5,7 @@
  */
 import React, { Component } from 'react'
 import { View, Text } from 'react-native'
-import { WeBaseScene } from '@unpourtous/trident'
+import { WeBaseScene } from '@webank/trident'
 
 export default class DemoScene extends WeBaseScene {
   static navigationOptions = ({ navigation: { state: { params = {} } } }) => ({
