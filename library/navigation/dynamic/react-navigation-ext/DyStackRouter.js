@@ -6,7 +6,7 @@ import pathToRegexp from 'path-to-regexp';
 import {
   NavigationActions,
   StateUtils,
-} from 'react-navigation'
+} from '@unpourtous/react-navigation'
 
 import createConfigGetter from 'react-navigation/src/routers/createConfigGetter';
 import getScreenForRouteName from 'react-navigation/src/routers/getScreenForRouteName';

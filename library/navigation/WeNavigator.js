@@ -4,7 +4,7 @@ import {
 } from 'react-native'
 import {
   addNavigationHelpers
-} from 'react-navigation'
+} from '@unpourtous/react-navigation'
 import { connect } from 'react-redux'
 // import NavBackButton from '../bizComponents/button/NavBackButton'
 import {
@@ -37,7 +37,7 @@ const createTridentNavigator = (routers, navigationConfig) => {
 
 // 第一个参数是Router的配置，原始的StackNavigator只支持传入对象
 
-  MyStackNavigator = require('react-navigation').StackNavigator(routers, stackConfig)
+  MyStackNavigator = require('@unpourtous/react-navigation').StackNavigator(routers, stackConfig)
 
 // Note: createReactNavigationReduxMiddleware must be run before createReduxBoundAddListener
   const navReduxMiddleware = createReactNavigationReduxMiddleware(

@@ -5,7 +5,7 @@ import {
   createNavigationContainer,
   CardStackTransitioner,
   NavigationActions
-} from 'react-navigation'
+} from '@unpourtous/react-navigation'
 import DyStackRouter from './DyStackRouter';
 
 // A stack navigators props are the intersection between

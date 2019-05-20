@@ -2,7 +2,7 @@
  * Created by erichua on 28/12/2017.
  */
 import _ from 'lodash'
-import { NavigationActions } from 'react-navigation'
+import { NavigationActions } from '@unpourtous/react-navigation'
 import { separateRouteName } from '../NavigationUtils'
 import URL from 'url'
 
