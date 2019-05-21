@@ -19,8 +19,8 @@ const pathConfig = require('../utils/pathConfig')
 const author = require('child_process').execSync('whoami').toString().trim()
 
 const config = {
-  moduleTplPath: './node_modules/@unpourtous/trident/local-cli/gen/codeTemplate/moduleTpl',
-  sceneTplPath: './node_modules/@unpourtous/trident/local-cli/gen/codeTemplate/sceneTpl'
+  moduleTplPath: './node_modules/@webank/trident/local-cli/gen/codeTemplate/moduleTpl',
+  sceneTplPath: './node_modules/@webank/trident/local-cli/gen/codeTemplate/sceneTpl'
 }
 
 const existedModuleList = []

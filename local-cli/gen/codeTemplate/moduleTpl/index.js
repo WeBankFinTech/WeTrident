@@ -3,7 +3,7 @@
  *
  * Created by {{author}} on {{createAt}}.
  */
-import { createSceneConnect } from '@unpourtous/trident'
+import { createSceneConnect } from '@webank/trident'
 
 export default {
   moduleName: 'TplModuleName',

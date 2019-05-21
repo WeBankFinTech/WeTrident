@@ -204,7 +204,7 @@ function createNewProject (root, projectName, options) {
 }
 
 function getInstallPackage (rnPackage) {
-  // var packageToInstall = '@unpourtous/trident';
+  // var packageToInstall = '@webank/trident';
   // var isValidSemver = semver.valid(rnPackage);
   // if (isValidSemver) {
   //   packageToInstall += '@' + isValidSemver;
