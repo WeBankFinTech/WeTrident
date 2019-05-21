@@ -62,6 +62,12 @@ app-seed/yarn.lock
 app-seed/ios/Podfile.lock
 app-seed/ios/build/
 
+libraryDev/ios/Pods/
+libraryDev/package-lock.json
+libraryDev/yarn.lock
+libraryDev/ios/Podfile.lock
+libraryDev/ios/build/
+
 fastlane/report.xml
 
 lab/
