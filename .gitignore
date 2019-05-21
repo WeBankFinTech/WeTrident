@@ -67,6 +67,7 @@ libraryDev/package-lock.json
 libraryDev/yarn.lock
 libraryDev/ios/Podfile.lock
 libraryDev/ios/build/
+libraryDev/node_modules/
 
 fastlane/report.xml
 
