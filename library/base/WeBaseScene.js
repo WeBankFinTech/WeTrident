@@ -6,9 +6,9 @@ import { Component } from 'react'
 import {
   Keyboard
 } from 'react-native'
-import AppNavigator from './navigation/AppNavigator'
+import AppNavigator from '../navigation/AppNavigator'
 import _ from 'lodash'
-import { generateRouteName } from './NavigationUtils'
+import { generateRouteName } from '../navigation/NavigationUtils'
 
 export default class WeBaseScene extends Component {
   constructor () {

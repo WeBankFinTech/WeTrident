@@ -6,14 +6,14 @@ import thunk from 'redux-thunk'
 import { createLogger } from 'redux-logger'
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
-import combineAppReducers from './combineAppReducers'
+import combineAppReducers from './reduxUtils/combineAppReducers'
 import createTridentNavigator from './navigation/WeNavigator'
-import { generateRouteName } from './NavigationUtils'
+import { generateRouteName } from './navigation/NavigationUtils'
 import { createGlobalConnect } from './reduxUtils'
-import connectModules from './connectModules'
+import connectModules from './reduxUtils/connectModules'
 import { AppNavigator } from './navigation'
 import _ from 'lodash'
-import URLUtils from './URLUtils'
+import URLUtils from './utils/URLUtils'
 import PropTypes from 'prop-types'
 
 export default class TridentApp extends Component {
@@ -27,7 +27,7 @@ export default class TridentApp extends Component {
     const middlewares = []
     
     const {reduxConfig, navigationConfig} = this.props
-    middlewares.push(createLogger(reduxConfig || require('./reduxConfig').default.logger))
+    middlewares.push(createLogger(reduxConfig || require('./reduxUtils/reduxConfig').default.logger))
     console.ignoredYellowBox = [
       'Task orphaned for request',
       'source.uri should not be an empty string'

@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { createModuleConnect, createSceneConnect } from './reduxUtils'
+import { createModuleConnect, createSceneConnect } from './index.js'
 
 export default (moduleList, container) => {
   const reducers = {}

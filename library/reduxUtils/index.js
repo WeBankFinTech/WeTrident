@@ -8,7 +8,7 @@ import {
 } from 'redux-actions'
 import { connect } from 'react-redux'
 import _ from 'lodash'
-import RNEnv from '../RNEnv'
+import RNEnv from '../utils/RNEnv'
 import PropTypes from 'prop-types'
 
 const GLOBAL_STATE_KEY = 'global'

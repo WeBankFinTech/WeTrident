@@ -1,9 +1,11 @@
 import TridentApp from './TridentApp'
 import AppNavigator from './navigation/AppNavigator'
-import WeBaseScene from './WeBaseScene'
+import WeBaseScene from './base/WeBaseScene'
 
 export {
-  AppNavigator,
   TridentApp,
+
+  AppNavigator,
+
   WeBaseScene
 }
