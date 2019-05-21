@@ -34,6 +34,12 @@ export useLocal=true && ./global-cli/index.js init testProj
 ## trident library开发
 trident是一套开发方案，其中提供的核心能力均在 trident/library中实现，为了开发 library, 项目中有一个libraryDev工程，这个功能主要用于libraryDev的展示，libraryDev工程不会发布到npm，但是会在git库中管理，libraryDev像一个正常的trident工程一样依赖 `@unpurtous/trident`，唯一区别是在开发过程中我们会启动`wml`来将 trident/library 实时同步覆盖 `libraryDev/node_modules/@unpourtous/trident/library/`，如此可以方便的看到改动效果。`wml`的具体用法见 `https://github.com/wix/wml` 
 
+```
+watchman watch ./library
+wml add library/ libraryDev/node_modules/@webank/trident/library/
+wml start
+```
+
 ## npm scripts VS gulp VS trident-cli
 这三者可能某些开发者会觉得搞不清楚各自的应用范围。
 1. npm scripts 用于开发库的过程。库开发者使用
