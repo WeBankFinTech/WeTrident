@@ -457,18 +457,11 @@ class AppNavigator {
    */
   _parseTridentPath (url) {
     const parsedUrl = URL.parse(url, true)
-    if (parsedUrl.pathname && /^\/\w+\/\w+$/.test(parsedUrl.pathname)) {
-      const arr = parsedUrl.pathname.split('/')
-      const moduleName = arr[1]
-      const sceneName = arr[2]
-      return {
-        moduleName,
-        sceneName,
-        params: parsedUrl.query
-      }
-    } else {
+    const routeObj = separateRouteName(url)
+    if (!routeObj.moduleName) {
       return null
     }
+    return routeObj
   }
 }
 

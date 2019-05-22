@@ -23,10 +23,20 @@ const generateRouteName = (moduleName, sceneName) => {
  */
 const separateRouteName = (routeName) => {
   if (typeof routeName === 'string') {
-    let temp = String(routeName || '').split(routeNameSeparator)
-    return {
-      moduleName: temp[0],
-      sceneName: temp[1]
+    const URL = require('url')
+    const url = URL.parse('https:///' + routeName, true)
+    let temp = String(url.pathname).split(routeNameSeparator)
+    if (url.pathname && /^\/\w+\/\w+$/.test(url.pathname)) {
+      const result = {
+        moduleName: temp[1],
+        sceneName: temp[2],
+      }
+      if (Object.keys(url.query).length > 0) {
+        result.params = url.query
+      }
+      return result
+    } else {
+      return {}
     }
   } else {
     return {}
@@ -64,8 +74,8 @@ const compareRoute = (routeA, routeB) => {
   const bURL = URL.parse('https:///' + routeB, true)
 
   if (aURL.pathname === bURL.pathname) {
-    const aKeysLength = Object.keys(aURL.query || {}).length
-    const bKeysLength = Object.keys(bURL.query || {}).length
+    const aKeysLength = Object.keys(aURL.query).length
+    const bKeysLength = Object.keys(bURL.query).length
     if (aKeysLength === bKeysLength) {
       if (_.isEqual(aURL.query, bURL.query)) {
         return RouteCompareResult.equal
@@ -77,12 +87,12 @@ const compareRoute = (routeA, routeB) => {
       let maybeSuperset = {}
       let subset
       if (aKeysLength < bKeysLength) {
-        maybeSubset = aURL.query || {}
-        maybeSuperset = bURL.query || {}
+        maybeSubset = aURL.query
+        maybeSuperset = bURL.query
         subset = 'A'
       } else {
-        maybeSubset = bURL.query || {}
-        maybeSuperset = aURL.query || {}
+        maybeSubset = bURL.query
+        maybeSuperset = aURL.query
         subset = 'B'
       }
 
@@ -102,6 +112,8 @@ const compareRoute = (routeA, routeB) => {
       }
       return RouteCompareResult.diff
     }
+  } else {
+    return RouteCompareResult.diff
   }
 }
 
