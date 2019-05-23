@@ -17,15 +17,17 @@
   "homepage": "https://github.com/erichua23/soga#readme",
   "description": "",
   "dependencies": {
-    "minimist": "^1.2.0",
-    "shelljs": "^0.8.3",
-    "replace-in-file": "^3.4.4",
     "@babel/parser": "^7.4.3",
     "@babel/traverse": "^7.4.3",
     "@babel/types": "^7.4.0",
+    "@unpourtous/react-native-popup-stub": "^1.4.6",
+    "@unpourtous/react-native-touchable": "^1.0.3",
     "babel-generator": "^6.26.1",
     "inquirer": "^6.3.1",
-    "node-version-compare": "^1.0.2"
+    "minimist": "^1.2.0",
+    "node-version-compare": "^1.0.2",
+    "replace-in-file": "^3.4.4",
+    "shelljs": "^0.8.3"
   },
   "devDependencies": {
     "babel-jest": "^24.8.0",

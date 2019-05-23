@@ -15,6 +15,7 @@ import { AppNavigator } from './navigation'
 import _ from 'lodash'
 import URLUtils from './utils/URLUtils'
 import PropTypes from 'prop-types'
+import { PopupStub } from '@unpourtous/react-native-popup-stub'
 
 export default class TridentApp extends Component {
   static propTypes = {
@@ -160,6 +161,9 @@ export default class TridentApp extends Component {
       <Provider store={this.store}>
         <this.connectedContainer initProps={{ ...this.props }}>
         <Navigator />
+        <PopupStub maskColor='rgba(0,0,0,0.75)' ref={_ref => {
+          if (_ref) PopupStub.init(_ref)
+        }} />
         </this.connectedContainer>
       </Provider>
     )
