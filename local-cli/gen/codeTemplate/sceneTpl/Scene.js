@@ -5,10 +5,10 @@
  */
 import React, { Component } from 'react'
 import { View, Text } from 'react-native'
-import { AppNavigator } from '@webank/trident'
+import { AppNavigator, WeBaseScene } from '@webank/trident'
 
 
-export default class TplScene extends Component {
+export default class TplScene extends WeBaseScene {
   static navigationOptions = ({ navigation: { state: { params = {} } } }) => ({
     headerTitle: params.title || 'TplScene'
   })
