@@ -23,7 +23,6 @@ export default class AppContainer extends Component {
   }
 
   _handleOpenURL (url) {
-    console.log(url)
     if (!url) {
       return
     }

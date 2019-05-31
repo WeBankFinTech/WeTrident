@@ -77,7 +77,7 @@ export default class WeBaseScene extends Component {
   _onResumeBase (fromScene, toScene) {
     const sceneKey = this.props.navigation.state.key
     const sceneDetailName = generateRouteName(_.get(this, 'props.moduleName', ''), _.get(this, 'props.sceneName', ''))
-    console.log(`${sceneDetailName}(${sceneKey})`, 'onResume', `${fromScene} --> ${toScene}`)
+    console.log(`🐈${sceneDetailName}(${sceneKey})`, 'onResume', `${fromScene} --> ${toScene}`)
   }
 
   /**
@@ -87,7 +87,7 @@ export default class WeBaseScene extends Component {
     Keyboard.dismiss()
     const sceneKey = this.props.navigation.state.routeName
     const sceneDetailName = generateRouteName(_.get(this, 'props.moduleName', ''), _.get(this, 'props.sceneName', ''))
-    console.log(`${sceneDetailName}(${sceneKey})`, 'onPause', `${fromScene} --> ${toScene}`)
+    console.log(`🐈${sceneDetailName}(${sceneKey})`, 'onPause', `${fromScene} --> ${toScene}`)
   }
 
   // handleAppStateChange (nextAppState) {
