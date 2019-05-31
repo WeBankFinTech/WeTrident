@@ -1,15 +1,21 @@
-let env = {}
-
-if (process.env.internal) {
-  env = {
-    npm_install_xxx: 'wnpm install ',
-    npm_install_all: 'wnpm install '
-  }
-} else {
-  env = {
-    npm_install_xxx: 'yarn add ',
-    npm_install_all: 'yarn '
-  }
+let npmClient = 'yarn'
+if (['npm', 'wnpm', 'yarn'].includes(process.env.npmClient)) {
+  npmClient = process.env.npmClient
 }
 
-module.exports = env
+const config = {
+  wnpm: {
+    npm_install_xxx: 'wnpm install ',
+    npm_install_all: 'wnpm install '
+  },
+  npm: {
+    npm_install_xxx: 'npm install ',
+    npm_install_all: 'npm install '
+  },
+  yarn: {
+    npm_install_xxx: 'yarn add ',
+    npm_install_all: 'yarn '
+  },
+}
+
+module.exports = config[npmClient]

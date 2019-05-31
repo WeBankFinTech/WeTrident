@@ -6,6 +6,9 @@ const semver = require('semver')
 const options = require('minimist')(process.argv.slice(2))
 const env = require('./env.js')
 
+console.log('npmClient: ', process.env.npmClient)
+console.log('useLocal: ', process.env.useLocal)
+
 /**
  * @return {string}
  */
