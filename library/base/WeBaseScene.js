@@ -9,6 +9,7 @@ import {
 import AppNavigator from '../navigation/AppNavigator'
 import _ from 'lodash'
 import { generateRouteName } from '../navigation/NavigationUtils'
+import RNEnv from '../utils/RNEnv'
 
 export default class WeBaseScene extends Component {
   constructor () {
@@ -90,20 +91,23 @@ export default class WeBaseScene extends Component {
     console.log(`🐈${sceneDetailName}(${sceneKey})`, 'onPause', `${fromScene} --> ${toScene}`)
   }
 
-  // handleAppStateChange (nextAppState) {
-  //   if (AppState.currentState && AppState.currentState.match(/inactive|background/) && nextAppState === 'active') {
-  //     this.stayStartTime = moment()
-  //   } else if (AppState.currentState && AppState.currentState.match(/inactive|active/) && nextAppState === 'background') {
-  //     this.stayEndTime = moment()
-  //     if (AppNavigator.currentScene && this.sceneUrl === AppNavigator.currentSceneURL) {
-  //       if (this.stayStartTime) {
-  //         // TODO 页面停留时长上报
-  //         Statistics.reportSceneStayTime(this.stayStartTime, this.stayEndTime, this.sceneUrl, 'home')
-  //       }
-  //     }
-  //   }
-  // }
-
+  /**
+   * 提供一个统一、快速的方法来设置redux state
+   * @param sceneState - 需要更新的状态
+   */
+  setSceneState (sceneState) {
+    if (RNEnv.isDev()) {
+      const {
+        moduleName,
+        sceneName
+      } = this.props
+      const title = `[call stack] ${moduleName}-${sceneName}/setSceneState 更新字段：${Object.keys(sceneState || {}).join(', ')}`
+      console.groupCollapsed(title)
+      console.trace('call stack')
+      console.groupEnd()
+    }
+    this.props.setSceneStateThatOnlyUseInner(sceneState)
+  }
 
   /**
    * 获取上一个页面传入的参数
