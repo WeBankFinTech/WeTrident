@@ -1,3 +1,16 @@
+
+# Trident App Framework
+
+## 技术栈
+```
+1. nvm
+2. node
+3. fastlane
+4. gulp 
+5. cocospod
+```
+
+
 ## 基础结构说明
 ![](2019-05-14-14-10-08.png)
 2. 
