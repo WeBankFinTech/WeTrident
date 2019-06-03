@@ -1,11 +1,12 @@
 const checkCmdAndVersion = require('./_checkEnv')
+const chalk = require('chalk')
 
 function checkAllVersion () {
   return [
     checkCmdAndVersion(
       'node',
       'node --version | cut -d " " -f 3 | sed -e "s/[ |v]//g"',
-      '8.0.0',
+      '8.3.0',
       null,
       ''
     ),
@@ -34,10 +35,16 @@ function checkAllVersion () {
 }
 
 function installAllDeps () {
+}
 
+function logError (checkResult) {
+  checkResult.map(item => item.msg).filter(item => !!item).forEach(item => {
+    console.log(chalk.red(item))
+  })
 }
 module.exports = {
   check: checkAllVersion,
-  setup: installAllDeps
+  setup: installAllDeps,
+  logError
 }
 

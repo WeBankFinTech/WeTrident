@@ -14,8 +14,8 @@ console.log('useLocal: ', process.env.useLocal)
  */
 var CLI_MODULE_PATH = function () {
   // TODO 本地调试用
-  console.log(typeof process.env.useLocal)
   if (process.env.useLocal === 'true') {
+    // 本地开发调试时使用
     return path.resolve(
       process.cwd(),
       'local-cli',
@@ -61,15 +61,24 @@ if (options._.length === 0 && (options.v || options.version)) {
 
 var cli
 var cliPath = CLI_MODULE_PATH()
-console.log(cliPath)
 if (fs.existsSync(cliPath)) {
   cli = require(cliPath)
 }
 
 var commands = options._
+
+
 // 如果在Trident项目外，理论上说只需要支持 --version 和 init命令
 switch (commands[0]) {
   case 'init':
+    // 先检查环境是否支持，引导安装
+    const {check, logError} = require('./env/index.js')
+    const checkResult = check()
+    if (checkResult.length > 0) {
+      logError(checkResult)
+      return
+    }
+
     if (!options.name) {
       console.error(
         'Usage: trident-cli init --name=$projectName [--verbose]'
@@ -89,6 +98,14 @@ switch (commands[0]) {
       }
     }
     break
+  case 'env': {
+    const {check, logError} = require('./env/index.js')
+    const checkResult = check()
+    if (checkResult.length > 0) {
+      logError(checkResult)
+    }
+    break
+  }
   default:
     if (cli) { // 如果在Trident项目内，所有命令由local-cli接管
       cli.run(path.resolve(options.name || '.'))

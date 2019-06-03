@@ -26,26 +26,26 @@ function run (root) {
       }
       break
     }
-    case 'env': {
-      // TODO 每条命令添加参数检查
-      switch (subCmd) {
-        case 'check': {
-          const checkResult = require('./env').check()
-          checkResult.forEach(item => {
-            console.log(item)
-          })
-          if (checkResult) {
-            console.log('Everything is OK!')
-          }
-          break
-        }
-        case 'setup': {
-          const checkResult = require('./env').check()
-          require('./env').setup(checkResult)
-        }
-      }
-      break
-    }
+    // case 'env': {
+    //   // TODO 每条命令添加参数检查
+    //   switch (subCmd) {
+    //     case 'check': {
+    //       const checkResult = require('./env').check()
+    //       checkResult.forEach(item => {
+    //         console.log(item)
+    //       })
+    //       if (checkResult) {
+    //         console.log('Everything is OK!')
+    //       }
+    //       break
+    //     }
+    //     case 'setup': {
+    //       const checkResult = require('./env').check()
+    //       require('./env').setup(checkResult)
+    //     }
+    //   }
+    //   break
+    // }
     case 'plugin': {
       // TODO 每条命令添加参数检查
       switch (subCmd) {
