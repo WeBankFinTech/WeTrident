@@ -36,7 +36,7 @@ trident-cli init --name=weBookStore --bundleId=com.trident.wbstore
 
 等待所有依赖安装完成即可。
 
-#### 启动应用(iOS)
+#### 3. 启动应用(iOS)
 ``` shell 
 cd WeBookStore
 # 在XCode中打开项目
@@ -48,7 +48,7 @@ npm run start
 
 恭喜你，到这里你已经成功到创建并运行了一个新的Trident工程。
 
-#### 启动应用(iOS)
+#### 4. 启动应用(Android)
 用Android Studio打开项目运行即可
 
 # 代码结构和模版工具
