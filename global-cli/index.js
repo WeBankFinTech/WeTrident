@@ -108,7 +108,7 @@ function validateProjectName (name) {
     console.error(
       '"%s" is not a valid name for a project. Please use a valid identifier ' +
       'name (alphanumeric).',
-      name,
+      name
     )
     process.exit(1)
   }

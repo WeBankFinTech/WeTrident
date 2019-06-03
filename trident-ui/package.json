@@ -1,6 +1,6 @@
 {
   "name": "@webank/trident-ui",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple ui library for trident",
   "main": "index.js",
   "scripts": {
