@@ -73,6 +73,7 @@ book
 about
     VersionScene // 版本信息页
 ```
+
 ## 生成模块 && Scene
 ``` shell
 trident-cli gen module
@@ -93,6 +94,10 @@ PS: 此时我们可以移除测试模块 `example` 了，移除一个模块非�
 主要的页面已经生成，可能你已经迫不及待的想试一下让页面串联起来。在Trident App中你可以非常轻松的通过模块名和页面名进行跳转。通过 AppNavigator.$moduleName.$sceneName()即可完成跳转。
 ## 普通跳转
 按上面规则，可以改写BookListScene如下，完成到BookDetailScene的跳转。
+
+```jsx
+// modules/book/BookListScene/BookListScene.js
+
 /**
  * 负责用户交互逻辑
  *
@@ -122,6 +127,8 @@ export default class BookListScene extends Component {
     )
   }
 }
+
+```
 
 ## 带参数跳转
 上面显示的是一种非常普通的跳转情况，那如果我们需要带参数跳到下个页面如何携带并在下一个页面获取呢？下面展示如何使用跳转参数： 
