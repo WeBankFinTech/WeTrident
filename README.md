@@ -1,34 +1,34 @@
-# Trident的目标
+## Trident的目标
 可快速开发支持商业运营的App框架。
 
-# Trident的开发背景
+## Trident的开发背景
 很多开发者会发现开发完成一套App，仅仅开发业务功能可以很快，但是开发完以后，为了配合运营，需要开发很多额外的功能，这些功能是有一定共性的。除此之外，开发团队变大以后为了能让开发团队协作，又需要对整体架构做重新的设计以适应各个模块同时迭代开发的需求。
 
 Trident就是为解决这两个问题而生的，Trident在设计初期就考虑了后续的各种正式运营的需求，而且明确的做了垂直的分层和水平的分模块，做到来足够大高内聚、低偶合。
 
-# 快速开始
+## 快速开始
 为了快速的理解Trident的使用，我们从一个简单应用开始，逐步的说明各种用法和设计思路，帮助你快速的理解Trident。
 
 在开发App之前我们先确定了我们是需要开发一个图书管理App，App的交互设计如下：
 ![](images/2019-06-02-23-35-20.png)
 
 
-##  前期准备
+### 前期准备
 开始之前我们先确定
 - App名称: weBookStore
 - App BundleId(Android上的packageName): com.trident.wbstore
 - App schema: wbstore
 
 
-## 创建项目
+### 创建项目
 首先确保已经安装了npm。
 
-1. 安装trident-cli
+#### 1. 安装trident-cli
 ``` shell 
 wnpm install -g @webank/trident-cli
 ```
 
-2. 用trident-cli 创建项目
+#### 2. 用trident-cli 创建项目
 ``` shell 
 trident-cli init --name=weBookStore --bundleId=com.trident.wbstore
 ```
@@ -36,7 +36,7 @@ trident-cli init --name=weBookStore --bundleId=com.trident.wbstore
 
 等待所有依赖安装完成即可。
 
-3. 启动应用(iOS)
+#### 启动应用(iOS)
 ``` shell 
 cd WeBookStore
 # 在XCode中打开项目
@@ -48,17 +48,18 @@ npm run start
 
 恭喜你，到这里你已经成功到创建并运行了一个新的Trident工程。
 
-
+#### 启动应用(iOS)
+用Android Studio打开项目运行即可
 
 # 代码结构和模版工具
 ## App脚手架介绍
-生成的项目结构如下: 
+上面的过程生成了Trident App最基础的结构，生成的项目结构如下: 
 ![](images/2019-06-02-23-57-36.png)
 
-Trident App把App的结构分为三层： 全局容器 -> 模块 -> 页面(我们称之为Scene)。
-`container`即为全局容器，所有App全局需要的一些逻辑都在这个模块，这个模块产生的数据也供全局共享。
-`modules` 该目录下面是App的业务模块。
-// `example` 该目录是初始生成的demo目录，表示一个业务模块，该模块的所有Scene均在此目录下。
+Trident App把App的结构分为三层： `全局容器 -> 模块 -> 页面(我们称之为Scene)`。
+- `container`即为全局容器，所有App全局需要的一些逻辑都在这个模块，这个模块产生的数据也供全局共享。
+- `modules` 该目录下面是App的业务模块，通过命令创建的业务模块都会存放在这里。
+- `example` 该目录是初始生成的demo目录，表示一个业务模块，该模块的所有Scene均在此目录下。
 
 ## 业务模块的划分
 这一部分我们介绍Trident的模块和页面划分机制，并且介绍如何我创建它们。
