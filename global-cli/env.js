@@ -1,4 +1,5 @@
-let npmClient = 'yarn'
+// 对外发布以前默认用wnpm
+let npmClient = 'wnpm'
 if (['npm', 'wnpm', 'yarn'].includes(process.env.npmClient)) {
   npmClient = process.env.npmClient
 }

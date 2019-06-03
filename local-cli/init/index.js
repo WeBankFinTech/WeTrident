@@ -27,7 +27,7 @@ function init (root, projectName, bundleId) {
 
   fs.writeFileSync(
     path.join(root, 'package.json'),
-    JSON.stringify(packageJson),
+    JSON.stringify(packageJson)
   )
 
   process.chdir(root)
@@ -54,9 +54,9 @@ function init (root, projectName, bundleId) {
 
       execSync(`${env.npm_install_all} --verbose`, { stdio: 'inherit' })
 
-    // TODO delay this to ios build phase ?
-    process.chdir('ios')
-    execSync('pod install --verbose', { stdio: 'inherit' })
+      // TODO delay this to ios build phase ?
+      process.chdir('ios')
+      execSync('pod install --verbose', { stdio: 'inherit' })
 
       replaceName(root, projectName, bundleId, scheme)
     } catch (err) {
