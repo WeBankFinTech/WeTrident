@@ -67,12 +67,11 @@ if (fs.existsSync(cliPath)) {
 
 var commands = options._
 
-
 // 如果在Trident项目外，理论上说只需要支持 --version 和 init命令
 switch (commands[0]) {
   case 'init':
     // 先检查环境是否支持，引导安装
-    const {check, logError} = require('./env/index.js')
+    const { check, logError } = require('./env/index.js')
     const checkResult = check()
     if (checkResult.length > 0) {
       logError(checkResult)
@@ -99,7 +98,7 @@ switch (commands[0]) {
     }
     break
   case 'env': {
-    const {check, logError} = require('./env/index.js')
+    const { check, logError } = require('./env/index.js')
     const checkResult = check()
     if (checkResult.length > 0) {
       logError(checkResult)

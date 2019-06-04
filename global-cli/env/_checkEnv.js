@@ -8,7 +8,7 @@ var compare = require('node-version-compare')
  * @param max
  * @param installGuide
  */
-module.exports = (cmd, versionCmd, min, max, installGuide) => {
+function checkCmdAndVersion (cmd, versionCmd, min, max, installGuide) {
   var execSync = require('child_process').execSync
   const checkCmdExisted = execSync(`if ! type ${cmd} > /dev/null; then echo "0"; else echo "-1"; fi`)
   if (checkCmdExisted.toString().trim() !== '-1') {
@@ -16,6 +16,10 @@ module.exports = (cmd, versionCmd, min, max, installGuide) => {
       msg: `${cmd} not installed`,
       installGuide: installGuide
     }
+  }
+
+  if ((!min && !max) || !versionCmd) {
+    return null
   }
   const version = execSync(versionCmd)
   const versionStr = version.toString()
@@ -33,4 +37,25 @@ module.exports = (cmd, versionCmd, min, max, installGuide) => {
     }
   }
   return null
+}
+
+function checkEnvVar(varName) {
+  if (!varName) {
+    return null
+  }
+  if (process.env[varName]) {
+    return null
+  } else {
+    return {
+      msg: `${varName} must set in shell environment`,
+      installGuide: 'Please install android development tools'
+    }
+  }
+}
+
+module.exports = {
+  // 检查命令和命令版本
+  checkCmdAndVersion,
+  // 检查环境变量
+  checkEnvVar
 }

@@ -7,6 +7,25 @@
 Trident就是为解决这两个问题而生的，Trident在设计初期就考虑了后续的各种正式运营的需求，而且明确的做了垂直的分层和水平的分模块，实现了模块内高内聚、模块间低偶合。
 
 ## 快速开始
+在开始之前为了避免各种网络问题，行内用户可以如下配置代理，并且使用Office-WiFi。
+1. 在`~/.npmrc`中配置代理
+    ```
+    proxy = http://proxy.webank.com:8080
+    noproxy = wnpm.weoa.com,10.107.103.115
+    ```
+2. 在`~/.gitconfig`中配置代理
+    ```
+    [http]
+    proxy = http://proxy.webank.com:8080
+    sslverify = false
+    [https]
+    proxy = http://proxy.webank.com:8080
+    sslverify = false
+    [url "http://github.com/"]
+    insteadOf = git://github.com/
+    ```
+
+
 为了快速的理解Trident的使用，我们从一个简单应用开始，逐步的说明各种用法和设计思路。
 
 今天我们来开发一个简单的图书管理App，App的交互设计如下：
@@ -15,7 +34,7 @@ Trident就是为解决这两个问题而生的，Trident在设计初期就考虑
 
 ### 前期准备
 开始之前我们先确定
-- App名称: weBookStore
+- App名称: WeBookStore
 - App BundleId(Android上的packageName): com.trident.wbstore
 - App schema: wbstore
 
@@ -30,7 +49,7 @@ wnpm install -g @webank/trident-cli
 
 #### 2. 用trident-cli 创建项目
 ``` shell 
-trident-cli init --name=weBookStore --bundleId=com.trident.wbstore
+trident-cli init --name=WeBookStore --bundleId=com.trident.wbstore
 ```
 根据命令提示生成输入schema `wbstore` 
 
@@ -284,6 +303,17 @@ Android发布请先生情自己的发布keystore，不要使用示例中的 `key
 bundle exec fastlane android release --verbose
 ```
 为了保证keystore的安全，不要把keystore放到代码库，这种情况可以考虑将keystore和对应的密码都放到外部通过环境变量传入给fastlane。
+
+## 外部拉起支持
+```shell
+# iOS模拟schema拉起
+xcrun simctl openurl booted wbstore:///example/DemoScene?title=TestSchemaJump
+```
+
+```shell
+# Android模拟schema拉起
+adb shell am start -W -a android.intent.action.VIEW -d wbstore:///example/DemoScene?title=TestSchemaJump com.trident.wbstore
+```
 
 # 调试
 ## 日志系统介绍

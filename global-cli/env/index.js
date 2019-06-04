@@ -1,4 +1,4 @@
-const checkCmdAndVersion = require('./_checkEnv')
+const { checkCmdAndVersion, checkEnvVar } = require('./_checkEnv')
 const chalk = require('chalk')
 
 function checkAllVersion () {
@@ -30,7 +30,15 @@ function checkAllVersion () {
       '5.8.0',
       null,
       ''
-    )
+    ),
+    checkCmdAndVersion(
+      'fastlane',
+      undefined,
+      undefined,
+      undefined,
+      ''
+    ),
+    checkEnvVar('ANDROID_HOME')
   ].filter(item => !!item)
 }
 
@@ -42,6 +50,7 @@ function logError (checkResult) {
     console.log(chalk.red(item))
   })
 }
+
 module.exports = {
   check: checkAllVersion,
   setup: installAllDeps,
