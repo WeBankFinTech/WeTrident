@@ -9,7 +9,7 @@ const isDevMode = !(process.env.npmClient === undefined && process.env.useLocal 
 if (!['npm', 'wnpm', 'yarn'].includes(process.env.npmClient) || process.env.useLocal === undefined) {
   process.env.npmClient = 'npm'
 }
-process.env.useLocal = process.env.useLocal === undefined ? false : !!process.env.useLocal
+process.env.useLocal = process.env.useLocal === undefined ? 'false' : process.env.useLocal
 
 if (isDevMode) {
   const chalk = require('chalk')
