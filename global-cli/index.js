@@ -1,27 +1,40 @@
 #!/usr/bin/env node
 const fs = require('fs')
 const path = require('path')
-const execSync = require('child_process').execSync
-const semver = require('semver')
+const execSync = (cmd) => require('child_process').execSync(cmd, { stdio: 'pipe' })
 const options = require('minimist')(process.argv.slice(2))
 const env = require('./env.js')
 
-console.log('npmClient: ', process.env.npmClient)
-console.log('useLocal: ', process.env.useLocal)
+const isDevMode = !(process.env.npmClient === undefined && process.env.useLocal === undefined)
+if (!['npm', 'wnpm', 'yarn'].includes(process.env.npmClient) || process.env.useLocal === undefined) {
+  process.env.npmClient = 'npm'
+}
+process.env.useLocal = process.env.useLocal === undefined ? false : !!process.env.useLocal
+
+if (isDevMode) {
+  const chalk = require('chalk')
+  console.log(chalk.green('Trident development env var===================='))
+  console.log('npmClient: ', chalk.green(process.env.npmClient))
+  console.log('useLocal: ', chalk.green(process.env.useLocal))
+  console.log('')
+  console.log('')
+}
 
 /**
  * @return {string}
  */
 var CLI_MODULE_PATH = function () {
-  // TODO 本地调试用
+  // TODO 本地调试用，在trident/libraryDev/中引用 trident/local-cli/index.js
   if (process.env.useLocal === 'true') {
     // 本地开发调试时使用
     return path.resolve(
       process.cwd(),
+      '..',
       'local-cli',
       'index.js'
     )
   } else {
+    // 外网使用，引用 tridentApp/node_modules/@webank/trident/local-cli/index.js
     return path.resolve(
       process.cwd(),
       'node_modules',

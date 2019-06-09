@@ -4,7 +4,7 @@ const options = require('minimist')(process.argv.slice(2))
 function run (root) {
   const cmd = options._[0]
   const subCmd = options._[1]
-  console.log('root: ' + root)
+  // console.log('root: ' + root)
 
   switch (cmd) {
     case 'init': {
@@ -26,26 +26,14 @@ function run (root) {
       }
       break
     }
-    // case 'env': {
-    //   // TODO 每条命令添加参数检查
-    //   switch (subCmd) {
-    //     case 'check': {
-    //       const checkResult = require('./env').check()
-    //       checkResult.forEach(item => {
-    //         console.log(item)
-    //       })
-    //       if (checkResult) {
-    //         console.log('Everything is OK!')
-    //       }
-    //       break
-    //     }
-    //     case 'setup': {
-    //       const checkResult = require('./env').check()
-    //       require('./env').setup(checkResult)
-    //     }
-    //   }
-    //   break
-    // }
+    case 'packager': {
+      switch (subCmd) {
+        case 'start': {
+          const packager = require('./packager')
+          packager.start(options)
+        }
+      }
+    }
     case 'plugin': {
       // TODO 每条命令添加参数检查
       switch (subCmd) {
