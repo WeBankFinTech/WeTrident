@@ -4,7 +4,8 @@
   "main": "library/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "publishAll": "npm version patch && wnpm publish && cd global-cli && npm version patch && wnpm publish"
+    "publishAll": "npm version patch && npm publish && cd global-cli && npm version patch && npm publish",
+    "wpublishAll": "npm version patch && wnpm publish && cd global-cli && npm version patch && wnpm publish"
   },
   "repository": {
     "type": "git",
