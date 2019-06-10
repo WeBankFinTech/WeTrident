@@ -366,7 +366,7 @@ export default {
 export default (global, ModulePrivate) => ({
   // ...
   /**
-   * 将module级别的共享数据映射到props.modulePrivate
+   * 将module级别的共享数据映射到props
    */
   mapModuleState: state => ({
     bookList: state.bookList,
@@ -390,6 +390,27 @@ export default (global, ModulePrivate) => ({
 ```
 修改完成以后可以看到数据已经存放到 `book` 模块的`modulePrivate`上, 改完以后render内不用修改。
 ![](./images/2019-06-10-15-36-10.png)
+
+同样的在BookDetailScene中可以很容易的共享 `modulePrivate` 上的bookList。
+```js
+// WeBookStore/src/core/modules/book/BookDetailScene/index.js
+export default (global, ModulePrivate) => ({
+  // ...
+  /**
+   * 将module级别的共享数据映射到props
+   */
+  mapModuleState: state => ({
+    bookList: state.bookList,
+  }),
+  /**
+   * 将module级别的actions映射到props
+   */
+  moduleActions: {
+    updateBookList: ModulePrivate.actions.updateBookList
+  },
+  // ...
+})
+```
 
 ## 生命周期
 相比react component的生命周期，trident提供的生命周期更容易使用，我们用onResume和onPause分别来表示对应页面状态都变化。其中融合了页面创建，页面恢复，App整体前后台切换。

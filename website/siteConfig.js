@@ -39,8 +39,8 @@ const siteConfig = {
   ],
 
   /* path to images for header/footer */
-  // headerIcon: "img/redux_white.svg",
-  // footerIcon: "img/redux_white.svg",
+  headerIcon: "img/trident-icon.png",
+  footerIcon: "img/trident-icon.png",
   favicon: "img/favicon/favicon.ico",
 
   /* Colors for website */
@@ -86,7 +86,7 @@ const siteConfig = {
   ],
 
   // Add custom stylesheets here
-  //stylesheets: ['/css/codeblock.css'],
+  stylesheets: ['/css/codeblock.css'],
 
   // Last update time
   enableUpdateTime: true,
@@ -99,8 +99,8 @@ const siteConfig = {
   docsSideNavCollapsible: true,
 
   // Open Graph and Twitter card images.
-  // ogImage: "img/redux-logo-landscape.png",
-  // twitterImage: "img/redux-logo-twitter.png",
+  ogImage: "img/redux-logo-landscape.png",
+  twitterImage: "img/redux-logo-twitter.png",
 
   // You may provide arbitrary config keys to be used as needed by your
   // template. For example, if you need your repo's URL...
