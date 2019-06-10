@@ -3,18 +3,15 @@
   "localized-strings": {
     "next": "Next",
     "previous": "Previous",
-    "tagline": "A Predictable State Container for JS Apps",
+    "tagline": "一套可快速开发支持商业运营App的框架。",
     "docs": {
       "introduction/getting-started": {
         "title": "introduction/getting-started"
       }
     },
     "links": {
-      "Getting Started": "Getting Started",
-      "API": "API",
-      "FAQ": "FAQ",
-      "Github": "Github",
-      "Need help?": "Need help?"
+      "快速开始": "快速开始",
+      "Gitlab": "Gitlab"
     },
     "categories": {
       "Introduction": "Introduction"

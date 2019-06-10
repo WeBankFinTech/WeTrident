@@ -12,7 +12,7 @@ const siteConfig = {
   title: "Trident", // Title for your website.
   tagline: "一套可快速开发支持商业运营App的框架。",
   url: "https://redux.js.org", // Your website URL
-  baseUrl: "/", // Base URL for your project */
+  baseUrl: "", // Base URL for your project */
   docsUrl : "", // don't prefix docs URLs with /docs/
   // algolia: {
   //   apiKey: '518c6e3c629811d8daa1d21dc8bcfa37',
@@ -23,7 +23,7 @@ const siteConfig = {
 
   // Used for publishing and more
   projectName: "Trident",
-  organizationName: "@webank",
+  organizationName: "Webank App Team",
   // For top-level user or org sites, the organization is still the same.
   // e.g., for the https://JoelMarcey.github.io site, it would be set like...
   //   organizationName: 'JoelMarcey'
@@ -42,7 +42,6 @@ const siteConfig = {
   // headerIcon: "img/redux_white.svg",
   // footerIcon: "img/redux_white.svg",
   favicon: "img/favicon/favicon.ico",
-  footer: null,
 
   /* Colors for website */
   colors: {
@@ -100,13 +99,13 @@ const siteConfig = {
   docsSideNavCollapsible: true,
 
   // Open Graph and Twitter card images.
-  ogImage: "img/redux-logo-landscape.png",
-  twitterImage: "img/redux-logo-twitter.png",
+  // ogImage: "img/redux-logo-landscape.png",
+  // twitterImage: "img/redux-logo-twitter.png",
 
   // You may provide arbitrary config keys to be used as needed by your
   // template. For example, if you need your repo's URL...
   // repoUrl: "https://github.com/unpourtous/react-native-popup-stub",
-  gaTrackingId : "UA-130598673-1",
+  // gaTrackingId : "UA-130598673-1",
 };
 
 module.exports = siteConfig;
