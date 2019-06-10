@@ -1,10 +1,8 @@
 /**
- * 负责导出此模块的reducer和router到App级别
+ * 负责导出此模块的reducer和action到App级别
  *
  * Created by {{author}} on {{createAt}}.
  */
-import { createSceneConnect } from '@webank/trident'
-
 export default {
   moduleName: 'TplModuleName',
   initialState: {
