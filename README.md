@@ -52,8 +52,10 @@ wnpm install -g @webank/trident-cli
 trident-cli init --name=WeBookStore --bundleId=com.trident.wbstore
 ```
 根据命令提示生成输入schema `wbstore` 
+等待所有依赖安装完成即可
 
-等待所有依赖安装完成即可。
+PS: 初始化过程中会对当前的开发环境做检查，如果有提示某些环境不满足，请先按照提示安装或者升级。
+
 
 #### 3. 启动应用(iOS)
 ``` shell 
@@ -161,7 +163,7 @@ export default class BookListScene extends Component {
 
         <WeTouchable onPress={() => {
           AppNavigator.book.BookDetailScene({
-            bookId: 'a_cool_book'
+            ISBN: 'selected ISBN'
           })
         }}>
           <Text>Navigate to Book Detail</Text>
@@ -183,17 +185,12 @@ export default class BookListScene extends Component {
   }
 ```
 
-## 生命周期
-相比react component的生命周期，trident提供的生命周期更容易使用，我们用onResume和onPause分别来表示对应页面状态都变化。其中融合了页面创建，页面恢复，App整体前后台切换。
-### onResume 
-在每个页面首次进入和恢复的时候都会调用，比 componentDidMount特别的是，在App切换到后台切回来以及Trident的页面切会到该页时也会调用。
+## 其他接口
+#### `goBack`
+返回上个页面
 
-### onPause 
-在每个页面离开会调用，比 componentWillUnMount特别的是，在App切换到后台也会调用。
-
-### 特别说明
-Trident的生命周期不影响 react component、react-navigation、AppState提供的生命周期，如果需要更为精细的控制可以考虑使用她们。
-
+####  `goBackAndReplace`
+返回到某个目标页面并且替换顶层页面
 
 # 数据状态管理
 前面我们已经让几个页面串联起来了，接着我们讨论数据状态大管理我，Trident中通过redux来做数据状态的管理。并且设计了一套固定的数据状态隔离和共享的方案来解决redux store上数据管理混乱的问题。
@@ -217,6 +214,7 @@ PS: 可能有人会质疑scene这一级的数据的必要性，因为看起来�
 具体使用示例下一个部分一起详述。
 
 # 使用网络
+### 配置及调用
 Trident 推荐将服务器端的API统一管理，相比于把api接口直接零散的写入代码，配置的方式可以为后续针对接口的数据分析提供诸多便利。Trident中网络的配置如下: 
 
 ``` js
@@ -229,7 +227,21 @@ export default {
   }
 }
 ```
-要使用此接口也非常简单，我们在BookListScene中使用此接口。
+Trident App中建议统一管理后台的API，每个模块强相关的后台API，都放到 `modules/$moduleName/cgi/`目录统一管理，并且通过配置都方式配置每个API需要的信息。
+主要出于如下几点考虑： 
+1. 统一的存放方便后期维护
+2. 统一的配置格式要求每个接口要填写一些关键字段，方便以后理解。所有字段的说明如下： 
+
+| 字段名 | 说明 | 是否必须 | 
+| --- | --- | --- |
+| desc | API的描述,可以用于调试日志/数据分析 | 是 | 
+| baseURL | API的baseURL | 是 | 
+| url | API的接口路径，和baseURL拼接成完成的API路径哦 | 是 | 
+| mockable | 表示此接口是否直接返回mock数据 | 否
+| request | API的请求结构 | 否
+| response | API的响应结构，用于定义Mock的响应 | 否
+
+定义完接口以后，我们在BookListScene中通过`APIClient`使用此接口。
 ``` js
 // modules/book/BookListScene/BookListScene.js
 export default class BookListScene extends Component {
@@ -264,8 +276,13 @@ export default class BookListScene extends Component {
     })
   }
 ```
+调用完成可以看到日志如下，bookList更新到了新的`next state`上。
+![](2019-06-10-10-10-23.png)
 
-我们要获取到这个数据只需要从 `this.props` 上获取即可 `bookList`: 
+需要要`bookList`只需要从 BookListScene的`this.props` 上获取即可。
+
+上面截图中我们可以看到整个App的state结构，这个结构完全和`数据状态管理` 部分的说明保持一致：
+![](2019-06-10-11-38-13.png)
 
 ``` js
 // modules/book/BookListScene/BookListScene.js
@@ -280,23 +297,118 @@ export default class BookListScene extends Component {
   }
 ```
 
-## Cookie使用
-TODO 
+### 使用Mock
+开发过程中，可能会需要再服务器端接口开发完之前开始开发前端，为了解决没有接口可用的问题，Trident支持了mock的功能，只需要简单的再接口配置中配置mock的返回即可，例如上面的拉去书籍列表的接口如下配置以后即可支持mock，`APIClient`发出请求以后会直接返回mock数据。response是一个数组，这个数组里面的内容随机返回，用于模拟调试失败或者多种返回数据的情况。
+```javascript
+// WeBookStore/src/core/modules/book/cgi/index.js
+import AxiosMocker from '@webank/trident/library/network/AxiosMocker'
+export default {
+  requestBookList: {
+    baseURL: 'https://www.mocky.io/',
+    url: '/v2/5cf4c6622f00003a0e4f0453',
+    desc: '请求书籍列表',
 
-## 配置说明
-## Mock的配置
-TODO 
+    // set true to return mock data for this api
+    mockable: true,
+    request: {},
+    response: [
+      // mock network error
+      AxiosMocker.networkError(),
+      // mock network timeout
+      AxiosMocker.timeout(),
+      // mock a normal response, it show the normal response data structure too
+      AxiosMocker.success([
+        {
+          title: '经济学原理',
+          author: '曼昆',
+          coverURL: 'https://img3.doubanio.com/view/subject/l/public/s3802186.jpg',
+          publishTime: '2009-4-1',
+          pages: 540,
+          ISBN: '9787301150894'
+        },
+        {
+          title: '失控-全人类的最终命运和结局',
+          author: '[美] 凯文·凯利 ',
+          coverURL: 'https://img3.doubanio.com/view/subject/l/public/s4554820.jpg',
+          publishTime: '2010-12',
+          pages: 707,
+          ISBN: '9787513300711'
+        }
+      ])
+    ]
+  }
+}
+```
+
+## 生命周期
+相比react component的生命周期，trident提供的生命周期更容易使用，我们用onResume和onPause分别来表示对应页面状态都变化。其中融合了页面创建，页面恢复，App整体前后台切换。
+### onResume 
+在每个页面首次进入和恢复的时候都会调用，比 componentDidMount特别的是，在App切换到后台切回来以及Trident的页面切会到该页时也会调用。
+
+### onPause 
+在每个页面离开会调用，比 componentWillUnMount特别的是，在App切换到后台也会调用。
+
+特别说明: Trident的生命周期不影响 react component、react-navigation、AppState提供的生命周期，如果需要更为精细的控制可以考虑使用她们。
+
 
 # 界面开发 
 ## trident-ui
+trident-ui提供了基础的弹出层组件供开发者使用。可以直接通过接口调用方式显示和关闭Dialog、Toast、Loading等组件。
+### Dialog
+``` js
+// 展示Dialog
+const dialogId = Dialog.show({
+  texts: [
+    'Hello...',
+    'Trident',
+  ],
+  items: [
+    {
+      text: 'Confirm',
+      onItemPress: () => {
+        // 关闭Dialog
+        Dialog.hide(dialogId)
+      }
+    }
+  ]
+})
 
+```
+
+### Loading
+``` js
+// 展示Loading
+Loading.show()
+
+// 关闭Loading
+Loading.hide()
+```
+
+### Toast
+``` js
+// 展示Toast
+Toast.show('This is a Toast')
+```
+
+### ActionSheet
+    // TODO 
+
+### WeTouchable
+支持高亮、半透明、遮罩等效果的按压态组件。
 
 # 构建和发布
 Trident App的发布依赖fastlane，并且已经集成了最常用的一些插件。
 ## iOS发布
 ``` shell 
+# 构建发布包，构建完成以后可以通过Application Loader发布
 bundle exec fastlane ios release --verbose
 ```
+
+``` shell
+# 构建发布包并自动发布到testflight，过程中会提示输入信息
+bundle exec fastlane ios upload_to_testflight --verbose
+```
+
 ## Android发布
 Android发布请先生情自己的发布keystore，不要使用示例中的 `keystores/demo-release-keystore` 做正式发布。可替换`keystores/demo-release-keystore`为自己的keystore路径并配套的设置密码和别名以及别名密码，然后运行如下命令: 
 ``` shell
@@ -316,12 +428,20 @@ adb shell am start -W -a android.intent.action.VIEW -d wbstore:///example/DemoSc
 ```
 
 # 调试
-## 日志系统介绍
+为了方便调试，Trident在Debug时默认会打印大量的日志，目前Trident打印的日志包含网络请求、页面跳转、Redux数据变化。
+## 调试日志介绍
+### 网络日志
+ - 每个网络请求都会打印请求的配置。
+ - 每个网络返回的内容也会打印
+ - 用颜色区分请求返回的三种情况，mock返回、cache返回和真实返回，示例如下： 
+
+
+
 // TODO 日志颜色截图说明
 // TODO 日志图标说明
 
 ## 性能监控介绍
-// TODO 
+// TODO  v2
 
 
 # 使用业务插件
