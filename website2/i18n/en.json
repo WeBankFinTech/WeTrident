@@ -3,20 +3,18 @@
   "localized-strings": {
     "next": "Next",
     "previous": "Previous",
-    "tagline": "一套可快速开发支持商业运营App的框架",
+    "tagline": "一套可快速开发支持商业运营App的框架。",
     "docs": {
-      "getting-started": {
-        "title": "Getting Started"
+      "introduction/getting-started": {
+        "title": "introduction/getting-started"
       }
     },
     "links": {
-      "Docs": "Docs",
-      "Blog": "Blog"
+      "快速开始": "快速开始",
+      "Gitlab": "Gitlab"
     },
     "categories": {
-      "Docusaurus": "Docusaurus",
-      "First Category": "First Category",
-      "Second Category": "Second Category"
+      "Introduction": "Introduction"
     }
   },
   "pages-strings": {
