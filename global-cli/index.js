@@ -111,11 +111,10 @@ switch (commands[0]) {
     }
     break
   case 'env': {
-      if (checkResult.length > 0) {
-        logError(checkResult)
-      } else {
-        console.log(chalk.green('Everything is OK!'))
-      }
+    if (checkResult.length > 0) {
+      logError(checkResult)
+    } else {
+      console.log(chalk.green('Everything is OK!'))
     }
     break
   }
