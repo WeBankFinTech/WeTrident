@@ -82,7 +82,7 @@ class HomeSplash extends React.Component {
         <div className="inner">
           <ProjectTitle siteConfig={siteConfig} />
           <PromoSection>
-            <Button href={docUrl("introduction/getting-started", language)}>
+            <Button href={docUrl("getting-started", language)}>
               快速开始
             </Button>
           </PromoSection>
@@ -228,7 +228,9 @@ class Index extends React.Component {
       <div>
         <HomeSplash siteConfig={siteConfig} language={language} />
         <div className="mainContainer">
-          <Features />
+          <Container background="light">
+            <Features />
+          </Container>
           {/*<FeatureCallout />*/}
           {/*<LearnHow />*/}
           {/*<TryOut />*/}

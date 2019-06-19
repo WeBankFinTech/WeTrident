@@ -181,7 +181,7 @@ class Index extends React.Component {
         <div className="mainContainer">
 
           <div className="productShowcaseSection">
-            <Container background="light">
+            <container background="light">
               <FeaturesTop />
             </Container>
             <Container className="libsContainer" wrapper={false}>

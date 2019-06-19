@@ -5,8 +5,32 @@
     "previous": "Previous",
     "tagline": "一套可快速开发支持商业运营App的框架",
     "docs": {
+      "api/AppNavigator": {
+        "title": "AppNavigator"
+      },
+      "debug-skill": {
+        "title": "调试方法和技巧"
+      },
       "getting-started": {
-        "title": "Getting Started"
+        "title": "创建项目"
+      },
+      "introduction": {
+        "title": "Trident简介"
+      },
+      "navigation": {
+        "title": "导航系统"
+      },
+      "network": {
+        "title": "使用网络"
+      },
+      "release": {
+        "title": "构建和发布"
+      },
+      "state-management": {
+        "title": "数据状态管理"
+      },
+      "trident-ui": {
+        "title": "界面开发"
       }
     },
     "links": {
@@ -14,9 +38,9 @@
       "Blog": "Blog"
     },
     "categories": {
-      "Docusaurus": "Docusaurus",
-      "First Category": "First Category",
-      "Second Category": "Second Category"
+      "背景介绍": "背景介绍",
+      "快速入门": "快速入门",
+      "API Reference": "API Reference"
     }
   },
   "pages-strings": {

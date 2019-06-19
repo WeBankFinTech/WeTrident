@@ -31,6 +31,7 @@ function run (root) {
         case 'start': {
           const packager = require('./packager')
           packager.start(options)
+          break
         }
       }
     }

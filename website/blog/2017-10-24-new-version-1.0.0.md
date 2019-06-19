@@ -1,8 +1,12 @@
 ---
-title: New Version 1.0.0
-author: Eric Nakagawa
-authorURL: http://twitter.com/ericnakagawa
-authorFBID: 661277173
+title: Release 1.0.0
+author: erichua
 ---
 
-This blog post will test file name parsing issues when periods are present.
+正式发布，发布特性如下： 
+
+1. xxxx
+1. xxxx
+1. xxxx
+1. xxxx
+1. xxxx

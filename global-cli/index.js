@@ -79,13 +79,13 @@ if (fs.existsSync(cliPath)) {
 }
 
 var commands = options._
+const { check, logError } = require('./env/index.js')
+const checkResult = check()
 
 // 如果在Trident项目外，理论上说只需要支持 --version 和 init命令
 switch (commands[0]) {
   case 'init':
     // 先检查环境是否支持，引导安装
-    const { check, logError } = require('./env/index.js')
-    const checkResult = check()
     if (checkResult.length > 0) {
       logError(checkResult)
       return
@@ -111,10 +111,11 @@ switch (commands[0]) {
     }
     break
   case 'env': {
-    const { check, logError } = require('./env/index.js')
-    const checkResult = check()
-    if (checkResult.length > 0) {
-      logError(checkResult)
+      if (checkResult.length > 0) {
+        logError(checkResult)
+      } else {
+        console.log(chalk.green('Everything is OK!'))
+      }
     }
     break
   }
@@ -232,7 +233,7 @@ function createNewProject (root, projectName, options) {
 
   // 安装完成这时候一定是有的
   cli = require(CLI_MODULE_PATH())
-  cli.init(root, projectName, options.bundleId)
+  cli.init(root, projectName, options.bundleId, options.schema, options)
 }
 
 function getInstallPackage (rnPackage) {
