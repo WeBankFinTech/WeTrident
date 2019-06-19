@@ -11,8 +11,8 @@ if (!['npm', 'wnpm', 'yarn'].includes(process.env.npmClient) || process.env.useL
 }
 process.env.useLocal = process.env.useLocal === undefined ? 'false' : process.env.useLocal
 
+const chalk = require('chalk')
 if (isDevMode) {
-  const chalk = require('chalk')
   console.log(chalk.green('Trident development env var===================='))
   console.log('npmClient: ', chalk.green(process.env.npmClient))
   console.log('useLocal: ', chalk.green(process.env.useLocal))
