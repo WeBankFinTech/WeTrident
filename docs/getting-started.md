@@ -10,15 +10,17 @@ Mac的开发环境
 为了避免各种网络问题，行内用户首先需要安装wnpm。
 wnpm的安装见 `http://wnpm.weoa.com/`
 网络环境需要使用Office-WiFi并git和npm的代理配置代理。
-1. 在`~/.npmrc`中配置代理
 
-    ```
+1. 配置npm代理 (`~/.npmrc`)
+
+    ``` shell
     proxy = http://proxy.webank.com:8080
     noproxy = wnpm.weoa.com,10.107.103.115
     ```
-2. 在`~/.gitconfig`中配置代理
+    
+2. 配置Git代理 (`~/.gitconfig`)
 
-    ```
+    ``` shell
     [http]
     proxy = http://proxy.webank.com:8080
     sslverify = false
@@ -28,6 +30,15 @@ wnpm的安装见 `http://wnpm.weoa.com/`
     [url "http://github.com/"]
     insteadOf = git://github.com/
     ```
+    
+3. 配置gradle的代理 (`~/.gradle/gradle.properties`)
+   
+   ``` shell
+   systemProp.http.proxyHost=proxyhk.webank.com
+   systemProp.http.proxyPort=8080
+   systemProp.https.proxyHost=proxyhk.webank.com
+   systemProp.https.proxyPort=8080
+   ```
 
 ## 创建项目
 为了快速的理解Trident的使用，我们从一个简单应用开始，逐步的说明各种基础用法。

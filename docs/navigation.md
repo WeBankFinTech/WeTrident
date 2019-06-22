@@ -76,13 +76,6 @@ export default class BookListScene extends Component {
   }
 ```
 
-## 其他接口
-#### `goBack`
-返回上个页面
-
-####  `goBackAndReplace`
-返回到某个目标页面并且替换顶层页面
-
 
 ## 生命周期
 相比react component的生命周期，trident提供的生命周期更容易使用，我们用onResume和onPause分别来表示对应页面状态都变化。其中融合了页面创建，页面恢复，App整体前后台切换。
@@ -103,6 +96,22 @@ xcrun simctl openurl booted wbstore:///example/DemoScene?title=TestSchemaJump
 ```shell
 # Android模拟schema拉起
 adb shell am start -W -a android.intent.action.VIEW -d wbstore:///example/DemoScene?title=TestSchemaJump com.trident.wbstore
+```
+
+## 自定义导航栏
+## 自定义标题文字
+```js
+  static navigationOptions = ({ navigation: { state: { params = {} } } }) => ({
+    headerTitle: params.title
+  })
+```
+
+### 自定义标题
+
+```js
+  static navigationOptions = ({ navigation: { state: { params = {} } } }) => ({
+    headerTitle: <Text style={{color: 'red'}}>红色标题</Text>
+  })
 ```
 
 

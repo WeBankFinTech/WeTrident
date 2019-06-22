@@ -21,7 +21,7 @@ function run (projectRoot, name) {
     const requireCallExpression = t.callExpression(t.identifier('require'), [t.stringLiteral(name)])
     const newMember = t.memberExpression(requireCallExpression, t.identifier('default'))
 
-    const moduleIndexPath = path.join(projectRoot, 'src/core/modules/index.js')
+    const moduleIndexPath = path.join(projectRoot, 'src/modules/index.js')
     insertElementInList(moduleIndexPath, newMember)
   } catch (e) {
     console.log(e)

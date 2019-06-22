@@ -92,3 +92,6 @@ export default {
 }
 ```
 
+### 使用缓存
+// TODO 缓存使用
+
