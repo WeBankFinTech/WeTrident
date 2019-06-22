@@ -63,7 +63,7 @@ export default (global, ModulePrivate) => ({
    * 将global级别的actions映射到props
    */
   globalActions: {
-    addGlobalCount: global.actions.addGlobalCount
+    // addGlobalCount: global.actions.addGlobalCount
   },
 
   /**

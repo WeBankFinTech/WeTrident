@@ -19,7 +19,7 @@ const Navigator = {
 }
 
 const {width, height} = Dimensions.get('window')
-import Device from '../../../utils/Device'
+import Device from './Device'
 
 const statusBarHeight = Platform.select({ // 导航栏 + 状态栏的高度
   android: Platform.Version >= 21 ? StatusBar.currentHeight : 0,
