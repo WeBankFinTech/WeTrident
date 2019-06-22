@@ -3,7 +3,7 @@ export default {
   // logger configuration
   logger: {
     collapsed: true,
-    diff: false,
+    diff: true,
     actionTransformer: (action) => {
       if (
           action.payload &&
