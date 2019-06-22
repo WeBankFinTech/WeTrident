@@ -6,9 +6,10 @@
     "快速入门": [
       "getting-started",
       "navigation",
-      "network",
       "state-management",
+      "network",
       "trident-ui",
+      "native-modules",
       "debug-skill",
       "release"
     ],

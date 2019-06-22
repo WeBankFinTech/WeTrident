@@ -75,11 +75,21 @@ const siteConfig = {
 
   highlight: {
     // Highlight.js theme to use for syntax highlighting in code blocks.
-    theme: 'default',
+    theme: 'atom-one-light',
   },
 
   // Add custom scripts here that would be placed in <script> tags.
-  scripts: ['https://buttons.github.io/buttons.js'],
+  scripts: [
+    "/scripts/codeblock.js",
+    "/scripts/buttons.js"
+  ],
+
+  // Add custom stylesheets here
+  stylesheets: [
+    '/css/monokai.min.css',
+    '/css/codeblock.css',
+    '/css/default.min.css'
+  ],
 
   // On page navigation for the current documentation page.
   onPageNav: 'separate',
