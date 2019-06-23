@@ -1,8 +1,8 @@
-[![](https://img.shields.io/badge/node-%3E%3D8.3.0-brightgreen.svg)](https://www.npmjs.com/package/@tarojs/cli)
-[![](https://img.shields.io/badge/npm-%3E%3D5.8.0-brightgreen.svg)](https://www.npmjs.com/package/@tarojs/cli)
+[![](https://img.shields.io/badge/node-%3E%3D8.3.0-brightgreen.svg)](https://nodejs.org/en/)
+[![](https://img.shields.io/badge/npm-%3E%3D5.8.0-brightgreen.svg)](https://nodejs.org/en/)
 [![](https://img.shields.io/badge/git-%3E%3D2.9.0-brightgreen.svg)](https://git-scm.com/)
-[![](https://img.shields.io/badge/fastlane-%3E%3D2.117.1-brightgreen.svg)](https://git-scm.com/)
-[![](https://img.shields.io/badge/pod-%3E%3D1.2.0-brightgreen.svg)](https://git-scm.com/)
+[![](https://img.shields.io/badge/fastlane-%3E%3D2.117.1-brightgreen.svg)](https://fastlane.tools/)
+[![](https://img.shields.io/badge/pod-%3E%3D1.2.0-brightgreen.svg)](https://cocoapods.org/)
 
 ## Trident的目标
 一套可快速开发支持商业运营App的框架。
