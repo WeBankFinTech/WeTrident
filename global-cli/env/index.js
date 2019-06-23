@@ -6,28 +6,28 @@ function checkAllVersion () {
     checkCmdAndVersion(
       'node',
       'node --version | cut -d " " -f 3 | sed -e "s/[ |v]//g"',
-      '18.3.0',
+      '8.3.0',
       null,
       '请到 https://nodejs.org/en/ 下载安装正确的版本'
     ),
     checkCmdAndVersion(
       'git',
       'git --version | cut -d " " -f 3 | sed -e "s/ //g"',
-      '12.9.0',
+      '2.9.0',
       null,
       '请到 https://git-scm.com 下载安装正确的版本'
     ),
     checkCmdAndVersion(
       'pod',
       'pod --version',
-      '11.2.0',
+      '1.2.0',
       null,
       '请到 https://cocoapods.org/ 下载安装正确的版本'
     ),
     checkCmdAndVersion(
       'npm',
       'npm --version',
-      '15.8.0',
+      '5.8.0',
       null,
       '请使用 npm install -g npm@5.8.0 安装'
     ),
