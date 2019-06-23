@@ -6,7 +6,8 @@ const options = require('minimist')(process.argv.slice(2))
 const npmConfig = require('./npmConfig')
 
 const isDevMode = !(process.env.npmClient === undefined && process.env.useLocal === undefined)
-if (!['npm', 'wnpm', 'yarn'].includes(process.env.npmClient) || process.env.useLocal === undefined) {
+console.log(process.env.npmClient)
+if (!['npm', 'wnpm', 'yarn'].includes(process.env.npmClient) || process.env.npmClient === undefined) {
   process.env.npmClient = 'npm'
 }
 process.env.useLocal = process.env.useLocal === undefined ? 'false' : process.env.useLocal
