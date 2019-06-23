@@ -3,7 +3,7 @@ const fs = require('fs')
 const path = require('path')
 const execSync = (cmd) => require('child_process').execSync(cmd, { stdio: 'pipe' })
 const options = require('minimist')(process.argv.slice(2))
-const env = require('./env.js')
+const npmConfig = require('./npmConfig')
 
 const isDevMode = !(process.env.npmClient === undefined && process.env.useLocal === undefined)
 if (!['npm', 'wnpm', 'yarn'].includes(process.env.npmClient) || process.env.useLocal === undefined) {
@@ -217,7 +217,7 @@ function createNewProject (root, projectName, options) {
   var installCommand
   console.log('Installing ' + getInstallPackage(rnPackage) + '...')
 
-  installCommand = env.npm_install_xxx + getInstallPackage(rnPackage)
+  installCommand = npmConfig.npm_install_xxx + getInstallPackage(rnPackage)
   if (options.verbose) {
     installCommand += ' --verbose'
   }
@@ -245,7 +245,6 @@ function getInstallPackage (rnPackage) {
   // packageToInstall = rnPackage;
   // }
   // return packageToInstall;
-  // FIXME TODO 暂时写死，以后要改成，github发布npm，这里根据版本号去npm取
   return '@webank/trident --exact'
 }
 

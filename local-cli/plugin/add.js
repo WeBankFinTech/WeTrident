@@ -6,7 +6,7 @@ var _ = require('lodash')
 // var dyRouter = require('../dyLoad/astTransformRouter.1')
 const t = require('@babel/types')
 const { insertElementInList } = require('../utils/codeEdit')
-const env = require('../env.js')
+const env = require('../npmConfig')
 
 var path = require('path')
 
