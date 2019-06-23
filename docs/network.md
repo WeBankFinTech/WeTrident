@@ -52,7 +52,7 @@ export default class BookListScene extends Component {
 ### 使用Mock
 开发过程中，可能会需要再服务器端接口开发完之前开始开发前端，为了解决没有接口可用的问题，Trident支持了mock的功能，只需要简单的再接口配置中配置mock的返回即可，例如上面的拉去书籍列表的接口如下配置以后即可支持mock，`APIClient`发出请求以后会直接返回mock数据。response是一个数组，这个数组里面的内容随机返回，用于模拟调试失败或者多种返回数据的情况。
 ```javascript
-// WeBookStore/src/core/modules/book/cgi/index.js
+// modules/book/cgi/index.js
 import AxiosMocker from '@webank/trident/library/network/AxiosMocker'
 export default {
   requestBookList: {
@@ -92,6 +92,75 @@ export default {
 }
 ```
 
-### 使用缓存
-// TODO 缓存使用
+在WeBookStore中，我们按照要求把`BookDetailScene`的逻辑补充完整。这里主要是完善界面和添加借阅接口的请求，这里略过，补充完以后，`BookDetailScene`内容如下： 
 
+```js
+import React, { Component } from 'react'
+import { View, Text } from 'react-native'
+import { AppNavigator, WeBaseScene } from '@webank/trident'
+import BookDetail from './components/BookDetail'
+import SimpleButton from './components/SimpleButton'
+import BookDetailService from './BookDetailService'
+import Toast from '@webank/trident/library/uiComponent/popup/Toast'
+
+export default class BookDetailScene extends WeBaseScene {
+  static navigationOptions = ({ navigation: { state: { params = {} } } }) => ({
+    headerTitle: params.title
+  })
+
+  render () {
+    const bookDetail = (this.props.bookList || []).find(item => item.ISBN === this.params.ISBN)
+
+    if (!bookDetail) {
+      return null
+    }
+    return (
+      <View>
+        <BookDetail {...bookDetail} />
+        <SimpleButton
+          style={{
+            marginTop: 8,
+            paddingHorizontal: 8
+          }}
+          onPress={() => {
+            BookDetailService.requestBorrowBook().then(response => {
+              Toast.show(response.data.ret_msg)
+              AppNavigator.book.ResultScene({ISBN: this.params.ISBN})
+            }, error => {
+              Toast.show('network error' + JSON.stringify(error))
+            })
+          }} title={'借阅'} />
+      </View>
+    )
+  }
+}
+```
+
+如果请求后台成功，直接跳转`ResultScene`，这里也把`ResultScene`的界面补充完成，完成以后 `ResultScene` 代码如下： 
+```js
+import React, { Component } from 'react'
+import { View, Text, Image } from 'react-native'
+import { AppNavigator, WeBaseScene } from '@webank/trident'
+
+export default class ResultScene extends WeBaseScene {
+  render () {
+    const bookDetail = (this.props.bookList || []).find(item => item.ISBN === this.params.ISBN)
+
+    return (
+      <View style={[{
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+      }, this.props.style]}>
+        <Image style={{
+          marginTop: 80,
+          marginBottom: 20,
+          width: 120,
+          height: 120,
+        }} source={require('./images/success.png')} />
+        <Text>{`借阅《${bookDetail.title}》成功`}</Text>
+      </View>
+    )
+  }
+}
+```

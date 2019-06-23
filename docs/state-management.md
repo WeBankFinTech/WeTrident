@@ -3,49 +3,77 @@ id: state-management
 title: 数据状态管理
 ---
 
-从网络上拉取到数据以后我们会把这些数据统一管理起来。 Trident中通过redux来做数据状态的管理。并且设计了一套固定的数据状态隔离和共享的方案来解决redux store上数据管理混乱的问题。
-
-前面我们提到数据状态的管理，这里我们可以将接口返回数据放到scene对应的数据区中，可以直接调用`setSceneState` 方法： 
-
+我们会把App数据统一管理起来，Trident中通过redux来做数据状态的管理。并且设计了一套固定的数据状态隔离和共享的方案来解决redux store上数据管理混乱的问题。
 
 ## 数据的隔离和共享
-redux提供来足够的数据共享能力，但是所有数据在一个store上，既提供了方便，又带来了危害，redux的可以算做是一个全局变量，虽然通过固定的数据流来维护数据，但是始终无法完全摆脱全局变量多处共同维护和使用一份数据导致的问题。想象一下，如果整个App有上百个页面，所有共享数据均无规则存储在store上，那将会是一番如何混乱的景象。
+Redux提供来足够的数据共享能力，但是所有数据在一个store上，既提供了方便，又带来了危害，redux的store本质上仍然是一个全局变量，虽然通过固定的数据流来维护数据，但是始终无法完全摆脱全局变量多处共同维护和使用一份数据导致的问题。想象一下，如果整个App有上百个页面，所有共享数据均无规则存储在store上，那将会是一番如何混乱的景象。
 
-因此在Trident的对store上的数据结构和层次做了明确的区分，与我们的目录结构类似，store上的数据结构也分为了三层：global、modulePrivate和scene。
+Trident对store上的数据结构和层次做了明确的区分，以求在隔离和共享之间找到最佳的折中点。与我们的目录结构类似，store上的数据结构也分为了三层：`global`、`modulePrivate`和`scene`。
 
-global为全局共享数据，这些数据可以供所有模块的页面读取，维护这些数据对应的action也可供所有模块的页面使用用于更新数据。
+`global`为全局共享数据，这些数据可以供所有模块的页面读取，维护global数据对应的action也可绑定到Scene以支持页面内刷新全局数据。
 
-modulePrivate为模块内私有数据，这些数据仅仅可以在同一个模块内的页面间共享，维护这些数据对应的action也只可以在这个模块内的页面访问。
+`modulePrivate`为模块内私有数据，这些数据仅仅可以在同一个模块内的不同页面间共享，`modulePrivate`上数据对应的action也可绑定到Scene以支持页面内刷新模块内共享数据。
 
-scene级别的数据为页面私有数据，其他页面无法共享。
+Scene级别的数据为页面私有数据，其他页面无法共享，如果需要传递可以使用传参跳转的方式实现。
 
-通过上述层次划分，使用过程中，按 scene -> modulePrivate -> global的顺序去存放数据，尽可能控制数据的访问范围。
+通过上述层次划分，使用过程中，按 scene -> modulePrivate -> global的顺序去存放数据，尽可能让数据的访问范围变小。
 
 
 ## 存放数据到Scene数据区
+定义更新数据需要的actions到Scene作用域。
+``` js
+  // modules/book/BookListScene/index.js
+  /**
+   * 定义scene级别的actions
+   */
+  actions: {
+    updateBookList: v => v
+  },
+  /**
+   * 定义scene级别的reducer
+   */
+  reducers: {
+    updateBookList: (state, action) => ({
+      ...state,
+      bookList: action.payload
+    })
+  },
+```
+
+使用 action 更新数据到store。
 ``` js
   // modules/book/BookListScene/BookListScene.js
   componentDidMount () {
-    // 请求
-    APIClient.request(CGI.requestBookList, {
-      start: 0,
-      pageSize: 10
-    }).then(response => {
-      this.setSceneState({
-        bookList: response
-      })
-    }, error => {
-      console.warning(error)
-    })
+    this.props.updateBookList([
+      {
+        'title': '经济学原理',
+        'author': '曼昆',
+        'coverURL': 'https://img3.doubanio.com/view/subject/l/public/s3802186.jpg',
+        'publishTime': '2009-4-1',
+        'pages': 540,
+        'ISBN': '9787301150894'
+      },
+      {
+        'title': '失控-全人类的最终命运和结局',
+        'author': '[美] 凯文·凯利 ',
+        'coverURL': 'https://img3.doubanio.com/view/subject/l/public/s4554820.jpg',
+        'publishTime': '2010-12',
+        'pages': 707,
+        'ISBN': '9787513300711'
+      }
+    ])
   }
 ```
+
 调用完成可以看到日志如下，bookList更新到了新的`next state`上。
-![](./assets/images/2019-06-10-10-10-23.png)
-需要要`bookList`只需要从 BookListScene的`this.props` 上获取即可。
+![](2019-06-24-02-13-31.png)
+`bookList`会默认挂到`BookListScene`的`this.props` 上。
 
-上面截图中我们可以看到整个App的state结构：
-![](./assets/images/2019-06-10-11-38-13.png)
+上面截图中我们可以看到整个App的state store的结构：
+![](2019-06-24-02-21-04.png)
+图中可以看的出，Trident App的模块数据独立于其他模块，页面数据也独立其他页面的数据。
 
+接着我们使用这些数据来填充界面，可以直接通过 `this.props` 使用bookList
 ``` js
 // modules/book/BookListScene/BookListScene.js
   render () {
@@ -65,7 +93,7 @@ scene级别的数据为页面私有数据，其他页面无法共享。
 要完成这个提升首先我们需要在module中增加一套action/reducer，然后将对应的数据绑定到使用数据的Scene即可。
 
 ```js
-// WeBookStore/src/core/modules/book/index.js
+// modules/book/index.js
 export default {
   moduleName: 'book',
   initialState: {
@@ -83,7 +111,7 @@ export default {
 
 
 ```js
-// WeBookStore/src/core/modules/book/BookListScene/index.js
+// modules/book/BookListScene/index.js
 export default (global, ModulePrivate) => ({
   // ...
   /**
@@ -104,7 +132,7 @@ export default (global, ModulePrivate) => ({
 
 修改 BookListScene 使用 updateBookList 更新模块数据
 ```js 
-  // WeBookStore/src/core/modules/book/BookListScene/BookListScene.js
+  // modules/book/BookListScene/BookListScene.js
   async componentDidMount () {
     this.props.updateBookList(await BookListService.requestAllBookList())
   }
@@ -114,7 +142,7 @@ export default (global, ModulePrivate) => ({
 
 同样的在BookDetailScene中可以很容易的共享 `modulePrivate` 上的bookList。
 ```js
-// WeBookStore/src/core/modules/book/BookDetailScene/index.js
+// modules/book/BookDetailScene/index.js
 export default (global, ModulePrivate) => ({
   // ...
   /**

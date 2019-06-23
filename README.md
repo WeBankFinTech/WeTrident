@@ -36,7 +36,7 @@ Trident就是为解决这两个问题而生的，Trident在设计初期就考虑
 开始之前我们先确定
 - App名称: WeBookStore
 - App BundleId(Android上的packageName): com.trident.wbstore
-- App schema: wbstore
+- App scheme: wbstore
 
 
 ### 创建项目
@@ -51,7 +51,7 @@ wnpm install -g @webank/trident-cli
 ``` shell 
 trident-cli init --name=WeBookStore --bundleId=com.trident.wbstore
 ```
-根据命令提示生成输入schema `wbstore` 
+根据命令提示生成输入scheme `wbstore` 
 等待所有依赖安装完成即可
 
 PS: 初始化过程中会对当前的开发环境做检查，如果有提示某些环境不满足，请先按照提示安装或者升级。
@@ -418,13 +418,13 @@ bundle exec fastlane android release --verbose
 
 ## 外部拉起支持
 ```shell
-# iOS模拟schema拉起
-xcrun simctl openurl booted wbstore:///example/DemoScene?title=TestSchemaJump
+# iOS模拟scheme拉起
+xcrun simctl openurl booted wbstore:///example/DemoScene?title=TestSchemeJump
 ```
 
 ```shell
-# Android模拟schema拉起
-adb shell am start -W -a android.intent.action.VIEW -d wbstore:///example/DemoScene?title=TestSchemaJump com.trident.wbstore
+# Android模拟scheme拉起
+adb shell am start -W -a android.intent.action.VIEW -d wbstore:///example/DemoScene?title=TestSchemeJump com.trident.wbstore
 ```
 
 # 调试

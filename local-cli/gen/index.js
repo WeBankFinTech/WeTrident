@@ -98,7 +98,7 @@ function _generatorScene (moduleName) {
         sceneName = _.upperFirst(sceneName)
 
         if (!sceneName) {
-          console.log(chalk.red(`Empty module name`))
+          console.log(chalk.red(`Empty scene name`))
           process.exit()
         }
 

@@ -62,12 +62,12 @@ wml start
 
 ## 开发常用工具
 ```shell
-# iOS模拟schema拉起
-xcrun simctl openurl booted trident-scheme:///example/DemoScene?title=TestSchemaJump
+# iOS模拟scheme拉起
+xcrun simctl openurl booted trident-scheme:///example/DemoScene?title=TestSchemeJump
 ```
 
 ```shell
-# Android模拟schema拉起
-adb shell am start -W -a android.intent.action.VIEW -d "trident-scheme:///example/DemoScene?title=TestSchemaJump" org.reactnative.example
+# Android模拟scheme拉起
+adb shell am start -W -a android.intent.action.VIEW -d "trident-scheme:///example/DemoScene?title=TestSchemeJump" org.reactnative.example
 ```
 

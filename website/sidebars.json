@@ -8,7 +8,6 @@
       "navigation",
       "state-management",
       "network",
-      "trident-ui",
       "native-modules",
       "debug-skill",
       "release"

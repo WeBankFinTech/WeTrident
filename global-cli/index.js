@@ -233,7 +233,7 @@ function createNewProject (root, projectName, options) {
 
   // 安装完成这时候一定是有的
   cli = require(CLI_MODULE_PATH())
-  cli.init(root, projectName, options.bundleId, options.schema, options)
+  cli.init(root, projectName, options.bundleId, options.scheme, options)
 }
 
 function getInstallPackage (rnPackage) {

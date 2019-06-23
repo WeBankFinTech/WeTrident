@@ -32,7 +32,7 @@ wnpm install -g @webank/trident-cli
 ``` shell 
 trident-cli init --name=weBookStore --bundleId=com.trident.wbstore
 ```
-根据命令提示生成输入schema `wbstore` 
+根据命令提示生成输入scheme `wbstore` 
 
 等待所有依赖安装完成即可。
 
