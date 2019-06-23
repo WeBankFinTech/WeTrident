@@ -22,17 +22,17 @@ function checkCmdAndVersion (cmd, versionCmd, min, max, installGuide) {
     return null
   }
   const version = execSync(versionCmd)
-  const versionStr = version.toString()
+  const versionStr = version.toString().trim()
   if (min && versionStr && compare(versionStr, min) < 0) {
     return {
-      msg: `${cmd} vesion should be at least ` + min + ', current ' + versionStr,
+      msg: `${cmd} 版本不能低于 ` + min + ', current ' + versionStr,
       installGuide: installGuide
     }
   }
 
   if (max && versionStr && compare(versionStr, max) > 0) {
     return {
-      msg: `${cmd} vesion should at most ` + max + ', current ' + versionStr,
+      msg: `${cmd} 版本不能高于 ` + max + ', current ' + versionStr,
       installGuide: installGuide
     }
   }
