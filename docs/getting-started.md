@@ -44,7 +44,7 @@ wnpm的安装见 `http://wnpm.weoa.com/`
 为了快速的理解Trident的使用，我们从一个简单应用开始，逐步的说明各种基础用法。整个讲解过程中一些UI细节实现不会详细描述，所以建议你把WeBookStore的git库clone下来，跟着尝试会有比较不错的效果。
 
 我们开发一个简单的图书管理App，App的页面如下：
-![](./assets/images/2019-06-02-23-35-20.png)
+![](./assets/images/2019-06-24-03-55-20.png)
 
 - App名称: WeBookStore
 - App BundleId(Android上的packageName): com.trident.wbstore
