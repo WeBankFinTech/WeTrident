@@ -66,11 +66,11 @@ Scene级别的数据为页面私有数据，其他页面无法共享，如果需
 ```
 
 调用完成可以看到日志如下，bookList更新到了新的`next state`上。
-![](2019-06-24-02-13-31.png)
+![](./assets/images/2019-06-24-02-13-31.png)
 `bookList`会默认挂到`BookListScene`的`this.props` 上。
 
 上面截图中我们可以看到整个App的state store的结构：
-![](2019-06-24-02-21-04.png)
+![](./assets/images/2019-06-24-02-21-04.png)
 图中可以看的出，Trident App的模块数据独立于其他模块，页面数据也独立其他页面的数据。
 
 接着我们使用这些数据来填充界面，可以直接通过 `this.props` 使用bookList

@@ -11,11 +11,17 @@
       "debug-skill": {
         "title": "调试方法和技巧"
       },
+      "development/Development": {
+        "title": "development/Development"
+      },
       "getting-started": {
         "title": "创建项目"
       },
       "introduction": {
         "title": "Trident简介"
+      },
+      "native-modules": {
+        "title": "使用原生组件"
       },
       "navigation": {
         "title": "导航系统"
@@ -26,8 +32,14 @@
       "release": {
         "title": "构建和发布"
       },
+      "scheme": {
+        "title": "外部Scheme拉起"
+      },
       "state-management": {
         "title": "数据状态管理"
+      },
+      "trident-cli": {
+        "title": "trident-cli"
       },
       "trident-ui": {
         "title": "界面开发"

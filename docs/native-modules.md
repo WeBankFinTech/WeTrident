@@ -1,6 +1,6 @@
 ---
 id: native-modules
-title: 创建项目 
+title: 使用原生组件
 ---
 `react-native-device-info` 这个项目支持了大部分常见的原生信息获取的能力，所以我们不再自己全新开发而是直接选择它来实现我们获取版本号的能力。
 
@@ -51,7 +51,7 @@ export default class VersionScene extends WeBaseScene {
           borderRadius: 60,
           width: 120,
           height: 120
-        }} source={require('./images/icon.png')} />
+        }} source={require('./assets/images/icon.png')} />
         <Text style={{
           paddingTop: 16
         }}>Trident Framework Demo {DeviceInfo.getVersion()}({DeviceInfo.getBuildNumber()})</Text>
