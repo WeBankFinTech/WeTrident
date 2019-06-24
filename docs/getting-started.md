@@ -74,10 +74,12 @@ PS: 初始化过程中会对当前的开发环境做检查，如果有提示某�
 #### 3. 启动应用(iOS)
 ``` shell 
 cd WeBookStore
-# 在XCode中打开项目
-open ios/WeBookStore
+
 # 启动react native packager
 trident-cli packager start
+
+# 在XCode中打开项目
+open ios/WeBookStore.xcworkspace/
 ```
 在XCode中Run即可。
 
