@@ -7,13 +7,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/erichua23/soga.git"
+    "url": "git+http://git.weoa.com/app/trident"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/erichua23/soga/issues"
+    "url": "http://git.weoa.com/app/trident/issues"
   },
-  "homepage": "https://github.com/erichua23/soga#readme",
+  "homepage": "http://sit-hjdata.webank.com/trident/",
   "description": ""
 }
