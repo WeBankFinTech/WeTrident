@@ -160,3 +160,4 @@ export default (global, ModulePrivate) => ({
   // ...
 })
 ```
+[本节代码变更内容](http://git.weoa.com/app/trident-demo/compare/f-custom-navbar...f-data-from-scene-module)

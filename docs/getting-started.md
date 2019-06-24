@@ -125,3 +125,5 @@ trident-cli gen module
 PS: `example`模块为测试所用，到这里我们可以移除它，移除一个模块非常简单，在`modules/index.js` 中删除对应模块的`require`并且删除目录即可。此时我们再次进入App，第一个页面已经是 BookListScene 了，`modules/index.js`的顺序决定了首页是哪一个页面，有需要可以自行调整顺序。
 
 本部分我们创建了所有需要的页面，接下来会介绍导航体系，把这些页面串联起来。
+
+[本节代码变更内容](http://git.weoa.com/app/trident-demo/compare/f-init...f-add-modules-scenes)

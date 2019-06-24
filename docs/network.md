@@ -164,3 +164,6 @@ export default class ResultScene extends WeBaseScene {
   }
 }
 ```
+
+[本节代码变更内容](http://git.weoa.com/app/trident-demo/compare/f-data-from-scene-module...f-ui-network)
+

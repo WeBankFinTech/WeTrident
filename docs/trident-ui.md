@@ -103,3 +103,5 @@ Toast.show('This is a Toast')
 ### WeTouchable
 支持高亮、半透明、遮罩等效果的按压态组件。
 
+[本节代码变更内容](http://git.weoa.com/app/trident-demo/compare/f-ui-network...f-trident-ui-popupstub)
+
