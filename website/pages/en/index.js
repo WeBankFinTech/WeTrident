@@ -189,7 +189,7 @@ class Index extends React.Component {
             title: "清晰的状态管理"
           },
           {
-            content: `以日志为核心都调试思路，统一处理调试需要的日志，让开发者这可更关注与业务Bug的调试`,
+            content: `以日志为核心的调试思路，统一处理调试需要的日志，让开发者可以更关注与业务Bug的调试`,
             image: imgUrl('noun_debugging_1978252.svg'),
             imageAlign: 'top',
             title: "丰富的调试支持"
