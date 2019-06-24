@@ -36,7 +36,7 @@ function checkAllVersion () {
       undefined,
       undefined,
       undefined,
-      '请到 https://docs.fastlane.tools/getting-started/ios/setup/ 下载安装正确的版本, 行内需要切换到Staff-WiFi'
+      '请到 https://docs.fastlane.tools/getting-started/ios/setup/ 下载安装正确的版本, 行内需要切换到WeBank-StaffWiFi'
     ),
     // TODO Android环境可能会有不同的shell的问题
     // checkEnvVar('ANDROID_HOME')
