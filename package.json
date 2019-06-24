@@ -1,6 +1,6 @@
 {
   "name": "@webank/trident",
-  "version": "1.0.42",
+  "version": "1.0.43",
   "main": "library/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
