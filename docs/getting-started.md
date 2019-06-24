@@ -51,7 +51,7 @@ wnpm的安装见 `http://wnpm.weoa.com/`
 为了快速的理解Trident的使用，我们从一个简单应用开始，逐步的说明各种基础用法。整个讲解过程中一些UI细节实现不会详细描述，所以建议你把WeBookStore的git库clone下来，跟着尝试会有比较不错的效果。
 
 我们开发一个简单的图书管理App，App的页面如下：
-![](./assets/images/2019-06-24-03-55-20.png)
+![](assets/images/2019-06-24-03-55-20.png)
 
 - App名称: WeBookStore
 - App BundleId(Android上的packageName): com.trident.wbstore
@@ -91,7 +91,7 @@ open ios/WeBookStore.xcworkspace/
 # 代码结构和模版工具
 ## App脚手架介绍
 上面的过程生成了Trident App最基础的结构，生成的项目结构如下: 
-![](./assets/images/2019-06-24-01-04-55.png)
+![](assets/images/2019-06-24-01-04-55.png)
 
 Trident App把App的结构分为三层： `全局容器 -> 模块 -> 页面(Trident中称为Scene)`。
 - `container`即为全局容器，所有App全局需要的一些逻辑都在这个模块，这个模块产生的数据也供全局共享。
@@ -127,7 +127,7 @@ trident-cli gen module
 ```
 
 到这里所有需要的页面已经生成，除了这些关键的module和scene，对应的还生成了常用的一些目录，这也是我们建议的使用方式，例如`components`用于放置当前模块自己是使用的组件。`services`目录存放处理服务器端请求的逻辑代码，可以避免将所有网络请求放到Scene中导致Scene的臃肿，这样的拆分可以帮助Scene保持更清晰明了的UI代码。
-![](./assets/images/2019-06-24-01-19-43.png)
+![](assets/images/2019-06-24-01-19-43.png)
 
 PS: `example`模块为测试所用，到这里我们可以移除它，移除一个模块非常简单，在`modules/index.js` 中删除对应模块的`require`并且删除目录即可。此时我们再次进入App，第一个页面已经是 BookListScene 了，`modules/index.js`的顺序决定了首页是哪一个页面，有需要可以自行调整顺序。
 

@@ -157,7 +157,7 @@ export default class ResultScene extends WeBaseScene {
           marginBottom: 20,
           width: 120,
           height: 120,
-        }} source={require('./assets/images/success.png')} />
+        }} source={require('assets/images/success.png')} />
         <Text>{`借阅《${bookDetail.title}》成功`}</Text>
       </View>
     )

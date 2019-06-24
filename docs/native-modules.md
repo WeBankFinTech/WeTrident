@@ -51,7 +51,7 @@ export default class VersionScene extends WeBaseScene {
           borderRadius: 60,
           width: 120,
           height: 120
-        }} source={require('./assets/images/icon.png')} />
+        }} source={require('assets/images/icon.png')} />
         <Text style={{
           paddingTop: 16
         }}>Trident Framework Demo {DeviceInfo.getVersion()}({DeviceInfo.getBuildNumber()})</Text>
