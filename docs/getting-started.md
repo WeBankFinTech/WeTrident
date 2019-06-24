@@ -4,7 +4,14 @@ title: 创建项目
 ---
 
 ## 开发环境依赖
-Mac的开发环境
+Mac的开发环境，依赖的其他工具版本要求如下： 
+```
+node >= 8.3.0
+npm >= 8.3.0
+git >= 2.9.0
+fastlane >= 2.117.1
+pod >= 1.2.0
+```
 
 ## 内网配置
 为了避免各种网络问题，行内用户首先需要安装wnpm。
@@ -51,8 +58,6 @@ wnpm的安装见 `http://wnpm.weoa.com/`
 - App schema: wbstore
 
 ### 创建项目
-首先确保已经安装了npm。
-
 #### 1. 安装trident-cli
 ``` shell 
 wnpm install -g @webank/trident-cli

@@ -36,9 +36,10 @@ function checkAllVersion () {
       undefined,
       undefined,
       undefined,
-      '请到 https://fastlane.tools/ 下载安装正确的版本'
+      '请到 https://docs.fastlane.tools/getting-started/ios/setup/ 下载安装正确的版本, 行内需要切换到Staff-WiFi'
     ),
-    checkEnvVar('ANDROID_HOME')
+    // TODO Android环境可能会有不同的shell的问题
+    // checkEnvVar('ANDROID_HOME')
   ].filter(item => !!item)
 }
 
