@@ -3,7 +3,7 @@
   "localized-strings": {
     "next": "Next",
     "previous": "Previous",
-    "tagline": "一套可快速开发支持商业运营App的框架",
+    "tagline": "可快速开发支持商业运营App的框架",
     "docs": {
       "api/AppNavigator": {
         "title": "AppNavigator"

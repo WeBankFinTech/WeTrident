@@ -22,9 +22,9 @@ const users = [
 
 const siteConfig = {
   title: 'Trident', // Title for your website.
-  tagline: '一套可快速开发支持商业运营App的框架',
+  tagline: '可快速开发支持商业运营App的框架',
   // url: 'https://your-docusaurus-test-site.com', // Your website URL
-  baseUrl: '/', // Base URL for your project */
+  baseUrl: '/trident/', // Base URL for your project */
   // For github.io type URLs, you would set the url and baseUrl like:
   //   url: 'https://facebook.github.io',
   //   baseUrl: '/test-site/',
@@ -52,7 +52,7 @@ const siteConfig = {
 
   /* Colors for website */
   colors: {
-    primaryColor: '#503577',
+    primaryColor: '#1E53A4',
     secondaryColor: '#382553',
   },
 
@@ -80,15 +80,15 @@ const siteConfig = {
 
   // Add custom scripts here that would be placed in <script> tags.
   scripts: [
-    "/scripts/codeblock.js",
-    "/scripts/buttons.js"
+    // "./scripts/codeblock.js",
+    // "./scripts/buttons.js"
   ],
 
   // Add custom stylesheets here
   stylesheets: [
-    '/css/monokai.min.css',
-    '/css/codeblock.css',
-    '/css/default.min.css'
+    // './css/monokai.min.css',
+    // './css/codeblock.css',
+    // './css/default.min.css'
   ],
 
   // On page navigation for the current documentation page.

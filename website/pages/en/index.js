@@ -85,6 +85,9 @@ class HomeSplash extends React.Component {
             <Button href={docUrl("getting-started", language)}>
               快速开始
             </Button>
+            <Button href={'http://git.weoa.com/app/trident'}>
+              源代码
+            </Button>
           </PromoSection>
         </div>
       </SplashContainer>
@@ -99,7 +102,7 @@ class Index extends React.Component {
 
     const Block = props => (
       <Container
-        padding={['bottom', 'top']}
+        padding={props.padding || ['bottom', 'top']}
         id={props.id}
         background={props.background}>
         <GridBlock
@@ -163,33 +166,63 @@ class Index extends React.Component {
       </Block>
     );
 
-    const Features = () => (
+    const Features1 = () => (
       <Block layout="fourColumn" className="rowContainer featureBlock">
         {[
           {
-            content: "定义统一规范的路由规则，支持按需加载，支持运营数据和异常数据的自动上报管理，配套的页面生命周期，让App的生命周期管理变得更加简单。",
+            content: "定义统一规范的路由规则，配套的页面生命周期，让App的生命周期管理变得更加简单，明确模块间依赖关系",
             //image: imgUrl('icon/time.png'),
-            image : imgUrl("noun_Check_1870817.svg"),
+            image : imgUrl("iconfinder_network1_216674.svg"),
             imageAlign: 'top',
-            title: "统一的路由管理"
+            title: "统一的路由体系"
           },
           {
-            content: "定义统一的网络层模式，以配置的方式来实现接口定义，支持纯客户端的Mock和缓存，洁面开发阶段彻底摆脱服务器端限制。",
+            content: "明确定义横向模块划分和纵向的分层，用规范抹平个体差异，从项目开始的那一刻保持高内聚低耦合，降低理解和维护代码成本。",
             image: imgUrl('cubes-solid.svg'),
             imageAlign: 'top',
-            title: "完善的网络支持"
+            title: "科学的分层结构"
           },
           {
-            content: "清晰的层次和模块划分，三层数据隔离和共享机制的设计，让数据的隔离变得自然，共享变得简单。从设计上避免了数据管理混乱导致的Bug",
-            image: imgUrl('cogs-solid.svg'),
+            content: "三层数据隔离和共享机制的设计，让数据的隔离变得自然，共享变得简单，从设计上避免了数据管理混乱导致的Bug。",
+            image: imgUrl('iconfinder_40_Control_setting_Gear_setting_4308040.svg'),
             imageAlign: 'top',
             title: "清晰的状态管理"
           },
           {
-            content: `框架统一处理调试需要的基础设施，各种类型的日志明确区分，让开发这可以更专心与业务Bug的调试`,
+            content: `以日志为核心都调试思路，统一处理调试需要的日志，让开发者这可更关注与业务Bug的调试`,
             image: imgUrl('noun_debugging_1978252.svg'),
             imageAlign: 'top',
             title: "丰富的调试支持"
+          }
+        ]}
+      </Block>
+    );
+    const Features2 = () => (
+      <Block layout="fourColumn" className="rowContainer featureBlock" padding={['bottom']}>
+        {[
+          {
+            content: `[敬请期待] 集成App自动化测试能力，轻松搞定App的e2e自动化测试，让开发者将精力用于设计测试用例而不是处理自动化测试环境。`,
+            image: imgUrl('auto_test.svg'),
+            imageAlign: 'top',
+            title: "自动化测试"
+          },
+          {
+            content: `[敬请期待] 版本管理、数据上报、推送等App必备运营能力，通常在App正式上线前焦头烂额，使用Trident这些都无需开发者单独开发。`,
+            image: imgUrl('iconfinder-icon.svg'),
+            imageAlign: 'top',
+            title: "集成App运营能力"
+          },
+          {
+            content: `[敬请期待] 除了基础的开发支持和运营能力，Trident同样支持公用业务模块的插件化集成，快速接入已有插件或者在团队内不同项目共享业务模块都变得异常轻松。`,
+            image: imgUrl('iconfinder_8-electronic-plugin-cable-icon_2419804.svg'),
+            imageAlign: 'top',
+            title: "插件式业务模块"
+          },
+          {
+            content: `[敬请期待] 一款成熟在线上运营的App一定会有线上错误监控、页面性能、接口性能等监控体系，开发者用Trident开发出来的App将会从出生那一刻起自带这些监控。`,
+            image: imgUrl('noun_Check_1870817.svg'),
+            imageAlign: 'top',
+            title: "质量监控体系"
           },
         ]}
       </Block>
@@ -229,9 +262,9 @@ class Index extends React.Component {
         <HomeSplash siteConfig={siteConfig} language={language} />
         <div className="mainContainer">
           <Container background="light">
-            <Features />
+            <Features1 />
+            <Features2 />
           </Container>
-          {/*<FeatureCallout />*/}
           {/*<LearnHow />*/}
           {/*<TryOut />*/}
           {/*<Description />*/}

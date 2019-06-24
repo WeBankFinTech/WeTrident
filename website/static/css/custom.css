@@ -33,3 +33,6 @@
     background: #fff;
     color: $primaryColor;
 }
+.blockContent h2 {
+    color: $primaryColor;
+}

@@ -5,7 +5,7 @@ title: Trident简介
 [![](https://img.shields.io/badge/node-%3E%3D8.3.0-brightgreen.svg)](https://nodejs.org/en/)
 
 ## Trident的目标
-一套可快速开发支持商业运营App的框架。
+可快速开发支持商业运营App的框架。
 
 ## Trident的开发背景
 Trident由微众银行App团队开发，开发过程中我们通过调研其他一些RN的开发框架发现发现大部分适合比较小的项目，或者是用到后期要真实运营的适合还需要补充很多运营相关的基础能力。
