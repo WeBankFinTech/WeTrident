@@ -20,7 +20,7 @@ function checkAllVersion () {
     checkCmdAndVersion(
       'pod',
       'pod --version',
-      '1.2.0',
+      '1.4.0',
       null,
       '请到 https://cocoapods.org/ 下载安装正确的版本'
     ),
