@@ -7,14 +7,14 @@ function checkAllVersion () {
     checkCmdAndVersion({
       cmd: 'node',
       versionCmd: 'node --version | cut -d " " -f 3 | sed -e "s/[ |v]//g"',
-      min: '18.3.0',
+      min: '8.3.0',
       max: null,
       installGuide: '请到 https://nodejs.org/en/ 下载安装正确的版本'
     }),
     checkCmdAndVersion({
       cmd: 'git',
       versionCmd: 'git --version | cut -d " " -f 3 | sed -e "s/ //g"',
-      min: '12.9.0',
+      min: '2.9.0',
       max: null,
       installGuide: '请到 https://git-scm.com 下载安装正确的版本'
     }),
@@ -28,21 +28,21 @@ function checkAllVersion () {
     checkCmdAndVersion({
       cmd: 'pod',
       versionCmd: 'pod --version',
-      min: '11.4.0',
+      min: '1.4.0',
       max: null,
       installCmd: 'sudo gem install cocoapods -v 1.4.0'
     }),
     checkCmdAndVersion({
       cmd: 'npm',
       versionCmd: 'npm --version',
-      min: '15.8.0',
+      min: '5.8.0',
       max: null,
       installCmd: 'npm install -g npm@5.8.0'
     }),
     checkCmdAndVersion({
       cmd: 'xcodeproj',
       versionCmd: 'xcodeproj --version',
-      min: '11.10.0',
+      min: '1.10.0',
       max: null,
       installCmd: 'sudo gem install xcodeproj -v 1.10.0'
     }),
