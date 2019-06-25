@@ -8,13 +8,15 @@ var compare = require('node-version-compare')
  * @param max
  * @param installGuide
  */
-function checkCmdAndVersion (cmd, versionCmd, min, max, installGuide) {
+function checkCmdAndVersion ({cmd, versionCmd, min, max, installGuide, installCmd}) {
   var execSync = require('child_process').execSync
   const checkCmdExisted = execSync(`if ! type ${cmd} > /dev/null; then echo "0"; else echo "-1"; fi`)
   if (checkCmdExisted.toString().trim() !== '-1') {
     return {
-      msg: `${cmd} not installed`,
-      installGuide: installGuide
+      cmd,
+      msg: `${cmd} 未安装`,
+      installGuide,
+      installCmd
     }
   }
 
@@ -25,21 +27,25 @@ function checkCmdAndVersion (cmd, versionCmd, min, max, installGuide) {
   const versionStr = version.toString().trim()
   if (min && versionStr && compare(versionStr, min) < 0) {
     return {
+      cmd,
       msg: `${cmd} 版本不能低于 ` + min + ', current ' + versionStr,
-      installGuide: installGuide
+      installGuide,
+      installCmd
     }
   }
 
   if (max && versionStr && compare(versionStr, max) > 0) {
     return {
+      cmd,
       msg: `${cmd} 版本不能高于 ` + max + ', current ' + versionStr,
-      installGuide: installGuide
+      installGuide,
+      installCmd
     }
   }
   return null
 }
 
-function checkEnvVar(varName) {
+function checkEnvVar({varName, installGuide}) {
   if (!varName) {
     return null
   }
@@ -47,8 +53,8 @@ function checkEnvVar(varName) {
     return null
   } else {
     return {
-      msg: `${varName} must set in shell environment`,
-      installGuide: 'Please install android development tools'
+      msg: `${varName} 必须设置到环境变量中`,
+      installGuide
     }
   }
 }

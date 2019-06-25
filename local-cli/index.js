@@ -57,44 +57,6 @@ function run (root) {
     }
   }
 }
-
-function checkEnv () {
-  const errorList = []
-  // Android env
-  if (!process.env.ANDROID_HOME) {
-    errorList.push({
-      id: 'android',
-      desc: 'Android environment not ready!',
-      installCmd: undefined,
-      installGuide: 'Follow the docs https://developer.android.com/studio/install to setup android environment'
-    })
-  }
-
-  // TODO iOS env xcodebuild
-  // TODO pod exist and version check
-  if (false ) {
-    errorList.push({
-      id: 'android',
-      desc: 'Android environment not ready!',
-      installCmd: 'sudo gem install cocoapods',
-      installGuide: 'Follow the docs https://cocoapods.org/ to setup cocoapods environment'
-    })
-  }
-
-  // TODO npm version
-  // TODO fastlane env
-  return errorList
-}
-
-function printDoctorReport (errorList) {
-  if (errorList.length === 0) {
-    console.log('Everything is OK!')
-  } else {
-    errorList.forEach(item => console.log(item.desc))
-  }
-}
-
-
 module.exports = {
   init: require('./init').init,
   run

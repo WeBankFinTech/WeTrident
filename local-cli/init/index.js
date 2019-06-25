@@ -5,7 +5,7 @@ const replaceInFile = require('replace-in-file')
 const chalk = require('chalk')
 
 const shell = require('shelljs')
-const inquirer = require('inquirer')
+// const inquirer = require('inquirer')
 const env = require('../npmConfig')
 
 function init (root, projectName, bundleId, scheme, options) {
