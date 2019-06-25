@@ -4,48 +4,45 @@ title: 创建项目
 ---
 
 ## 开发环境依赖
-Mac的开发环境，依赖的其他工具版本要求如下： 
-```
-node >= 8.3.0
-npm >= 5.8.0
-git >= 2.9.0
-fastlane >= 2.117.1
-pod >= 1.4.0
-```
+Trident目前仅支持macOS，其余环境Trident都会做详细的提示来协助安装。
 
 ## 内网配置
 为了避免各种网络问题，行内用户首先需要安装wnpm。
 wnpm的安装见 `http://wnpm.weoa.com/`
 网络环境需要使用Office-WiFi并git和npm的代理配置代理。
 
-1. 配置npm代理 (`~/.npmrc`)
+0. 开始前你可以先备份一下接下来会修改到的配置文件
 
     ``` shell
-    proxy = http://proxy.webank.com:8080
-    noproxy = wnpm.weoa.com,10.107.103.115
+    cp ~/.npmrc ~/.npmrc.back.trident && cp ~/.gitconfig ~/.gitconfig.back.trident && cp ~/.gradle/gradle.properties ~/.gradle/gradle.properties.back.trident
     ```
-    
-2. 配置Git代理 (`~/.gitconfig`)
+
+1. 配置npm代理，执行如下命令 (`~/.npmrc`)
 
     ``` shell
-    [http]
-    proxy = http://proxy.webank.com:8080
-    sslverify = false
-    [https]
-    proxy = http://proxy.webank.com:8080
-    sslverify = false
-    [url "http://github.com/"]
-    insteadOf = git://github.com/
+    npm config set proxy=http://proxy.webank.com:8080
+    npm config set noproxy=wnpm.weoa.com,10.107.103.115
     ```
     
-3. 配置gradle的代理 (`~/.gradle/gradle.properties`)
-   
-   ``` shell
-   systemProp.http.proxyHost=proxyhk.webank.com
-   systemProp.http.proxyPort=8080
-   systemProp.https.proxyHost=proxyhk.webank.com
-   systemProp.https.proxyPort=8080
-   ```
+2. 配置Git代理，执行如下命令 (`~/.gitconfig`)
+
+    ``` shell
+    git config --global --replace-all http.proxy http://proxy.webank.com:8080
+    git config --global --replace-all http.sslverify false
+    
+    git config --global --replace-all https.proxy http://proxy.webank.com:8080
+    git config --global --replace-all https.sslverify false
+    
+    git config --global --replace-all url.http://github.com.insteadof git://github.com/
+    ```
+
+3. Ruby镜像设置
+
+    ```shell 
+    # 为了后续依赖安装更快，国内用户建议设置Ruby镜像到ruby china的镜像
+    gem sources --add https://gems.ruby-china.com/ --remove https://rubygems.org/
+    sudo gem update
+    ```
 
 ## 创建项目
 为了快速的理解Trident的使用，我们从一个简单应用开始，逐步的说明各种基础用法。整个讲解过程中一些UI细节实现不会详细描述，所以建议你把WeBookStore的git库clone下来，跟着尝试会有比较不错的效果。
