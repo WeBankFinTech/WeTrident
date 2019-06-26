@@ -7,9 +7,11 @@ title: 创建项目
 Trident目前仅支持macOS，其余环境Trident都会做详细的提示来协助安装。
 
 ## 内网配置
-为了避免各种网络问题，行内用户首先需要安装wnpm。
-wnpm的安装见 `http://wnpm.weoa.com/`
-网络环境需要使用Office-WiFi并git和npm的代理配置代理。
+为了避免各种网络问题，行内用户首先需要完成如下环境设置。
+1. 将网络环境切换到 <span style="color: red">`WeBank-OfficeWiFi`</span>  
+2. 安装wnpm, wnpm安装指引见 [http://wnpm.weoa.com/](http://wnpm.weoa.com/)。
+
+完成上面两项以后，为了在`WeBank-OfficeWifi`访问各种开发资源（wnpm,gem,cocospod,github等），需要继续进行如下配置： 
 
 0. 开始前你可以先备份一下接下来会修改到的配置文件
 
