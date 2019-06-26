@@ -1,6 +1,6 @@
 const fs = require('fs')
 const path = require('path')
-const execSync = require('child_process').execSync
+const execSync = (cmd) => require('child_process').execSync(cmd, {stdio: 'inherit'})
 const replaceInFile = require('replace-in-file')
 const chalk = require('chalk')
 

@@ -1,6 +1,7 @@
 const { checkCmdAndVersion, checkEnvVar } = require('./_checkEnv')
 const chalk = require('chalk')
 const inquirer = require('inquirer')
+const execSync = (cmd) => require('child_process').execSync(cmd, {stdio: 'inherit'})
 
 function checkAllVersion () {
   return [
@@ -34,18 +35,19 @@ function checkAllVersion () {
     }),
 
     checkCmdAndVersion({
-      cmd: 'xcodeproj',
-      versionCmd: 'xcodeproj --version',
-      min: '1.10.0',
-      max: null,
-      installCmd: 'sudo gem install xcodeproj -v 1.10.0'
-    }),
-    checkCmdAndVersion({
       cmd: 'pod',
       versionCmd: 'pod --version',
       min: '1.4.0',
       max: null,
       installCmd: 'sudo gem install cocoapods -v 1.4.0'
+    }),
+
+    checkCmdAndVersion({
+      cmd: 'xcodeproj',
+      versionCmd: 'xcodeproj --version',
+      min: '1.10.0',
+      max: null,
+      installCmd: 'sudo gem install xcodeproj -v 1.10.0'
     }),
 
     checkCmdAndVersion({
@@ -87,7 +89,6 @@ function logError (checkResult) {
 }
 
 function autoInstallAndLogGuide (installCmdList, installGuideList) {
-  const execSync = require('child_process').execSync
   installCmdList.forEach(item => {
     console.log(`开始自动安装${item.cmd}...`)
     execSync(item.installCmd)

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const fs = require('fs')
 const path = require('path')
-const execSync = (cmd) => require('child_process').execSync(cmd, { stdio: 'pipe' })
+const execSync = (cmd) => require('child_process').execSync(cmd, {stdio: 'inherit'})
 const options = require('minimist')(process.argv.slice(2))
 const npmConfig = require('./npmConfig')
 

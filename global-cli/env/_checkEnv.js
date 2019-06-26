@@ -7,6 +7,7 @@ var compare = require('node-version-compare')
  * @param min
  * @param max
  * @param installGuide
+ * @param installCmd
  */
 function checkCmdAndVersion ({cmd, versionCmd, min, max, installGuide, installCmd}) {
   var execSync = require('child_process').execSync
@@ -23,7 +24,18 @@ function checkCmdAndVersion ({cmd, versionCmd, min, max, installGuide, installCm
   if ((!min && !max) || !versionCmd) {
     return null
   }
-  const version = execSync(versionCmd)
+  let version
+  try {
+    version = execSync(versionCmd)
+  } catch (e) {
+    return {
+      cmd,
+      msg: `${cmd} 版本检查出错建议重新安装`,
+      installGuide,
+      installCmd
+    }
+  }
+
   const versionStr = version.toString().trim()
   if (min && versionStr && compare(versionStr, min) < 0) {
     return {
