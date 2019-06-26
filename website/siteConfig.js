@@ -39,8 +39,8 @@ const siteConfig = {
   // For no header links in the top nav bar -> headerLinks: [],
   headerLinks: [
     {doc: 'getting-started', label: '使用文档'},
-    {href: 'http://git.weoa.com/app/trident', label: '源码库'},
-    {href: 'http://git.weoa.com/app/trident-demo', label: '示例工程'},
+    {href: 'http://git.weoa.com/app/trident', label: '源码库(开发网)'},
+    {href: 'http://git.weoa.com/app/trident-demo', label: '示例工程(开发网)'},
     {href: 'http://km.weoa.com/group/FullStackFE', label: '开发团队'},
   ],
 

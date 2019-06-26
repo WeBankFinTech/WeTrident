@@ -12,6 +12,13 @@ function checkAllVersion () {
       installGuide: '请到 https://nodejs.org/en/ 下载安装正确的版本'
     }),
     checkCmdAndVersion({
+      cmd: 'npm',
+      versionCmd: 'npm --version',
+      min: '5.8.0',
+      max: null,
+      installCmd: 'npm install -g npm@5.8.0'
+    }),
+    checkCmdAndVersion({
       cmd: 'git',
       versionCmd: 'git --version | cut -d " " -f 3 | sed -e "s/ //g"',
       min: '2.9.0',
@@ -25,20 +32,7 @@ function checkAllVersion () {
       max: undefined,
       installCmd: '/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)'
     }),
-    checkCmdAndVersion({
-      cmd: 'pod',
-      versionCmd: 'pod --version',
-      min: '1.4.0',
-      max: null,
-      installCmd: 'sudo gem install cocoapods -v 1.4.0'
-    }),
-    checkCmdAndVersion({
-      cmd: 'npm',
-      versionCmd: 'npm --version',
-      min: '5.8.0',
-      max: null,
-      installCmd: 'npm install -g npm@5.8.0'
-    }),
+
     checkCmdAndVersion({
       cmd: 'xcodeproj',
       versionCmd: 'xcodeproj --version',
@@ -46,6 +40,14 @@ function checkAllVersion () {
       max: null,
       installCmd: 'sudo gem install xcodeproj -v 1.10.0'
     }),
+    checkCmdAndVersion({
+      cmd: 'pod',
+      versionCmd: 'pod --version',
+      min: '1.4.0',
+      max: null,
+      installCmd: 'sudo gem install cocoapods -v 1.4.0'
+    }),
+
     checkCmdAndVersion({
       cmd: 'fastlane',
       versionCmd: undefined,

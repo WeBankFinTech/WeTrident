@@ -14,7 +14,10 @@ wnpm的安装见 `http://wnpm.weoa.com/`
 0. 开始前你可以先备份一下接下来会修改到的配置文件
 
     ``` shell
-    cp ~/.npmrc ~/.npmrc.back.trident && cp ~/.gitconfig ~/.gitconfig.back.trident && cp ~/.gradle/gradle.properties ~/.gradle/gradle.properties.back.trident
+    cp ~/.npmrc ~/.npmrc.back.trident
+    cp ~/.gitconfig ~/.gitconfig.back.trident
+    cp ~/.gemrc ~/.gemrc.back.trident
+    cp ~/.gradle/gradle.properties ~/.gradle/gradle.properties.back.trident
     ```
 
 1. 配置npm代理，执行如下命令 (`~/.npmrc`)
@@ -24,7 +27,7 @@ wnpm的安装见 `http://wnpm.weoa.com/`
     npm config set noproxy=wnpm.weoa.com,10.107.103.115
     ```
     
-2. 配置Git代理，执行如下命令 (`~/.gitconfig`)
+2. 配置Git代理，执行如下命令 (部分npm依赖github)
 
     ``` shell
     git config --global --replace-all http.proxy http://proxy.webank.com:8080
@@ -36,14 +39,20 @@ wnpm的安装见 `http://wnpm.weoa.com/`
     git config --global --replace-all url.http://github.com.insteadof git://github.com/
     ```
 
-3. Ruby镜像设置
+3. Ruby环境设置(cocospod需要ruby环境)
 
     ```shell 
     # 为了后续依赖安装更快，国内用户建议设置Ruby镜像到ruby china的镜像
     gem sources --add https://gems.ruby-china.com/ --remove https://rubygems.org/
     sudo gem update
     ```
-
+    
+    因为`WeBank-OfficeWiFi`连接`gem`需要走代理，所以需要在 `～/.gemrc`中配置代理如下: 
+    ``` shell
+    http_proxy: http://proxy.webank.com:8080
+    ```
+至此，行内环境相关的配置总算完成了，下面我们正式开始吧。
+  
 ## 创建项目
 为了快速的理解Trident的使用，我们从一个简单应用开始，逐步的说明各种基础用法。整个讲解过程中一些UI细节实现不会详细描述，所以建议你把WeBookStore的git库clone下来，跟着尝试会有比较不错的效果。
 
