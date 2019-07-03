@@ -85,9 +85,6 @@ class HomeSplash extends React.Component {
             <Button href={docUrl("getting-started", language)}>
               快速开始
             </Button>
-            <Button href={'http://git.weoa.com/app/trident'}>
-              源代码(开发网)
-            </Button>
           </PromoSection>
         </div>
       </SplashContainer>

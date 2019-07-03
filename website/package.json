@@ -4,7 +4,7 @@
     "start": "docusaurus-start",
     "build": "docusaurus-build",
     "publish-gh-pages": "docusaurus-publish",
-    "publish-website": "npm run build && scp -r build/trident-website/* hjdata@hjdata:/data/sit-hjdata.webank.com/trident/",
+    "publish-website": "npm run build && scp -r build/trident-website/* hjdata@hjdata:/data/trident.webank.com/website",
     "write-translations": "docusaurus-write-translations",
     "version": "docusaurus-version",
     "rename-version": "docusaurus-rename-version"
