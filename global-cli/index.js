@@ -111,9 +111,9 @@ switch (commands[0]) {
       }, () => {
         // console.log
       })
+    } else {
+      startCreateProject()
     }
-
-    startCreateProject()
     break
   }
   case 'env': {
