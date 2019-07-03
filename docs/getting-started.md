@@ -16,10 +16,10 @@ Trident目前仅支持macOS，其余环境Trident都会做详细的提示来协�
 0. 开始前你可以先备份一下接下来会修改到的配置文件
 
     ``` shell
-    cp ~/.npmrc ~/.npmrc.back.trident
-    cp ~/.gitconfig ~/.gitconfig.back.trident
-    cp ~/.gemrc ~/.gemrc.back.trident
-    cp ~/.gradle/gradle.properties ~/.gradle/gradle.properties.back.trident
+    touch ~/.npmrc && cp ~/.npmrc ~/.npmrc.back.trident
+    touch ~/.gitconfig && cp ~/.gitconfig ~/.gitconfig.back.trident
+    touch ~/.gemrc && cp ~/.gemrc ~/.gemrc.back.trident
+    touch ~/.gradle/gradle.properties && cp ~/.gradle/gradle.properties ~/.gradle/gradle.properties.back.trident
     ```
 
 1. 配置npm代理，执行如下命令 (`~/.npmrc`)
@@ -43,15 +43,16 @@ Trident目前仅支持macOS，其余环境Trident都会做详细的提示来协�
 
 3. Ruby环境设置(cocospod需要ruby环境)
 
+    因为`WeBank-OfficeWiFi`连接`gem`需要走代理，所以需要在 `~/.gemrc`(没有则自己创建一个.gemrc文件)中配置代理如下: 
+    
+    ``` shell
+    http_proxy: http://proxy.webank.com:8080
+    ```
+
     ```shell 
     # 为了后续依赖安装更快，国内用户建议设置Ruby镜像到ruby china的镜像
     gem sources --add https://gems.ruby-china.com/ --remove https://rubygems.org/
     sudo gem update
-    ```
-    
-    因为`WeBank-OfficeWiFi`连接`gem`需要走代理，所以需要在 `～/.gemrc`中配置代理如下: 
-    ``` shell
-    http_proxy: http://proxy.webank.com:8080
     ```
 至此，行内环境相关的配置总算完成了，下面我们正式开始吧。
   
