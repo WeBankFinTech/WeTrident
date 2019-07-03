@@ -61,30 +61,35 @@ function checkAllVersion () {
   ].filter(item => !!item)
 }
 
-function logError (checkResult) {
-  checkResult.filter(item => !!item.msg).forEach(item => {
-    console.log(chalk.red(item.msg))
-  })
+function processCheckResult (checkResult) {
+  return new Promise((resolve, reject) => {
+    checkResult.filter(item => !!item.msg).forEach(item => {
+      console.log(chalk.red(item.msg))
+    })
 
-  // 可以自动安装的内容
-  const installCmdList = checkResult.filter(item => !!item.installCmd)
+    // 可以自动安装的内容
+    const installCmdList = checkResult.filter(item => !!item.installCmd)
 
-  // 只能通过安装指引指引安装的内容
-  const installGuideList = checkResult.filter(item => !!item.installGuide)
+    // 只能通过安装指引指引安装的内容
+    const installGuideList = checkResult.filter(item => !!item.installGuide)
 
-  inquirer.prompt([{
-    type: 'confirm',
-    message: chalk.green(`\n自动安装即将运行如下命令: \n${installCmdList.map(item => item.installCmd).join('\n')}\n\n你需要自动安装${installCmdList.map(item => item.cmd).join(', ')}吗? \n`),
-    name: 'chooseAutoInstall'
-  }]).then(answers => {
-    console.log(answers.chooseAutoInstall)
-    if (answers.chooseAutoInstall) {
-      autoInstallAndLogGuide(installCmdList, installGuideList)
-    } else {
+    inquirer.prompt([{
+      type: 'confirm',
+      message: chalk.green(`\n自动安装即将运行如下命令: \n${installCmdList.map(item => item.installCmd).join('\n')}\n\n你需要自动安装${installCmdList.map(item => item.cmd).join(', ')}吗? \n`),
+      name: 'chooseAutoInstall'
+    }]).then(answers => {
+      console.log(answers.chooseAutoInstall)
+      if (answers.chooseAutoInstall) {
+        autoInstallAndLogGuide(installCmdList, installGuideList)
+        resolve()
+      } else {
+        logGuide(installCmdList, installGuideList)
+        reject()
+      }
+    }, () => {
       logGuide(installCmdList, installGuideList)
-    }
-  }, () => {
-    logGuide(installCmdList, installGuideList)
+      reject()
+    })
   })
 }
 
@@ -112,6 +117,6 @@ function logGuide(installCmdList, installGuideList) {
 
 module.exports = {
   check: checkAllVersion,
-  logError
+  processCheckResult
 }
 

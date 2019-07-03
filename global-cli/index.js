@@ -79,37 +79,43 @@ if (fs.existsSync(cliPath)) {
 }
 
 var commands = options._
-const { check, logError } = require('./env/index.js')
+const { check, processCheckResult } = require('./env/index.js')
 const checkResult = check()
 
 // 如果在Trident项目外，理论上说只需要支持 --version 和 init命令
 switch (commands[0]) {
-  case 'init':
-    // 先检查环境是否支持，引导安装
-    if (checkResult.length > 0) {
-      logError(checkResult)
-      return
-    }
-
-    if (!options.name) {
-      console.error(
-        'Usage: trident-cli init --name=$projectName [--verbose]'
-      )
-      process.exit(1)
-    } else {
-      const projectName = options.name
-
-      // TODO
-      validateProjectName(projectName)
-
-      if (fs.existsSync(projectName)) {
-        console.log(`${projectName} already existed, please remove it before create a new one `)
-        return
+  case 'init': {
+    const startCreateProject = () => {
+      if (!options.name) {
+        console.error(
+          'Usage: trident-cli init --name=$projectName [--verbose]'
+        )
+        process.exit(1)
       } else {
-        createProject(projectName, options)
+        const projectName = options.name
+
+        // TODO
+        validateProjectName(projectName)
+
+        if (fs.existsSync(projectName)) {
+          console.log(`${projectName} already existed, please remove it before create a new one `)
+        } else {
+          createProject(projectName, options)
+        }
       }
     }
+    // 先检查环境是否支持，引导安装
+    if (checkResult.length > 0) {
+      processCheckResult(checkResult).then(() => {
+        startCreateProject()
+      }, () => {
+        // console.log
+      })
+    }
+
+    startCreateProject()
     break
+  }
   case 'env': {
     if (checkResult.length > 0) {
       logError(checkResult)
