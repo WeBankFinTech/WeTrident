@@ -22,6 +22,9 @@ class APIClient {
   }
 
   request (apiConfig, body) {
+    if (!apiConfig) {
+      return Promise.reject('invalid cgi config')
+    }
     // this._checkCGIFormat(apiConfig)
 
     const payload = {}

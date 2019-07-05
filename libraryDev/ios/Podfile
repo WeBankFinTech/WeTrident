@@ -1,5 +1,6 @@
 # Uncomment the next line to define a global platform for your project
 platform :ios, '9.0'
+require 'json'
 
 def deps_pods
   # Your 'node_modules' directory is probably in the root of your project,
@@ -23,6 +24,24 @@ def deps_pods
   pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
+  
+  pod 'AFNetworking'
+  pod 'SSZipArchive'
+end
+
+post_install do |installer|
+  print "Called!!!"
+  tridentConfig = JSON.parse(File.read('../trident-config.json'))
+  port = tridentConfig["port"] || "8081"
+  puts port
+  
+  installer.pods_project.build_configurations.each do |config|
+    if config.name == 'Debug'
+        config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)']
+        config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] << "RCT_METRO_PORT=#{port}"
+        puts "Pods project #{config.name}:  #{config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'].inspect}"
+    end
+  end
 end
 
 target 'Develop' do

@@ -12,6 +12,13 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
+		5F1F786422CDAC2E00231D25 /* RNLauncher.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F1F786322CDAC2E00231D25 /* RNLauncher.m */; };
+		5F1F7D3122CDF84900231D25 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 008F07F21AC5B25A0029DE68 /* main.jsbundle */; };
+		5F1F7D3D22CDF96900231D25 /* back-icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F1F7D3922CDF96800231D25 /* back-icon@3x.png */; };
+		5F1F7D3E22CDF96900231D25 /* back-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F1F7D3A22CDF96800231D25 /* back-icon@2x.png */; };
+		5F1F7D3F22CDF96900231D25 /* back-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F1F7D3B22CDF96800231D25 /* back-icon.png */; };
+		5F1F7D4022CDF96900231D25 /* back-icon-mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F1F7D3C22CDF96800231D25 /* back-icon-mask.png */; };
+		5F1F7D4622CE008A00231D25 /* UpdateChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F1F7D4522CE008A00231D25 /* UpdateChecker.m */; };
 		97CF071B89F8AE53D1BDCD92 /* libPods-Develop.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D2824CAD790E81059F0AA52 /* libPods-Develop.a */; };
 /* End PBXBuildFile section */
 
@@ -309,6 +316,14 @@
 		38582EA56E809AC1F76FB810 /* Pods-trident.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-trident.release.xcconfig"; path = "Pods/Target Support Files/Pods-trident/Pods-trident.release.xcconfig"; sourceTree = "<group>"; };
 		3D2824CAD790E81059F0AA52 /* libPods-Develop.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Develop.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
+		5F1F786222CDAC2E00231D25 /* RNLauncher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RNLauncher.h; path = trident/bundleManager/RNLauncher.h; sourceTree = "<group>"; };
+		5F1F786322CDAC2E00231D25 /* RNLauncher.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = RNLauncher.m; path = trident/bundleManager/RNLauncher.m; sourceTree = "<group>"; };
+		5F1F7D3922CDF96800231D25 /* back-icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back-icon@3x.png"; sourceTree = "<group>"; };
+		5F1F7D3A22CDF96800231D25 /* back-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back-icon@2x.png"; sourceTree = "<group>"; };
+		5F1F7D3B22CDF96800231D25 /* back-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back-icon.png"; sourceTree = "<group>"; };
+		5F1F7D3C22CDF96800231D25 /* back-icon-mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back-icon-mask.png"; sourceTree = "<group>"; };
+		5F1F7D4422CE008A00231D25 /* UpdateChecker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UpdateChecker.h; path = trident/bundleManager/UpdateChecker.h; sourceTree = "<group>"; };
+		5F1F7D4522CE008A00231D25 /* UpdateChecker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UpdateChecker.m; path = trident/bundleManager/UpdateChecker.m; sourceTree = "<group>"; };
 		6FD837C7EB65024A276DD0AD /* libPods-tridentTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-tridentTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		7DD08F92AE984C653B7CA535 /* Pods-trident-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-trident-tvOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-trident-tvOSTests/Pods-trident-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -404,7 +419,7 @@
 		13B07FAE1A68108700A75B9A /* trident */ = {
 			isa = PBXGroup;
 			children = (
-				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
+				5F1F783A22CDAB8A00231D25 /* bundleManager */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -472,6 +487,76 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		5F1F783A22CDAB8A00231D25 /* bundleManager */ = {
+			isa = PBXGroup;
+			children = (
+				5F1F7D4422CE008A00231D25 /* UpdateChecker.h */,
+				5F1F7D4522CE008A00231D25 /* UpdateChecker.m */,
+				5F1F786222CDAC2E00231D25 /* RNLauncher.h */,
+				5F1F786322CDAC2E00231D25 /* RNLauncher.m */,
+			);
+			name = bundleManager;
+			sourceTree = "<group>";
+		};
+		5F1F7D3222CDF96800231D25 /* assets */ = {
+			isa = PBXGroup;
+			children = (
+				5F1F7D3322CDF96800231D25 /* node_modules */,
+			);
+			path = assets;
+			sourceTree = "<group>";
+		};
+		5F1F7D3322CDF96800231D25 /* node_modules */ = {
+			isa = PBXGroup;
+			children = (
+				5F1F7D3422CDF96800231D25 /* @unpourtous */,
+			);
+			path = node_modules;
+			sourceTree = "<group>";
+		};
+		5F1F7D3422CDF96800231D25 /* @unpourtous */ = {
+			isa = PBXGroup;
+			children = (
+				5F1F7D3522CDF96800231D25 /* react-navigation */,
+			);
+			path = "@unpourtous";
+			sourceTree = "<group>";
+		};
+		5F1F7D3522CDF96800231D25 /* react-navigation */ = {
+			isa = PBXGroup;
+			children = (
+				5F1F7D3622CDF96800231D25 /* src */,
+			);
+			path = "react-navigation";
+			sourceTree = "<group>";
+		};
+		5F1F7D3622CDF96800231D25 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				5F1F7D3722CDF96800231D25 /* views */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		5F1F7D3722CDF96800231D25 /* views */ = {
+			isa = PBXGroup;
+			children = (
+				5F1F7D3822CDF96800231D25 /* assets */,
+			);
+			path = views;
+			sourceTree = "<group>";
+		};
+		5F1F7D3822CDF96800231D25 /* assets */ = {
+			isa = PBXGroup;
+			children = (
+				5F1F7D3922CDF96800231D25 /* back-icon@3x.png */,
+				5F1F7D3A22CDF96800231D25 /* back-icon@2x.png */,
+				5F1F7D3B22CDF96800231D25 /* back-icon.png */,
+				5F1F7D3C22CDF96800231D25 /* back-icon-mask.png */,
+			);
+			path = assets;
+			sourceTree = "<group>";
+		};
 		78C398B11ACF4ADC00677621 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -512,6 +597,8 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
+				5F1F7D3222CDF96800231D25 /* assets */,
 				13B07FAE1A68108700A75B9A /* trident */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
@@ -598,14 +685,16 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = FQ4J64A9BU;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "trident" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "libraryDev" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -944,8 +1033,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5F1F7D3122CDF84900231D25 /* main.jsbundle in Resources */,
+				5F1F7D3D22CDF96900231D25 /* back-icon@3x.png in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				5F1F7D4022CDF96900231D25 /* back-icon-mask.png in Resources */,
+				5F1F7D3E22CDF96900231D25 /* back-icon@2x.png in Resources */,
+				5F1F7D3F22CDF96900231D25 /* back-icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1041,7 +1135,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				5F1F7D4622CE008A00231D25 /* UpdateChecker.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				5F1F786422CDAC2E00231D25 /* RNLauncher.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1112,9 +1208,14 @@
 			baseConfigurationReference = 8ECA5888DC2D38A11C5B97F8 /* Pods-Develop.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 6;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = FQ4J64A9BU;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+				);
 				INFOPLIST_FILE = trident/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -1124,6 +1225,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = test.cli.bundle;
 				PRODUCT_NAME = trident;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1133,6 +1236,7 @@
 			baseConfigurationReference = 3806B044B0C575FA66326757 /* Pods-Develop.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = FQ4J64A9BU;
 				INFOPLIST_FILE = trident/Info.plist;
@@ -1144,6 +1248,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = test.cli.bundle;
 				PRODUCT_NAME = trident;
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -1268,7 +1373,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "trident" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "libraryDev" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
