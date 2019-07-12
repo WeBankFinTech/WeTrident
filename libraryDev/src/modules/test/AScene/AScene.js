@@ -5,10 +5,10 @@
  */
 import React, { Component } from 'react'
 import { View, Text } from 'react-native'
-import { AppNavigator } from '@webank/trident'
+import { AppNavigator, WeBaseScene } from '@webank/trident'
 
 
-export default class AScene extends Component {
+export default class AScene extends WeBaseScene {
   static navigationOptions = ({ navigation: { state: { params = {} } } }) => ({
     headerTitle: params.title || 'AScene'
   })

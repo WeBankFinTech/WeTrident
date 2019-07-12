@@ -19,10 +19,10 @@ Trident App中你可以非常轻松的通过模块名和页面名进行跳转。
 // modules/book/BookListScene/BookListScene.js
 import React, { Component } from 'react'
 import { View, Text } from 'react-native'
-import { AppNavigator } from '@webank/trident'
+import { AppNavigator, WeBaseScene } from '@webank/trident'
 import { WeTouchable } from '@unpourtous/react-native-touchable'
 
-export default class BookListScene extends Component {
+export default class BookListScene extends WeBaseScene {
   static navigationOptions = ({ navigation: { state: { params = {} } } }) => ({
     headerTitle: params.title || 'BookListScene'
   })

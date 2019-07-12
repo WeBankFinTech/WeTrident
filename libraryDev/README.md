@@ -99,10 +99,10 @@ PS: 此时我们可以移除测试模块 `example` 了，移除一个模块非�
  */
 import React, { Component } from 'react'
 import { View, Text } from 'react-native'
-import { AppNavigator } from '@webank/trident'
+import { AppNavigator, WeBaseScene } from '@webank/trident'
 import { WeTouchable } from '@unpourtous/react-native-touchable'
 
-export default class BookListScene extends Component {
+export default class BookListScene extends WeBaseScene {
   static navigationOptions = ({ navigation: { state: { params = {} } } }) => ({
     headerTitle: params.title || 'BookListScene'
   })
@@ -205,7 +205,7 @@ export default {
 要使用此接口也非常简单，我们在BookListScene中使用此接口。
 ``` js
 // modules/book/BookListScene/BookListScene.js
-export default class BookListScene extends Component {
+export default class BookListScene extends WeBaseScene {
   // ...
   componentDidMount () {
     // 请求

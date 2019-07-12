@@ -33,7 +33,7 @@ Trident App中建议统一管理后台的API，每个模块强相关的后台API
 定义完接口以后，我们在BookListScene中通过`APIClient`使用此接口。
 ``` js
 // modules/book/BookListScene/BookListScene.js
-export default class BookListScene extends Component {
+export default class BookListScene extends WeBaseScene {
   // ...
   componentDidMount () {
     // 请求

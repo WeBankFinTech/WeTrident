@@ -10,10 +10,31 @@ import AppNavigator from '../navigation/AppNavigator'
 import _ from 'lodash'
 import { generateRouteName } from '../navigation/NavigationUtils'
 import RNEnv from '../utils/RNEnv'
+import moment from 'moment'
+import Statistics from '../statistics/Statistics'
 
 export default class WeBaseScene extends Component {
   constructor () {
     super(...arguments);
+
+    const originComponentWillMount = this.componentWillMount
+    if (originComponentWillMount) {
+      this.componentWillMount = () => {
+        let instance = this
+        if (RNEnv.isDev()) {
+          const {moduleName = '', sceneName = ''} = this.props || {}
+          const startTime = new Date().getTime()
+          const result = originComponentWillMount.apply(instance, ...arguments)
+          this._componentWillMountBase.apply(instance, ...arguments)
+          // PerformanceUtils.consoleWarning(startTime, new Date().getTime(), `${moduleName}-${sceneName}-componentWillMount`)
+          return result
+        } else {
+          const result = originComponentWillMount.apply(instance, ...arguments)
+          this._componentWillMountBase()
+          return result
+        }
+      }
+    }
 
     // 包装原来的生命周期函数，在实例创建的时候完成替换，将原来webasescene中生命周期执行的动作放入_<methodname>Base中执行，
     // 原来的函数内容清空，保证具体的scene无论是否有super，webasescene中注册回调的方法始终都能执行
@@ -79,6 +100,9 @@ export default class WeBaseScene extends Component {
     const sceneKey = this.props.navigation.state.key
     const sceneDetailName = generateRouteName(_.get(this, 'props.moduleName', ''), _.get(this, 'props.sceneName', ''))
     console.log(`🐈${sceneDetailName}(${sceneKey})`, 'onResume', `${fromScene} --> ${toScene}`)
+
+    this.stayStartTime = moment()
+    this.sceneUrl = AppNavigator.currentSceneURL
   }
 
   /**
@@ -89,6 +113,17 @@ export default class WeBaseScene extends Component {
     const sceneKey = this.props.navigation.state.routeName
     const sceneDetailName = generateRouteName(_.get(this, 'props.moduleName', ''), _.get(this, 'props.sceneName', ''))
     console.log(`🐈${sceneDetailName}(${sceneKey})`, 'onPause', `${fromScene} --> ${toScene}`)
+
+    this.stayEndTime = moment()
+    if (this.isUnmounted) {
+      if (this.stayStartTime) {
+        Statistics.reportSceneStayTime(this.stayStartTime, this.stayEndTime, this.sceneUrl, 'back')
+      }
+    } else {
+      if (this.stayStartTime) {
+        Statistics.reportSceneStayTime(this.stayStartTime, this.stayEndTime, this.sceneUrl, 'navigate')
+      }
+    }
   }
 
   /**

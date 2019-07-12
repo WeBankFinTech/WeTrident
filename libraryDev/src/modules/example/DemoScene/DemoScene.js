@@ -5,7 +5,7 @@
  */
 import React, { Component } from 'react'
 import { View, Text } from 'react-native'
-import { WeBaseScene } from '@webank/trident'
+import { WeBaseScene, AppNavigator } from '@webank/trident'
 import { WeTouchable } from '@unpourtous/react-native-touchable'
 
 import Dialog from '@webank/trident/library/uiComponent/popup/Dialog'
@@ -86,6 +86,13 @@ export default class DemoScene extends WeBaseScene {
             弹窗
           </Text>
 
+        </WeTouchable>
+
+
+        <WeTouchable onPress={() => {
+          AppNavigator.test.AScene()
+        }}>
+          <Text>跳转页面</Text>
         </WeTouchable>
       </View>
     )
