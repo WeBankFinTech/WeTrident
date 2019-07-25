@@ -16,6 +16,7 @@ let AppNavigator = require('./AppNavigator').default
 
 const createTridentNavigator = (routers, navigationConfig) => {
   const stackConfig = navigationConfig || {
+    backgroundColor: 'yellow',
     navigationOptions: {
       gesturesEnabled: true,
       headerBackTitle: null,
