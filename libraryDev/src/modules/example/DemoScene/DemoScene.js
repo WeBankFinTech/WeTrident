@@ -18,7 +18,7 @@ import ignoreReject from '@webank/trident/library/utils/ignoreReject'
 
 export default class DemoScene extends WeBaseScene {
   static navigationOptions = ({ navigation: { state: { params = {} } } }) => ({
-    headerTitle: params.title || 'DemoScene'
+    headerTitle: params.title || 'DemoScene',
   })
 
   constructor () {
@@ -26,17 +26,24 @@ export default class DemoScene extends WeBaseScene {
   }
 
   componentDidMount () {
-    ignoreReject(APIClient.request(CGI.requestTopicMock))
-    ignoreReject(APIClient.request(CGI.requestTopicMock))
-    ignoreReject(APIClient.request(CGI.requestTopicMock))
-    ignoreReject(APIClient.request(CGI.requestTopicMock))
+    // ignoreReject(APIClient.request(CGI.requestTopicMock))
+    // ignoreReject(APIClient.request(CGI.requestTopicMock))
+    // ignoreReject(APIClient.request(CGI.requestTopicMock))
+    APIClient.addHeaders(
+      {
+        mockyHeaders: 'hahahah mocky header'
+      },
+      undefined,
+      /.*mocky.*/
+    )
+    ignoreReject(APIClient.request(CGI.requestTopicCache))
+    ignoreReject(APIClient.request(CGI.requestTopicTestServer))
 
-
-    ignoreReject(APIClient.request(CGI.requestTopicServerError))
-
-    ignoreReject(APIClient.request(CGI.requestTopic))
-    ignoreReject(APIClient.request(CGI.requestTopic))
-    ignoreReject(APIClient.request(CGI.requestTopic))
+    // ignoreReject(APIClient.request(CGI.requestTopicServerError))
+    //
+    // ignoreReject(APIClient.request(CGI.requestTopic))
+    // ignoreReject(APIClient.request(CGI.requestTopic))
+    // ignoreReject(APIClient.request(CGI.requestTopic))
   }
 
   onPause (fromScene, toScene) {

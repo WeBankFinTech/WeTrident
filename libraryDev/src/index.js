@@ -9,6 +9,26 @@ export default class AppEntry extends Component {
     // All you need to setup
     return (
       <TridentApp
+        navigationConfig={{
+          navigationOptions: {
+            gesturesEnabled: true,
+            headerBackTitle: null,
+            headerTitleAllowFontScaling: false,
+            headerStyle: {
+              borderWidth: 0,
+              borderBottomWidth: 0,
+              elevation: 0
+            },
+            headerTitleStyle: {
+              fontWeight: 'normal',
+              textAlign: 'center'
+            }
+          },
+          headerMode: 'screen',
+          cardStyle: {
+            backgroundColor: 'red'
+          }
+        }}
         container={require('./container').default}
         modules={require('./modules').default} />
     )

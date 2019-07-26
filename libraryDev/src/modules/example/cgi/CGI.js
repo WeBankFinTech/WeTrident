@@ -32,6 +32,21 @@ export default {
     baseURL: ServerEnv.PREFIX.mockio,
     url: '/v2/5cee2c483000007d3d6e9940',
     desc: '请求消息列表(get支持缓存)',
+    headers: {
+      testHeader: 'testHeader in cgi config'
+    },
+    request: {},
+    response: [AxiosMocker.success({})]
+  },
+
+  requestTopicTestServer: {
+    method: 'get',
+    baseURL: ServerEnv.PREFIX.mockio,
+    url: '/v2/5cee2c483000007d3d6e9940',
+    desc: '请求消息列表(get支持缓存)',
+    headers: {
+      testHeader: 'testHeader in cgi config'
+    },
     request: {},
     response: [AxiosMocker.success({})]
   },

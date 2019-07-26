@@ -5,6 +5,11 @@ class ServerEnv {
       production: 'https://www.mocky.io/',
       preRelease: 'https://www.mocky.io/',
       test: 'https://www.mocky.io/'
+    },
+    testserver: {
+      production: 'https://www.testserver.io/',
+      preRelease: 'https://www.testserver.io/',
+      test: 'https://www.testserver.io/'
     }
   }
 
