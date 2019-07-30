@@ -107,7 +107,7 @@ android {
             abiFilters "armeabi-v7a", "x86"
         }
 
-        project.ext.set("archivesBaseName", "ChanhiLa-" + defaultConfig.versionName);
+        project.ext.set("archivesBaseName", "app-seed-" + defaultConfig.versionName);
     }
 
     signingConfigs {

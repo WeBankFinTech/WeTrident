@@ -61,7 +61,6 @@ function init (root, projectName, bundleId, scheme, options) {
 }
 
 function replaceName (root, projectName, bundleId = 'test.cli.bundle', scheme) {
-  process.chdir(path.join(root, 'ios'))
   const targetProjectName = projectName + '.xcodeproj'
   const targetAppName = projectName + '.app'
   const targetWorkspaceName = projectName + '.xcworkspace'
@@ -70,23 +69,24 @@ function replaceName (root, projectName, bundleId = 'test.cli.bundle', scheme) {
   const bundleName = bundleId
 
   try {
-    if (fs.existsSync('trident.xcodeproj')) {
-      execSync('mv trident.xcodeproj ' + targetProjectName)
+    // 替换iOS的内容
+    // process.chdir(path.join(root, 'ios'))
+    if (fs.existsSync('ios/trident.xcodeproj')) {
+      execSync('mv ios/trident.xcodeproj ios/' + targetProjectName)
     }
-    if (fs.existsSync('trident.xcworkspace')) {
-      execSync('mv trident.xcworkspace ' + targetWorkspaceName)
+    if (fs.existsSync('ios/trident.xcworkspace')) {
+      execSync('mv ios/trident.xcworkspace ios/' + targetWorkspaceName)
     }
 
     let changes = replaceInFile.sync({
-      files: './' + targetWorkspaceData,
+      files: './ios/' + targetWorkspaceData,
       from: /trident.xcodeproj/g,
       to: targetProjectName,
     })
-
     console.log('Modified files:', changes.join(', '))
 
     changes = replaceInFile.sync({
-      files: './' + targetWorkspaceData,
+      files: './ios/' + targetWorkspaceData,
       from: /trident.app/g,
       to: targetAppName,
     })
@@ -95,13 +95,13 @@ function replaceName (root, projectName, bundleId = 'test.cli.bundle', scheme) {
     // /ios/trident.xcodeproj/xcshareddata/xcschemes/Build.xcscheme
     changes = replaceInFile.sync({
       files: [
-        path.join(targetProjectName, '/xcshareddata/xcschemes/Build.xcscheme'),
+        './ios/' + targetProjectName + '/xcshareddata/xcschemes/Build.xcscheme',
 
         // Splash Screen Text
-        'trident/Base.lproj/LaunchScreen.xib',
+        './ios/trident/Base.lproj/LaunchScreen.xib',
 
         // Splash Screen Text
-        'trident/Info.plist'
+        './ios/trident/Info.plist'
       ],
       from: /trident/g,
       to: projectName,
@@ -110,7 +110,7 @@ function replaceName (root, projectName, bundleId = 'test.cli.bundle', scheme) {
 
     changes = replaceInFile.sync({
       files: [
-        'trident/Info.plist'
+        './ios/trident/Info.plist'
       ],
       from: /demo-scheme/g,
       to: scheme,
@@ -120,7 +120,7 @@ function replaceName (root, projectName, bundleId = 'test.cli.bundle', scheme) {
     if (bundleName) {
       // replace bundle id
       const changes = replaceInFile.sync({
-        files: './' + targetProjectName + '/project.pbxproj',
+        files: './ios/' + targetProjectName + '/project.pbxproj',
         from: /org.reactjs.native.example/g,
         to: bundleName,
       })
@@ -128,35 +128,51 @@ function replaceName (root, projectName, bundleId = 'test.cli.bundle', scheme) {
     }
 
     // replace bundle id
-    process.chdir('..')
     changes = replaceInFile.sync({
-      files: fastlaneFileName,
+      files: './ios/' + fastlaneFileName,
       from: /trident/g,
       to: projectName,
     })
     console.log('bundle Modified files:', changes.join(', '))
   } catch (err) {
     console.error(err)
-    // console.error(`Command \`${installCommand}\` failed.`)
     process.exit(1)
   }
 
-  process.chdir('android')
+  // 替换Android的内容
   changes = replaceInFile.sync({
     files: [
-      'app/build.gradle',
-      'app/src/main/AndroidManifest.xml',
-      'app/src/main/java/io/unpourtous/trident/MainApplication.java'
+      './android/app/build.gradle',
+      './android/app/src/main/AndroidManifest.xml',
+      './android/app/src/main/java/io/unpourtous/trident/MainApplication.java',
+      './android/app/BUCK'
     ],
     from: /org.reactnative.example/g,
     to: bundleId,
   })
+  console.log('bundle Modified files:', changes.join(', '))
+
   changes = replaceInFile.sync({
     files: [
-      'app/src/main/AndroidManifest.xml'
+      './android/app/src/main/AndroidManifest.xml'
     ],
     from: /demo-scheme/g,
     to: scheme,
+  })
+  console.log('bundle Modified files:', changes.join(', '))
+
+  changes = replaceInFile.sync({
+    files: [
+      './app.json',
+      './android/app/src/main/res/values/strings.xml', // 最终App的名字
+      './android/app/build.gradle', // 打包输出的apk文件名,
+
+      // rn root component的名字
+      './android/app/src/main/java/io/unpourtous/trident/MainActivity.java',
+      './ios/trident/AppDelegate.m'
+    ],
+    from: /app-seed/g,
+    to: projectName,
   })
   console.log('bundle Modified files:', changes.join(', '))
 }
