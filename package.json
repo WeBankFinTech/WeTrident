@@ -4,7 +4,7 @@
   "main": "library/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "publishAll": "echo 'publish new version trident-cli and trident to wnpm' && npm version patch && npm publish && cd global-cli && npm version patch && npm publish",
+    "publishAll": "echo 'publish new version trident-cli and trident to npm' && npm version patch && npm publish && cd global-cli && npm version patch && npm publish",
     "wpublishAll": "echo 'publish new version trident-cli and trident to wnpm' && npm version patch && wnpm publish && cd global-cli && npm version patch && wnpm publish",
     "reinstallCli": "echo 'reinstall the newest trident-cli' && npm uninstall @webank/trident-cli -g && npm install @webank/trident-cli -g",
     "wreinstallCli": "echo 'reinstall the newest trident-cli' && wnpm uninstall @webank/trident-cli -g && wnpm install @webank/trident-cli -g"
