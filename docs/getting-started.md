@@ -54,6 +54,15 @@ Trident目前仅支持macOS，其余环境Trident都会做详细的提示来协�
     gem sources --add https://gems.ruby-china.com/ --remove https://rubygems.org/
     sudo gem update
     ```
+4. Gradle代理配置，在`~/.gradle/gradle.properties`中添加如下内容
+    
+    ```
+    systemProp.http.proxyHost=proxyhk.webank.com
+    systemProp.http.proxyPort=8080
+    systemProp.https.proxyHost=proxyhk.webank.com
+    systemProp.https.proxyPort=8080
+    ```
+    
 至此，行内环境相关的配置总算完成了，下面我们正式开始吧。
   
 ## 创建项目
