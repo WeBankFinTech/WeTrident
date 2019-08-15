@@ -1,3 +1,7 @@
+// FIXME Statistics
+const Statistics = {
+  reportEvent: v => v
+}
 class StatisticsProxy {
   static dataReportInstance = undefined
   static proxyMethodList = [
