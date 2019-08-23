@@ -19,7 +19,7 @@ export default class AxiosAdapter {
   // constructor () {
   //   this.cache = new Cache()
   // }
-  async adapter (config) {
+  adapter (config) {
     // TODO 先判读Mock
     if (config.mockable === true) {
       const mockResponse = config.response
