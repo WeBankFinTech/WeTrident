@@ -1,29 +1,83 @@
 
 # Trident App Framework
 
-## 技术栈
-```
-1. nvm
-2. node
-3. fastlane
-4. gulp 
-5. cocospod
-```
+## clone项目代码库
+``` shell
+git clone git@git.weoa.com:app/trident.git
 
+cd trident
+
+# 安装开发需要的node版本, 请严格使用 `.nvmrc` 中标明的node版本进行开发
+nvm install
+```
 
 ## 基础结构说明
-![](assets/images/2019-05-14-14-10-08.png)
-2. 
+![](../assets/images/2019-05-14-14-10-08.png)
+
+如上图所示，在我们开发过程中，经常会需要模拟发布到 npm registry来验证一些问题，但是每次发布外网npm显然不现实，所以我们可以使用 verdaccio 来搭建本地的npm registry，在开发过程中发布到 verdaccio。正式对外时再发布到npm。安装 verdaccio 后，需要修改配置文件`~/.config/verdaccio/config.yaml`中的uplinks和packages，内容如下: 
+```shell
+# a list of other known repositories we can talk to
+uplinks:
+  npmjs:
+    url: http://localhost:4873//
+    cache: false
+  remote_npmjs:
+    url: https://registry.npmjs.org/
+    cache: false
+
+packages:
+  '@webank/*':
+    # scoped packages
+    access: $all
+    publish: $authenticated
+    unpublish: $authenticated
+    proxy: npmjs
+
+  '**':
+    # allow all users (including non-authenticated users) to read and
+    # publish all packages
+    #
+    # you can specify usernames/groupnames (depending on your auth plugin)
+    # and three keywords: "$all", "$anonymous", "$authenticated"
+    access: $all
+
+    publish: $authenticated
+    unpublish: $authenticated
+
+    # if package is not available locally, proxy requests to 'npmjs' registry
+    proxy: remote_npmjs
+```
+
+verdaccio 顺利安装以后，通过下面命令可以将 `trident`和`trident-cli`发布到 verdaccio. 
+```shell
+npm run publishAll
+```
+
+如果需要更新 `trident-cli` 到最新版本，则只需要运行
+```
+npm run reinstallCli
+```
+
+
+## npm环境的切换
+现在为了开发，需要在npm(对外发布前均指本地的 verdaccio)和wnpm(使用已经发布到wnpm的稳定版)之间切换.
+可以使用命令行环境变量进行切换： 
+```shell
+# 切换为npm 
+export npmClient=npm
+
+# 切换为wnpm
+export npmClient=wnpm
+```
+
 ## 构建工具链开发
 ### global-cli
 为了方便用户使用，专门开发了 @unpourtous/trident-cli 这个npm包，后面称为`global-cli`，主要用于承载初始化工具以及和local-cli桥接。因为考虑到global-cli会以npm全局模块的方式安装到用户开发环境，更新相比起来比较困难，global-cli中内容要尽可能少，只提供最必须带命令。可以理解为项目创建前需要的工具纳入到`glocal-cli`中，项目创建后要用到带工具命令放入到 local-cli 中，local-cli 中可以放其版本对应的特有命令，global-cli 必须放版本无关的命令。
 
 #### init
-初始化命令，在新建的工程目录生成package.json 并且安装 `@unpurtous/trident`，从 `@unpurtous/trident` 中复制 `app-seed` 用户生成新项目，并按用户输入的配置修改项目的元信息。创建前会去判断是否支持要求的 `npm` 版本
+初始化命令，在新建的工程目录生成package.json 并且安装 `@unpurtous/trident`，从 `@unpurtous/trident` 中复制 `app-seed` 用户生成新项目，并按用户输入的配置修改项目的元信息。创建前会去判断是否支持要求的 `npm` 版本。
 ### local-cli
 项目生成后的命令都在这里面，包含代码模版
-
-### 
 
 #### env check/setup
 此命令用于在使用 trident 前检查当前开发环境缺少的依赖，
