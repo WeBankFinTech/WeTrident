@@ -14,38 +14,9 @@ nvm install
 ## 基础结构说明
 ![](../assets/images/2019-05-14-14-10-08.png)
 
-如上图所示，在我们开发过程中，经常会需要模拟发布到 npm registry来验证一些问题，但是每次发布外网npm显然不现实，所以我们可以使用 verdaccio 来搭建本地的npm registry，在开发过程中发布到 verdaccio。正式对外时再发布到npm。安装 verdaccio 后，需要修改配置文件`~/.config/verdaccio/config.yaml`中的uplinks和packages，内容如下: 
+如上图所示，在我们开发过程中，经常会需要模拟发布到 npm registry来验证一些问题，但是每次发布外网npm显然不现实，所以我们可以使用 verdaccio 来搭建本地的npm registry，在开发过程中发布到 verdaccio。正式对外时再发布到npm。安装 verdaccio 后，需要修改npm的registry中的uplinks和packages，命令如下: 
 ```shell
-# a list of other known repositories we can talk to
-uplinks:
-  npmjs:
-    url: http://localhost:4873//
-    cache: false
-  remote_npmjs:
-    url: https://registry.npmjs.org/
-    cache: false
 
-packages:
-  '@webank/*':
-    # scoped packages
-    access: $all
-    publish: $authenticated
-    unpublish: $authenticated
-    proxy: npmjs
-
-  '**':
-    # allow all users (including non-authenticated users) to read and
-    # publish all packages
-    #
-    # you can specify usernames/groupnames (depending on your auth plugin)
-    # and three keywords: "$all", "$anonymous", "$authenticated"
-    access: $all
-
-    publish: $authenticated
-    unpublish: $authenticated
-
-    # if package is not available locally, proxy requests to 'npmjs' registry
-    proxy: remote_npmjs
 ```
 
 verdaccio 顺利安装以后，通过下面命令可以将 `trident`和`trident-cli`发布到 verdaccio. 
