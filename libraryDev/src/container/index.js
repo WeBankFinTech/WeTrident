@@ -10,7 +10,17 @@ export default {
   actions: {
     addGlobalCount: v => v
   },
-  asyncActions: (actions) => ({}),
+  asyncActions: (actions) => ({
+    addGlobalCountAsync: () => async dispatch => {
+      dispatch(actions.addGlobalCount(await (async () => {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve(1000)
+          }, 2000)
+        })
+      })()))
+    }
+  }),
   reducers: {
     addGlobalCount: (state, action) => ({ ...state, globalCount: state.globalCount + action.payload })
   },

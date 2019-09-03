@@ -88,7 +88,7 @@ export default class DemoScene extends WeBaseScene {
             ]
           })
         }}>
-          <Text>Hello DemoScene</Text>
+          <Text>Hello DemoScene, {this.props.count}, {this.props.globalCount}</Text>
           <Text>
             弹窗
           </Text>
@@ -97,7 +97,9 @@ export default class DemoScene extends WeBaseScene {
 
 
         <WeTouchable onPress={() => {
-          AppNavigator.test.AScene()
+          this.props.addCountAsync()
+          this.props.addGlobalCountAsync()
+          // AppNavigator.test.AScene()
         }}>
           <Text>跳转页面</Text>
         </WeTouchable>
