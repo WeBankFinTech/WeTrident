@@ -1,36 +1,43 @@
+import RNEnv from '../utils/RNEnv'
 
-export default {
-  // logger configuration
-  logger: {
-    collapsed: true,
-    diff: true,
-    actionTransformer: (action) => {
-      if (
+let loggerConfig = {}
+if (RNEnv.isDev()) {
+  loggerConfig = {
+    logger: {
+      collapsed: true,
+      diff: true,
+      actionTransformer: (action) => {
+        if (
           action.payload &&
           action.payload.__namespace__
-      ) {
-        return {
-          ...action,
-          payload: action.payload.payload
+        ) {
+          return {
+            ...action,
+            payload: action.payload.payload
+          }
+        } else {
+          return action
         }
-      } else {
-        return action
+      },
+      titleFormatter: (action, time, took) => {
+        const parts = []
+        parts.push(typeof action === 'function' ? '[asyncAction]' : '[action]')
+        if (action.type && action.type.indexOf('setSceneStateThatOnlyUseInner') > -1) {
+          const temp = action.type.split('/')
+          parts.push(`${temp[0]}/setSceneState`)
+          parts.push(`(${time})`)
+          parts.push(`in ${took} ms`)
+        } else {
+          parts.push(`${String(action.type)}`)
+          parts.push(`(${time})`)
+          parts.push(`in ${took} ms`)
+        }
+        return parts.join(' ')
       }
-    },
-    titleFormatter: (action, time, took) => {
-      const parts = []
-      parts.push(typeof action === 'function' ? '[asyncAction]' : '[action]')
-      if (
-          action.type.indexOf('setSceneStateThatOnlyUseInner') > -1
-      ) {
-        const temp = action.type.split('/')
-        parts.push(`${temp[0]}/setSceneState`)
-        parts.push(`(${time})`)
-      } else {
-        parts.push(`${String(action.type)}`)
-        parts.push(`(${time})`)
-      }
-      return parts.join(' ')
     }
   }
+}
+export default {
+  // logger configuration
+  ...loggerConfig
 }
