@@ -3,7 +3,7 @@ const path = require('path')
 const execSync = (cmd) => require('child_process').execSync(cmd, {stdio: 'inherit'})
 const replaceInFile = require('replace-in-file')
 const chalk = require('chalk')
-const eslint = require('../plugin/eslint')
+const {initEslint} = require('../plugin/eslint')
 const shell = require('shelljs')
 // const inquirer = require('inquirer')
 const env = require('../npmConfig')
@@ -54,7 +54,7 @@ function init (root, projectName, bundleId, scheme, port = 8081, eslint, options
 
     // eslint
     if (eslint) {
-      eslint.initEslint()
+      initEslint()
     }
 
     execSync(`${env.npm_install_all} --verbose ${process.env.useLocalRegistry ? ' --registry http://localhost:4873' : ''}`, { stdio: 'inherit' })
