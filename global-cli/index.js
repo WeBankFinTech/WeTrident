@@ -57,17 +57,7 @@ program
       initProject()
       break
     default:
-      if (cli) { // 如果在Trident项目内，所有命令由local-cli接管
-        cli.run(path.resolve(options.name || '.'))
-      } else {
-        console.error(
-          'Command `%s` unrecognized. ' +
-          'Make sure that you are inside a trident project.',
-          commands[0]
-        )
-        process.exit(1)
-      }
-      break
+      program.help()
   }
 })
 

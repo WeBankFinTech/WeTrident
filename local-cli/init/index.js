@@ -38,7 +38,7 @@ function init (root, projectName, bundleId, scheme, port = 8081, options) {
     return
   }
   // TODO 换到从npm拉取
-  let installCommand = `${env.npm_install_xxx} @webank/trident`
+  let installCommand = `${env.npm_install_xxx} @webank/trident ${env.useLocal ? '--registry http://localhost:4873' : ''}`
   installCommand += ' --verbose'
 
   try {

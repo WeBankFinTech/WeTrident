@@ -12,7 +12,7 @@ const config = {
   yarn: {
     npm_install_xxx: 'yarn add ',
     npm_install_all: 'yarn '
-  },
+  }
 }
 
 module.exports = config[npmClient]
