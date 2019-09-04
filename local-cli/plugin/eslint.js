@@ -11,14 +11,13 @@ const env = require('../npmConfig')
 function initEslint () {
   // 生成eslint 并初始化git 添加hook
   execSync(`mkdir githooks`)
-  fs.writeFileSync(path.join('./githooks','pre-commit'), githook, 'utf8')
-  fs.writeFileSync(path.join('.eslintrc.json'), eslintrc, 'utf8')
+  fs.writeFileSync(path.join('./githooks','pre-commit'), githook, {encoding: 'utf-8', mode: 0o766})
+  fs.writeFileSync(path.join('.eslintrc.json'), eslintrc, {encoding: 'utf-8', mode: 0o766})
   execSync(`git init`)
   execSync(`git config core.hooksPath ./githooks`)
 }
 
-const githook = `
-#!/bin/sh
+const githook = `#!/bin/sh
 
 # 确保将要提交的所有 JavaScript 代码通过 standard 规范的检查
 
@@ -33,8 +32,7 @@ checkNewAppStyle
 if [[ (($RESULT1 != 0)) ]]; then exit 1; fi
 `
 
-const eslintrc = `
-{
+const eslintrc = `{
   "parser": "babel-eslint",
   "extends": ["standard", "standard-jsx"]
 }
