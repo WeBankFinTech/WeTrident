@@ -105,16 +105,16 @@ function initProject () {
     processCheckResult(checkResult).then(() => {
       inquirer.prompt(promptList).then(answers => {
         console.log(answers);
-        const {name, bundleId, scheme, port} = answers
-        createProject(name, bundleId, scheme, port, options)
+        const {name, bundleId, scheme, port, eslint} = answers
+        createProject(name, bundleId, scheme, port, eslint, options)
       })
     }, () => {
       // console.log
     })
   } else {
     inquirer.prompt(promptList).then(answers => {
-      const {name, bundleId, scheme, port} = answers
-      createProject(name, bundleId, scheme, port, options)
+      const {name, bundleId, scheme, port, eslint} = answers
+      createProject(name, bundleId, scheme, port, eslint, options)
     })
   }
 }
@@ -151,6 +151,7 @@ function CLI_MODULE_PATH () {
   // TODO 本地调试用，在trident/libraryDev/中引用 trident/local-cli/index.js
   if (process.env.useLocal === 'true') {
     // 本地开发调试时使用
+    console.log(process.env)
     return path.resolve(
       process.cwd(),
       '..',
@@ -179,7 +180,7 @@ function CLI_MODULE_PATH () {
  * @param port project port
  * @param options arguments
  */
-function createProject (name, bundleId, scheme, port, options) {
+function createProject (name, bundleId, scheme, port, eslint, options) {
   var root = path.resolve(name)
   var projectName = path.basename(root)
 
@@ -203,7 +204,7 @@ function createProject (name, bundleId, scheme, port, options) {
   fs.writeFileSync(path.join(root, 'package.json'), JSON.stringify(packageJson))
   process.chdir(root)
 
-  createNewProject(root, projectName, bundleId, scheme, port, options)
+  createNewProject(root, projectName, bundleId, scheme, port, eslint, options)
 }
 
 /**
@@ -212,9 +213,11 @@ function createProject (name, bundleId, scheme, port, options) {
  * @param projectName
  * @param bundleId
  * @param scheme
+ * @param port
+ * @param eslint
  * @param options
  */
-function createNewProject (root, projectName, bundleId, scheme, port, options) {
+function createNewProject (root, projectName, bundleId, scheme, port, eslint, options) {
   // 自定义版本
   const rnPackage = options.version
   var installCommand
@@ -233,8 +236,9 @@ function createNewProject (root, projectName, bundleId, scheme, port, options) {
   }
 
   // 安装完成这时候一定是有的
-  cli = require(CLI_MODULE_PATH())
-  cli.init(root, projectName, bundleId, scheme, port, options)
+  let cliPath = CLI_MODULE_PATH()
+  cli = require(cliPath)
+  cli.init(root, projectName, bundleId, scheme, port, eslint, options)
 }
 
 function getInstallPackage (rnPackage) {

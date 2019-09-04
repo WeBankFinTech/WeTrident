@@ -1,6 +1,6 @@
 {
   "name": "@webank/trident-cli",
-  "version": "1.1.11",
+  "version": "1.1.23",
   "description": "",
   "main": "index.js",
   "bin": {
@@ -10,7 +10,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "run": "export useLocal=true && node index.js init",
-    "publish": "npm version patch && npm publish --registry http://localhost:4873"
+    "npmPublish": "npm version patch && npm publish --registry http://localhost:4873"
   },
   "author": "",
   "license": "MIT",
