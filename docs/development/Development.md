@@ -15,6 +15,7 @@ nvm install
 ![](../assets/images/2019-05-14-14-10-08.png)
 
 如上图所示，在我们开发过程中，经常会需要模拟发布到 npm registry来验证一些问题，但是每次发布外网npm显然不现实，所以我们可以使用 verdaccio 来搭建本地的npm registry，在开发过程中发布到 verdaccio。正式对外时再发布到npm。安装 verdaccio 后，需要修改配置文件`~/.config/verdaccio/config.yaml`中的uplinks和packages，内容如下: 
+
 ```shell
 # a list of other known repositories we can talk to
 uplinks:
@@ -49,11 +50,13 @@ packages:
 ```
 
 verdaccio 顺利安装以后，通过下面命令可以将 `trident`和`trident-cli`发布到 verdaccio. 
+
 ```shell
 npm run publishAll
 ```
 
 如果需要更新 `trident-cli` 到最新版本，则只需要运行
+
 ```
 npm run reinstallCli
 ```
@@ -62,6 +65,7 @@ npm run reinstallCli
 ## npm环境的切换
 现在为了开发，需要在npm(对外发布前均指本地的 verdaccio)和wnpm(使用已经发布到wnpm的稳定版)之间切换.
 可以使用命令行环境变量进行切换： 
+
 ```shell
 # 切换为npm 
 export npmClient=npm

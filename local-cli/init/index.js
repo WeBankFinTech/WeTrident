@@ -8,7 +8,8 @@ const shell = require('shelljs')
 // const inquirer = require('inquirer')
 const env = require('../npmConfig')
 
-function init (root, projectName, bundleId, scheme, options) {
+function init (root, projectName, bundleId, scheme, port = 8081, options) {
+
   const packageJson = {
     name: projectName,
     version: '0.0.1',
@@ -45,6 +46,12 @@ function init (root, projectName, bundleId, scheme, options) {
 
     const appSeedPath = path.join(root, 'node_modules/@webank/trident/app-seed')
     execSync(`cp -r ${appSeedPath}/* ./`, { stdio: 'inherit' })
+
+    // 更换端口
+    let tridentConfig = JSON.parse(fs.readFileSync(path.join(root,'trident-config.json'), 'utf8'));
+    tridentConfig.port = parseInt(port)
+    let newContent = JSON.stringify(tridentConfig, null, 4);
+    fs.writeFileSync(path.join(root,'trident-config.json'), newContent, 'utf8')
 
     execSync(`${env.npm_install_all} --verbose`, { stdio: 'inherit' })
 

@@ -21,7 +21,7 @@ function start (options) {
     return `--${key}=${options[key]}`
   }).join(' ')
   console.log('node_modules/react-native/scripts/packager.sh ' + passArgs)
-  execSync('node_modules/react-native/scripts/packager.sh ' + passArgs)
+  execSync('node_modules/react-native/scripts/packager.sh ' + passArgs, {stdio: 'inherit'})
 }
 
 module.exports = {
