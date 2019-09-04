@@ -8,6 +8,7 @@
     "wpublishAll": "echo 'publish new version trident-cli and trident to wnpm' && npm version patch && wnpm publish && cd global-cli && npm version patch && wnpm publish",
     "reinstallCli": "echo 'reinstall the newest trident-cli' && npm uninstall @webank/trident-cli -g && npm install @webank/trident-cli -g",
     "wreinstallCli": "echo 'reinstall the newest trident-cli' && wnpm uninstall @webank/trident-cli -g && wnpm install @webank/trident-cli -g",
+    "npmLocalPublishAll": "npm version patch && npm publish --registry http://localhost:4873 && cd global-cli && npm version patch && npm publish --registry http://localhost:4873",
     "test-tpl": "echo 'test the trident framework' && rm -rf WeBookStore && trident-cli init --name=WeBookStore --bundleId=com.trident.wbstore --scheme=wbstore && cd WeBookStore && bundle exec fastlane ios release --verbose && bundle exec fastlane android release --verbose"
   },
   "repository": {
