@@ -219,7 +219,7 @@ function createNewProject (root, projectName, bundleId, scheme, port, options) {
   const rnPackage = options.version
   var installCommand
 
-  installCommand = npmConfig.npm_install_xxx + getInstallPackage(rnPackage) + (process.env.useLocal ? ' --registry http://localhost:4873' : '')
+  installCommand = npmConfig.npm_install_xxx + getInstallPackage(rnPackage) + (process.env.useLocalRegistry ? ' --registry http://localhost:4873' : '')
   if (options.verbose) {
     installCommand += ' --verbose'
   }
