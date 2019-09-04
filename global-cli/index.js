@@ -218,12 +218,12 @@ function createNewProject (root, projectName, bundleId, scheme, port, options) {
   // 自定义版本
   const rnPackage = options.version
   var installCommand
-  console.log('Installing ' + getInstallPackage(rnPackage) + '...')
 
-  installCommand = npmConfig.npm_install_xxx + getInstallPackage(rnPackage)
+  installCommand = npmConfig.npm_install_xxx + getInstallPackage(rnPackage) + (process.env.useLocal ? ' --registry http://localhost:4873' : '')
   if (options.verbose) {
     installCommand += ' --verbose'
   }
+  console.log(installCommand + '...')
   try {
     execSync(installCommand, { stdio: 'inherit' })
   } catch (err) {
