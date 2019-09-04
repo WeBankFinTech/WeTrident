@@ -153,7 +153,7 @@ function CLI_MODULE_PATH () {
     // 本地开发调试时使用
     return path.resolve(
       process.cwd(),
-      '../..',
+      '..',
       'local-cli',
       'index.js'
     )
