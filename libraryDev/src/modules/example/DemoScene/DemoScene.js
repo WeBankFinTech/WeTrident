@@ -8,17 +8,16 @@ import { View, Text } from 'react-native'
 import { WeBaseScene, AppNavigator } from '@webank/trident'
 import { WeTouchable } from '@unpourtous/react-native-touchable'
 
-import Dialog from '@webank/trident/library/uiComponent/popup/Dialog'
-import Toast from '@webank/trident/library/uiComponent/popup/Toast'
-import Loading from '@webank/trident/library/uiComponent/popup/Loading'
 
 import APIClient from '@webank/trident/library/network/APIClient'
 import CGI from '../cgi/CGI'
 import ignoreReject from '@webank/trident/library/utils/ignoreReject'
+import PrimaryButton from '@webank/trident/library/uiComponent/PrimaryButton'
+import EntryList from '../../../bizComponents/EntryList'
 
 export default class DemoScene extends WeBaseScene {
   static navigationOptions = ({ navigation: { state: { params = {} } } }) => ({
-    headerTitle: params.title || 'DemoScene',
+    headerTitle: params.title || 'Trident Demo',
   })
 
   constructor () {
@@ -29,15 +28,15 @@ export default class DemoScene extends WeBaseScene {
     // ignoreReject(APIClient.request(CGI.requestTopicMock))
     // ignoreReject(APIClient.request(CGI.requestTopicMock))
     // ignoreReject(APIClient.request(CGI.requestTopicMock))
-    APIClient.addHeaders(
-      {
-        mockyHeaders: 'hahahah mocky header'
-      },
-      undefined,
-      /.*mocky.*/
-    )
-    ignoreReject(APIClient.request(CGI.requestTopicCache))
-    ignoreReject(APIClient.request(CGI.requestTopicTestServer))
+    // APIClient.addHeaders(
+    //   {
+    //     mockyHeaders: 'hahahah mocky header'
+    //   },
+    //   undefined,
+    //   /.*mocky.*/
+    // )
+    // ignoreReject(APIClient.request(CGI.requestTopicCache))
+    // ignoreReject(APIClient.request(CGI.requestTopicTestServer))
 
     // ignoreReject(APIClient.request(CGI.requestTopicServerError))
     //
@@ -56,54 +55,15 @@ export default class DemoScene extends WeBaseScene {
 
   render () {
     return (
-      <View>
+      <EntryList>
+        <PrimaryButton text={'Trident-Framework'} onPress={() => {
+          AppNavigator.example.FrameworkScene()
+        }} />
 
-        <WeTouchable onPress={() => {
-          Loading.show()
-          setTimeout(() => {
-            Loading.hide()
-          }, 1000)
-
-          const id = Dialog.show({
-            texts: ['Hello Trident'],
-            items: [
-              {
-                text: 'Ok!',
-                onItemPress: () => {
-                  Dialog.hide(id)
-                  Toast.show('Canceleddsdfs sfdfs sdf sf sf')
-
-                  Loading.hide()
-                }
-              },
-              {
-                text: 'Cancel',
-                onItemPress: () => {
-                  Dialog.hide(id)
-                  Toast.show('Canceleddsdfs sfdfs sdf sf sf cancel')
-
-                  Loading.hide()
-                }
-              }
-            ]
-          })
-        }}>
-          <Text>Hello DemoScene, {this.props.count}, {this.props.globalCount}</Text>
-          <Text>
-            弹窗
-          </Text>
-
-        </WeTouchable>
-
-
-        <WeTouchable onPress={() => {
-          this.props.addCountAsync()
-          this.props.addGlobalCountAsync()
-          // AppNavigator.test.AScene()
-        }}>
-          <Text>跳转页面</Text>
-        </WeTouchable>
-      </View>
+        <PrimaryButton text={'Trident-UI'} onPress={() => {
+          AppNavigator.ui.UIScene()
+        }} />
+      </EntryList>
     )
   }
 }

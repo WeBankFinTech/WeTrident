@@ -26,7 +26,7 @@ export default class AppEntry extends Component {
           },
           headerMode: 'screen',
           cardStyle: {
-            backgroundColor: 'red'
+            // backgroundColor: 'red'
           }
         }}
         container={require('./container').default}
