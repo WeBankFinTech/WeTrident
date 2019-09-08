@@ -22,7 +22,7 @@ export default class FrameworkScene extends WeBaseScene {
         paddingHorizontal: 20
       }}>
         <PrimaryButton text={'Navigation'} onPress={() => {
-          AppNavigator.test.NavigationScene()
+          AppNavigator.example.NavigationScene()
         }} />
 
         <PrimaryButton text={'Network'} onPress={() => {

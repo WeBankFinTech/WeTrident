@@ -10,14 +10,14 @@ export default (global, ModulePrivate) => ({
    * 定义scene级别数据的初始值
    */
   initialState: {
-    // count: 0,
+    count: 0,
   },
 
   /**
    * 定义scene级别的actions
    */
   actions: {
-    // addCount: v => v,
+    addCount: v => v,
   },
 
   /**
@@ -32,10 +32,10 @@ export default (global, ModulePrivate) => ({
    * 定义scene级别的reducer
    */
   reducers: {
-    // addCount: (state, action) => ({
-    //   ...state,
-    //   count: state.count + action.payload
-    // })
+    addCount: (state, action) => ({
+      ...state,
+      count: state.count + action.payload
+    })
   },
 
   /**

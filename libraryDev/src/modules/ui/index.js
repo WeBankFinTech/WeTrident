@@ -3,8 +3,9 @@
  *
  * Created by erichua on 2019-09-07T07:51:13.945Z.
  */
-export default {
-  moduleName: 'ui',
+console.log('ui module loaded')
+export default (moduleName) => ({
+  moduleName: moduleName,
   initialState: {
     // moduleCount: 0
   },
@@ -12,11 +13,8 @@ export default {
   actions: {
     // addModuleCount: v => v
   },
-  asyncActions: (actions) => ({
-
-  }),
+  asyncActions: (actions) => ({}),
   reducers: {
     // addModuleCount: (state, action) => ({ ...state, moduleCount: state.moduleCount + action.payload })
   }
-}
-
+})

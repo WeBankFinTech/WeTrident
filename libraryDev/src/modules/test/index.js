@@ -5,7 +5,7 @@
  */
 
 export default (moduleName) => ({
-  moduleName: 'test',
+  moduleName,
   initialState: {
     // moduleCount: 0
   },

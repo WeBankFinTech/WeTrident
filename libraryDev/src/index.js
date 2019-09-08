@@ -30,7 +30,9 @@ export default class AppEntry extends Component {
           }
         }}
         container={require('./container').default}
-        modules={require('./modules').default} />
+        modules={require('./modules').default}
+        dyModules={require('./modules').dyModules}
+      />
     )
   }
 }

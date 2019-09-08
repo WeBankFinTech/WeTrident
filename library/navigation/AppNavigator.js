@@ -3,8 +3,10 @@
  */
 import _ from 'lodash'
 import { NavigationActions } from '@unpourtous/react-navigation'
-import { separateRouteName } from './NavigationUtils'
-import URL from 'url'
+import { generateRouteName, separateRouteName } from './NavigationUtils'
+import ModuleManager from './ModuleManager'
+import combineAppReducers from '../reduxUtils/combineAppReducers'
+import stateChangeListener from './stateChangeListener'
 
 const isDyLoad = require('./dyConfig.json').isDyLoad
 
@@ -17,6 +19,8 @@ const isDyLoad = require('./dyConfig.json').isDyLoad
  */
 class AppNavigator {
   pendingLifecycleCallback = {}
+  WeNavigator
+  store
   lifecycleCallback = {
     onPause: {},
     onResume: {}
@@ -27,9 +31,9 @@ class AppNavigator {
   // 按需加载时的缓存
   _cachedModuleReducer = {}
 
-  init (routersConfig) {
+  init (staticRoutersConfig, dyModules) {
     let navigatorMethods = {}
-    _.mapValues(routersConfig, (config, routeName) => {
+    _.mapValues(staticRoutersConfig, (config, routeName) => {
       const {
         moduleName,
         sceneName
@@ -44,7 +48,8 @@ class AppNavigator {
     })
 
     Object.assign(this, navigatorMethods)
-    this.routersConfig = routersConfig
+    this.routersConfig = staticRoutersConfig
+    this.dyModules = dyModules
   }
 
   _getRouteNames () {
@@ -456,7 +461,7 @@ class AppNavigator {
    * @private
    */
   _parseTridentPath (url) {
-    const parsedUrl = URL.parse(url, true)
+    // const parsedUrl = URL.parse(url, true)
     const routeObj = separateRouteName(url)
     if (!routeObj.moduleName) {
       return null
@@ -466,4 +471,70 @@ class AppNavigator {
 }
 
 const appNavigator = new AppNavigator()
-export default appNavigator
+const appNavigatorProxy = new Proxy(appNavigator, {
+  get: function(target, prop, receiver) {
+    // 如果动态加载的模块列表需要动态声明这里也需要相应的调整
+    if (!Object.keys(appNavigator.dyModules || {}).includes(prop)) {
+      return Reflect.get(...arguments)
+    }
+
+    // 只有表明了要动态加载的模块才走下面的逻辑
+    console.log('proxyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy', prop, receiver)
+
+    const moduleName = prop
+
+    const dyModule = appNavigator.dyModules[moduleName]
+    ModuleManager.addDyModule(dyModule)
+
+    const connectedResult = ModuleManager.connectModulesAll()
+    console.log(connectedResult)
+
+    appNavigator.store.replaceReducer(
+      combineAppReducers(
+        undefined,
+        connectedResult.connectedContainer,
+        connectedResult.connectedModules,
+        appNavigator.WeNavigator.MyStackNavigator,
+        stateChangeListener
+      )
+    )
+
+    const dyNavMethods = {}
+    dyNavMethods[moduleName] = {}
+    _.mapValues(connectedResult.connectedModules.routers[moduleName], ({screen: wrappedScene}) => {
+      const sceneName = wrappedScene.toString()
+      const routeName = generateRouteName(moduleName, sceneName)
+      appNavigator.routersConfig[routeName] = wrappedScene
+      const func = params => appNavigator._navigate(routeName, params, wrappedScene)
+      func.toString = () => routeName
+
+      dyNavMethods[moduleName][sceneName] = func
+    })
+    return dyNavMethods[moduleName]
+
+    // _.mapValues(module.sceneList, (router, sceneName) => {
+    //   const routeName = generateRouteName(moduleName, sceneName)
+    //   appNavigator.routersConfig[routeName] = router
+    //   const func = params => this._navigate(routeName, params, router)
+    //   func.toString = () => routeName
+    //   dyNavMethods[moduleName][sceneName] = func
+    // })
+    //
+    // const dyNavMethods = {}
+    // dyNavMethods[moduleName] = {}
+    // if (require('./dynamic/dyRouterRequire').default[moduleName]) {
+    //   _.mapValues(require('./dynamic/dyRouterRequire').default[moduleName](), (router, sceneName) => {
+    //     const routeName = generateRouteName(moduleName, sceneName)
+    //     appNavigator.routersConfig[routeName] = router
+    //     const func = params => this._navigate(routeName, params, router)
+    //     func.toString = () => routeName
+    //     dyNavMethods[moduleName][sceneName] = func
+    //   })
+    // }
+    // return dyNavMethods[moduleName]
+    //
+    // return appNavigator.dyRoutersConfig[prop]()
+  }
+})
+
+export default appNavigatorProxy

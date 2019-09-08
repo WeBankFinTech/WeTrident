@@ -1,18 +1,9 @@
 import { combineReducers } from 'redux'
+import ReducerManager from '../navigation/ReducerManager'
 
 export default (entryScene, connectedContainer, modules, navigator, stateChangeListener = () => {}) => {
-  const createNavReducer = (entryScene, navigator) => {
-    const entryAction = navigator.router.getActionForPathAndParams(entryScene)
-    const initialState = navigator.router.getStateForAction(entryAction)
-    return (state, action) => {
-      const nextState = navigator.router.getStateForAction(action, state || initialState)
-      stateChangeListener(state, nextState, action)
-      return nextState
-    }
-  }
-
   let reducers = combineReducers({
-    navigation: createNavReducer(entryScene, navigator),
+    navigation: ReducerManager.createNavReducer(entryScene, navigator, stateChangeListener),
     [connectedContainer]: connectedContainer.reducer,
     [modules]: modules.reducer
   })
