@@ -13,10 +13,11 @@ export default class ModuleManager {
     this.container = container
   }
 
-  static setStaticModule (moduleList) {
-    this.moduleList = moduleList
-  }
-
+  /**
+   * 添加按需加载的模块到模块列表
+   * @param dyModule
+   * @returns {*}
+   */
   static addDyModule (dyModule) {
     if (typeof dyModule === 'function') {
       // 判断重复
@@ -31,8 +32,6 @@ export default class ModuleManager {
   }
 
   static flatModule (connectedModules) {
-    // 绑定scene
-
     let flatRoutes = {}
     const moduleNames = Object.keys(connectedModules.routers)
     for (let moduleName of moduleNames) {
@@ -46,7 +45,7 @@ export default class ModuleManager {
   }
 
   /**
-   * Connect  both modules and container
+   * Connect both modules and container
    */
   static connectModulesAll () {
     const connectedContainer = createGlobalConnect(this.container)(this.container.component)

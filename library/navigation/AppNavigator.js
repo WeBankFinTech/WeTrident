@@ -11,6 +11,12 @@ import stateChangeListener from './stateChangeListener'
 const isDyLoad = require('./dyConfig.json').isDyLoad
 
 /**
+ * 动态加载的缓存，通过缓存来避免多次重复的replaceReducer和combineReducer
+ * @type {{}}
+ */
+const dyModuleCache = {}
+
+/**
  * 路由
  * AppNavigator.<module>.<scene>(parameters)
  *
@@ -26,12 +32,12 @@ class AppNavigator {
     onResume: {}
   }
   // 动态的路由配置
-  routersConfig = {}
+  staticRoutersConfig = {}
 
   // 按需加载时的缓存
   _cachedModuleReducer = {}
 
-  init (staticRoutersConfig, dyModules) {
+  init (staticRoutersConfig) {
     let navigatorMethods = {}
     _.mapValues(staticRoutersConfig, (config, routeName) => {
       const {
@@ -48,12 +54,11 @@ class AppNavigator {
     })
 
     Object.assign(this, navigatorMethods)
-    this.routersConfig = staticRoutersConfig
-    this.dyModules = dyModules
+    this.staticRoutersConfig = staticRoutersConfig
   }
 
   _getRouteNames () {
-    return Object.keys(this.routersConfig)
+    return Object.keys(this.staticRoutersConfig)
   }
 
   // 下面两个方法是为了保证某些没考虑到的地方还是使用老的sceneName做跳转时能找到对应的routeName
@@ -333,12 +338,12 @@ class AppNavigator {
     let screen
 
     if (isDyLoad) {
-      if (this.routersConfig[routeName] && typeof this.routersConfig[routeName].getScreen === 'function') {
-        screen = this.routersConfig[routeName].getScreen() // 获取当前Scene的实例
+      if (this.staticRoutersConfig[routeName] && typeof this.staticRoutersConfig[routeName].getScreen === 'function') {
+        screen = this.staticRoutersConfig[routeName].getScreen() // 获取当前Scene的实例
       }
     } else {
-      if (this.routersConfig && this.routersConfig[routeName]) {
-        screen = this.routersConfig[routeName].screen // 获取当前Scene的实例
+      if (this.staticRoutersConfig && this.staticRoutersConfig[routeName]) {
+        screen = this.staticRoutersConfig[routeName].screen // 获取当前Scene的实例
       }
     }
 
@@ -365,8 +370,8 @@ class AppNavigator {
     let ret = {}
     let navigationOptions
 
-    if (this.routersConfig[routeName] && this.routersConfig[routeName].navigationOptions) {
-      navigationOptions = this.routersConfig[routeName].navigationOptions
+    if (this.staticRoutersConfig[routeName] && this.staticRoutersConfig[routeName].navigationOptions) {
+      navigationOptions = this.staticRoutersConfig[routeName].navigationOptions
     }
 
     if (navigationOptions && typeof navigationOptions === 'function') {
@@ -468,73 +473,54 @@ class AppNavigator {
     }
     return routeObj
   }
+
+  _prepareDyModuleLoader (dyModules) {
+    let appNavigator = this
+    Object.keys(dyModules || {}).forEach(moduleName => {
+      if (appNavigator[moduleName]) {
+        return
+      }
+      Object.defineProperty(appNavigator, moduleName, {
+        get: function () {
+          if (dyModuleCache[moduleName]) {
+            return dyModuleCache[moduleName]
+          }
+
+          const dyModule = dyModules[moduleName]
+          ModuleManager.addDyModule(dyModule)
+
+          const connectedResult = ModuleManager.connectModulesAll()
+
+          appNavigator.store.replaceReducer(
+            combineAppReducers(
+              undefined,
+              connectedResult.connectedContainer,
+              connectedResult.connectedModules,
+              appNavigator.WeNavigator.MyStackNavigator,
+              stateChangeListener
+            )
+          )
+
+          const dyNavMethods = {}
+          dyNavMethods[moduleName] = {}
+          _.mapValues(connectedResult.connectedModules.routers[moduleName], ({ screen: wrappedScene }) => {
+            const sceneName = wrappedScene.toString()
+            const routeName = generateRouteName(moduleName, sceneName)
+
+            // 这里是为了让
+            appNavigator.staticRoutersConfig[routeName] = wrappedScene
+            const func = params => appNavigator._navigate(routeName, params, wrappedScene)
+            func.toString = () => routeName
+
+            dyNavMethods[moduleName][sceneName] = func
+          })
+
+          dyModuleCache[moduleName] = dyNavMethods[moduleName]
+          return dyNavMethods[moduleName]
+        }
+      })
+    })
+  }
 }
 
-const appNavigator = new AppNavigator()
-const appNavigatorProxy = new Proxy(appNavigator, {
-  get: function(target, prop, receiver) {
-    // 如果动态加载的模块列表需要动态声明这里也需要相应的调整
-    if (!Object.keys(appNavigator.dyModules || {}).includes(prop)) {
-      return Reflect.get(...arguments)
-    }
-
-    // 只有表明了要动态加载的模块才走下面的逻辑
-    console.log('proxyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy', prop, receiver)
-
-    const moduleName = prop
-
-    const dyModule = appNavigator.dyModules[moduleName]
-    ModuleManager.addDyModule(dyModule)
-
-    const connectedResult = ModuleManager.connectModulesAll()
-    console.log(connectedResult)
-
-    appNavigator.store.replaceReducer(
-      combineAppReducers(
-        undefined,
-        connectedResult.connectedContainer,
-        connectedResult.connectedModules,
-        appNavigator.WeNavigator.MyStackNavigator,
-        stateChangeListener
-      )
-    )
-
-    const dyNavMethods = {}
-    dyNavMethods[moduleName] = {}
-    _.mapValues(connectedResult.connectedModules.routers[moduleName], ({screen: wrappedScene}) => {
-      const sceneName = wrappedScene.toString()
-      const routeName = generateRouteName(moduleName, sceneName)
-      appNavigator.routersConfig[routeName] = wrappedScene
-      const func = params => appNavigator._navigate(routeName, params, wrappedScene)
-      func.toString = () => routeName
-
-      dyNavMethods[moduleName][sceneName] = func
-    })
-    return dyNavMethods[moduleName]
-
-    // _.mapValues(module.sceneList, (router, sceneName) => {
-    //   const routeName = generateRouteName(moduleName, sceneName)
-    //   appNavigator.routersConfig[routeName] = router
-    //   const func = params => this._navigate(routeName, params, router)
-    //   func.toString = () => routeName
-    //   dyNavMethods[moduleName][sceneName] = func
-    // })
-    //
-    // const dyNavMethods = {}
-    // dyNavMethods[moduleName] = {}
-    // if (require('./dynamic/dyRouterRequire').default[moduleName]) {
-    //   _.mapValues(require('./dynamic/dyRouterRequire').default[moduleName](), (router, sceneName) => {
-    //     const routeName = generateRouteName(moduleName, sceneName)
-    //     appNavigator.routersConfig[routeName] = router
-    //     const func = params => this._navigate(routeName, params, router)
-    //     func.toString = () => routeName
-    //     dyNavMethods[moduleName][sceneName] = func
-    //   })
-    // }
-    // return dyNavMethods[moduleName]
-    //
-    // return appNavigator.dyRoutersConfig[prop]()
-  }
-})
-
-export default appNavigatorProxy
+export default new AppNavigator()

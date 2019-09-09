@@ -19,35 +19,24 @@ export default class TridentApp extends Component {
     reduxConfig: PropTypes.object,
     navigationConfig: PropTypes.object,
     modules: PropTypes.array, // static modules
-    dyModules: PropTypes.func, // dynamic modules
+    dyModules: PropTypes.object, // dynamic modules
   }
 
   constructor () {
     super(...arguments)
-    const middlewares = []
-
-    const {reduxConfig, navigationConfig} = this.props
-    middlewares.push(createLogger(reduxConfig || require('./reduxUtils/reduxConfig').default.logger))
-    console.ignoredYellowBox = [
-      'Task orphaned for request',
-      'source.uri should not be an empty string'
-    ]
-    middlewares.push(thunk)
-    const middleware = applyMiddleware(...middlewares)
 
     ModuleManager.init(this.props.modules, this.props.container)
 
     const connectedResult = ModuleManager.connectModulesAll()
-    // this.connectedContainer = createGlobalConnect(this.props.container)(this.props.container.component)
-    // const connectedModules = ModuleManager.connectModules(this.connectedContainer)
-    // StackNavigator只支持扁平的配置，所以需要打扁一下
-    const flatRouters = ModuleManager.flatModule(connectedResult.connectedModules)
 
+    // StackNavigator只支持扁平的配置，所以需要打扁一下
     this.connectedContainer = connectedResult.connectedContainer
 
-    AppNavigator.init(flatRouters, this.props.dyModules)
+    const staticRouterConfig = ModuleManager.flatModule(connectedResult.connectedModules)
+    AppNavigator.init(staticRouterConfig)
 
-    this.WeNavigator = createTridentNavigator(flatRouters, navigationConfig)
+    const {navigationConfig = require('./config/defaultNavigationConfig').default} = this.props
+    this.WeNavigator = createTridentNavigator(staticRouterConfig, navigationConfig)
 
     this.store = createStore(
       combineAppReducers(
@@ -58,10 +47,19 @@ export default class TridentApp extends Component {
         stateChangeListener
       ),
       undefined,
-      middleware
+      this._getReduxMiddlewares()
     )
     AppNavigator.store = this.store
     AppNavigator.WeNavigator = this.WeNavigator
+    AppNavigator._prepareDyModuleLoader(this.props.dyModules)
+  }
+
+  _getReduxMiddlewares () {
+    const {reduxConfig = require('./config/defaultReduxConfig').default.logger} = this.props
+    return applyMiddleware(...[
+      createLogger(reduxConfig),
+      thunk
+    ])
   }
 
   render () {

@@ -3,7 +3,6 @@
  *
  * Created by erichua on 2019-09-07T07:51:13.945Z.
  */
-console.log('ui module loaded')
 export default (moduleName) => ({
   moduleName: moduleName,
   initialState: {

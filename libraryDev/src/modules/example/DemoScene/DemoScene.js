@@ -63,6 +63,10 @@ export default class DemoScene extends WeBaseScene {
         <PrimaryButton text={'Trident-UI'} onPress={() => {
           AppNavigator.ui.UIScene()
         }} />
+
+        <PrimaryButton text={'Plugin Store'} onPress={() => {
+          AppNavigator.example.PluginStoreScene()
+        }} />
       </EntryList>
     )
   }

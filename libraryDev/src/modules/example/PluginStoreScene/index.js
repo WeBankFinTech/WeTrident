@@ -3,8 +3,8 @@
  */
 export default (global, ModulePrivate) => ({
   moduleName: ModulePrivate.moduleName,
-  sceneName: 'AScene',
-  component: require('./AScene').default,
+  sceneName: 'PluginStoreScene',
+  component: require('./PluginStoreScene').default,
 
   /**
    * 定义scene级别数据的初始值
@@ -63,7 +63,7 @@ export default (global, ModulePrivate) => ({
    * 将global级别的actions映射到props
    */
   globalActions: {
-    addGlobalCount: global.actions.addGlobalCount
+    // addGlobalCount: global.actions.addGlobalCount
   },
 
   /**
