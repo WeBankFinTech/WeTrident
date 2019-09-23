@@ -8,151 +8,58 @@ import React, { Component } from 'react'
 import { Provider } from 'react-redux'
 import combineAppReducers from './reduxUtils/combineAppReducers'
 import createTridentNavigator from './navigation/WeNavigator'
-import { generateRouteName } from './navigation/NavigationUtils'
-import { createGlobalConnect } from './reduxUtils'
-import connectModules from './reduxUtils/connectModules'
 import { AppNavigator } from './navigation'
-import _ from 'lodash'
-import URLUtils from './utils/URLUtils'
 import PropTypes from 'prop-types'
 import { PopupStub } from '@unpourtous/react-native-popup-stub'
+import stateChangeListener from './navigation/stateChangeListener'
+import ModuleManager from './navigation/ModuleManager'
 
 export default class TridentApp extends Component {
   static propTypes = {
     reduxConfig: PropTypes.object,
-    navigationConfig: PropTypes.object
+    navigationConfig: PropTypes.object,
+    modules: PropTypes.array, // static modules
+    dyModules: PropTypes.object, // dynamic modules
   }
 
   constructor () {
     super(...arguments)
-    const middlewares = []
-    
-    const {reduxConfig, navigationConfig} = this.props
-    middlewares.push(createLogger(reduxConfig || require('./reduxUtils/reduxConfig').default.logger))
-    console.ignoredYellowBox = [
-      'Task orphaned for request',
-      'source.uri should not be an empty string'
-    ]
-    middlewares.push(thunk)
-    const middleware = applyMiddleware(...middlewares)
 
-    // 路由名称为`moduleName.sceneName`
-    this.connectedContainer = createGlobalConnect(this.props.container)(this.props.container.component)
-    const connectedModules = connectModules(this.props.modules, this.connectedContainer)
+    ModuleManager.init(this.props.modules, this.props.container)
 
-    const flatRouters = (() => {
-      let result = {}
-      const moduleNames = Object.keys(connectedModules.routers)
-      for (let moduleName of moduleNames) {
-        const sceneNames = Object.keys(connectedModules.routers[moduleName])
-        for (let sceneName of sceneNames) {
-          let routeName = generateRouteName(moduleName, sceneName)
-          result[routeName] = connectedModules.routers[moduleName][sceneName]
-        }
-      }
-      return result
-    })()
+    const connectedResult = ModuleManager.connectModulesAll()
 
-    AppNavigator.init(flatRouters)
+    // StackNavigator只支持扁平的配置，所以需要打扁一下
+    this.connectedContainer = connectedResult.connectedContainer
 
-    this.WeNavigator = createTridentNavigator(flatRouters, navigationConfig)
+    const staticRouterConfig = ModuleManager.flatModule(connectedResult.connectedModules)
+    AppNavigator.init(staticRouterConfig)
 
-    const store = createStore(
+    const {navigationConfig = require('./config/defaultNavigationConfig').default} = this.props
+    this.WeNavigator = createTridentNavigator(staticRouterConfig, navigationConfig)
+
+    this.store = createStore(
       combineAppReducers(
         undefined,
-        this.connectedContainer,
-        connectedModules,
+        connectedResult.connectedContainer,
+        connectedResult.connectedModules,
         this.WeNavigator.MyStackNavigator,
-        (state, nextState, action) => {
-          // gets the current screen from navigation state
-          const getCurrentRouteName = (navigationState) => {
-            if (!navigationState) {
-              return null
-            }
-            const findCurrentRoute = (navigationState) => {
-              if (navigationState.index !== undefined) {
-                return findCurrentRoute(navigationState.routes[navigationState.index])
-              }
-              return navigationState
-            }
-            return findCurrentRoute(navigationState)
-          }
-
-          const oldTopSceneState = getCurrentRouteName(state)
-          const newTopSceneState = getCurrentRouteName(nextState)
-
-          let fromRouteName, toRouteName, fromSceneKey, toSceneKey
-
-          if (!oldTopSceneState || !oldTopSceneState.routeName) {
-            fromRouteName = null
-            fromSceneKey = null
-          } else {
-            fromRouteName = oldTopSceneState.routeName
-            fromSceneKey = oldTopSceneState.key
-          }
-          toRouteName = newTopSceneState.routeName
-          toSceneKey = newTopSceneState.key
-
-          if ((AppNavigator.lastScene === undefined && AppNavigator.currentScene === undefined && fromSceneKey === null) ||
-            (!!fromSceneKey && !!toSceneKey && fromSceneKey !== toSceneKey)) {
-            // 从action里面拿数据，不要从state里面拿，state里面可能是用setParams修改过的
-            let currentParams = _.get(action, 'params', {})
-            if (action.type === 'Navigation/RESET') {
-              currentParams = _.get(action.actions[0], 'params', {})
-            }
-            // 过滤参数
-            const lastSceneURL = AppNavigator.currentSceneURL || 'null'
-            const currentSceneURL = URLUtils.appendParams(toRouteName || 'null', currentParams)
-            // Statistics.reportPageEnd(lastSceneURL)
-            // Statistics.reportPageStart(currentSceneURL)
-
-            if (fromSceneKey && fromSceneKey !== toSceneKey) {
-              //* 如果有注册onPause，则调用
-              if (_.isFunction(AppNavigator.lifecycleCallback.onPause[fromSceneKey])) {
-                AppNavigator.lifecycleCallback.onPause[fromSceneKey] && AppNavigator.lifecycleCallback.onPause[fromSceneKey](fromRouteName, toRouteName)
-              }
-            }
-
-            if (fromSceneKey && _.isFunction(AppNavigator.lifecycleCallback.onResume[toSceneKey])) {
-              AppNavigator.lifecycleCallback.onResume[toSceneKey](fromRouteName, toRouteName)
-            } else {
-              AppNavigator.addPendingLifecycleCallback(toSceneKey, { fromScene: fromRouteName, toScene: toRouteName })
-            }
-
-            AppNavigator.lastScene = oldTopSceneState || {}
-            AppNavigator.currentScene = newTopSceneState || {}
-
-            AppNavigator.lastSceneURL = lastSceneURL
-            AppNavigator.currentSceneURL = currentSceneURL
-            // console.log('currentScene change')
-          }
-          const navTimeConsuming = {}
-          if (AppNavigator.currentScene && AppNavigator.currentScene.routeName) {
-            const routeName = AppNavigator.currentScene.routeName
-            if (action.type === 'Navigation/NAVIGATE') {
-              navTimeConsuming[routeName] = {
-                startTime: new Date().getTime()
-              }
-            }
-            if (action.type === 'Navigation/COMPLETE_TRANSITION' &&
-              navTimeConsuming[routeName] &&
-              navTimeConsuming[routeName].startTime) {
-              const endTime = new Date().getTime()
-              navTimeConsuming[routeName].endTime = endTime
-
-              console.log(routeName + ' 切换耗时 ' + (endTime - navTimeConsuming[routeName].startTime))
-              // Statistics.reportTimeConsuming(routeName, navTimeConsuming[routeName].startTime, endTime)
-              delete navTimeConsuming[routeName]
-            }
-          }
-
-        }
+        stateChangeListener
       ),
       undefined,
-      middleware
+      this._getReduxMiddlewares()
     )
+    AppNavigator.store = this.store
+    AppNavigator.WeNavigator = this.WeNavigator
+    AppNavigator._prepareDyModuleLoader(this.props.dyModules)
+  }
 
-    this.store = store
+  _getReduxMiddlewares () {
+    const {reduxConfig = require('./config/defaultReduxConfig').default.logger} = this.props
+    return applyMiddleware(...[
+      createLogger(reduxConfig),
+      thunk
+    ])
   }
 
   render () {

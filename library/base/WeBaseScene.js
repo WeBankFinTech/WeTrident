@@ -17,6 +17,8 @@ export default class WeBaseScene extends Component {
   constructor () {
     super(...arguments);
 
+    delete this.navigation
+
     const originComponentWillMount = this.componentWillMount
     if (originComponentWillMount) {
       this.componentWillMount = () => {

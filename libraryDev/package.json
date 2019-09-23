@@ -25,6 +25,7 @@
     "react": "16.0.0",
     "react-native": "0.51.0",
     "react-native-cookies": "3.3.0",
+    "react-native-json-tree": "^1.2.0",
     "react-navigation-redux-helpers": "1.0.1",
     "react-redux": "5.0.6",
     "redux": "3.6.0",
