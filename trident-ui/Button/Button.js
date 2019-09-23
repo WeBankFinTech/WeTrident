@@ -15,41 +15,35 @@ import React, { Component } from 'react'
 import WeTouchable from './lib/WeTouchable'
 import { ProUI } from '../values'
 
-export default class PrimaryButton extends Component {
+export default class Button extends Component {
   static propTypes = {
     disabled: PropTypes.bool,
     onPress: PropTypes.func,
     text: PropTypes.string,
-    rid: PropTypes.string, // 上报id
-    needDyeing: PropTypes.bool, // 是否需要染色
-    activeColor: PropTypes.string
+    activeColor: PropTypes.string,
+    withRadius: PropTypes.bool
   }
 
   static defaultProps = {
-    activeColor: ProUI.color.activeFilling
+    activeColor: ProUI.color.activeFilling,
+    withRadius: true
   }
 
   render () {
     const {
       style,
-      buttonStyle,
-      textStyle, // deprecated
-      buttonTextStyle, // recommend
       disabled,
       onPress,
       text,
-      oldRid,
       rid,
-      needDyeing,
-      activeColor
+      activeColor,
+      withRadius
     } = this.props
 
     return (
       <WeTouchable
         rid={rid}
         needsOffscreenAlphaCompositing={!!disabled}
-        oldRid={oldRid}
-        needDyeing={needDyeing}
         pressMode={WeTouchable.pressMode.highlight}
         activeColor={activeColor}
         disabled={disabled}
@@ -61,10 +55,8 @@ export default class PrimaryButton extends Component {
           }
         }}>
         <View
-          style={[
-            styles.button,
-            buttonStyle]}>
-          <Text style={[styles.text, textStyle, {color: '#fff', backgroundColor: 'transparent'}, buttonTextStyle]}>{text}</Text>
+          style={[styles.button, withRadius ? {borderRadius: ProUI.fixedRowHeight / 2} : null]}>
+          <Text style={{color: '#fff', backgroundColor: 'transparent'}}>{text}</Text>
         </View>
       </WeTouchable>
     )
@@ -73,8 +65,8 @@ export default class PrimaryButton extends Component {
 
 const styles = StyleSheet.create({
   button: {
+    paddingHorizontal: ProUI.spaceX.medium,
     height: ProUI.fixedRowHeight,
-    borderRadius: ProUI.fixedRowHeight / 2,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: ProUI.color.filling

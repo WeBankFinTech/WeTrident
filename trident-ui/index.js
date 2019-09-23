@@ -1,3 +1,2 @@
-export {default as PrimaryButton} from './Button/PrimaryButton'
-export {default as FixedButton} from './Button/FixedButton'
+export {default as Button} from './Button/Button'
 export * from './Layout/Layout'
