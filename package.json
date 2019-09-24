@@ -1,14 +1,12 @@
 {
   "name": "@webank/trident",
-  "version": "1.2.12",
+  "version": "1.2.13",
   "main": "library/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "patchVersion": "npm version patch && cd global-cli && npm version patch && cd ..",
-
     "publishAll": "npm publish && cd global-cli && npm publish",
     "wpublishAll": "wnpm publish && cd global-cli && wnpm publish",
-
     "reinstallCli": "echo 'reinstall the newest trident-cli' && npm uninstall @webank/trident-cli -g && npm install @webank/trident-cli -g",
     "wreinstallCli": "echo 'reinstall the newest trident-cli' && wnpm uninstall @webank/trident-cli -g && wnpm install @webank/trident-cli -g",
     "test-tpl": "echo 'test the trident framework' && rm -rf WeBookStore && trident-cli init --name=WeBookStore --bundleId=com.trident.wbstore --scheme=wbstore && cd WeBookStore && bundle exec fastlane ios release --verbose && bundle exec fastlane android release --verbose"
