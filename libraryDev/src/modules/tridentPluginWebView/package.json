@@ -1,0 +1,14 @@
+{
+  "name": "@webank/trident-plugin-webview",
+  "version": "0.0.2",
+  "description": "trident webview plugin",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "WebView"
+  ],
+  "author": "shuqiangwu@webank.com",
+  "license": "ISC"
+}
