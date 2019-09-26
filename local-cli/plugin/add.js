@@ -2,26 +2,41 @@
 var execSync = (cmd) => {
   require('child_process').execSync(cmd, { stdio: [0, 1, 2] })
 }
-var _ = require('lodash')
-// var dyRouter = require('../dyLoad/astTransformRouter.1')
 const t = require('@babel/types')
 const { insertElementInList } = require('../utils/codeEdit')
 const env = require('../npmConfig')
+const inquirer = require('inquirer')
+const chalk = require('chalk')
+const path = require('path')
 
-var path = require('path')
+function run (root, name) {
+  const projDependencies = require(path.join(root, 'package.json')).dependencies
 
-function run (projectRoot, name) {
-  // TODO 真正的安装之前需要检查一下是否已经安装过
+  if (projDependencies[name]) {
+    inquirer.prompt([{
+      type: 'confirm',
+      message: chalk.red(`\nPlugin [${name}] is already installed, update anyway?\n`),
+      name: 'ver'
+    }]).then(answers => {
+      if (answers === true) {
+        add(root, name)
+      }
+    })
+  } else {
+    add(root, name)
+  }
+}
+
+function add (root, name) {
   let installCommand = `${env.npm_install_xxx} ${name} --verbose`
 
-  // TODO 自动添加 trident-plugin 前缀
   try {
     execSync(installCommand, { stdio: 'inherit' })
 
     const requireCallExpression = t.callExpression(t.identifier('require'), [t.stringLiteral(name)])
     const newMember = t.memberExpression(requireCallExpression, t.identifier('default'))
 
-    const moduleIndexPath = path.join(projectRoot, 'src/modules/index.js')
+    const moduleIndexPath = path.join(root, 'src/modules/index.js')
     insertElementInList(moduleIndexPath, newMember)
   } catch (e) {
     console.log(e)

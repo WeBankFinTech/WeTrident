@@ -15,6 +15,7 @@
   "dependencies": {
     "chalk": "^2.4.2",
     "inquirer": "^6.4.1",
+    "iwalk": "0.0.5",
     "minimist": "^1.2.0",
     "node-version-compare": "^1.0.2",
     "prompt": "^1.0.0",
