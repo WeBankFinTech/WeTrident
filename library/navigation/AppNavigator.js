@@ -3,10 +3,18 @@
  */
 import _ from 'lodash'
 import { NavigationActions } from '@unpourtous/react-navigation'
-import { separateRouteName } from './NavigationUtils'
-import URL from 'url'
+import { generateRouteName, separateRouteName } from './NavigationUtils'
+import ModuleManager from './ModuleManager'
+import combineAppReducers from '../reduxUtils/combineAppReducers'
+import stateChangeListener from './stateChangeListener'
 
 const isDyLoad = require('./dyConfig.json').isDyLoad
+
+/**
+ * 动态加载的缓存，通过缓存来避免多次重复的replaceReducer和combineReducer
+ * @type {{}}
+ */
+const dyModuleCache = {}
 
 /**
  * 路由
@@ -17,19 +25,21 @@ const isDyLoad = require('./dyConfig.json').isDyLoad
  */
 class AppNavigator {
   pendingLifecycleCallback = {}
+  WeNavigator
+  store
   lifecycleCallback = {
     onPause: {},
     onResume: {}
   }
   // 动态的路由配置
-  routersConfig = {}
+  staticRoutersConfig = {}
 
   // 按需加载时的缓存
   _cachedModuleReducer = {}
 
-  init (routersConfig) {
+  init (staticRoutersConfig) {
     let navigatorMethods = {}
-    _.mapValues(routersConfig, (config, routeName) => {
+    _.mapValues(staticRoutersConfig, (config, routeName) => {
       const {
         moduleName,
         sceneName
@@ -44,11 +54,11 @@ class AppNavigator {
     })
 
     Object.assign(this, navigatorMethods)
-    this.routersConfig = routersConfig
+    this.staticRoutersConfig = staticRoutersConfig
   }
 
   _getRouteNames () {
-    return Object.keys(this.routersConfig)
+    return Object.keys(this.staticRoutersConfig)
   }
 
   // 下面两个方法是为了保证某些没考虑到的地方还是使用老的sceneName做跳转时能找到对应的routeName
@@ -328,12 +338,12 @@ class AppNavigator {
     let screen
 
     if (isDyLoad) {
-      if (this.routersConfig[routeName] && typeof this.routersConfig[routeName].getScreen === 'function') {
-        screen = this.routersConfig[routeName].getScreen() // 获取当前Scene的实例
+      if (this.staticRoutersConfig[routeName] && typeof this.staticRoutersConfig[routeName].getScreen === 'function') {
+        screen = this.staticRoutersConfig[routeName].getScreen() // 获取当前Scene的实例
       }
     } else {
-      if (this.routersConfig && this.routersConfig[routeName]) {
-        screen = this.routersConfig[routeName].screen // 获取当前Scene的实例
+      if (this.staticRoutersConfig && this.staticRoutersConfig[routeName]) {
+        screen = this.staticRoutersConfig[routeName].screen // 获取当前Scene的实例
       }
     }
 
@@ -360,8 +370,8 @@ class AppNavigator {
     let ret = {}
     let navigationOptions
 
-    if (this.routersConfig[routeName] && this.routersConfig[routeName].navigationOptions) {
-      navigationOptions = this.routersConfig[routeName].navigationOptions
+    if (this.staticRoutersConfig[routeName] && this.staticRoutersConfig[routeName].navigationOptions) {
+      navigationOptions = this.staticRoutersConfig[routeName].navigationOptions
     }
 
     if (navigationOptions && typeof navigationOptions === 'function') {
@@ -456,14 +466,61 @@ class AppNavigator {
    * @private
    */
   _parseTridentPath (url) {
-    const parsedUrl = URL.parse(url, true)
+    // const parsedUrl = URL.parse(url, true)
     const routeObj = separateRouteName(url)
     if (!routeObj.moduleName) {
       return null
     }
     return routeObj
   }
+
+  _prepareDyModuleLoader (dyModules) {
+    let appNavigator = this
+    Object.keys(dyModules || {}).forEach(moduleName => {
+      if (appNavigator[moduleName]) {
+        return
+      }
+      Object.defineProperty(appNavigator, moduleName, {
+        get: function () {
+          if (dyModuleCache[moduleName]) {
+            return dyModuleCache[moduleName]
+          }
+
+          const dyModule = dyModules[moduleName]
+          ModuleManager.addDyModule(dyModule)
+
+          const connectedResult = ModuleManager.connectModulesAll()
+
+          appNavigator.store.replaceReducer(
+            combineAppReducers(
+              undefined,
+              connectedResult.connectedContainer,
+              connectedResult.connectedModules,
+              appNavigator.WeNavigator.MyStackNavigator,
+              stateChangeListener
+            )
+          )
+
+          const dyNavMethods = {}
+          dyNavMethods[moduleName] = {}
+          _.mapValues(connectedResult.connectedModules.routers[moduleName], ({ screen: wrappedScene }) => {
+            const sceneName = wrappedScene.toString()
+            const routeName = generateRouteName(moduleName, sceneName)
+
+            // 这里是为了让
+            appNavigator.staticRoutersConfig[routeName] = wrappedScene
+            const func = params => appNavigator._navigate(routeName, params, wrappedScene)
+            func.toString = () => routeName
+
+            dyNavMethods[moduleName][sceneName] = func
+          })
+
+          dyModuleCache[moduleName] = dyNavMethods[moduleName]
+          return dyNavMethods[moduleName]
+        }
+      })
+    })
+  }
 }
 
-const appNavigator = new AppNavigator()
-export default appNavigator
+export default new AppNavigator()

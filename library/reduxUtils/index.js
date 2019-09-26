@@ -2,10 +2,7 @@
  * Created by erichua on 08/11/2017.
  */
 import React from 'react'
-import {
-  createActions,
-  handleActions
-} from 'redux-actions'
+import { createActions, handleActions } from 'redux-actions'
 import { connect } from 'react-redux'
 import _ from 'lodash'
 import RNEnv from '../utils/RNEnv'
@@ -346,10 +343,9 @@ function createGlobalConnect (config = {}) {
       // map local state and shared state into the property named 'props' of the input component
       const _mapStateToProps = _state => {
         const globalState = _state[moduleName]
-        const props = {
+        return {
           ...mapGlobalState(globalState)
         }
-        return props
       }
 
       const _mapDispatchToProps = {..._actions, ...decorateAsyncActions(namespace, asyncActions(_actions))}

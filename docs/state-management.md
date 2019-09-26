@@ -87,6 +87,33 @@ Scene级别的数据为页面私有数据，其他页面无法共享，如果需
   }
 ```
 
+上面这种方式需要开发者对自己写很多特定的action/reducer，trident的scene默认提供了setSceneState函数，可以快速的在当前Scene的数据区存放数据，例如上面更新数据的例子可以写为： 
+``` js
+// modules/book/BookListScene/BookListScene.js
+componentDidMount () {
+  this.props.setSceneState({
+    bookList: [
+      {
+        'title': '经济学原理',
+        'author': '曼昆',
+        'coverURL': 'https://img3.doubanio.com/view/subject/l/public/s3802186.jpg',
+        'publishTime': '2009-4-1',
+        'pages': 540,
+        'ISBN': '9787301150894'
+      },
+      {
+        'title': '失控-全人类的最终命运和结局',
+        'author': '[美] 凯文·凯利 ',
+        'coverURL': 'https://img3.doubanio.com/view/subject/l/public/s4554820.jpg',
+        'publishTime': '2010-12',
+        'pages': 707,
+        'ISBN': '9787513300711'
+      }
+    ]
+  })
+}
+```
+
 ### 存放数据到 modulePrivate 区
 `modulePrivate`的数据模块内私有，模块内的Scene可以共享这些数据。在我WeBookStore中，
 考虑BookDetailScene中也会用到书籍列表数据，bookList 放到 BookListScene下是不够的，需要提升到`book` 模块的共享数据区。
