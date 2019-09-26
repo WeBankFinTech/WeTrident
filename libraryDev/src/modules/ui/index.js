@@ -1,12 +1,10 @@
 /**
- * 负责导出此模块的reducer和router到App级别
+ * 负责导出此模块的reducer和action到App级别
  *
- * Created by erichua on 2019-05-21T11:40:28.905Z.
+ * Created by erichua on 2019-09-07T07:51:13.945Z.
  */
-import { createSceneConnect } from '@webank/trident'
-
-export default {
-  moduleName: 'test',
+export default (moduleName) => ({
+  moduleName: moduleName,
   initialState: {
     // moduleCount: 0
   },
@@ -14,11 +12,8 @@ export default {
   actions: {
     // addModuleCount: v => v
   },
-  asyncActions: (actions) => ({
-
-  }),
+  asyncActions: (actions) => ({}),
   reducers: {
     // addModuleCount: (state, action) => ({ ...state, moduleCount: state.moduleCount + action.payload })
   }
-}
-
+})

@@ -70,7 +70,7 @@ function replaceName (root, projectName, bundleId = 'test.cli.bundle', scheme) {
 
   try {
     // 替换iOS的内容
-    // process.chdir(path.join(root, 'ios'))
+    process.chdir(root)
     if (fs.existsSync('ios/trident.xcodeproj')) {
       execSync('mv ios/trident.xcodeproj ios/' + targetProjectName)
     }
@@ -106,7 +106,7 @@ function replaceName (root, projectName, bundleId = 'test.cli.bundle', scheme) {
       from: /trident/g,
       to: projectName,
     })
-    console.log('bundle Modified files:', changes.join(', '))
+    console.log('Modified files:', changes.join(', '))
 
     changes = replaceInFile.sync({
       files: [
@@ -115,7 +115,7 @@ function replaceName (root, projectName, bundleId = 'test.cli.bundle', scheme) {
       from: /demo-scheme/g,
       to: scheme,
     })
-    console.log('bundle Modified files:', changes.join(', '))
+    console.log('Modified files:', changes.join(', '))
 
     if (bundleName) {
       // replace bundle id
@@ -124,16 +124,16 @@ function replaceName (root, projectName, bundleId = 'test.cli.bundle', scheme) {
         from: /org.reactjs.native.example/g,
         to: bundleName,
       })
-      console.log('bundle Modified files:', changes.join(', '))
+      console.log('Modified files:', changes.join(', '))
     }
 
     // replace bundle id
     changes = replaceInFile.sync({
-      files: './ios/' + fastlaneFileName,
+      files: './' + fastlaneFileName,
       from: /trident/g,
       to: projectName,
     })
-    console.log('bundle Modified files:', changes.join(', '))
+    console.log('Modified files:', changes.join(', '))
   } catch (err) {
     console.error(err)
     process.exit(1)
@@ -150,7 +150,7 @@ function replaceName (root, projectName, bundleId = 'test.cli.bundle', scheme) {
     from: /org.reactnative.example/g,
     to: bundleId,
   })
-  console.log('bundle Modified files:', changes.join(', '))
+  console.log('Modified files:', changes.join(', '))
 
   changes = replaceInFile.sync({
     files: [
@@ -159,7 +159,7 @@ function replaceName (root, projectName, bundleId = 'test.cli.bundle', scheme) {
     from: /demo-scheme/g,
     to: scheme,
   })
-  console.log('bundle Modified files:', changes.join(', '))
+  console.log('Modified files:', changes.join(', '))
 
   changes = replaceInFile.sync({
     files: [
@@ -174,7 +174,7 @@ function replaceName (root, projectName, bundleId = 'test.cli.bundle', scheme) {
     from: /app-seed/g,
     to: projectName,
   })
-  console.log('bundle Modified files:', changes.join(', '))
+  console.log('Modified files:', changes.join(', '))
 }
 
 module.exports = {

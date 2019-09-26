@@ -38,7 +38,7 @@ Trident目前仅支持macOS，其余环境Trident都会做详细的提示来协�
     git config --global --replace-all https.proxy http://proxy.webank.com:8080
     git config --global --replace-all https.sslverify false
     
-    git config --global --replace-all url.http://github.com.insteadof git://github.com/
+    git config --global --replace-all url.http://github.com/.insteadof git://github.com/
     ```
 
 3. Ruby环境设置(cocospod需要ruby环境)
