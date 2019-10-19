@@ -112,7 +112,7 @@ function _generatorScene (moduleName) {
           process.exit()
         }
 
-        const sceneTplPath = config.sceneTplPath
+        const sceneTplPath = pathConfig.sceneTplPath
         const sceneDir = pathConfig.modulesPath + moduleName + '/' + sceneName
         const scenePath = `${path.join(sceneDir, sceneName)}.js`
         const servicePath = `${path.join(sceneDir, serviceName)}.js`
@@ -154,7 +154,7 @@ function _generatorModule () {
       }
 
       // TODO 输入检查
-      const moduleTplPath = config.moduleTplPath
+      const moduleTplPath = pathConfig.moduleTplPath
       const modulePath = pathConfig.modulesPath + moduleName
       const moduleIndexPath = pathConfig.modulesPath + 'index.js'
 
