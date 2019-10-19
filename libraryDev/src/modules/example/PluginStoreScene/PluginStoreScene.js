@@ -3,9 +3,10 @@
  *
  * Created by erichua on 2019-09-09T12:52:38.196Z.
  */
-import React, { Component } from 'react'
-import { View, Text } from 'react-native'
+import React from 'react'
 import { AppNavigator, WeBaseScene } from '@webank/trident'
+import EntryList from '../../../bizComponents/EntryList'
+import PrimaryButton from '@webank/trident/library/uiComponent/PrimaryButton'
 
 
 export default class PluginStoreScene extends WeBaseScene {
@@ -15,9 +16,11 @@ export default class PluginStoreScene extends WeBaseScene {
 
   render () {
     return (
-      <View>
-        <Text>Hello PluginStoreScene</Text>
-      </View>
+      <EntryList>
+        <PrimaryButton text={'Plugin-WebView'} onPress={() => {
+          AppNavigator.tridentPluginWebView.WebViewScene({url: 'https://www.qq.com'})
+        }} />
+      </EntryList>
     )
   }
 }

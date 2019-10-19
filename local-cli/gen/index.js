@@ -1,17 +1,17 @@
 // var commonArgsDesc = require('./config/commonArgsDesc')
-var execSync = (cmd) => {
+const execSync = (cmd) => {
   require('child_process').execSync(cmd, { stdio: [0, 1, 2] })
 }
-var chalk = require('chalk')
-var inquirer = require('inquirer')
-var _ = require('lodash')
+const chalk = require('chalk')
+const inquirer = require('inquirer')
+const _ = require('lodash')
 // var dyRouter = require('../dyLoad/astTransformRouter.1')
 
-var fs = require('fs')
-var path = require('path')
+const fs = require('fs')
+const path = require('path')
 
 const t = require('@babel/types')
-const { insertElementInList } = require('../utils/codeEdit')
+const { insertElementInList, addElementInObject } = require('../utils/codeEdit')
 
 const replaceInFile = require('replace-in-file')
 
@@ -162,10 +162,14 @@ function _generatorModule () {
 
       fillModuleName(moduleName)
 
-      // 插入模块到模块列表
+      // 插入模块到模块列表, 静态加载
       const requireCallExpression = t.callExpression(t.identifier('require'), [t.stringLiteral('./' + moduleName)])
       const newMember = t.memberExpression(requireCallExpression, t.identifier('default'))
-      insertElementInList(moduleIndexPath, newMember)
+      const moduleArrayFunction = t.arrowFunctionExpression([], newMember, false)
+
+      const generate = require('babel-generator').default
+      console.log(generate(t.objectProperty(t.identifier(moduleName), moduleArrayFunction), { retainLines: true }).code)
+      addElementInObject(moduleIndexPath, t.objectProperty(t.identifier(moduleName), moduleArrayFunction))
 
       // 提示是否继续创建Scene
       setTimeout(() => {

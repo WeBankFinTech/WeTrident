@@ -1,8 +1,18 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
+import _ from 'lodash'
 
 export default class EntryList extends Component {
   render () {
+    if (!_.isArray(this.props.children)) {
+      return (
+        <View style={{
+          marginVertical: 10
+        }}>
+          {this.props.children}
+        </View>
+      )
+    }
     return (
       <View style={{
         flexDirection: 'column',
