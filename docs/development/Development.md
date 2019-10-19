@@ -98,3 +98,15 @@ xcrun simctl openurl booted trident-scheme:///example/DemoScene?title=TestScheme
 adb shell am start -W -a android.intent.action.VIEW -d "trident-scheme:///example/DemoScene?title=TestSchemeJump" org.reactnative.example
 ```
 
+
+## 文档发布说明
+```shell
+# 1. pack website
+
+cd website
+npm run pack-website
+
+# 打包完成以后website的压缩包为./website/release/${timestamp}.tgz
+2. 发布到服务器
+```
+
