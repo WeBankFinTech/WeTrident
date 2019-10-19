@@ -5,6 +5,7 @@
     "build": "docusaurus-build",
     "publish-gh-pages": "docusaurus-publish",
     "publish-website": "npm run build && scp -r build/trident-website/* hjdata@hjdata:/data/trident.webank.com/website",
+    "pack-website": "npm run build && tar czf release/$(date '+%Y%m%d-%H%M%S').tgz -C ./build/trident-website/ ./",
     "write-translations": "docusaurus-write-translations",
     "version": "docusaurus-version",
     "rename-version": "docusaurus-rename-version"
