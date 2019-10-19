@@ -2,7 +2,7 @@ const execSync = (cmd) => {
   require('child_process').execSync(cmd, { stdio: [0, 1, 2] })
 }
 const path = require('path')
-const pathConfig = require('../utils/pathConfig')
+const pathConfig = require('../config/pathConfig')
 const fs = require('fs')
 const chalk = require('chalk')
 

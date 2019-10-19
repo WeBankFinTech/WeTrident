@@ -4,7 +4,7 @@ var execSync = (cmd) => {
 }
 const path = require('path')
 const dp = require('../utils/dependparser')
-const pathConfig = require('../utils/pathConfig')
+const pathConfig = require('../config/pathConfig')
 const fs = require('fs')
 const chalk = require('chalk')
 const inquirer = require('inquirer')

@@ -4,7 +4,7 @@ var execSync = (cmd) => {
 }
 const t = require('@babel/types')
 const { insertElementInList } = require('../utils/codeEdit')
-const env = require('../npmConfig')
+const env = require('../config/npmConfig')
 const inquirer = require('inquirer')
 const chalk = require('chalk')
 const path = require('path')

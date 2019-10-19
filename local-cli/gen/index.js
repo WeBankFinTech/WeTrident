@@ -14,15 +14,13 @@ const t = require('@babel/types')
 const { insertElementInList } = require('../utils/codeEdit')
 
 const replaceInFile = require('replace-in-file')
-const pathConfig = require('../utils/pathConfig')
 
-const author = require('child_process').execSync('whoami').toString().trim()
-
-const config = {
-  moduleTplPath: './node_modules/@webank/trident/local-cli/gen/codeTemplate/moduleTpl',
-  sceneTplPath: './node_modules/@webank/trident/local-cli/gen/codeTemplate/sceneTpl'
+let pathConfig = require('../config/pathConfig')
+if (process.env.useLocal === 'true') {
+  pathConfig = require('../config/pathConfig-local')
 }
 
+const author = require('child_process').execSync('whoami').toString().trim()
 const existedModuleList = []
 fs.readdirSync(pathConfig.modulesPath).forEach(file => {
   var filePath = path.join(pathConfig.modulesPath, file)
@@ -62,7 +60,9 @@ function getSceneListUnderModulePath (modulesPath) {
  * 填充sceneName
  * @param scenePath
  * @param servicePath
+ * @param indexPath
  * @param sceneName
+ * @param serviceName
  */
 function fillSceneName (scenePath, servicePath, indexPath, sceneName, serviceName) {
   replaceInFile.sync({ files: scenePath, from: /TplScene/g, to: sceneName })

@@ -6,7 +6,7 @@ const chalk = require('chalk')
 
 const shell = require('shelljs')
 // const inquirer = require('inquirer')
-const env = require('../npmConfig')
+const env = require('../config/npmConfig')
 
 function init (root, projectName, bundleId, scheme, options) {
   const packageJson = {
