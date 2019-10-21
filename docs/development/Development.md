@@ -107,6 +107,10 @@ cd website
 npm run pack-website
 
 # 打包完成以后website的压缩包为./website/release/${timestamp}.tgz
-2. 发布到服务器
+2. 发布到服务器 `/usr/share/nginx/html`，在服务器上运行如下命令上传文件，并解压到trident目录
+
+rz
+tar xzvf website.tgz -C trident
+
 ```
 

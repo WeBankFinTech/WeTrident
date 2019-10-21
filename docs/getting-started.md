@@ -143,7 +143,7 @@ tdt gen module
 # step 4: 根据提示创建 VersionScene
 tdt gen module
 
-## PS: 在创建模块完成后会自动提示创建Scene，如果想单独创建Scene，可以使用`tdt gen scene`。
+# PS: 在创建模块完成后会自动提示创建Scene，如果想单独创建Scene，可以使用`tdt gen scene`。
 ```
 
 到这里所有需要的页面已经生成，除了这些关键的module和scene，对应的还生成了常用的一些目录，这也是我们建议的使用方式，例如`components`用于放置当前模块自己是使用的组件。`services`目录存放处理服务器端请求的逻辑代码，可以避免将所有网络请求放到Scene中导致Scene的臃肿，这样的拆分可以帮助Scene保持更清晰明了的UI代码。
