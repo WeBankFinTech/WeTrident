@@ -83,7 +83,7 @@ wnpm install -g @webank/trident-cli
 
 #### 2. 用trident-cli 创建项目
 ``` shell 
-trident-cli init --name=WeBookStore --bundleId=com.trident.wbstore --scheme=wbstore
+tdt init --name=WeBookStore --bundleId=com.trident.wbstore --scheme=wbstore
 ```
 等待安装完成即可。
 
@@ -94,7 +94,7 @@ PS: 初始化过程中会对当前的开发环境做检查，如果有提示某�
 cd WeBookStore
 
 # 启动react native packager
-trident-cli packager start
+tdt packager start
 
 # 在XCode中打开项目
 open ios/WeBookStore.xcworkspace/
@@ -135,13 +135,15 @@ about
 ## 生成模块和页面
 前面我们已经使用`trident-cli`创建了WeBookStore工程，`trdent-cli`也支持了模块和页面的脚手架创建。下面我们根据上面的规划来创建所需要的页面
 ``` shell
-# step 1: 创建 book 模块
+# step 1: 创建 book 模块, 模块生成以后会自动提示创建该模块的Scene
 # step 2: 根据提示创建 BookListScene、BookDetailScene、ResultScene
-trident-cli gen module
+tdt gen module
 
-# step 3: 创建 about 模块
+# step 3: 创建 about 模块, 模块生成以后会自动提示创建该模块的Scene
 # step 4: 根据提示创建 VersionScene
-trident-cli gen scene
+tdt gen module
+
+## PS: 在创建模块完成后会自动提示创建Scene，如果想单独创建Scene，可以使用`tdt gen scene`。
 ```
 
 到这里所有需要的页面已经生成，除了这些关键的module和scene，对应的还生成了常用的一些目录，这也是我们建议的使用方式，例如`components`用于放置当前模块自己是使用的组件。`services`目录存放处理服务器端请求的逻辑代码，可以避免将所有网络请求放到Scene中导致Scene的臃肿，这样的拆分可以帮助Scene保持更清晰明了的UI代码。

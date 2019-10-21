@@ -63,8 +63,8 @@ export useLocal=true && ./global-cli/index.js init testProj
 
 ## 业务插件开发
 业务模块插件的开发是Trident的一大特色，开发者可以将自己某个独立可公用带业务模块以`trident-plugin`的形式输出。其他用户只需要通过 trident-cli 安装此业务插件即可使用这个公用带业务能力，常见带业务插件有 trident-plugin-feedback，trient-plugin-in-app-browser，trident-plugin-version-manager等。
-如果您希望开发一个插件给别人使用，你需要在你的项目根目录运行 `trident-cli plugin init` 根据提示选择你需要的模块初始化即可。在开发的过程中请注意，这个模块的所有依赖需要单独在模块目录下的package.json中申明和安装。
-开发完成以后运行 `trident-cli plugin publish` 根据提示选择要发布的模块即可。
+如果您希望开发一个插件给别人使用，你需要在你的项目根目录运行 `tdt plugin init` 根据提示选择你需要的模块初始化即可。在开发的过程中请注意，这个模块的所有依赖需要单独在模块目录下的package.json中申明和安装。
+开发完成以后运行 `tdt plugin publish` 根据提示选择要发布的模块即可。
 
 ### 插件开发要求
 ### 插件发布
