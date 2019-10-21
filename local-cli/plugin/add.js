@@ -28,7 +28,7 @@ function run (root, name) {
 }
 
 function add (root, name, reinstall) {
-  let installCommand = `${env.npm_install_xxx} ${name} --verbose`
+  let installCommand = !reinstall ? `${env.npm_install_xxx} ${name} --verbose` : `${env.npm_install_xxx} ${name}@latest --verbose`
 
   try {
     execSync(installCommand, { stdio: 'inherit' })

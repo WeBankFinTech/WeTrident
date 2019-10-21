@@ -63,11 +63,33 @@ export useLocal=true && ./global-cli/index.js init testProj
 
 ## 业务插件开发
 业务模块插件的开发是Trident的一大特色，开发者可以将自己某个独立可公用带业务模块以`trident-plugin`的形式输出。其他用户只需要通过 trident-cli 安装此业务插件即可使用这个公用带业务能力，常见带业务插件有 trident-plugin-feedback，trient-plugin-in-app-browser，trident-plugin-version-manager等。
-如果您希望开发一个插件给别人使用，你需要在你的项目根目录运行 `tdt plugin init` 根据提示选择你需要的模块初始化即可。在开发的过程中请注意，这个模块的所有依赖需要单独在模块目录下的package.json中申明和安装。
-开发完成以后运行 `tdt plugin publish` 根据提示选择要发布的模块即可。
 
-### 插件开发要求
+
+### 插件初始化
+
+如果您希望开发一个插件给别人使用，需要在项目根目录下运行
+
+```
+$ tdt plugin init [moduleName]
+```
+
+`moduleName`即为需要发布为插件的模块，此命令将在模块目录下初始化`package.json`，并自动添加`README.md`，开发者可以在 README.md 中补充插件说明。
+
 ### 插件发布
+
+插件开发完成需要发布，在项目根目录下运行
+
+```
+$ tdt plugin publish [moduleName]
+```
+
+`moduleName`即为需要发布为插件的模块，此命令将抽取插件依赖更新至`package.json`，引导开发者更新插件版本号，执行插件发布。
+
+### 插件安装
+
+```
+$ tdt plugin add [pluginName]
+```
 
 ## trident library开发
 trident是一套开发方案，其中提供的核心能力均在 trident/library中实现，为了开发 library, 项目中有一个libraryDev工程，这个功能主要用于libraryDev的展示，libraryDev工程不会发布到npm，但是会在git库中管理，libraryDev像一个正常的trident工程一样依赖 `@unpurtous/trident`，唯一区别是在开发过程中我们会启动`wml`来将 trident/library 实时同步覆盖 `libraryDev/node_modules/@unpourtous/trident/library/`，如此可以方便的看到改动效果。`wml`的具体用法见 `https://github.com/wix/wml` 

@@ -1,6 +1,6 @@
 {
   "name": "@webank/trident-plugin-webview",
-  "version": "0.0.6",
+  "version": "0.0.8",
   "description": "trident webview plugin",
   "main": "index.js",
   "scripts": {
