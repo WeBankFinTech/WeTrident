@@ -16,9 +16,9 @@ function run (root, name) {
     inquirer.prompt([{
       type: 'confirm',
       message: chalk.red(`\nPlugin [${name}] is already installed, update anyway?\n`),
-      name: 'ver'
+      name: 'reinstall'
     }]).then(answers => {
-      if (answers === true) {
+      if (answers.reinstall === true) {
         add(root, name)
       }
     })
