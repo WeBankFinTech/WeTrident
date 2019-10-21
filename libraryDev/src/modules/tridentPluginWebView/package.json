@@ -1,6 +1,6 @@
 {
   "name": "@webank/trident-plugin-webview",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "description": "trident webview plugin",
   "main": "index.js",
   "scripts": {
@@ -9,8 +9,8 @@
   "dependencies": {
     "react": "16.0.0",
     "react-native": "0.51.0",
-    "@unpourtous/react-native-touchable": "1.0.3",
-    "@webank/trident": "1.2.13"
+    "@webank/trident": "1.2.13",
+    "@unpourtous/react-native-touchable": "1.0.3"
   },
   "keywords": [
     "WebView"
