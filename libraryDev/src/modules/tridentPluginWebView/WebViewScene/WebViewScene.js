@@ -16,13 +16,13 @@ import {
 import { WeBaseScene, AppNavigator } from '@webank/trident'
 import TridentWebViewBridge from './TridentWebViewBridge'
 import WebViewService from '../services/WebViewService'
-import NavBackButton from '../components/NavBackButton'
-
+import { NavBackButton, NavMoreButton, NavRightButton } from '../components'
 
 export default class WebViewScene extends WeBaseScene {
   static navigationOptions = ({ navigation: { state: { params = {} } } }) => ({
     headerTitle: params.title || '',
-    headerLeft: <NavBackButton onPress={params.onPressBack} />
+    headerLeft: <NavBackButton onPress={params.onPressBack} />,
+    headerRight: WebViewScene.renderRightButton(params)
   })
 
   constructor () {
@@ -109,6 +109,26 @@ export default class WebViewScene extends WeBaseScene {
         />
       </View>
     )
+  }
+
+  static renderRightButton (params = {}) {
+    const {
+      showRightButton,
+      rightButtonText,
+      onPressRightButton = () => {
+        console.warn('default callback for [onPressRightButton]')
+      }
+    } = params
+    if (showRightButton) {
+      if (rightButtonText) {
+        return <NavRightButton title={rightButtonText}
+                               onPress={onPressRightButton} />
+      } else {
+        return <NavMoreButton onPress={onPressRightButton}/>
+      }
+    } else {
+      return null
+    }
   }
 }
 

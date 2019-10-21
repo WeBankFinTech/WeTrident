@@ -16,15 +16,15 @@ export default class NavBackButton extends Component {
     onPress: PropTypes.func
   }
 
-  defaultBack () {
-    AppNavigator.goBack()
+  static defaultProps = {
+    onPress: () => AppNavigator.goBack()
   }
 
   render () {
     return (
       <WeTouchable
         hitSlop={{top: 10, left: 20, bottom: 10, right: 20}}
-        onPress={this.props.onPress || this.defaultBack }>
+        onPress={this.props.onPress}>
         <View style={styles.backContainer}>
           <Image style={styles.icon} source={require('../images/back-icon.png')}/>
         </View>
