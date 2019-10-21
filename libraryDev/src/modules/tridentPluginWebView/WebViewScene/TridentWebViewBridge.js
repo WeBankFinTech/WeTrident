@@ -15,7 +15,7 @@ const Sdk = `class Sdk {
         return
       }
       // trigger callback
-      if (message.args && this.callbacks[message.msgId]) {
+      if (this.callbacks[message.msgId]) {
         if (message.isSuccess) {
           this.callbacks[message.msgId].onSuccess(message.args)
         } else {

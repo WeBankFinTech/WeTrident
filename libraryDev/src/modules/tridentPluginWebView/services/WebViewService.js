@@ -5,7 +5,7 @@
  */
 
 // 常用的import
-import Dialog from '@webank/trident/library/uiComponent/popup/Dialog'
+// import Dialog from '@webank/trident/library/uiComponent/popup/Dialog'
 import Toast from '@webank/trident/library/uiComponent/popup/Toast'
 import Loading from '@webank/trident/library/uiComponent/popup/Loading'
 
@@ -16,7 +16,7 @@ class WebViewService {
       loading: this.loading
     }
     this.apiAsync = {
-
+      setNavBarRightButton: this.setNavBarRightButton
     }
   }
 
@@ -34,8 +34,7 @@ class WebViewService {
 
 
   addAsyncApiHandler (key, handler) {
-    console.log(typeof handler)
-    if (typeof key === 'string' && handler) {
+    if (typeof key === 'string' && typeof handler === 'function') {
       this.api[key] = (sceneContext, argsFromWeb) => {
         const {
           data
@@ -72,6 +71,22 @@ class WebViewService {
     } = argsFromWeb
     show ? Loading.show() : Loading.hide()
     sceneContext.postMessageToWebView({...argsFromWeb, args: null, isSuccess: true})
+  }
+
+  setNavBarRightButton (sceneContext, argsFromWeb) {
+    const {
+      data: {
+        show = true,
+        text = ''
+      } = {}
+    } = argsFromWeb
+    sceneContext.setParams({
+      showRightButton: show,
+      rightButtonText: text,
+      onPressRightButton: show ? () => {
+        sceneContext.postMessageToWebView({...argsFromWeb, args: null, isSuccess: true})
+      } : null
+    })
   }
 }
 export default new WebViewService()
