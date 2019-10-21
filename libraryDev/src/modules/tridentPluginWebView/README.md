@@ -10,7 +10,7 @@ Trident 项目的 WebView 插件，支持以下特性
 ## Install
 
 ```
-$ tdt plugin install @webank/trident-plugin-webview
+$ tdt plugin add @webank/trident-plugin-webview
 ```
 
 ## Usage
