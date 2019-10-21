@@ -39,7 +39,7 @@ function run (root, name) {
       }]).then(answers => {
         let {ver} = answers
         packageJson.version = semver.valid(ver) && semver.gt(ver, packageJson.version) ? ver : semver.inc(packageJson.version, 'patch')
-        fs.writeFileSync(pluginJsonPath, JSON.stringify(packageJson))
+        fs.writeFileSync(pluginJsonPath, JSON.stringify(packageJson, null, 2))
 
         // 完成json的操作，执行发布
         publish(root, name)
