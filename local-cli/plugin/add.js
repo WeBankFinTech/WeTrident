@@ -19,7 +19,7 @@ function run (root, name) {
       name: 'reinstall'
     }]).then(answers => {
       if (answers.reinstall === true) {
-        add(root, name)
+        add(root, name, true)
       }
     })
   } else {
@@ -27,17 +27,19 @@ function run (root, name) {
   }
 }
 
-function add (root, name) {
+function add (root, name, reinstall) {
   let installCommand = `${env.npm_install_xxx} ${name} --verbose`
 
   try {
     execSync(installCommand, { stdio: 'inherit' })
 
-    const requireCallExpression = t.callExpression(t.identifier('require'), [t.stringLiteral(name)])
-    const newMember = t.memberExpression(requireCallExpression, t.identifier('default'))
+    if (!reinstall) {
+      const requireCallExpression = t.callExpression(t.identifier('require'), [t.stringLiteral(name)])
+      const newMember = t.memberExpression(requireCallExpression, t.identifier('default'))
 
-    const moduleIndexPath = path.join(root, 'src/modules/index.js')
-    insertElementInList(moduleIndexPath, newMember)
+      const moduleIndexPath = path.join(root, 'src/modules/index.js')
+      insertElementInList(moduleIndexPath, newMember)
+    }
   } catch (e) {
     console.log(e)
   }
