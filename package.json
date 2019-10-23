@@ -1,6 +1,6 @@
 {
   "name": "@webank/trident",
-  "version": "1.2.15",
+  "version": "1.2.16",
   "main": "library/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -37,6 +37,7 @@
     "prop-types": "^15.7.2",
     "proxy-polyfill": "^0.3.0",
     "replace-in-file": "^3.4.4",
+    "route-parser": "0.0.5",
     "shelljs": "^0.8.3"
   },
   "devDependencies": {
