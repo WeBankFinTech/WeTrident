@@ -9,7 +9,8 @@
     "wpublishAll": "wnpm publish && cd global-cli && wnpm publish",
     "reinstallCli": "echo 'reinstall the newest trident-cli' && npm uninstall @webank/trident-cli -g && npm install @webank/trident-cli -g",
     "wreinstallCli": "echo 'reinstall the newest trident-cli' && wnpm uninstall @webank/trident-cli -g && wnpm install @webank/trident-cli -g",
-    "test-tpl": "echo 'test the trident framework' && rm -rf WeBookStore && trident-cli init --name=WeBookStore --bundleId=com.trident.wbstore --scheme=wbstore && cd WeBookStore && bundle exec fastlane ios release --verbose && bundle exec fastlane android release --verbose"
+    "test-tpl": "echo 'test the trident framework' && rm -rf WeBookStore && trident-cli init --name=WeBookStore --bundleId=com.trident.wbstore --scheme=wbstore && cd WeBookStore && bundle exec fastlane ios release --verbose && bundle exec fastlane android release --verbose",
+    "syncLib": "watchman watch ./trident-ui && watchman watch ./library && wml add trident-ui libraryDev/node_modules/@webank/trident/trident-ui && wml add library libraryDev/node_modules/@webank/trident/library && wml start"
   },
   "repository": {
     "type": "git",
