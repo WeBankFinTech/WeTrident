@@ -85,8 +85,11 @@ const Layout = new Proxy(Root, {
 
 const Row = Layout.Row
 const Column = Layout.Column
+const L = Layout
 
 export {
   Row,
-  Column
+  Column,
+  Layout,
+  L
 }
