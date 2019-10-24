@@ -3,12 +3,13 @@ const path = require('path')
 const execSync = (cmd) => require('child_process').execSync(cmd, {stdio: 'inherit'})
 const replaceInFile = require('replace-in-file')
 const chalk = require('chalk')
-
+const {initEslint} = require('../plugin/eslint')
 const shell = require('shelljs')
 // const inquirer = require('inquirer')
 const env = require('../config/npmConfig')
 
-function init (root, projectName, bundleId, scheme, options) {
+function init (root, projectName, bundleId, scheme, port = 8081, eslint, options) {
+
   const packageJson = {
     name: projectName,
     version: '0.0.1',
@@ -37,16 +38,26 @@ function init (root, projectName, bundleId, scheme, options) {
     return
   }
   // TODO 换到从npm拉取
-  let installCommand = `${env.npm_install_xxx} @webank/trident`
+  let installCommand = `${env.npm_install_xxx} @webank/trident ${process.env.useLocalRegistry ? ' --registry http://localhost:4873' : ''}`
   installCommand += ' --verbose'
-
   try {
     execSync(installCommand, { stdio: 'inherit' })
 
     const appSeedPath = path.join(root, 'node_modules/@webank/trident/app-seed')
-    execSync(`cp -r ${appSeedPath}/* ./`, { stdio: 'inherit' })
+    execSync(`cp -r ${appSeedPath}/. ./`, { stdio: 'inherit' })
 
-    execSync(`${env.npm_install_all} --verbose`, { stdio: 'inherit' })
+    // 更换端口
+    let tridentConfig = JSON.parse(fs.readFileSync(path.join(root,'trident-config.json'), 'utf8'));
+    tridentConfig.port = parseInt(port)
+    let newContent = JSON.stringify(tridentConfig, null, 4);
+    fs.writeFileSync(path.join(root,'trident-config.json'), newContent, 'utf8')
+
+    // eslint
+    if (eslint) {
+      initEslint()
+    }
+
+    execSync(`${env.npm_install_all} --verbose ${process.env.useLocalRegistry ? ' --registry http://localhost:4873' : ''}`, { stdio: 'inherit' })
 
     // TODO delay this to ios build phase ?
     process.chdir('ios')

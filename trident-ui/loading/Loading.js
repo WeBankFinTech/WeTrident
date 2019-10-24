@@ -2,7 +2,6 @@
  * Created by vengeanliu on 2017/3/22.
  */
 
-'use strict'
 import Svg from 'react-native-svg'
 
 import {Animated, Easing} from 'react-native'

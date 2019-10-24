@@ -66,6 +66,8 @@ libraryDev/ios/Pods/
 libraryDev/package-lock.json
 libraryDev/yarn.lock
 libraryDev/ios/Podfile.lock
+libraryDev/ios/main.jsbundle.meta
+libraryDev/ios/main.jsbundle
 libraryDev/ios/build/
 libraryDev/node_modules/
 
