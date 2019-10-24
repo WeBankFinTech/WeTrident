@@ -16,10 +16,10 @@ function run (root, name) {
     inquirer.prompt([{
       type: 'confirm',
       message: chalk.red(`\nPlugin [${name}] is already installed, update anyway?\n`),
-      name: 'ver'
+      name: 'reinstall'
     }]).then(answers => {
-      if (answers === true) {
-        add(root, name)
+      if (answers.reinstall === true) {
+        add(root, name, true)
       }
     })
   } else {
@@ -27,17 +27,19 @@ function run (root, name) {
   }
 }
 
-function add (root, name) {
-  let installCommand = `${env.npm_install_xxx} ${name} --verbose`
+function add (root, name, reinstall) {
+  let installCommand = !reinstall ? `${env.npm_install_xxx} ${name} --verbose` : `${env.npm_install_xxx} ${name}@latest --verbose`
 
   try {
     execSync(installCommand, { stdio: 'inherit' })
 
-    const requireCallExpression = t.callExpression(t.identifier('require'), [t.stringLiteral(name)])
-    const newMember = t.memberExpression(requireCallExpression, t.identifier('default'))
+    if (!reinstall) {
+      const requireCallExpression = t.callExpression(t.identifier('require'), [t.stringLiteral(name)])
+      const newMember = t.memberExpression(requireCallExpression, t.identifier('default'))
 
-    const moduleIndexPath = path.join(root, 'src/modules/index.js')
-    insertElementInList(moduleIndexPath, newMember)
+      const moduleIndexPath = path.join(root, 'src/modules/index.js')
+      insertElementInList(moduleIndexPath, newMember)
+    }
   } catch (e) {
     console.log(e)
   }

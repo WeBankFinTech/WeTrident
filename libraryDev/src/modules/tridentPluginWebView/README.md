@@ -25,7 +25,7 @@ AppNavigator.tridentPluginWebView.WebViewScene({
 
 ## JS SDK
 
-WebView 会给 window 上挂载`TridentWebViewBridge`属性，在加载的页面，通过该属性可以调用 WebView 的内置 api 与自定义 api。
+Trident WebView 会在 window 上挂载`TridentWebViewBridge`属性，通过该属性可以调用 WebView 的内置 api 与自定义 api。
 
 ### 内置 API
 
