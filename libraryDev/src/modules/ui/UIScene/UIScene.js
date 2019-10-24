@@ -11,7 +11,6 @@ import Dialog from '@webank/trident/library/uiComponent/popup/Dialog'
 import Toast from '@webank/trident/library/uiComponent/popup/Toast'
 import EntryList from '../../../bizComponents/EntryList'
 import PrimaryButton from '@webank/trident/library/uiComponent/PrimaryButton'
-import JSONTree from 'react-native-json-tree'
 
 export default class UIScene extends WeBaseScene {
   static navigationOptions = ({ navigation: { state: { params = {} } } }) => ({

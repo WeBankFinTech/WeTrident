@@ -6,17 +6,16 @@
 export default {
   moduleName: 'example',
   initialState: {
-    // moduleCount: 0
+    moduleCount: 0
   },
   sceneList: require('./manifest').default,
   actions: {
-    // addModuleCount: v => v
+    addModuleCount: v => v
   },
   asyncActions: (actions) => ({
 
   }),
   reducers: {
-    // addModuleCount: (state, action) => ({ ...state, moduleCount: state.moduleCount + action.payload })
+    addModuleCount: (state, action) => ({ ...state, moduleCount: state.moduleCount + action.payload })
   }
 }
-
