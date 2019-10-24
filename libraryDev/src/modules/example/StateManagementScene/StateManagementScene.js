@@ -8,7 +8,7 @@ import { AppNavigator, WeBaseScene } from '@webank/trident'
 import { Column, L } from '@webank/trident/trident-ui'
 import EntryList from '../../../bizComponents/EntryList'
 import PrimaryButton from '@webank/trident/library/uiComponent/PrimaryButton'
-import SceneStateView from '../components/SceneStateView'
+import ObjectView from '../components/ObjectView'
 
 export default class StateManagementScene extends WeBaseScene {
   static navigationOptions = ({ navigation: { state: { params = {} } } }) => ({
@@ -41,7 +41,7 @@ export default class StateManagementScene extends WeBaseScene {
           }} />
         </EntryList>
 
-        <SceneStateView {...this.props} />
+        <ObjectView {...this.props} />
       </L.Column>
     )
   }

@@ -5,11 +5,16 @@
  */
 
 export default [
-  require("./DemoScene").default,
-  require("./FrameworkScene").default,
-  require("./NetworkScene").default,
-  require("./NavigationScene").default,
-  require("./PluginStoreScene").default,
-  require("./StateShareScene").default,
-  require("./StateManagementScene").default,
+  require('./DemoScene').default,
+  require('./FrameworkScene').default,
+  require('./NetworkScene').default,
+  require('./NavigationScene').default,
+  require('./PluginStoreScene').default,
+  require('./StateShareScene').default,
+  require('./StateManagementScene').default,
+
+  require('./NavAScene').default,
+  require('./NavAScene').default,
+  require('./NavBScene').default,
+  require('./NavCScene').default
 ]

@@ -6,7 +6,7 @@
 import React from 'react'
 import { Text } from 'react-native'
 import { WeBaseScene } from '@webank/trident'
-import SceneStateView from '../components/SceneStateView'
+import ObjectView from '../components/ObjectView'
 import { L } from '@webank/trident/trident-ui'
 
 export default class StateShareScene extends WeBaseScene {
@@ -27,7 +27,7 @@ export default class StateShareScene extends WeBaseScene {
           <Text style={{ fontSize: 20, marginTop: 30 }}>globalCount(Share global): <Text
             style={{ color: 'green' }}>{globalCount}</Text></Text>
         </L.Column.MainCenter.CrossCenter>
-        <SceneStateView {...this.props} />
+        <ObjectView {...this.props} />
       </L.Column>
     )
   }
