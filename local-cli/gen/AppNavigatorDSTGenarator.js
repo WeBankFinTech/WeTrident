@@ -27,7 +27,7 @@ function generatorDTS () {
     if (modules[key]) {
       code += `    ${key}: {\n`
       modules[key].forEach(value => {
-        code += `      ${value}(): void \n`
+        code += `      ${value}(): void\n`
       })
       code += '    },\n'
     }
