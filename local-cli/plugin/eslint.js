@@ -6,7 +6,7 @@ const chalk = require('chalk')
 
 const shell = require('shelljs')
 // const inquirer = require('inquirer')
-const env = require('../npmConfig')
+const env = require('../config/npmConfig')
 
 function initEslint () {
   // 生成eslint 并初始化git 添加hook
