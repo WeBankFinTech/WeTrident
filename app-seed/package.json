@@ -13,6 +13,7 @@
     "@unpourtous/react-native-popup-stub": "1.4.9",
     "@unpourtous/react-native-touchable": "1.0.3",
     "@unpourtous/react-navigation": "1.2.4",
+    "@unpourtous/rn-console-polyfill": "^1.0.0",
     "@webank/trident": "^1.2.0",
     "babel-generator": "6.26.1",
     "minimist": "1.2.0",
