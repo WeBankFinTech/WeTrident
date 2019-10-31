@@ -91,7 +91,7 @@ function initProject () {
       default: "tridentDemo"
     }, {
       type: 'input',
-      message: '请输入远程调试端口(Please enter remove debug port):',
+      message: '请输入远程调试端口(Please enter remote debug port):',
       name: 'port',
       default: 8082
     }, {
@@ -101,7 +101,7 @@ function initProject () {
     }
   ];
   // 先检查环境是否支持，引导安装
-  if (false && checkResult.length > 0) {
+  if (checkResult.length > 0) {
     processCheckResult(checkResult).then(() => {
       inquirer.prompt(promptList).then(answers => {
         console.log(answers);
