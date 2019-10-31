@@ -28,7 +28,7 @@ export default class extends Component {
           marginTop: 8
         }}>
           {[...routes].reverse().map((item, index) => {
-            return <Text style={{ paddingVertical: 4 }}>{routes.length - index - 1}. {item.routeName}</Text>
+            return <Text key={'key' + index} style={{ paddingVertical: 4 }}>{routes.length - index - 1}. {item.routeName}</Text>
           })}
         </List>
       </L.Column.MainStart.CrossStart>

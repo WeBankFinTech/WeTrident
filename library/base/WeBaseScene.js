@@ -112,7 +112,7 @@ export default class WeBaseScene extends Component {
    */
   _onPauseBase (fromScene, toScene) {
     Keyboard.dismiss()
-    const sceneKey = this.props.navigation.state.routeName
+    const sceneKey = this.props.navigation.state.key
     const sceneDetailName = generateRouteName(_.get(this, 'props.moduleName', ''), _.get(this, 'props.sceneName', ''))
     console.log(`🐈${sceneDetailName}(${sceneKey})`, 'onPause', `${fromScene} --> ${toScene}`)
 
