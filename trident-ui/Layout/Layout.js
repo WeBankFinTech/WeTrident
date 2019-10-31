@@ -74,11 +74,11 @@ const Layout = new Proxy(Root, {
   get(_target, p, receiver) {
     const target = getMainTarget()
     const style = flexDirectionMap[p]
-    console.log(flexDirectionMap, style, p)
+    // console.log(flexDirectionMap, style, p)
     if (style) {
       mergeStyle(target, style)
     }
-    console.log(target[__STYLE__])
+    // console.log(target[__STYLE__])
     return target
   }
 })
