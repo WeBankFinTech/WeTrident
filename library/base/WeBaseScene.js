@@ -12,6 +12,7 @@ import { generateRouteName } from '../navigation/NavigationUtils'
 import RNEnv from '../utils/RNEnv'
 import moment from 'moment'
 import Statistics from '../statistics/Statistics'
+import SceneTraversal from '../qualityTools/SceneTraversal'
 
 export default class WeBaseScene extends Component {
   constructor () {
@@ -61,10 +62,20 @@ export default class WeBaseScene extends Component {
 
   componentWillUnmount () {}
 
+  componentDidUpdate () {
+      this._setTraversalTimer()
+  }
+
   // Invoked when this scene become visible again. It won't be invoked at the first time
   onResume (fromScene, toScene) {}
 
   onPause (fromScene, toScene) {}
+
+  onIdle () {
+      const { moduleName, sceneName } = this.props
+      console.log('on scene idle')
+      SceneTraversal.runTest(moduleName, sceneName, this)
+  }
 
   /**
    * @private
@@ -105,6 +116,8 @@ export default class WeBaseScene extends Component {
 
     this.stayStartTime = moment()
     this.sceneUrl = AppNavigator.currentSceneURL
+
+    this._setTraversalTimer()
   }
 
   /**
@@ -125,6 +138,10 @@ export default class WeBaseScene extends Component {
       if (this.stayStartTime) {
         Statistics.reportSceneStayTime(this.stayStartTime, this.stayEndTime, this.sceneUrl, 'navigate')
       }
+    }
+
+    if (this.timer) {
+        clearTimeout(this.timer)
     }
   }
 
@@ -162,5 +179,14 @@ export default class WeBaseScene extends Component {
    */
   setParams (params) {
     this.props.navigation.setParams({ ...this._getParams({}), ...params })
+  }
+
+  _setTraversalTimer () {
+      if (this.timer) {
+          clearTimeout(this.timer)
+      }
+      this.timer = setTimeout(() => {
+          this.onIdle()
+      }, 3000)
   }
 }

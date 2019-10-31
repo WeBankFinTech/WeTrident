@@ -41,7 +41,8 @@
     "proxy-polyfill": "^0.3.0",
     "replace-in-file": "^3.4.4",
     "route-parser": "0.0.5",
-    "shelljs": "^0.8.3"
+    "shelljs": "^0.8.3",
+    "md5": "2.2.1"
   },
   "devDependencies": {
     "babel-jest": "^24.8.0",
