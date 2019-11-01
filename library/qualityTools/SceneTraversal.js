@@ -14,6 +14,11 @@ const TabConfig = {
   //   HomeScene: []
   // }
 }
+const InitialScene = {
+  moduleName: 'example',
+  sceneName: 'DemoScene'
+}
+const InitialTab = {}
 
 class SceneTraversal {
   constructor () {
@@ -255,14 +260,31 @@ class SceneTraversal {
   }
 
   _isCurrentScene (moduleName, sceneName) {
-    let currentScene = AppNavigator.currentScene.routeName.split('/')
-    return !(TabConfig[currentScene[0]] && TabConfig[currentScene[0]][currentScene[1]]) && moduleName === currentScene[0] && sceneName === currentScene[1]
+      let routeName = _.get(AppNavigator, 'currentScene.routeName', '')
+      let currentScene
+      if (!_.isEmpty(routeName)) {
+        currentScene = routeName.split('/')
+      } else if (!_.isEmpty(InitialScene) && !_.isEmpty(InitialScene.moduleName) && !_.isEmpty(InitialScene.sceneName)) {
+        currentScene = [InitialScene.moduleName, InitialScene.sceneName]
+      }
+
+      return !_.isEmpty(currentScene) &&
+          !(TabConfig[currentScene[0]] && TabConfig[currentScene[0]][currentScene[1]]) &&
+          (moduleName === currentScene[0] && sceneName === currentScene[1])
   }
 
   _isCurrentTab (moduleName, sceneName) {
-    let currentScene = AppNavigator.currentScene.routeName.split('/')
-    return (!this.activeTab.tabModule && !this.activeTab.tabName) ||
-      ((TabConfig[currentScene[0]] && TabConfig[currentScene[0]][currentScene[1]]) && moduleName === currentScene[0] && moduleName === this.activeTab.tabModule && sceneName === this.activeTab.tabName)
+      let routeName = _.get(AppNavigator, 'currentScene.routeName', '')
+      let currentScene
+      if (!_.isEmpty(routeName)) {
+          currentScene = routeName.split('/')
+      } else if (!_.isEmpty(InitialTab) && !_.isEmpty(InitialTab.tabModule) && !_.isEmpty(InitialTab.tabName)) {
+          currentScene = [InitialTab.tabModule, InitialTab.tabName]
+      }
+
+      return !_.isEmpty(currentScene) &&
+          (!this.activeTab.tabModule && !this.activeTab.tabName) ||
+          ((TabConfig[currentScene[0]] && TabConfig[currentScene[0]][currentScene[1]]) && moduleName === currentScene[0] && moduleName === this.activeTab.tabModule && sceneName === this.activeTab.tabName)
   }
 
   runTest (moduleName, sceneName, sceneInstance) {
@@ -355,7 +377,10 @@ class SceneTraversal {
           this.isVisit = {}
           _.forEach(content.records, record => {
             if (!_.isEmpty(record)) {
-              let items = record.split('_')
+              let items = record
+                  .replace('[traversal]', '')
+                  .trim()
+                  .split('_')
               if (items.length === 3 &&
                 !_.isEmpty(items[0]) &&
                 !_.isEmpty(items[1]) &&
