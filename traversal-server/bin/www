@@ -1,0 +1,212 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var app = require('../app');
+var debug = require('debug')('traversal-server:server');
+var http = require('http');
+
+/**
+ * Get port from environment and store in Express.
+ */
+
+var port = normalizePort(process.env.PORT || '3000');
+app.set('port', port);
+
+/**
+ * Create HTTP server.
+ */
+
+var server = http.createServer(app);
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof port === 'string'
+    ? 'Pipe ' + port
+    : 'Port ' + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  debug('Listening on ' + bind);
+}
+
+String.prototype.startWith = function(str) {
+  let reg = new RegExp("^" + str)
+  return reg.test(this)
+}
+
+/*
+ * Websocket server
+ */
+var io = require('socket.io').listen(server)
+var messages = []
+var intervalTimer
+
+io.sockets.on('connection', socket => {
+  console.log('connect is called')
+  intervalTimer = setInterval(saveMessages, 60000)
+  Promise.all([
+    loadRecentRecords(),
+    loadStrategy()
+  ]).then(
+    result => {
+      let recentRecords = result[0]
+      let strategy = result[1]
+      console.log(result)
+      io.emit('prepare', {records: recentRecords, strategy})
+    },
+    () => {
+      io.emit('prepare', {records: [], strategy: []})
+    }
+  )
+
+  //断开连接
+  socket.on('disconnect', () => {
+    console.log('disconnect')
+    clearInterval(intervalTimer)
+    saveMessages()
+  })
+
+  socket.on('message', data => {
+    console.log(data)
+    messages.push(data)
+  })
+
+  socket.on('error', error => {
+    console.log(error)
+  })
+})
+
+/*
+ * Save records to file
+ */
+function saveMessages() {
+  let buffer = []
+  let counter = 50
+  while (buffer.length < 50 && messages.length > 0) {
+    buffer.push(messages.shift())
+  }
+  
+  let fs = require('fs')
+  let writeMessage = function () {
+    fs.writeFile(getFilePath(), buffer.join('\n') + '\n', {flag: 'a'}, error => {
+      if (error) {
+        console.log('写入失败')
+      } else {
+        console.log('写入成功')
+      }
+    })
+  }
+  if (buffer.length > 0) {
+    
+    fs.exists(getRecordsRootDir(), exists => {
+      if (exists) {
+        writeMessage()
+      } else {
+        fs.mkdir(getRecordsRootDir(), error => {
+          if (error) {
+            console.log('创建folder失败')
+          } else {
+            console.log('创建folder成功')
+            writeMessage()
+          }
+        })
+      }
+    })
+  }
+}
+
+/*
+ * load recent records from file
+ */
+function loadRecentRecords() {
+  let fs = require('fs')
+  return new Promise((resolve, reject) => {
+    fs.exists(getFilePath(), exists => {
+      if (exists) {
+        fs.readFile(getFilePath(), (error, data) => {
+          if (error) {
+            console.log(error)
+            reject()
+          } else {
+            let records = data.toString().trim().split('\n').filter(item => !!item && item.trim().startWith('\\[traversal\\]'))
+            resolve(records)
+          }
+        })
+      } else {
+        resolve([])
+      }
+    })
+  })
+}
+
+function loadStrategy() {
+  return Promise.resolve([])
+}
+
+function getRecordsRootDir() {
+  return '../records/'
+}
+
+function getFilePath() {
+  return getRecordsRootDir() + new Date().toLocaleDateString() + '.txt'
+}
