@@ -188,8 +188,8 @@ class SceneTraversal {
 
     let _proccessElement = func => {
       try {
-        func()
         this.dataRecorder.record(`[traversal]${this.current.moduleName}_${this.current.sceneName}_${this.current.nodeList[index]._debugSource}`)
+        func()
       } catch (e) {
         console.log('traversing error: ' + JSON.stringify(e))
       }
