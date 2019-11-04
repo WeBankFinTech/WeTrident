@@ -27,13 +27,26 @@ function run (root) {
       break
     }
     case 'packager': {
+      if (subCmd === 'start') {
+        const packager = require('./packager')
+        packager.start(options)
+        break
+      }
+      break
+    }
+    case 'release': {
+      const release = require('./release')
       switch (subCmd) {
-        case 'start': {
-          const packager = require('./packager')
-          packager.start(options)
+        case 'android': {
+          release.releaseAndroid()
+          break
+        }
+        case 'ios': {
+          release.releaseIOS()
           break
         }
       }
+      break
     }
     case 'plugin': {
       // TODO 每条命令添加参数检查
