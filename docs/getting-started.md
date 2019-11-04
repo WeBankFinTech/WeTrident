@@ -101,10 +101,21 @@ open ios/WeBookStore.xcworkspace/
 ```
 在XCode中Run即可。
 
-恭喜你，到这里你已经成功到创建并运行了一个新的Trident工程。
-
 #### 4. 启动应用(Android)
-用Android Studio打开项目运行即可
+```shell
+# 启动Packager，如果已经启动可以忽略
+tdt packager start
+
+# Android Studio中打开 'WeBookStore/android', 用Android Studio打开项目运行即可, 请确保gradle的代理配置已经如本文前面部分所述设置完成。
+```
+如果你的网络不好，连接maven失败，可以选择添加阿里云的maven镜像，在`WeBookStore/android/app/build.gradle`和`WeBookStore/android/build.gradle`中的 repositories 区域添加如下代码: 
+```
+maven{ url'http://maven.aliyun.com/nexus/content/groups/public/' }
+maven{ url'http://maven.aliyun.com/nexus/content/repositories/jcenter'}
+maven{ url 'https://maven.google.com' }
+```
+
+恭喜你，到这里你已经成功到创建并运行了一个新的Trident工程。需要调试可以使用React Native官方调试工具即可，调试前请先安装最新版本Chrome，具体使用方法见： [React Nativ调试方法](https://facebook.github.io/react-native/docs/0.51/debugging)
 
 # 代码结构和模版工具
 ## App脚手架介绍
