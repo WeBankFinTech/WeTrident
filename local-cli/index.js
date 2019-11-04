@@ -48,6 +48,11 @@ function run (root) {
       }
       break
     }
+    case 'install': {
+      const install = require('./install')
+      install.installAll()
+      break
+    }
     case 'plugin': {
       // TODO 每条命令添加参数检查
       switch (subCmd) {
