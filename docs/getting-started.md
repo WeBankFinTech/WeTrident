@@ -83,7 +83,7 @@ wnpm install -g @webank/trident-cli
 
 #### 2. 用trident-cli 创建项目
 ``` shell 
-trident-cli init --name=WeBookStore --bundleId=com.trident.wbstore --scheme=wbstore
+tdt init --name=WeBookStore --bundleId=com.trident.wbstore --scheme=wbstore
 ```
 等待安装完成即可。
 
@@ -94,17 +94,28 @@ PS: 初始化过程中会对当前的开发环境做检查，如果有提示某�
 cd WeBookStore
 
 # 启动react native packager
-trident-cli packager start
+tdt packager start
 
 # 在XCode中打开项目
 open ios/WeBookStore.xcworkspace/
 ```
 在XCode中Run即可。
 
-恭喜你，到这里你已经成功到创建并运行了一个新的Trident工程。
-
 #### 4. 启动应用(Android)
-用Android Studio打开项目运行即可
+```shell
+# 启动Packager，如果已经启动可以忽略
+tdt packager start
+
+# Android Studio中打开 'WeBookStore/android', 用Android Studio打开项目运行即可, 请确保gradle的代理配置已经如本文前面部分所述设置完成。
+```
+如果你的网络不好，连接maven失败，可以选择添加阿里云的maven镜像，在`WeBookStore/android/app/build.gradle`和`WeBookStore/android/build.gradle`中的 repositories 区域添加如下代码: 
+```
+maven{ url'http://maven.aliyun.com/nexus/content/groups/public/' }
+maven{ url'http://maven.aliyun.com/nexus/content/repositories/jcenter'}
+maven{ url 'https://maven.google.com' }
+```
+
+恭喜你，到这里你已经成功到创建并运行了一个新的Trident工程。需要调试可以使用React Native官方调试工具即可，调试前请先安装最新版本Chrome，具体使用方法见： [React Nativ调试方法](https://facebook.github.io/react-native/docs/0.51/debugging)
 
 # 代码结构和模版工具
 ## App脚手架介绍
@@ -135,13 +146,15 @@ about
 ## 生成模块和页面
 前面我们已经使用`trident-cli`创建了WeBookStore工程，`trdent-cli`也支持了模块和页面的脚手架创建。下面我们根据上面的规划来创建所需要的页面
 ``` shell
-# step 1: 创建 book 模块
+# step 1: 创建 book 模块, 模块生成以后会自动提示创建该模块的Scene
 # step 2: 根据提示创建 BookListScene、BookDetailScene、ResultScene
-trident-cli gen module
+tdt gen module
 
-# step 3: 创建 about 模块
+# step 3: 创建 about 模块, 模块生成以后会自动提示创建该模块的Scene
 # step 4: 根据提示创建 VersionScene
-trident-cli gen module
+tdt gen module
+
+# PS: 在创建模块完成后会自动提示创建Scene，如果想单独创建Scene，可以使用`tdt gen scene`。
 ```
 
 到这里所有需要的页面已经生成，除了这些关键的module和scene，对应的还生成了常用的一些目录，这也是我们建议的使用方式，例如`components`用于放置当前模块自己是使用的组件。`services`目录存放处理服务器端请求的逻辑代码，可以避免将所有网络请求放到Scene中导致Scene的臃肿，这样的拆分可以帮助Scene保持更清晰明了的UI代码。
