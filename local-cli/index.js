@@ -4,7 +4,6 @@ const options = require('minimist')(process.argv.slice(2))
 function run (root) {
   const cmd = options._[0]
   const subCmd = options._[1]
-  // console.log('root: ' + root)
 
   switch (cmd) {
     case 'init': {
@@ -38,11 +37,11 @@ function run (root) {
       const release = require('./release')
       switch (subCmd) {
         case 'android': {
-          release.releaseAndroid()
+          release.releaseAndroid(options)
           break
         }
         case 'ios': {
-          release.releaseIOS()
+          release.releaseIOS(options)
           break
         }
       }
@@ -50,7 +49,22 @@ function run (root) {
     }
     case 'install': {
       const install = require('./install')
-      install.installAll()
+      install.installAll(options)
+      break
+    }
+    case 'run': {
+      const run = require('./run')
+      switch (subCmd) {
+        case 'android': {
+          run.runAndroid(options)
+          break
+        }
+        case 'ios': {
+          run.runIOS(options)
+          break
+        }
+      }
+      run.runAndroid(options)
       break
     }
     case 'plugin': {
