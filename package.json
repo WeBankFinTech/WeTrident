@@ -1,11 +1,11 @@
 {
   "name": "@webank/trident",
-  "version": "1.2.17",
+  "version": "1.2.18",
   "main": "library/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "patchVersion": "npm version patch && cd global-cli && npm version patch && cd ..",
-    "publishAll": "npm publish && cd global-cli && npm publish",
+    "publishAll": "npm config set registry=http://localhost:4873/ && npm unpublish @webank/trident --force && npm unpublish @webank/trident-cli --force && npm publish && cd global-cli && npm publish",
     "wpublishAll": "wnpm publish && cd global-cli && wnpm publish",
     "reinstallCli": "echo 'reinstall the newest trident-cli' && npm uninstall @webank/trident-cli -g && npm install @webank/trident-cli -g",
     "wreinstallCli": "echo 'reinstall the newest trident-cli' && wnpm uninstall @webank/trident-cli -g && wnpm install @webank/trident-cli -g",

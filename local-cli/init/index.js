@@ -1,6 +1,6 @@
 const fs = require('fs')
 const path = require('path')
-const execSync = (cmd) => require('child_process').execSync(cmd, {stdio: 'inherit'})
+const execSync = require('../utils/execSync')
 const replaceInFile = require('replace-in-file')
 const chalk = require('chalk')
 const {initEslint} = require('../plugin/eslint')
@@ -176,6 +176,7 @@ function replaceName (root, projectName, bundleId = 'test.cli.bundle', scheme) {
     files: [
       './app.json',
       './android/app/src/main/res/values/strings.xml', // 最终App的名字
+      './android/settings.gradle', // Android工程项目名字
       './android/app/build.gradle', // 打包输出的apk文件名,
 
       // rn root component的名字

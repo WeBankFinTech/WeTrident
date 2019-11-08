@@ -1,0 +1,34 @@
+const execSync = require('../utils/execSync')
+
+const runAndroid = (options) => {
+  if (!options['main-activity']) {
+    // default pacakge name and MainActivity name
+    options['main-activity'] = 'io.unpourtous.trident.MainActivity'
+  }
+
+  execSync('node node_modules/react-native/local-cli/cli.js run-android ' + compositeArguments(options))
+}
+
+const runIOS = (options) => {
+  if (!options['scheme']) {
+    options['scheme'] = 'Build'
+  }
+  execSync('node node_modules/react-native/local-cli/cli.js run-ios ' + compositeArguments(options))
+}
+
+const compositeArguments = (options) => {
+  return Object.keys(options)
+    .filter(k => k !== '_')
+    .map((k) => {
+      const v = options[k]
+      if (k && v) {
+        return `--${k} ${v}`
+      }
+      return ''
+    }).join(' ')
+}
+
+module.exports = {
+  runAndroid,
+  runIOS
+}
