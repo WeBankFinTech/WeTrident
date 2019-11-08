@@ -10,7 +10,7 @@ export default (global, ModulePrivate) => ({
    * 定义scene级别数据的初始值
    */
   initialState: {
-    count: "1234",
+    // count: 0,
   },
 
   /**

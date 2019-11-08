@@ -5,14 +5,11 @@
  */
 import React, { Component } from 'react'
 import { View, Text } from 'react-native'
-import { AppNavigator, WeBaseScene } from '@webank/trident'
+import { WeBaseScene } from '@webank/trident'
 import NavBar from '../../components/NavBar'
-
+import dimens from '@webank/trident/library/uiComponent/dimens'
 
 export default class HomeTab extends WeBaseScene {
-  static navigationOptions = ({ navigation: { state: { params = {} } } }) => ({
-    headerTitle: params.title || 'HomeTab'
-  })
 
   componentDidMount () {
     console.log('HomeTab componentDidMount', this.props)
@@ -20,14 +17,13 @@ export default class HomeTab extends WeBaseScene {
 
   onResume (fromScene, toScene) {
     super.onResume(fromScene, toScene)
-    console.log('fuck')
   }
 
   render () {
     return (
-      <View>
+      <View style={{paddingTop: dimens.TOTAL_NAV_BAR_HEIGHT}}>
         <NavBar
-          title={this.props.count}
+          title={'HomeTab'}
           hideLeftButton
         />
         <Text>Hello HomeTab</Text>
