@@ -14,8 +14,8 @@ import { PopupStub } from '@unpourtous/react-native-popup-stub'
 import stateChangeListener from './navigation/stateChangeListener'
 import ModuleManager from './navigation/ModuleManager'
 import TianYan, {Dashboard} from '@unpourtous/tianyan-react-native'
-import ElementMark from 'qualityTools/ElementMark'
-import SceneTraversal from 'qualityTools/SceneTraversal'
+import ElementMark from './qualityTools/ElementMark'
+import SceneTraversal from './qualityTools/SceneTraversal'
 
 export default class TridentApp extends Component {
   static propTypes = {
