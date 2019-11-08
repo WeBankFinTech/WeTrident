@@ -2,6 +2,7 @@ import {
   createStore,
   applyMiddleware
 } from 'redux'
+import { StatusBar } from 'react-native'
 import thunk from 'redux-thunk'
 import { createLogger } from 'redux-logger'
 import React, { Component } from 'react'
@@ -70,6 +71,7 @@ export default class TridentApp extends Component {
     return (
       <Provider store={this.store}>
         <this.connectedContainer initProps={{ ...this.props }}>
+          <StatusBar translucent backgroundColor='transparent' />
           <Navigator />
           <PopupStub maskColor='rgba(0,0,0,0.75)' ref={_ref => {
             if (_ref) PopupStub.init(_ref)

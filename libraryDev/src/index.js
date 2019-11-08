@@ -2,7 +2,17 @@
  * Created by erichua on 26/12/2017.
  */
 import React, { Component } from 'react'
+import { StatusBar, Platform } from 'react-native'
 import { TridentApp } from '@webank/trident'
+
+const navigationBarHeight = 44
+const statusBarHeight = Platform.select({ // 导航栏 + 状态栏的高度
+    android: Platform.Version >= 21 ? StatusBar.currentHeight : 0,
+    // TODO fix
+    // iPhoneX要特殊处理
+    // ios: Device.isPhoneX() ? 44 : 20
+    ios: 20
+})
 
 export default class AppEntry extends Component {
   render () {
@@ -17,7 +27,9 @@ export default class AppEntry extends Component {
             headerStyle: {
               borderWidth: 0,
               borderBottomWidth: 0,
-              elevation: 0
+              elevation: 0,
+              height: navigationBarHeight + statusBarHeight,
+              paddingTop: statusBarHeight,
             },
             headerTitleStyle: {
               fontWeight: 'normal',
