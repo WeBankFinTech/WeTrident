@@ -67,7 +67,7 @@ export default class TridentApp extends Component {
     const Navigator = this.WeNavigator.stackNavigator
     return (
       <Provider store={this.store}>
-        <this.connectedContainer initProps={{ ...this.props }}>
+        <this.connectedContainer>
           <Navigator />
           <PopupStub maskColor='rgba(0,0,0,0.75)' ref={_ref => {
             if (_ref) PopupStub.init(_ref)
