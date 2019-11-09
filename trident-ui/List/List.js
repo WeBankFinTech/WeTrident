@@ -31,7 +31,7 @@ export default class List extends React.Component {
   }
 
   _renderRightArrow (item) {
-    return item.onPress ? <Icon style={{paddingLeft: 5}} name={'right_arrow'} /> : null
+    return item.onPress ? <Icon style={{paddingLeft: 5}} name={Icon.Names.right_arrow} /> : null
   }
 
   _renderItem = (item, index) => {

@@ -1,8 +1,3 @@
-/**
- * Created by vengeanliu on 17/3/1.
- * Updated by lemorili
- */
-
 import React, { Component } from 'react'
 import {
   View,
@@ -32,7 +27,7 @@ class FinancialInput extends Component {
 
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
-    onChange: PropTypes.func, // 保证回调出去的amount一定是符合要求
+    onChange: PropTypes.func,
     onClear: PropTypes.func,
 
     style: PropTypes.object,
@@ -162,7 +157,7 @@ class FinancialInput extends Component {
           {/* 有内容时显示清除按钮 */}
           {isShowClearButton
             ? <TouchableHighlight hitSlop={{top: 10, bottom: 10, left: 10, right: 10}} onPress={this.onClear}>
-              <Icon name={'clear'} />
+              <Icon name={Icon.Names.clear} />
             </TouchableHighlight>
             : null}
 
