@@ -2,9 +2,13 @@ import React, { Component } from 'react'
 
 import {
   View,
-  Linking
+  Linking, MaskedViewIOS
 } from 'react-native'
 import { AppNavigator } from '@webank/trident'
+import { LightTheme, createTheme, ThemeProvider, DarkTheme } from '@webank/trident/trident-ui/theme'
+
+const lightTheme = createTheme(LightTheme, LightTheme)
+const darkTheme = createTheme(LightTheme, DarkTheme)
 
 export default class AppContainer extends Component {
   constructor (props) {
@@ -31,14 +35,18 @@ export default class AppContainer extends Component {
   }
 
   render () {
-    return <View style={{
-      flex: 1,
-      alignSelf: 'stretch',
-      flexDirection: 'column',
-      justifyContent: 'flex-start',
-      alignContent: 'center',
-    }}>
-      {this.props.children}
-    </View>
+    return (
+      <ThemeProvider theme={this.props.theme === 'dark' ? darkTheme : lightTheme}>
+        <View style={{
+          flex: 1,
+          alignSelf: 'stretch',
+          flexDirection: 'column',
+          justifyContent: 'flex-start',
+          alignContent: 'center',
+        }}>
+          {this.props.children}
+        </View>
+      </ThemeProvider>
+    )
   }
 }

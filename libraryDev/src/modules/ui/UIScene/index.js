@@ -49,7 +49,7 @@ export default (global, ModulePrivate) => ({
    * 将global级别的共享数据映射到props
    */
   mapGlobalState: state => ({
-    // globalCount: state.globalCount
+    theme: state.theme
   }),
 
   /**
@@ -63,7 +63,7 @@ export default (global, ModulePrivate) => ({
    * 将global级别的actions映射到props
    */
   globalActions: {
-    // addGlobalCount: global.actions.addGlobalCount
+    changeTheme: global.actions.changeTheme
   },
 
   /**

@@ -14,7 +14,7 @@
     "@babel/traverse": "7.4.0",
     "@unpourtous/react-native-popup-stub": "1.4.9",
     "@unpourtous/react-native-touchable": "1.0.3",
-    "@unpourtous/react-navigation": "1.2.4",
+    "@unpourtous/react-navigation": "1.2.5",
     "@unpourtous/rn-console-polyfill": "^1.0.0",
     "@unpourtous/tianyan-react-native": "https://github.com/UnPourTous/tianyan-react-native.git#dev-supportT",
     "@webank/trident": "^1.2.18",
