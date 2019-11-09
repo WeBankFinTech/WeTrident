@@ -28,32 +28,41 @@ const styleMap = {
 
   CrossCenter: {alignItems: 'center'},
   CrossEnd: {alignItems: 'flex-end'},
-  CrossStart: {alignItems: 'flex-start'},
-
-  __STYLE__: {}
+  CrossStart: {alignItems: 'flex-start'}
 }
 
-const getMainTarget = () => {
+const getWrapper = () => {
   const target = (props) => {
+    const {
+      children,
+      style,
+      restProps
+    } = props
     return (
       <View
-        {...props}
+        {...restProps}
         style={[
-          props.style,
+          style,
           target[__STYLE__]
         ]}
-      >{props.children}</View>
+      >{children}</View>
     )
   }
   Object.assign(target, styleMap)
+  return target
+}
+
+const getMainTarget = () => {
+  const target = getWrapper()
+  target[__STYLE__] = {}
+  Object.assign(target, styleMap)
   const proxy = new Proxy(target, {
     get(target, p) {
-      if (p === __STYLE__) {
-        return target[__STYLE__]
-      }
+      // console.log(p)
       const style = styleMap[p]
       if (style) {
         mergeStyle(target, style)
+        // console.log(target[__STYLE__])
         return proxy
       } else {
         return target[p]
@@ -63,33 +72,38 @@ const getMainTarget = () => {
   return proxy
 }
 
-const Root = (props) => {
-  return (
-    <View {...props}>{props.children}</View>
-  )
-}
-Object.assign(Root, flexDirectionMap)
-
-const Layout = new Proxy(Root, {
-  get(_target, p, receiver) {
-    const target = getMainTarget()
-    const style = flexDirectionMap[p]
-    // console.log(flexDirectionMap, style, p)
-    if (style) {
-      mergeStyle(target, style)
-    }
-    // console.log(target[__STYLE__])
+const getter = (_target, p, receiver) => {
+  const target = getMainTarget()
+  const style = styleMap[p]
+  console.log(p)
+  if (style) {
+    mergeStyle(target, {
+      // 将Row或Cloumn中的style拷贝到target中
+      ..._target[__STYLE__],
+      ...style
+    })
+    console.log(target[__STYLE__])
     return target
+  } else {
+    return _target[p]
   }
+}
+
+// 生成水平布局的function component
+const _Row = getWrapper()
+mergeStyle(_Row, flexDirectionMap.Row)
+const Row = new Proxy(_Row, {
+  get: getter
 })
 
-const Row = Layout.Row
-const Column = Layout.Column
-const L = Layout
+// 生成垂直布局的function component
+const _Column = getWrapper()
+mergeStyle(_Column, flexDirectionMap.Column)
+const Column = new Proxy(_Column, {
+  get: getter
+})
 
 export {
   Row,
-  Column,
-  Layout,
-  L
+  Column
 }

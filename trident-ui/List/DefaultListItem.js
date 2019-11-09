@@ -10,7 +10,7 @@ import PropTypes from 'prop-types'
 
 import Indicator from '../loading/Indicator'
 import { ProUI } from '../values'
-import Icon from '../icon/Icon'
+import Icon from '../Icon/Icon'
 
 /*
  * props属性中：
