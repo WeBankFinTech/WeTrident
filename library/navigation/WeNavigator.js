@@ -26,7 +26,7 @@ const createTridentNavigator = (routers, stackNavigatorConfig) => {
   return {
     navReduxMiddleware,
     MyStackNavigator,
-    stackNavigator: connect(mapStateToProps)(({ dispatch, navigation }) =>
+    stackNavigator: connect(mapStateToProps, undefined, undefined, {pure: false})(({ dispatch, navigation }) =>
       <MyStackNavigator
         ref={navigator => { navigator && (AppNavigator.navigator = navigator) }}
         navigation={addNavigationHelpers({
