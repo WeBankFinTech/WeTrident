@@ -238,7 +238,7 @@ function createSceneConnect (config = {}) {
           ...decorateAsyncActions(namespace, asyncActions(newActionCreators))
         }
 
-        return connect(mapStateToProps, mapDispatchToProps)(Scene)
+        return connect(mapStateToProps, mapDispatchToProps, undefined, {pure: false})(Scene)
       }
 
       render () {
@@ -316,7 +316,7 @@ function createGlobalConnect (config = {}) {
     actions = {},
     asyncActions = () => ({}),
     reducers = {},
-    mapGlobalState = state => ({})
+    mapGlobalState = state => state
   } = config
 
   // global 的 state key 为固定值
@@ -350,7 +350,7 @@ function createGlobalConnect (config = {}) {
 
       const _mapDispatchToProps = {..._actions, ...decorateAsyncActions(namespace, asyncActions(_actions))}
 
-      connectedContainer = connect(_mapStateToProps, _mapDispatchToProps)(container)
+      connectedContainer = connect(_mapStateToProps, _mapDispatchToProps, undefined, {pure: false})(container)
     } else {    // container 作为全局状态容器
       connectedContainer = {}
     }
@@ -391,7 +391,7 @@ function createComponentConnect (config = {}) {
       ...globalActions
     }
 
-    return connect(_mapStateToProps, _mapDispatchToProps)(component)
+    return connect(_mapStateToProps, _mapDispatchToProps, undefined, {pure: false})(component)
   }
 }
 
