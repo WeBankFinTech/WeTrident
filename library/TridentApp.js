@@ -74,7 +74,7 @@ export default class TridentApp extends Component {
           }} />
           <TianYan
             options={{
-              logServerUrl: 'http://10.107.104.145:3000/v1/log',
+              logServerUrl: 'http://example.com/api',
               maxLogLine: 1000,
               ignoreFilter: function () {
                 const filterLog = true
