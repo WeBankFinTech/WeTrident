@@ -3,13 +3,11 @@
  *
  * Created by erichua on 2019-10-24T06:08:32.010Z.
  */
-import React, { Component } from 'react'
-import { View, Text } from 'react-native'
+import React from 'react'
 import { AppNavigator, WeBaseScene } from '@webank/trident'
-import { L } from '@webank/trident/trident-ui/Layout/Layout'
+import { Column } from '@webank/trident/trident-ui/Layout/Layout'
 import EntryList from '../../../bizComponents/EntryList'
 import PrimaryButton from '@webank/trident/library/uiComponent/PrimaryButton'
-import ObjectView from '../components/ObjectView'
 import NavigationStackView from '../components/NavigationStackView'
 
 export default class NavBScene extends WeBaseScene {
@@ -19,7 +17,7 @@ export default class NavBScene extends WeBaseScene {
 
   render () {
     return (
-      <L.Column>
+      <Column>
         <EntryList>
           <PrimaryButton text={`Back`} onPress={() => {
             AppNavigator.goBack()
@@ -34,7 +32,7 @@ export default class NavBScene extends WeBaseScene {
           }} />
         </EntryList>
         <NavigationStackView routes={AppNavigator.getCurrentRoutes()} />
-      </L.Column>
+      </Column>
     )
   }
 }

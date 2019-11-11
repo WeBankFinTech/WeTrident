@@ -7,7 +7,7 @@ import React from 'react'
 import { Text } from 'react-native'
 import { WeBaseScene } from '@webank/trident'
 import ObjectView from '../components/ObjectView'
-import { L } from '@webank/trident/trident-ui'
+import { Column } from '@webank/trident/trident-ui'
 
 export default class StateShareScene extends WeBaseScene {
   static navigationOptions = ({ navigation: { state: { params = {} } } }) => ({
@@ -20,15 +20,15 @@ export default class StateShareScene extends WeBaseScene {
       globalCount
     } = this.props
     return (
-      <L.Column style={{ flex: 1 }}>
-        <L.Column.MainCenter.CrossCenter style={{ flex: 1 }}>
+      <Column style={{ flex: 1 }}>
+        <Column.MainCenter.CrossCenter style={{ flex: 1 }}>
           <Text style={{ fontSize: 20 }}>moduleCount(Share between module): <Text
             style={{ color: 'green' }}>{moduleCount}</Text></Text>
           <Text style={{ fontSize: 20, marginTop: 30 }}>globalCount(Share global): <Text
             style={{ color: 'green' }}>{globalCount}</Text></Text>
-        </L.Column.MainCenter.CrossCenter>
+        </Column.MainCenter.CrossCenter>
         <ObjectView {...this.props} />
-      </L.Column>
+      </Column>
     )
   }
 }

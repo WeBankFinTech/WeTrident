@@ -6,7 +6,7 @@
 import React, { Component } from 'react'
 import { View, Text } from 'react-native'
 import { AppNavigator, WeBaseScene } from '@webank/trident'
-import { L } from '@webank/trident/trident-ui/Layout/Layout'
+import { Column } from '@webank/trident/trident-ui/Layout/Layout'
 import EntryList from '../../../bizComponents/EntryList'
 import PrimaryButton from '@webank/trident/library/uiComponent/PrimaryButton'
 import ObjectView from '../components/ObjectView'
@@ -19,14 +19,14 @@ export default class NavCScene extends WeBaseScene {
 
   render () {
     return (
-      <L.Column>
+      <Column>
         <EntryList>
           <PrimaryButton text={`Back`} onPress={() => {
             AppNavigator.goBack()
           }} />
         </EntryList>
         <NavigationStackView routes={AppNavigator.getCurrentRoutes()} />
-      </L.Column>
+      </Column>
     )
   }
 }

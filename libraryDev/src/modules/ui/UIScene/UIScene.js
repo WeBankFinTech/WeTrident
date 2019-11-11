@@ -12,23 +12,28 @@ import Toast from '@webank/trident/library/uiComponent/popup/Toast'
 import EntryList from '../../../bizComponents/EntryList'
 import PrimaryButton from '@webank/trident/library/uiComponent/PrimaryButton'
 
-import Button from './components/Button'
+import Button from './components/ThemeRect'
+import { ThemeProvider, Theme } from '@webank/trident/trident-ui/theme'
 
 export default class UIScene extends WeBaseScene {
-  count = 0
+  count = 1
 
   static navigationOptions = ({ navigation: { state: { params = {} } } }) => ({
     headerTitle: params.title || 'UIScene'
   })
 
   render () {
+    console.log('ThemeProvider.Theme', Theme.Color.backgroundPrimary)
     return (
-      <View>
+      <View style={{
+        flex: 1,
+        backgroundColor: Theme.Color.backgroundPrimary
+      }}>
         <EntryList>
           <Button />
 
           <PrimaryButton text={`Change Theme (${this.props.theme})`} onPress={() => {
-            this.props.changeTheme(this.count++ % 2 === 0 ? 'dark' : 'light')
+            this.props.changeTheme(this.props.theme === 'light' ? 'dark' : 'light')
           }} />
 
           <PrimaryButton text={'Dialog'} onPress={this._showDialog} />

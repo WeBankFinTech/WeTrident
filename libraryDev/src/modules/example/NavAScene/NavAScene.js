@@ -5,7 +5,7 @@
  */
 import React, { Component } from 'react'
 import { AppNavigator, WeBaseScene } from '@webank/trident'
-import { L } from '@webank/trident/trident-ui/Layout/Layout'
+import { Column } from '@webank/trident/trident-ui/Layout/Layout'
 import EntryList from '../../../bizComponents/EntryList'
 import PrimaryButton from '@webank/trident/library/uiComponent/PrimaryButton'
 import NavigationStackView from '../components/NavigationStackView'
@@ -18,7 +18,7 @@ export default class NavAScene extends WeBaseScene {
 
   render () {
     return (
-      <L.Column>
+      <Column>
         <EntryList>
           <PrimaryButton text={`Go NavBScene`} onPress={() => {
             AppNavigator.example.NavBScene()
@@ -32,7 +32,7 @@ export default class NavAScene extends WeBaseScene {
 
         <NavigationStackView routes={AppNavigator.getCurrentRoutes()} />
 
-      </L.Column>
+      </Column>
     )
   }
 }
