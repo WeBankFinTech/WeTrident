@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 
 import {
-  View,
-  Linking, MaskedViewIOS
+  View
 } from 'react-native'
 import { AppNavigator } from '@webank/trident'
 import { LightTheme, createTheme, ThemeProvider, DarkTheme } from '@webank/trident/trident-ui/theme'
