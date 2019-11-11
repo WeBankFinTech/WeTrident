@@ -3,7 +3,7 @@
   "version": "1.2.18",
   "main": "library/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node_modules/jest/bin/jest.js",
     "patchVersion": "npm version patch && cd global-cli && npm version patch && cd ..",
     "publishAll": "npm config set registry=http://localhost:4873/ && npm unpublish @webank/trident --force && npm unpublish @webank/trident-cli --force && npm publish && cd global-cli && npm publish",
     "wpublishAll": "wnpm publish && cd global-cli && wnpm publish",
@@ -11,7 +11,8 @@
     "wreinstallCli": "echo 'reinstall the newest trident-cli' && wnpm uninstall @webank/trident-cli -g && wnpm install @webank/trident-cli -g",
     "npmLocalPublishAll": "npm version patch && npm publish --registry http://localhost:4873 && cd global-cli && npm version patch && npm publish --registry http://localhost:4873",
     "test-tpl": "echo 'test the trident framework' && rm -rf WeBookStore && trident-cli init --name=WeBookStore --bundleId=com.trident.wbstore --scheme=wbstore && cd WeBookStore && bundle exec fastlane ios release --verbose && bundle exec fastlane android release --verbose && rm -rf ./WeBookStore",
-    "syncLib": "watchman watch ./trident-ui && watchman watch ./library && wml add trident-ui libraryDev/node_modules/@webank/trident/trident-ui && wml add library libraryDev/node_modules/@webank/trident/library && wml start"
+    "syncLib": "watchman watch ./trident-ui && watchman watch ./library && wml add trident-ui libraryDev/node_modules/@webank/trident/trident-ui && wml add library libraryDev/node_modules/@webank/trident/library && wml start",
+    "standardjs": "node_modules/standard/bin/cmd.js library/**/*.js"
   },
   "repository": {
     "type": "git",
@@ -44,11 +45,15 @@
     "shelljs": "^0.8.3"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.7.0",
+    "@babel/runtime": "^7.7.2",
     "babel-eslint": "^10.0.3",
     "babel-jest": "^24.8.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
+    "babel-preset-react-native": "^4.0.1",
     "jest": "^24.8.0",
+    "metro-react-native-babel-preset": "^0.57.0",
     "standard": "^14.3.1"
   },
   "standard": {
