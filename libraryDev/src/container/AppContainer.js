@@ -4,6 +4,7 @@ import {
   View
 } from 'react-native'
 import { AppNavigator } from '@webank/trident'
+import { Linking } from 'react-native'
 import { LightTheme, createTheme, ThemeProvider, DarkTheme } from '@webank/trident/trident-ui/theme'
 
 const lightTheme = createTheme(LightTheme, LightTheme)
