@@ -1,4 +1,4 @@
-import createTheme from './createTheme'
+import createTheme, { theme } from './createTheme'
 import DarkTheme from './DarkTheme'
 import LightTheme from './LightTheme'
 import ThemeableComponent from './ThemeableComponent'
@@ -9,5 +9,6 @@ export {
   DarkTheme,
   LightTheme,
   ThemeableComponent,
-  ThemeProvider
+  ThemeProvider,
+  theme
 }

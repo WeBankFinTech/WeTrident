@@ -81,7 +81,7 @@ export default class List extends React.Component {
 
   render () {
     const {
-      data
+      data = []
     } = this.props
 
     return (
