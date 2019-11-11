@@ -10,7 +10,7 @@ export default class ReducerManager {
     const entryAction = navigator.router.getActionForPathAndParams(entryScene)
     const initialState = navigator.router.getStateForAction(entryAction)
     return (state, action) => {
-      const nextState =  navigator.router.getStateForAction(action, state || initialState)
+      const nextState = navigator.router.getStateForAction(action, state || initialState)
       stateChangeListener && stateChangeListener(state || initialState, nextState, action)
       return nextState
     }

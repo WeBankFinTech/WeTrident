@@ -59,12 +59,14 @@ export default class PrimaryButton extends Component {
             Keyboard.dismiss()
             onPress()
           }
-        }}>
+        }}
+      >
         <View
           style={[
             styles.button,
-            buttonStyle]}>
-          <Text style={[styles.text, textStyle, {color: '#fff', backgroundColor: 'transparent'}, buttonTextStyle]}>{text}</Text>
+            buttonStyle]}
+        >
+          <Text style={[styles.text, textStyle, { color: '#fff', backgroundColor: 'transparent' }, buttonTextStyle]}>{text}</Text>
         </View>
       </WeTouchable>
     )

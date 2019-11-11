@@ -55,7 +55,7 @@ export default class Picker extends Component {
     const normalHeight = 450 + dimens.PORTRAIT_UNSAFE_AREA_BOTTOM_HEIGHT
     const height = Math.min(normalHeight, options.height || 100)
     const position = options.position || 'bottom'
-    let keyframes = {
+    const keyframes = {
       from: { translateY: position === 'bottom' ? height : -height },
       to: { translateY: 0 }
     }
@@ -73,7 +73,7 @@ export default class Picker extends Component {
       animation: keyframes,
       easing: 'ease-in-out',
       autoClose: options.autoClose !== undefined ? options.autoClose : true,
-      wrapperStyle: {alignSelf: 'stretch', minHeight: height, maxHeight: normalHeight}
+      wrapperStyle: { alignSelf: 'stretch', minHeight: height, maxHeight: normalHeight }
     })
 
     return options.id
@@ -91,16 +91,16 @@ export default class Picker extends Component {
   }
 
   render () {
-    let {body, header, headerStyle, headerTextStyle} = this.props
+    const { body, header, headerStyle, headerTextStyle } = this.props
 
     return (
-      <View style={{flex: 1, backgroundColor: ProUI.color.moduleBackground}}>
+      <View style={{ flex: 1, backgroundColor: ProUI.color.moduleBackground }}>
         {
           !header
-          ? null
-          : typeof header === 'string'
-          ? <PickerHeader header={header} style={headerStyle} headerTextStyle={headerTextStyle} onPress={this._onClose} />
-          : header
+            ? null
+            : typeof header === 'string'
+              ? <PickerHeader header={header} style={headerStyle} headerTextStyle={headerTextStyle} onPress={this._onClose} />
+              : header
         }
         {body}
       </View>

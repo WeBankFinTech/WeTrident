@@ -2,7 +2,7 @@
  * UI规范与建议值
 */
 
-import {PixelRatio} from 'react-native'
+import { PixelRatio } from 'react-native'
 
 // 色值。按通用场景划分，特殊颜色单独定义，无需列为全局变量。
 const color = {

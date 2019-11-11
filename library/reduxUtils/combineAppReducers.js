@@ -2,7 +2,7 @@ import { combineReducers } from 'redux'
 import ReducerManager from '../navigation/ReducerManager'
 
 export default (entryScene, connectedContainer, modules, navigator, stateChangeListener = () => {}) => {
-  let reducers = combineReducers({
+  const reducers = combineReducers({
     navigation: ReducerManager.createNavReducer(entryScene, navigator, stateChangeListener),
     [connectedContainer]: connectedContainer.reducer,
     [modules]: modules.reducer

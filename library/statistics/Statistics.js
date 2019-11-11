@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 // FIXME Statistics
 const Statistics = {
   reportEvent: v => v

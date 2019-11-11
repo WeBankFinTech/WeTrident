@@ -16,14 +16,14 @@ class APIClient {
 
   constructor () {
     this.instance = axios.create({
-      timeout: 5 * 60 * 1000,
+      timeout: 5 * 60 * 1000
       // headers: {'X-Custom-Header': 'foobar'}
     })
 
     this.defaults = {
       headers: {
         common: [{
-          headers: { 'Accept': 'application/json' },
+          headers: { Accept: 'application/json' },
           match: /.*/
         }],
         get: [{
@@ -47,7 +47,7 @@ class APIClient {
 
     wrapLogInterceptor(this.instance, {
       consoleRequestKeys: ['method', 'url', 'params', 'data', 'requestHeader'],
-      consoleResponseKeys: ['method', 'url', 'params', 'responseData'],
+      consoleResponseKeys: ['method', 'url', 'params', 'responseData']
     })
   }
 
@@ -157,7 +157,7 @@ class APIClient {
      * @private
    */
   _checkCGIFormat (cgi) {
-    let descArray = []
+    const descArray = []
 
     if (!cgi.method) {
       descArray.push('method should be set for cgi, used as HTTP Verb ')

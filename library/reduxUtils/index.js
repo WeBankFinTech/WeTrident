@@ -42,12 +42,12 @@ function createSceneConnect (config = {}) {
       actions.resetState = v => v
     }
     if (!reducers.resetState) {
-      reducers.resetState = (state, action) => ({...initialState})
+      reducers.resetState = (state, action) => ({ ...initialState })
     }
   }
   if (!actions.setSceneStateThatOnlyUseInner) {
     actions.setSceneStateThatOnlyUseInner = sceneState => sceneState
-    reducers.setSceneStateThatOnlyUseInner = (state, action) => ({...state, ...action.payload})
+    reducers.setSceneStateThatOnlyUseInner = (state, action) => ({ ...state, ...action.payload })
   }
 
   // add namespace for every action
@@ -71,7 +71,7 @@ function createSceneConnect (config = {}) {
       if (action.payload.__stateKey__) {
         const stateKey = getRealKey(action.payload.__stateKey__)
         // console.log(TAG, '发出了带分区key的action', stateKey, state, action)
-        let stateByKey = _.get(state, stateKey, initialState)
+        const stateByKey = _.get(state, stateKey, initialState)
         const newSubState = _reducer(stateByKey, {
           ...action,
           payload: action.payload.payload
@@ -96,7 +96,7 @@ function createSceneConnect (config = {}) {
   // origin component => a new component
   return (Scene) => {
     let instanceCount1 = 0 // 当前页面实例存在的个数，以constructor为起点
-    let instanceCount2 = 0 // 当前页面实例存在的个数，以DidMount为起点
+    const instanceCount2 = 0 // 当前页面实例存在的个数，以DidMount为起点
 
     // 拦截 Scene 做一些处理
     const HookScene = class extends React.Component {
@@ -115,6 +115,7 @@ function createSceneConnect (config = {}) {
           // this.props.resetState()
         }
       }
+
       componentDidMount () {
         // instanceCount2 += 1
         // // 组装页面通知需要的key
@@ -130,6 +131,7 @@ function createSceneConnect (config = {}) {
         //   NotifyHelper.triggerNotify(notifyKey)
         // }, 100)
       }
+
       componentWillUnmount () {
         // instanceCount1 -= 1
         // instanceCount2 -= 1
@@ -166,8 +168,10 @@ function createSceneConnect (config = {}) {
         this.stateKey = this._getStateKey()
         this.CustomScene = this._getCustomScene(this.stateKey, HookScene)
       }
+
       componentWillUnmount () {
       }
+
       _getStateKey () {
         const DEFAULT_KEY = '__default__'
         let stateKey
@@ -238,7 +242,7 @@ function createSceneConnect (config = {}) {
           ...decorateAsyncActions(namespace, asyncActions(newActionCreators))
         }
 
-        return connect(mapStateToProps, mapDispatchToProps, undefined, {pure: false})(Scene)
+        return connect(mapStateToProps, mapDispatchToProps, undefined, { pure: false })(Scene)
       }
 
       render () {
@@ -279,9 +283,9 @@ function createModuleConnect (config) {
 
   // 创建带命名空间的同步 actions
   const _actions = createActions({
-      [namespace]: {
-        ...actions
-      }
+    [namespace]: {
+      ...actions
+    }
   })[_.camelCase(namespace)]
 
   // 将传入的 reducers 合并为一个 reducer
@@ -293,7 +297,7 @@ function createModuleConnect (config) {
   return (module) => {
     const connectedModule = {
       moduleName,
-      actions: {..._actions, ...decorateAsyncActions(namespace, asyncActions(_actions))},
+      actions: { ..._actions, ...decorateAsyncActions(namespace, asyncActions(_actions)) },
       reducer: _reducer,
       toString: function () { return sceneName }
     }
@@ -339,7 +343,7 @@ function createGlobalConnect (config = {}) {
 
   return (container) => {
     let connectedContainer = null
-    if (container) {  // container 作为 Scene
+    if (container) { // container 作为 Scene
       // map local state and shared state into the property named 'props' of the input component
       const _mapStateToProps = _state => {
         const globalState = _state[moduleName]
@@ -348,16 +352,16 @@ function createGlobalConnect (config = {}) {
         }
       }
 
-      const _mapDispatchToProps = {..._actions, ...decorateAsyncActions(namespace, asyncActions(_actions))}
+      const _mapDispatchToProps = { ..._actions, ...decorateAsyncActions(namespace, asyncActions(_actions)) }
 
-      connectedContainer = connect(_mapStateToProps, _mapDispatchToProps, undefined, {pure: false})(container)
-    } else {    // container 作为全局状态容器
+      connectedContainer = connect(_mapStateToProps, _mapDispatchToProps, undefined, { pure: false })(container)
+    } else { // container 作为全局状态容器
       connectedContainer = {}
     }
 
     Object.assign(connectedContainer, {
       moduleName,
-      actions: {..._actions, ...decorateAsyncActions(namespace, asyncActions(_actions))},
+      actions: { ..._actions, ...decorateAsyncActions(namespace, asyncActions(_actions)) },
       reducer: _reducer,
       toString: () => moduleName
     })
@@ -391,7 +395,7 @@ function createComponentConnect (config = {}) {
       ...globalActions
     }
 
-    return connect(_mapStateToProps, _mapDispatchToProps, undefined, {pure: false})(component)
+    return connect(_mapStateToProps, _mapDispatchToProps, undefined, { pure: false })(component)
   }
 }
 

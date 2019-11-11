@@ -24,7 +24,7 @@ export default class Toast extends Component {
   }
 
   static show (msg, icon, duration) {
-    const id = PopupStub.addPopup(<Toast msg={msg} icon={icon}/>, {
+    const id = PopupStub.addPopup(<Toast msg={msg} icon={icon} />, {
       mask: false,
       position: 'center',
       zIndex: PopupZIndex.Toast,
@@ -55,7 +55,8 @@ export default class Toast extends Component {
         {hasIcon && <Icon
           style={styles.toastIcon}
           source={this.props.iconSource}
-          size={this.props.iconWidth} />}
+          size={this.props.iconWidth}
+        />}
         <View>
           <Text style={styles.toastMsg}>{this.props.msg}</Text>
         </View>
