@@ -123,22 +123,23 @@ class APIClient {
     const commonHeaders = [...this.defaults.headers.common, ...this.defaults.headers[httpMethod]]
 
     const fullURL = this._combineFullURL(apiConfig)
-    const matchedHeader = commonHeaders.filter(item => {
-      if (Object.prototype.toString.call(item.match) === '[object RegExp]') {
-        return item.match.test(fullURL)
-      } else {
-        return undefined
-      }
-    }).map(item => item.headers)
+    const matchedHeader = commonHeaders
+      .filter(item => {
+        if (Object.prototype.toString.call(item.match) === '[object RegExp]') {
+          return item.match.test(fullURL)
+        } else {
+          return undefined
+        }
+      })
+      .map(item => item.headers)
+      .reduce((previousValue = {}, currentValue = {}) => ({ ...previousValue, ...currentValue }))
     const cgiConfigHeaders = apiConfig.headers || {}
 
-    const mergedHeaders = {
+    return {
       ...matchedHeader,
       ...cgiConfigHeaders,
       ...apiHeaders
     }
-
-    console.log('mergedHeaders', mergedHeaders)
   }
 
   /**
@@ -154,7 +155,7 @@ class APIClient {
   /**
    * 检查CGI格式是否合法
    * @param cgi
-     * @private
+   * @private
    */
   _checkCGIFormat (cgi) {
     const descArray = []
@@ -174,6 +175,7 @@ class APIClient {
     if (descArray.length > 0) {
       console.warn(descArray, cgi)
     }
+    return descArray
   }
 }
 
