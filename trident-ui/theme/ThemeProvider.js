@@ -25,7 +25,6 @@ export default class ThemeProvider extends Component {
       && this.props.theme
       && nextProps.theme.ThemeConst
       && !_.isEqual(nextProps.theme.ThemeConst, ThemeProvider.Theme)) {
-      console.log('prevProps.theme && this.props.theme && !_.isEqual(prevProps.theme, this.props.theme)')
       ThemeProvider.Theme = _.merge(ThemeProvider.Theme, nextProps.theme.ThemeConst)
     }
   }

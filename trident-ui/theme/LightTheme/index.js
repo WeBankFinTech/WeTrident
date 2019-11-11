@@ -7,7 +7,7 @@ const ThemeConst = {
   Font
 }
 const createComponentTheme = (ThemeConst = ThemeConst) => ({
-  'Button': {
+  'ThemeRect': {
     backgroundColor: ThemeConst.Color.backgroundSecondary,
     textColor: ThemeConst.Color.textPrimary
   }

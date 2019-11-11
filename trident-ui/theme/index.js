@@ -1,8 +1,9 @@
-import createTheme, { theme } from './createTheme'
+import createTheme from './createTheme'
 import DarkTheme from './DarkTheme'
 import LightTheme from './LightTheme'
 import ThemeableComponent from './ThemeableComponent'
 import ThemeProvider from './ThemeProvider'
+const Theme = ThemeProvider.Theme
 
 export {
   createTheme,
@@ -10,5 +11,5 @@ export {
   LightTheme,
   ThemeableComponent,
   ThemeProvider,
-  theme
+  Theme
 }

@@ -8,7 +8,7 @@ import { Row } from '@webank/trident/trident-ui/Layout/Layout'
  */
 export default class Button extends ThemeableComponent {
   // must defined for custom theme
-  namespace = 'Button'
+  namespace = 'ThemeRect'
 
   render () {
     const { textColor, backgroundColor } = this.getComponentTheme()
