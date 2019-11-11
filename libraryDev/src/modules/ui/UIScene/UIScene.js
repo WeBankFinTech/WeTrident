@@ -16,14 +16,11 @@ import Button from './components/ThemeRect'
 import { ThemeProvider, Theme } from '@webank/trident/trident-ui/theme'
 
 export default class UIScene extends WeBaseScene {
-  count = 1
-
   static navigationOptions = ({ navigation: { state: { params = {} } } }) => ({
     headerTitle: params.title || 'UIScene'
   })
 
   render () {
-    console.log('ThemeProvider.Theme', Theme.Color.backgroundPrimary)
     return (
       <View style={{
         flex: 1,
