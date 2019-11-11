@@ -20,28 +20,20 @@ class APIClient {
       // headers: {'X-Custom-Header': 'foobar'}
     })
 
+    // const header = {
+    //   headers: { 'Content-Type': 'application/json' },
+    //   match: /.*/
+    // }
     this.defaults = {
       headers: {
         common: [{
           headers: { Accept: 'application/json' },
           match: /.*/
         }],
-        get: [{
-          headers: { 'Content-Type': 'application/json' },
-          match: /.*/
-        }],
-        post: [{
-          headers: { 'Content-Type': 'application/json' },
-          match: /.*/
-        }],
-        put: [{
-          headers: { 'Content-Type': 'application/json' },
-          match: /.*/
-        }],
-        delete: [{
-          headers: { 'Content-Type': 'application/json' },
-          match: /.*/
-        }]
+        get: [],
+        post: [],
+        put: [],
+        delete: []
       }
     }
 
@@ -134,6 +126,11 @@ class APIClient {
       .map(item => item.headers)
       .reduce((previousValue = {}, currentValue = {}) => ({ ...previousValue, ...currentValue }))
     const cgiConfigHeaders = apiConfig.headers || {}
+    console.log('mergeHeaders', {
+      ...matchedHeader,
+      ...cgiConfigHeaders,
+      ...apiHeaders
+    })
 
     return {
       ...matchedHeader,
@@ -180,3 +177,8 @@ class APIClient {
 }
 
 export default new APIClient()
+
+const APIClientCls = APIClient
+export {
+  APIClientCls
+}
