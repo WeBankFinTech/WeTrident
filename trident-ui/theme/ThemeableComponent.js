@@ -8,7 +8,6 @@ export default class ThemeableComponent extends Component {
   }
 
   getComponentTheme () {
-    console.log('this.context', this.context)
     const theme = _.get(this.context, 'theme')
     if (this.namespace && _.isObject(theme[this.namespace])) {
       return this._mergeTheme(theme[this.namespace])

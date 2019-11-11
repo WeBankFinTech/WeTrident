@@ -8,7 +8,7 @@ import {Animated, Easing} from 'react-native'
 import React, {Component} from 'react'
 import DashCircle from '../loading/DashCircle'
 
-export default class LoadingDemo extends Component {
+export default class Loading extends Component {
   constructor (props) {
     super(props)
 
@@ -19,6 +19,23 @@ export default class LoadingDemo extends Component {
     }
     this.AnimatedSvg = Animated.createAnimatedComponent(Svg)
     this.AnimatedCircle = Animated.createAnimatedComponent(DashCircle)
+  }
+
+  /**
+   * 自动给promise加上loading
+   * @param {Promise} promise
+   */
+  static wrap (promise) {
+    Loading.show()
+    return new Promise((resolve, reject) => {
+      promise.then((res) => {
+        Loading.hide()
+        resolve(res)
+      }, (err) => {
+        Loading.hide()
+        reject(err)
+      })
+    })
   }
 
   _rotateCircle () {
