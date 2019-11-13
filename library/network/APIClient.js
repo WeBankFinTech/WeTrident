@@ -13,17 +13,9 @@ const validHTTPMethod = ['put', 'post', 'patch', 'delete']
 
 class APIClient {
   defaults = {}
+  _timeout = 5 * 60 * 1000
 
   constructor () {
-    this.instance = axios.create({
-      timeout: 5 * 60 * 1000
-      // headers: {'X-Custom-Header': 'foobar'}
-    })
-
-    // const header = {
-    //   headers: { 'Content-Type': 'application/json' },
-    //   match: /.*/
-    // }
     this.defaults = {
       headers: {
         common: [{
@@ -37,10 +29,27 @@ class APIClient {
       }
     }
 
+    this._init()
+  }
+
+  _init () {
+    this.instance = axios.create({
+      timeout: this._timeout
+    })
+
     wrapLogInterceptor(this.instance, {
       consoleRequestKeys: ['method', 'url', 'params', 'data', 'requestHeader'],
       consoleResponseKeys: ['method', 'url', 'params', 'responseData']
     })
+  }
+
+  /**
+   * 设置请求超时时间
+   * @param timeout
+   */
+  setRequestTimeoutInMs (timeout) {
+    this._timeout = timeout
+    this._init()
   }
 
   /**
