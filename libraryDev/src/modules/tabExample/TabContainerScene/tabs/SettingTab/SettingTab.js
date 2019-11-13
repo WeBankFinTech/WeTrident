@@ -25,8 +25,9 @@ export default class SettingTab extends WeBaseScene {
         />
         <Text>Hello SettingTab</Text>
         <PrimaryButton text={'Trident-Framework'} onPress={() => {
+          this.props.navigation.navigate('DrawerOpen')
           // this.props.navigation.navigate('HomeTab')
-          AppNavigator.ui.UIScene()
+          // AppNavigator.ui.UIScene()
         }} />
       </View>
     )
