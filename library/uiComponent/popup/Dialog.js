@@ -8,7 +8,7 @@ import { View, Text, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
 import { PopupStub } from '@unpourtous/react-native-popup-stub'
 
-import {WeTouchable} from '@unpourtous/react-native-touchable'
+import { WeTouchable } from '@unpourtous/react-native-touchable'
 // import WePropTypes from '../ext/WePropTypes'
 import ProUI from './UI'
 import PreDefinedAnimation from './PreDefinedAnimation'
@@ -32,7 +32,7 @@ export default class Dialog extends Component {
     items: PropTypes.array,
     icon: PropTypes.element,
     vertical: PropTypes.bool,
-    autoClose: PropTypes.bool,
+    autoClose: PropTypes.bool
     // containerStyle: WePropTypes.viewPropTypesStyle,
     // contentStyle: WePropTypes.viewPropTypesStyle,
     // titleStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
@@ -57,7 +57,7 @@ export default class Dialog extends Component {
       // 这种的动画不做默认值
       comp = data
       opt.position = 'none'
-      opt.wrapperStyle = {flex: 1}
+      opt.wrapperStyle = { flex: 1 }
     } else {
       opt.position = 'center'
       opt.wrapperStyle = null
@@ -84,14 +84,14 @@ export default class Dialog extends Component {
     return (
       <View style={[styles.container, this.props.containerStyle]}>
         <View style={[styles.content, this.props.contentStyle]}>
-          {this.props.icon && <View style={{alignItems: 'center', marginBottom: ProUI.spaceY.small}}>
+          {this.props.icon && <View style={{ alignItems: 'center', marginBottom: ProUI.spaceY.small }}>
             {this.props.icon}
           </View>}
           {this.props.title ? <Text style={[styles.title, this.props.titleStyle]}>{this.props.title}</Text> : null}
-          {React.isValidElement(this.props.texts) ? {...this.props.texts}
+          {React.isValidElement(this.props.texts) ? { ...this.props.texts }
             : this.props.texts && this.props.texts.length > 0 && this.props.texts.map((text, index) => (
-            <Text style={[styles.text, {marginTop: index === 0 ? 0 : ProUI.spaceY.small}]} key={index}>{text}</Text>
-          ))}
+              <Text style={[styles.text, { marginTop: index === 0 ? 0 : ProUI.spaceY.small }]} key={index}>{text}</Text>
+            ))}
           {this.props.renderContent && this.props.renderContent()}
         </View>
         <View style={this.props.vertical ? null : styles.flexRow}>
@@ -106,7 +106,8 @@ export default class Dialog extends Component {
                   borderLeftWidth: ProUI.realOnePixel,
                   borderColor: ProUI.color.border
                 }
-              ]}>
+              ]}
+            >
               <View
                 key={index}
               >

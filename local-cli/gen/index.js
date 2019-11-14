@@ -130,6 +130,8 @@ function _generatorScene (moduleName) {
         const newMember = t.memberExpression(requireCallExpression, t.identifier('default'))
         insertElementInList(manifestPath, newMember)
 
+        // generator AppNavigator.d.ts
+        require('./AppNavigatorDSTGenarator').generatorDTS()
         setTimeout(() => {
           _generatorScene(moduleName)
         }, 500)

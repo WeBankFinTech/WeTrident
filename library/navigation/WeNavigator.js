@@ -9,11 +9,11 @@ import {
   createReactNavigationReduxMiddleware
 } from 'react-navigation-redux-helpers'
 
-let AppNavigator = require('./AppNavigator').default
+const AppNavigator = require('./AppNavigator').default
 
 const createTridentNavigator = (routers, stackNavigatorConfig) => {
   // 第一个参数是Router的配置，原始的StackNavigator只支持传入对象
-  let MyStackNavigator = require('./react-navigation-ext/DyStackNavigator').default(() => routers, stackNavigatorConfig)
+  const MyStackNavigator = require('./react-navigation-ext/DyStackNavigator').default(() => routers, stackNavigatorConfig)
 
   // Note: createReactNavigationReduxMiddleware must be run before createReduxBoundAddListener
   const navReduxMiddleware = createReactNavigationReduxMiddleware(
@@ -26,7 +26,7 @@ const createTridentNavigator = (routers, stackNavigatorConfig) => {
   return {
     navReduxMiddleware,
     MyStackNavigator,
-    stackNavigator: connect(mapStateToProps)(({ dispatch, navigation }) =>
+    stackNavigator: connect(mapStateToProps, undefined, undefined, { pure: false })(({ dispatch, navigation }) =>
       <MyStackNavigator
         ref={navigator => { navigator && (AppNavigator.navigator = navigator) }}
         navigation={addNavigationHelpers({
@@ -37,7 +37,6 @@ const createTridentNavigator = (routers, stackNavigatorConfig) => {
       />
     )
   }
-
 }
 
 export default createTridentNavigator

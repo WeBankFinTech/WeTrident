@@ -4,9 +4,11 @@
  * Created by erichua on 2019-09-07T07:37:00.320Z.
  */
 import React, { Component } from 'react'
-import { View, Text } from 'react-native'
 import { AppNavigator, WeBaseScene } from '@webank/trident'
-
+import EntryList from '../../../bizComponents/EntryList'
+import PrimaryButton from '@webank/trident/library/uiComponent/PrimaryButton'
+import { Column } from '@webank/trident/trident-ui'
+import NavigationStackView from '../components/NavigationStackView'
 
 export default class NavigationScene extends WeBaseScene {
   static navigationOptions = ({ navigation: { state: { params = {} } } }) => ({
@@ -15,9 +17,23 @@ export default class NavigationScene extends WeBaseScene {
 
   render () {
     return (
-      <View>
-        <Text>Hello NavigationScene</Text>
-      </View>
+      <Column>
+        <EntryList>
+          <PrimaryButton text={`Go NavAScene(with params)`} onPress={() => {
+            AppNavigator.example.NavAScene({
+              foo: 'bar',
+              time: {
+                ts: new Date().getTime()
+              }
+            })
+          }} />
+          <PrimaryButton text={`Back`} onPress={() => {
+            AppNavigator.goBack()
+          }} />
+        </EntryList>
+
+        <NavigationStackView routes={AppNavigator.getCurrentRoutes()} />
+      </Column>
     )
   }
 }

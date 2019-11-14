@@ -20,11 +20,13 @@ nvm install
 ```
 
 verdaccio 顺利安装以后，通过下面命令可以将 `trident`和`trident-cli`发布到 verdaccio. 
+
 ```shell
 npm run publishAll
 ```
 
 如果需要更新 `trident-cli` 到最新版本，则只需要运行
+
 ```
 npm run reinstallCli
 ```
@@ -33,6 +35,7 @@ npm run reinstallCli
 ## npm环境的切换
 现在为了开发，需要在npm(对外发布前均指本地的 verdaccio)和wnpm(使用已经发布到wnpm的稳定版)之间切换.
 可以使用命令行环境变量进行切换： 
+
 ```shell
 # 切换为npm 
 export npmClient=npm

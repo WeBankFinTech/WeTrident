@@ -77,4 +77,3 @@ export default class AxiosAdapter {
     return url
   }
 }
-

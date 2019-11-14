@@ -7,7 +7,8 @@ export default class EntryList extends Component {
     if (!_.isArray(this.props.children)) {
       return (
         <View style={{
-          marginVertical: 10
+          marginVertical: 10,
+          paddingHorizontal: 16
         }}>
           {this.props.children}
         </View>
@@ -16,7 +17,7 @@ export default class EntryList extends Component {
     return (
       <View style={{
         flexDirection: 'column',
-        paddingHorizontal: 20
+        paddingHorizontal: 16
       }}>
         {this.props.children.map((child, index) => {
           return <View key={'i' + index} style={{

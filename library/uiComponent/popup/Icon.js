@@ -14,7 +14,7 @@ export default class Icon extends Component {
     size: PropTypes.number,
 
     style: ViewPropTypes.style,
-    iconStyle: ViewPropTypes.style,
+    iconStyle: ViewPropTypes.style
   }
 
   render () {
@@ -31,7 +31,8 @@ export default class Icon extends Component {
     return (
       <View
         // hitSlop={{top: 10, bottom: 10, left: 10, right: 10}}
-        style={this.props.style}>
+        style={this.props.style}
+      >
         <Image
           style={[{ width: size, height: size }, this.props.iconStyle]}
           source={source}
@@ -41,4 +42,3 @@ export default class Icon extends Component {
     )
   }
 }
-

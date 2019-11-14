@@ -13,42 +13,43 @@ const validHTTPMethod = ['put', 'post', 'patch', 'delete']
 
 class APIClient {
   defaults = {}
+  _timeout = 5 * 60 * 1000
 
   constructor () {
-    this.instance = axios.create({
-      timeout: 5 * 60 * 1000,
-      // headers: {'X-Custom-Header': 'foobar'}
-    })
-
     this.defaults = {
       headers: {
         common: [{
-          headers: { 'Accept': 'application/json' },
+          headers: { Accept: 'application/json' },
           match: /.*/
         }],
-        get: [{
-          headers: { 'Content-Type': 'application/json' },
-          match: /.*/
-        }],
-        post: [{
-          headers: { 'Content-Type': 'application/json' },
-          match: /.*/
-        }],
-        put: [{
-          headers: { 'Content-Type': 'application/json' },
-          match: /.*/
-        }],
-        delete: [{
-          headers: { 'Content-Type': 'application/json' },
-          match: /.*/
-        }]
+        get: [],
+        post: [],
+        put: [],
+        delete: []
       }
     }
 
+    this._init()
+  }
+
+  _init () {
+    this.instance = axios.create({
+      timeout: this._timeout
+    })
+
     wrapLogInterceptor(this.instance, {
       consoleRequestKeys: ['method', 'url', 'params', 'data', 'requestHeader'],
-      consoleResponseKeys: ['method', 'url', 'params', 'responseData'],
+      consoleResponseKeys: ['method', 'url', 'params', 'responseData']
     })
+  }
+
+  /**
+   * 设置请求超时时间
+   * @param timeout
+   */
+  setRequestTimeoutInMs (timeout) {
+    this._timeout = timeout
+    this._init()
   }
 
   /**
@@ -123,22 +124,28 @@ class APIClient {
     const commonHeaders = [...this.defaults.headers.common, ...this.defaults.headers[httpMethod]]
 
     const fullURL = this._combineFullURL(apiConfig)
-    const matchedHeader = commonHeaders.filter(item => {
-      if (Object.prototype.toString.call(item.match) === '[object RegExp]') {
-        return item.match.test(fullURL)
-      } else {
-        return undefined
-      }
-    }).map(item => item.headers)
+    const matchedHeader = commonHeaders
+      .filter(item => {
+        if (Object.prototype.toString.call(item.match) === '[object RegExp]') {
+          return item.match.test(fullURL)
+        } else {
+          return undefined
+        }
+      })
+      .map(item => item.headers)
+      .reduce((previousValue = {}, currentValue = {}) => ({ ...previousValue, ...currentValue }))
     const cgiConfigHeaders = apiConfig.headers || {}
+    console.log('mergeHeaders', {
+      ...matchedHeader,
+      ...cgiConfigHeaders,
+      ...apiHeaders
+    })
 
-    const mergedHeaders = {
+    return {
       ...matchedHeader,
       ...cgiConfigHeaders,
       ...apiHeaders
     }
-
-    console.log('mergedHeaders', mergedHeaders)
   }
 
   /**
@@ -154,10 +161,10 @@ class APIClient {
   /**
    * 检查CGI格式是否合法
    * @param cgi
-     * @private
+   * @private
    */
   _checkCGIFormat (cgi) {
-    let descArray = []
+    const descArray = []
 
     if (!cgi.method) {
       descArray.push('method should be set for cgi, used as HTTP Verb ')
@@ -174,7 +181,13 @@ class APIClient {
     if (descArray.length > 0) {
       console.warn(descArray, cgi)
     }
+    return descArray
   }
 }
 
 export default new APIClient()
+
+const APIClientCls = APIClient
+export {
+  APIClientCls
+}

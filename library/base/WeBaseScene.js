@@ -15,17 +15,17 @@ import Statistics from '../statistics/Statistics'
 
 export default class WeBaseScene extends Component {
   constructor () {
-    super(...arguments);
+    super(...arguments)
 
     delete this.navigation
 
     const originComponentWillMount = this.componentWillMount
     if (originComponentWillMount) {
       this.componentWillMount = () => {
-        let instance = this
+        const instance = this
         if (RNEnv.isDev()) {
-          const {moduleName = '', sceneName = ''} = this.props || {}
-          const startTime = new Date().getTime()
+          // const { moduleName = '', sceneName = '' } = this.props || {}
+          // const startTime = new Date().getTime()
           const result = originComponentWillMount.apply(instance, ...arguments)
           this._componentWillMountBase.apply(instance, ...arguments)
           // PerformanceUtils.consoleWarning(startTime, new Date().getTime(), `${moduleName}-${sceneName}-componentWillMount`)
@@ -42,7 +42,7 @@ export default class WeBaseScene extends Component {
     // 原来的函数内容清空，保证具体的scene无论是否有super，webasescene中注册回调的方法始终都能执行
     ['componentWillMount', 'componentWillUnmount', 'onResume', 'onPause'].forEach(methodName => {
       const origin = this[methodName]
-      let instance = this
+      const instance = this
       if (origin) {
         this[methodName] = (...args) => {
           const result = origin.apply(instance, args)
@@ -112,7 +112,7 @@ export default class WeBaseScene extends Component {
    */
   _onPauseBase (fromScene, toScene) {
     Keyboard.dismiss()
-    const sceneKey = this.props.navigation.state.routeName
+    const sceneKey = this.props.navigation.state.key
     const sceneDetailName = generateRouteName(_.get(this, 'props.moduleName', ''), _.get(this, 'props.sceneName', ''))
     console.log(`🐈${sceneDetailName}(${sceneKey})`, 'onPause', `${fromScene} --> ${toScene}`)
 

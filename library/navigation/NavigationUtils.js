@@ -25,11 +25,11 @@ const separateRouteName = (routeName) => {
   if (typeof routeName === 'string') {
     const URL = require('url')
     const url = URL.parse('https:///' + routeName, true)
-    let temp = String(url.pathname).split(routeNameSeparator)
+    const temp = String(url.pathname).split(routeNameSeparator)
     if (url.pathname && /^\/\w+\/\w+$/.test(url.pathname)) {
       const result = {
         moduleName: temp[1],
-        sceneName: temp[2],
+        sceneName: temp[2]
       }
       if (Object.keys(url.query).length > 0) {
         result.params = url.query
@@ -48,7 +48,7 @@ const separateRouteName = (routeName) => {
  * @type {{super: string, equal: string, sub: string}}
  */
 const RouteCompareResult = {
-  superset: 'superset',  // A >= B
+  superset: 'superset', // A >= B
   subset: 'subset', // A <= B
   equal: 'equal', // A === B
   diff: 'dff' // A !== B

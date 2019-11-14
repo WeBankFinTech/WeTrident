@@ -3,7 +3,7 @@
  * Updated by lemorili
  */
 import React, { Component } from 'react'
-import { View, Animated, StyleSheet, Image } from 'react-native'
+import { View, Animated, StyleSheet } from 'react-native'
 import { PopupStub } from '@unpourtous/react-native-popup-stub'
 
 export default class Loading extends Component {

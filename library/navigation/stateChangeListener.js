@@ -84,5 +84,4 @@ export default (state, nextState, action) => {
       delete navTimeConsuming[routeName]
     }
   }
-
 }
