@@ -23,6 +23,7 @@ const InitialTab = {}
 class SceneTraversal {
   constructor () {
     this.isVisit = {}
+    this.preorder = {}
     this.current = {}
     this.activeTab = {}
     this.appointmentList = {}
@@ -30,6 +31,8 @@ class SceneTraversal {
     this.dataRecorder = new DataRecorder(this._onDataRecorderMessage.bind(this))
     this.isPrepared = false
     this.cacheAction = null
+    this.replay = false
+    this.finishMarkOnBack = false
 
     global.ErrorUtils.setGlobalHandler((error, isFatal) => this.recordError(error))
   }
@@ -167,6 +170,17 @@ class SceneTraversal {
 
     this.current.nodeList = nodeList
     console.log('[start]: ' + this.current.moduleName + ' ' + this.current.sceneName + ' get nodes = ' + nodeList.length)
+
+    let formerModule = _.get(this.preorder, 'former.moduleName')
+    let formerScene = _.get(this.preorder, 'former.sceneName')
+    if (this.replay &&
+        !_.isEmpty(formerModule) &&
+        !_.isEmpty(formerScene) &&
+        this.current.moduleName === formerModule &&
+        this.current.sceneName === formerScene) {
+      this.replay = false // 回放到达目标页面，停止回放
+    }
+
     // this.traversing = false
     this.current.timer = setTimeout(() => {
       this._traversal(0)
@@ -189,6 +203,9 @@ class SceneTraversal {
     let _processElement = func => {
       try {
         this.dataRecorder.record(`[traversal]${this.current.moduleName}_${this.current.sceneName}_${this.current.nodeList[index]._debugSource}`)
+        _.set(this.preorder, [this.current.moduleName, this.current.sceneName, 'nodeMark'], this.current.nodeList[index]._debugSource)
+        _.set(this.preorder, 'former.moduleName', this.current.moduleName)
+        _.set(this.preorder, 'former.sceneName', this.current.sceneName)
         func()
       } catch (e) {
         console.log('traversing error: ' + JSON.stringify(e))
@@ -198,14 +215,26 @@ class SceneTraversal {
       }, 2000)
     }
 
+    let _replay = func => {
+      try {
+        this.dataRecorder.record(`[replay]${this.current.moduleName}_${this.current.sceneName}_${this.current.nodeList[index]._debugSource}`)
+        func()
+      } catch (e) {
+        console.log('replay error: ' + JSON.stringify(e))
+      }
+    }
+
     if (this.current.nodeList && index < this.current.nodeList.length) {
       let node = this.current.nodeList[index]
+      let isReplay = this.replay && !_.isEmpty(node._debugSource) && _.get(this.preorder, [this.current.moduleName, this.current.sceneName, 'nodeMark']) === node._debugSource
 
-      if (!this.isVisit[this.current.moduleName][this.current.sceneName][node._debugSource]) {
+      if (!this.isVisit[this.current.moduleName][this.current.sceneName][node._debugSource] ||
+          isReplay
+      ) {
         this.isVisit[this.current.moduleName][this.current.sceneName][node._debugSource] = true
         let func = this._getTouchableMethod(node)
         if (_.isFunction(func)) {
-          console.log('[traversing]: ' + this.current.moduleName + ' ' + this.current.sceneName + ' ' + node._debugSource)
+          console.log(isReplay ? '[replaying]: ' : '[traversing]: ' + this.current.moduleName + ' ' + this.current.sceneName + ' ' + node._debugSource)
 
           let measure = this._findMeasure(node)
           if (measure) {
@@ -213,16 +242,16 @@ class SceneTraversal {
               measure((x, y, w, h, px, py) => {
                 this._onMeasure(px, py, w, h)
                 setTimeout(() => {
-                  _processElement(func)
+                  isReplay ? _replay(func) : _processElement(func)
                 }, 1000)
               })
             } catch (e) {
               console.log('on measure element error: ' + JSON.stringify(e))
-              _processElement(func)
+              isReplay ? _replay(func) : _processElement(func)
             }
           } else {
             console.log('no measure!!!!')
-            _processElement(func)
+            isReplay ? _replay(func) : _processElement(func)
           }
         } else {
           console.log('[not function]: ' + this.current.moduleName + ' ' + this.current.sceneName + ' ' + node._debugSource)
@@ -238,6 +267,7 @@ class SceneTraversal {
     } else {
       console.log('[the end]: ' + this.current.moduleName + ' ' + this.current.sceneName)
       this.dataRecorder.record(`[finished]${this.current.moduleName}_${this.current.sceneName}`)
+      _.set(this.preorder, [this.current.moduleName, this.current.sceneName, 'nodeMark'], undefined) // remove from preorder collections
       this.traversing = false
       this._onTraversalEnd()
     }
@@ -255,7 +285,10 @@ class SceneTraversal {
           key
         }
       } = this.current.navigation
-      goBack && key && goBack(key)
+      if (goBack && key) {
+        this.finishMarkOnBack = true
+        goBack(key)
+      }
     }
   }
 
@@ -327,6 +360,8 @@ class SceneTraversal {
   onBack () {
     console.log('[on back]')
     this._onBreakOldTraversal()
+    this.replay = !this.finishMarkOnBack
+    this.finishMarkOnBack = false
   }
 
   registerTab (moduleName, sceneName) {
@@ -358,6 +393,7 @@ class SceneTraversal {
   }
 
   recordError (error) {
+    console.log(error)
     this.dataRecorder.record(`[error]${this.current.moduleName}_${this.current.sceneName}_${error && error.message}`)
   }
 
@@ -388,13 +424,7 @@ class SceneTraversal {
                 let moduleName = items[0]
                 let sceneName = items[1]
                 let nodeMark = items[2]
-                if (!_.has(this.isVisit, moduleName)) {
-                  this.isVisit[moduleName] = {}
-                }
-                if (!_.has(this.isVisit[moduleName], sceneName)) {
-                  this.isVisit[moduleName][sceneName] = {}
-                }
-                this.isVisit[moduleName][sceneName][nodeMark] = true
+                _.set(this.isVisit, [moduleName, sceneName, nodeMark], true)
               }
             }
           })
