@@ -201,15 +201,18 @@ class SceneTraversal {
     }
 
     let _processElement = func => {
+      this.dataRecorder.record(`[traversal]${this.current.moduleName}_${this.current.sceneName}_${this.current.nodeList[index]._debugSource}`)
+      _.set(this.preorder, [this.current.moduleName, this.current.sceneName, 'nodeMark'], this.current.nodeList[index]._debugSource)
+      _.set(this.preorder, 'former.moduleName', this.current.moduleName)
+      _.set(this.preorder, 'former.sceneName', this.current.sceneName)
+
       try {
-        this.dataRecorder.record(`[traversal]${this.current.moduleName}_${this.current.sceneName}_${this.current.nodeList[index]._debugSource}`)
-        _.set(this.preorder, [this.current.moduleName, this.current.sceneName, 'nodeMark'], this.current.nodeList[index]._debugSource)
-        _.set(this.preorder, 'former.moduleName', this.current.moduleName)
-        _.set(this.preorder, 'former.sceneName', this.current.sceneName)
         func()
       } catch (e) {
         console.log('traversing error: ' + JSON.stringify(e))
+        this.recordError(e)
       }
+
       this.current.timer = setTimeout(() => {
         this._traversal(index + 1)
       }, 2000)
