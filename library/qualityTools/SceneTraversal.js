@@ -186,7 +186,7 @@ class SceneTraversal {
       return
     }
 
-    let _proccessElement = func => {
+    let _processElement = func => {
       try {
         this.dataRecorder.record(`[traversal]${this.current.moduleName}_${this.current.sceneName}_${this.current.nodeList[index]._debugSource}`)
         func()
@@ -213,16 +213,16 @@ class SceneTraversal {
               measure((x, y, w, h, px, py) => {
                 this._onMeasure(px, py, w, h)
                 setTimeout(() => {
-                  _proccessElement(func)
+                  _processElement(func)
                 }, 1000)
               })
             } catch (e) {
               console.log('on measure element error: ' + JSON.stringify(e))
-              _proccessElement(func)
+              _processElement(func)
             }
           } else {
             console.log('no measure!!!!')
-            _proccessElement(func)
+            _processElement(func)
           }
         } else {
           console.log('[not function]: ' + this.current.moduleName + ' ' + this.current.sceneName + ' ' + node._debugSource)
