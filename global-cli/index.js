@@ -47,10 +47,10 @@ program
 // 此库目前这里有问题暂时用自定义提示
 //.command('init', 'init trident project', { executableFile: '' }).alias('i')
 .on('--help', function(){
-  console.log('');
-  console.log('Commands:');
-  console.log(' init         init trident project');
-  console.log(' env          check the environment required for the project');
+  console.log(`Commands:
+  init         init trident project
+  env          check the environment required for the project
+  `);
 })
 .action((value, cmd) => {
   switch (value) {
