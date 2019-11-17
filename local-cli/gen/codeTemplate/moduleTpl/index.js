@@ -3,8 +3,8 @@
  *
  * Created by {{author}} on {{createAt}}.
  */
-export default {
-  moduleName: 'TplModuleName',
+export default (moduleName) => ({
+  moduleName: moduleName,
   initialState: {
     // moduleCount: 0
   },
@@ -18,5 +18,5 @@ export default {
   reducers: {
     // addModuleCount: (state, action) => ({ ...state, moduleCount: state.moduleCount + action.payload })
   }
-}
+})
 

@@ -1,6 +1,6 @@
 export default [
   require("./example").default,
-  require("./tabExample").default,
+  require("./tabExample").default("tabExample"),
   require("./tridentPluginWebView").default
 ]
 
