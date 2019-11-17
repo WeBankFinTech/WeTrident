@@ -1,7 +1,7 @@
 /**
  * 负责导出此模块的reducer和action到App级别
  *
- * Created by {{author}} on {{createAt}}.
+ * Created by rcrabwu on 2019-10-24T08:40:34.034Z.
  */
 export default (moduleName) => ({
   moduleName: moduleName,

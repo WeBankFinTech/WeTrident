@@ -70,6 +70,21 @@ export default class ModuleManager {
           const sceneConfig = getSceneItem(connectedContainer, wrappedModule)
           const wrappedScene = createSceneConnect(sceneConfig)(sceneConfig.component)
           wrappedSceneList.push(wrappedScene)
+
+          if (sceneConfig.tabs && sceneConfig.tabs.length > 0) {
+            const tabs = {}
+            for (let getTabItem of sceneConfig.tabs) {
+              const tabConfig = getTabItem(connectedContainer, wrappedModule)
+              const wrappedTab = createSceneConnect(tabConfig)(tabConfig.component)
+              tabs[wrappedTab] = wrappedTab.reducer
+            }
+            return {
+              ...tabs,
+              ...result,
+              [wrappedScene]: wrappedScene.reducer
+            }
+          }
+
           return {
             ...result,
             [wrappedScene]: wrappedScene.reducer
