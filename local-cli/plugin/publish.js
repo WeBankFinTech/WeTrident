@@ -12,7 +12,7 @@ const semver = require('semver')
 
 function run (root, name) {
   if (!fs.existsSync(path.join(root, pathConfig.modulesPath + name))) {
-    console.log(chalk.red(`Plugin(module) ${name} not found❌ , please check!`))
+    console.log(chalk.red(`Plugin(module) ${name} not found  ❌ , please check!`))
     process.exit()
   }
 
@@ -34,7 +34,7 @@ function run (root, name) {
 
       inquirer.prompt([{
         type: 'input',
-        message: chalk.green(`\nPlease input new version ! 💡Current version ${packageJson.version}\n`),
+        message: chalk.green(`\nPlease input new version ! 💡 Current version ${packageJson.version}\n`),
         name: 'ver'
       }]).then(answers => {
         let {ver} = answers
@@ -75,6 +75,7 @@ function publish (root, name) {
   try {
     process.chdir(path.join(root, pathConfig.modulesPath + name))
     execSync(publishCommand, {stdio: 'inherit'})
+    console.log('Plugin publish done! 👏')
     process.chdir(root)
   } catch (e) {
     console.log(e)

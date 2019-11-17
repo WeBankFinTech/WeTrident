@@ -1,7 +1,7 @@
 export default [
   require("./example").default,
   require("./tabExample").default("tabExample"),
-  require("./tridentPluginWebView").default
+  require("./tridentPluginWebView").default("tridentPluginWebView")
 ]
 
 const dyModules = {
