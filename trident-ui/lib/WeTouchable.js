@@ -5,10 +5,10 @@ import WeTouchableMask from './WeTouchableMask'
 import PropTypes from 'prop-types'
 
 const PRESS_MODE = Object.freeze({
-  opacity: null,
-  highlight: null,
-  mask: null,
-  none: null
+  opacity: 'opacity',
+  highlight: 'highlight',
+  mask: 'mask',
+  none: 'none'
 })
 
 class WeTouchable extends Component {
