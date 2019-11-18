@@ -65,6 +65,9 @@ program
         console.log(chalk.green('Everything is OK!'))
       }
       break
+    case 'help':
+      program.help()
+      break
     default:
       if (cli) { // 如果在Trident项目内，所有命令由local-cli接管
         cli.run(path.resolve(options.name || '.'))
