@@ -47,17 +47,36 @@ program
 // 此库目前这里有问题暂时用自定义提示
 //.command('init', 'init trident project', { executableFile: '' }).alias('i')
 .on('--help', function(){
-  console.log('');
-  console.log('Commands:');
-  console.log(' init         init trident project');
+  console.log(`Commands:
+  init         init trident project
+  env          check the environment required for the project
+  `);
 })
 .action((value, cmd) => {
   switch (value) {
     case 'init':
       initProject()
       break
+    case 'env':
+      if (checkResult.length > 0) {
+        console.log(chalk.red('Error:'))
+        logError(checkResult)
+      } else {
+        console.log(chalk.green('Everything is OK!'))
+      }
+      break
     default:
-      program.help()
+      if (cli) { // 如果在Trident项目内，所有命令由local-cli接管
+        cli.run(path.resolve(options.name || '.'))
+      } else {
+        console.error(
+          'Command `%s` unrecognized. ' +
+          'Make sure that you are inside a trident project.',
+          commands[0]
+        )
+        process.exit(1)
+      }
+      break
   }
 })
 
@@ -244,6 +263,15 @@ function createNewProject (root, projectName, bundleId, scheme, port, eslint, op
 function getInstallPackage (rnPackage) {
   return '@webank/trident --exact'
 }
+
+function logError (...args) {
+  if (args.length === 1 && args[0] instanceof Error) {
+    var err = args[0];
+    console.error('Error: "' + err.message + '".  Stack:\n' + err.stack);
+  } else {
+    console.error.apply(console, args);
+  }
+};
 
 return
 // TODO ===========================end================================

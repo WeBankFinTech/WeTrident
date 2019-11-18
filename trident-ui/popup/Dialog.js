@@ -9,8 +9,7 @@ import PropTypes from 'prop-types'
 import { PopupStub } from '@unpourtous/react-native-popup-stub'
 
 import {WeTouchable} from '@unpourtous/react-native-touchable'
-// import WePropTypes from '../ext/WePropTypes'
-import ProUI from './UI'
+import {ProUI} from '../values'
 import PreDefinedAnimation from './PreDefinedAnimation'
 import PopupZIndex from './PopupZIndex'
 

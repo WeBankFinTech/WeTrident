@@ -167,7 +167,9 @@ function _generatorModule () {
       // 插入模块到模块列表, 静态加载
       const requireCallExpression = t.callExpression(t.identifier('require'), [t.stringLiteral('./' + moduleName)])
       const newMember = t.memberExpression(requireCallExpression, t.identifier('default'))
-      const moduleArrayFunction = t.arrowFunctionExpression([], newMember, false)
+      // 动态传入moduleName，即 require('./xx').default(moduleName)
+      const newMemberCallExpression = t.callExpression(newMember, [t.stringLiteral(moduleName)])
+      const moduleArrayFunction = t.arrowFunctionExpression([], newMemberCallExpression, false)
 
       const generate = require('babel-generator').default
       console.log(generate(t.objectProperty(t.identifier(moduleName), moduleArrayFunction), { retainLines: true }).code)
@@ -189,7 +191,7 @@ function _generatorModule () {
  */
 function fillModuleName (moduleName) {
   const moduleIndexPath = path.join(pathConfig.modulesPath, `${moduleName}/index.js`)
-  replaceInFile.sync({ files: moduleIndexPath, from: /TplModuleName/g, to: moduleName })
+  // replaceInFile.sync({ files: moduleIndexPath, from: /TplModuleName/g, to: moduleName })
 
   replaceAuthorAndCreateTime([moduleIndexPath, moduleIndexPath.replace('index', 'manifest')])
 }

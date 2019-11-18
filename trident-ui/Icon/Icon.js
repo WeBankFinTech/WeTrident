@@ -2,11 +2,12 @@ import PropTypes from 'prop-types'
 import React, {Component} from 'react'
 import {Image, View} from 'react-native'
 import IconNames from './IconNames'
+import {iconNamePropType} from '../propTypeUtils'
 
 export default class Icon extends Component {
   static Names = IconNames
   static propTypes = {
-    name: PropTypes.oneOf(Object.values(IconNames)).isRequired,
+    name: iconNamePropType.isRequired,
     style: PropTypes.any,
 
     // 响应式
