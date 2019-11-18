@@ -1,95 +1,215 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import {
   View,
+  PixelRatio,
+  ViewPropTypes,
+  StyleSheet,
   Text
 } from 'react-native'
+
+/**
+ * Created by vengeanliu on 2017/7/6.
+ */
+
+import PropTypes from 'prop-types'
+
+import React, { Component } from 'react'
+import Item from './Item'
 import { ProUI } from '../values'
-import {Row, Column} from '../Layout/Layout'
-import Icon from '../Icon/Icon'
-import WeTouchable from '../Button/lib/WeTouchable'
+import WeTouchable from '../lib/WeTouchable'
 
-export default class List extends React.Component {
+let SEPARATOR = 'we_list_separator'
+let TOP_SEPARATOR = 'top'
+let BOTTOM_SEPARATOR = 'bottom'
+
+class Index extends Component {
+  static Item = Item
+
   static propTypes = {
-    data: PropTypes.arrayOf(PropTypes.shape({
-      // item name, 可以省略
-      name: PropTypes.string,
-      // item内容，可以是任何可以渲染的节点
-      content: PropTypes.string.isRequired,
-      // 表示item是否可以点击进行交互
-      onPress: PropTypes.func,
-      itemNameTextStyle: PropTypes.any,
-      itemContentTextStyle: PropTypes.any
-    })).isRequired,
-    itemViewStyle: PropTypes.any,
-    itemNameTextStyle: PropTypes.any,
-    itemContentTextStyle: PropTypes.any,
-    itemSeparator: PropTypes.node
+    // 分割线颜色
+    lineColor: PropTypes.string,
+    // 按压态颜色
+    itemActiveColor: PropTypes.string,
+    // 分割线渲染方法
+    renderSeparator: PropTypes.func,
+    // 扩展分割线样式
+    separatorStyle: ViewPropTypes.style,
+    // 这里指的是渲染和分割线一样的上下边界，是为了解决按压态的问题，如果是有自己风格的列表外边线直接用style定义就好了
+    renderBorder: PropTypes.bool,
+    // 列表项数据，类同ListView
+    dataSource: PropTypes.array,
+    // 列表容器自定义样式
+    style: ViewPropTypes.style,
+    // 列表项统一点击响应事件
+    onItemPress: PropTypes.func,
+    // 列表项自定义渲染方法，类同ListView
+    onRenderRow: PropTypes.func
   }
+
+  constructor (props) {
+    super(props)
+    this._renderSeparator = this.props.renderSeparator ? this._renderCustomSeparator : this._renderSeparator.bind(this)
+  }
+
   static defaultProps = {
-    itemSeparator: <View style={{width: '100%', height: ProUI.realOnePixel, backgroundColor: ProUI.color.border}} />
+    lineColor: ProUI.color.border
   }
 
-  _renderRightArrow (item) {
-    return item.onPress ? <Icon style={{paddingLeft: 5}} name={Icon.Names.right_arrow} /> : null
+  _renderSeparator (key) {
+    return (<View
+      ref={SEPARATOR + key}
+      style={[{
+        backgroundColor: this.props.lineColor,
+        height: 1 / PixelRatio.get(),
+        marginLeft: ProUI.spaceX.large
+      }, this.props.separatorStyle]}
+      key={SEPARATOR + key}
+    />)
   }
 
-  _renderItem = (item, index) => {
-    const {
-      itemViewStyle,
-      itemSeparator,
-      itemNameTextStyle,
-      itemContentTextStyle
-    } = this.props
-    const key = item.key === undefined ? index : item.key
+  // 给自定义线加上ref
+  _renderCustomSeparator (key) {
+    return React.cloneElement(this.props.renderSeparator(), {
+      ref: SEPARATOR + key,
+      key: SEPARATOR + key
+    })
+  }
 
-    let itemEle
-    if (item.name === undefined) {
-      itemEle = (
-        <Row.MainSpaceBetween.CrossCenter style={itemViewStyle}>
-          <Text style={[{flex: 1, paddingRight: 10}, itemContentTextStyle, item.itemContentTextStyle]}>{item.content}</Text>
-          {this._renderRightArrow(item)}
-        </Row.MainSpaceBetween.CrossCenter>
-      )
-    } else {
-      itemEle = (
-        <Row.MainSpaceBetween.CrossCenter style={itemViewStyle}>
-          <Text style={[{paddingRight: 10}, itemNameTextStyle, item.itemNameTextStyle]}>{item.name}</Text>
-          <Row.CrossCenter style={{flex: 1}}>
-            <Text numberOfLines={1} style={[{flex: 1, textAlign: 'right'}, itemContentTextStyle, item.itemContentTextStyle]}>{item.content}</Text>
-            {this._renderRightArrow(item)}
-          </Row.CrossCenter>
-        </Row.MainSpaceBetween.CrossCenter>
-      )
+  // 这里需要处理列表按压态时，改变线的样式，以达到按压态是一个整体的概念
+  _onItemPressIn (key) {
+    let topSeparator = this.refs[SEPARATOR + key]
+    let bottomSeparator = this.refs[SEPARATOR + (parseInt(key) + 1)]
+    if (this.props.renderBorder) {
+      if (parseInt(key) === 0) {
+        this.refs[SEPARATOR + TOP_SEPARATOR].setNativeProps({style: {opacity: 0}})
+      }
+      if (parseInt(key) === this.account - 1) {
+        this.refs[SEPARATOR + BOTTOM_SEPARATOR].setNativeProps({style: {opacity: 0}})
+      }
+    }
+    if (topSeparator) {
+      topSeparator.setNativeProps({style: {opacity: 0}})
+    }
+    if (bottomSeparator) {
+      bottomSeparator.setNativeProps({style: {opacity: 0}})
+    }
+  }
+
+  // 还原分割线
+  _onItemPressOut (key) {
+    let topSeparator = this.refs[SEPARATOR + key]
+    let bottomSeparator = this.refs[SEPARATOR + (parseInt(key) + 1)]
+    if (this.props.renderBorder) {
+      if (parseInt(key) === 0) {
+        this.refs[SEPARATOR + TOP_SEPARATOR].setNativeProps({style: {opacity: 1}})
+      }
+      if (parseInt(key) === this.account - 1) {
+        this.refs[SEPARATOR + BOTTOM_SEPARATOR].setNativeProps({style: {opacity: 1}})
+      }
+    }
+    if (topSeparator) {
+      topSeparator.setNativeProps({style: {opacity: 1}})
+    }
+    if (bottomSeparator) {
+      bottomSeparator.setNativeProps({style: {opacity: 1}})
+    }
+  }
+
+  _renderChild (child, index) {
+    return child.props.pressMode === WeTouchable.pressMode.highlight ? React.cloneElement(
+      child,
+      {
+        onPressIn: () => {
+          this._onItemPressIn(index)
+          if (child.props.onPressIn) {
+            child.props.onPressIn()
+          }
+        },
+        onPressOut: () => {
+          this._onItemPressOut(index)
+          if (child.props.onPressOut) {
+            child.props.onPressOut()
+          }
+        }
+      }
+    ) : child
+  }
+
+  _renderRowByChildren () {
+    // 这段变量声明不能放到constructor里面去，否则有一些动态渲染的列表无法刷新列表项
+    let {children} = this.props
+    let childrenArray = React.Children.toArray(children)
+    this.account = childrenArray.length
+    this.renderItems = []
+
+    for (let i in childrenArray) {
+      let child = childrenArray[i]
+      if (i > 0) {
+        this.renderItems.push(this._renderSeparator(i))
+      }
+      this.renderItems.push(this._renderChild(child, i))
     }
 
-    if (item.onPress) {
-      itemEle = <WeTouchable key={key} onPress={item.onPress}>{itemEle}</WeTouchable>
-    } else {
-      itemEle = <View key={key}>{itemEle}</View>
-    }
-
-    if (index > 0) {
-      itemEle = <View key={key}>
-        {itemSeparator}
-        {itemEle}
+    return (
+      <View style={this.props.style}>
+        {this.props.renderBorder && this._renderSeparator(TOP_SEPARATOR)}
+        {this.renderItems}
+        {this.props.renderBorder && this._renderSeparator(BOTTOM_SEPARATOR)}
       </View>
-    }
-
-    return itemEle
+    )
   }
 
   render () {
-    const {
-      data = []
-    } = this.props
+    if (this.props.children) {
+      return this._renderRowByChildren()
+    }
 
-    return (
-      <Column>
-        {data.map((item, index) => {
-          return this._renderItem(item, index)
-        })}
-      </Column>
-    )
+    return <View style={this.props.style} />
   }
 }
+
+class Row extends Component {
+  static propTypes = {
+    // 模式1， 简单纯文字，直接提供sting即可, 优先级别最低
+    label: PropTypes.string,
+    value: PropTypes.string,
+
+    // 模式2， KV模式支持分别自定义渲染, 优先级次
+    renderLabel: PropTypes.func,
+    renderValue: PropTypes.func,
+
+    // 模式3，整行自定义渲染, 优先级最高
+    renderRow: PropTypes.func
+  }
+
+  render () {
+    if (this.props.renderRow) {
+      return <View style={styles.row}>
+        {this.props.renderRow()}
+      </View>
+    } else {
+      return <View style={styles.row}>
+        {this.props.renderLabel ? this.props.renderLabel() : <Text style={styles.normalTxt}>{this.props.label}</Text>}
+        {this.props.renderValue ? this.props.renderValue() : <Text style={styles.primaryTxt}>{this.props.value}</Text>}
+      </View>
+    }
+  }
+}
+
+const styles = StyleSheet.create({
+  normalTxt: {
+    fontSize: ProUI.fontSize.medium,
+    color: ProUI.color.sub
+  },
+  primaryTxt: {
+    fontSize: ProUI.fontSize.medium,
+    color: ProUI.color.primary
+  },
+  row: {
+    ...ProUI.layout.rowJustify,
+    height: ProUI.fixedRowHeight,
+    paddingHorizontal: ProUI.spaceX.large
+  }
+})
+
+Index.Row = Row
+export default Index

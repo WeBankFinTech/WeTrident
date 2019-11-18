@@ -8,37 +8,38 @@ import React, {Component} from 'react'
 import {View, Text, StyleSheet} from 'react-native'
 import PropTypes from 'prop-types'
 
-import Indicator from '../loading/Indicator'
+import Indicator from './Indicator'
 import { ProUI } from '../values'
 import Icon from '../Icon/Icon'
+import {iconNamePropType} from '../propTypeUtils'
+import WeTouchable from '../lib/WeTouchable'
 
 /*
  * props属性中：
  * label和status可自定义
  * iconStyle应做到统一风格
 */
-export default class DefaultListItem extends Component {
+export default class Item extends Component {
   static propTypes = {
     data: PropTypes.shape({
       // 左侧图标（可选）
-      icon: PropTypes.string,
-      // 左侧文字（必须）
-      label: PropTypes.string,
+      icon: iconNamePropType,
+      label: PropTypes.string.isRequired,
       // 右侧状态文案（可选）
       status: PropTypes.string,
       // 右侧的状态说明（可选）
       subStatus: PropTypes.string,
-      // 是否显示右侧状态栏的提示小红点（可选）
-      showHintDot: PropTypes.bool,
       // hintDot 参数
       hintDotProps: PropTypes.object,
       // 是否显示loading状态（可选，优先级高于status文本）
       loading: PropTypes.bool,
       // 右侧图标（可选，默认为箭头，如不想显示需设为null）
-      iconRight: PropTypes.string,
+      iconRight: iconNamePropType,
       // 自定义右边内容
-      renderRight: PropTypes.func
-    }),
+      renderRight: PropTypes.func,
+      // 可选，如果设置了，这表示item可以点击
+      onPress: PropTypes.func
+    }).isRequired,
     index: PropTypes.number,
     iconStyle: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
     labelStyle: PropTypes.oneOfType([PropTypes.array, PropTypes.object, PropTypes.number]),
@@ -50,13 +51,25 @@ export default class DefaultListItem extends Component {
   }
 
   render () {
-    const {data, iconStyle, style, labelStyle, statusStyle, rightStyle, hintDotStyle, subStatusStyle} = this.props
-    const iconRight = data.iconRight !== null ? (data.iconRight || 'forward') : null
+    const {
+      data,
+      iconStyle,
+      style,
+      labelStyle,
+      statusStyle,
+      rightStyle,
+      subStatusStyle
+    } = this.props
+    const {
+      onPress
+    } = data
+
+    const Wrapper = onPress ? WeTouchable : View
 
     return (
-      <View style={[styles.item, style]}>
+      <Wrapper style={[styles.item, style]} onPress={onPress}>
         <View style={styles.piece}>
-          {!!data.icon && <Icon name={data.icon} style={[styles.icon, iconStyle]} />}
+          {data.icon ? <Icon name={data.icon} style={[styles.icon, iconStyle]} /> : null}
           {this.props.renderLabel ? this.props.renderLabel() : <Text style={[styles.label, labelStyle]}>{data.label}</Text>}
         </View>
 
@@ -65,17 +78,17 @@ export default class DefaultListItem extends Component {
           : <View>
             <View style={[styles.piece, rightStyle]}>
               {
-                data.loading ? <Indicator style={iconRight ? styles.mr10 : null} />
-                  : data.status ? <Text style={[styles.status, iconRight ? styles.mr10 : null, statusStyle]}>{data.status}</Text>
+                data.loading ? <Indicator style={data.iconRight ? styles.mr10 : null} />
+                  : data.status ? <Text style={[styles.status, data.iconRight ? styles.mr10 : null, statusStyle]}>{data.status}</Text>
                   : null
               }
               {
-                iconRight ? <Icon name={iconRight} /> : null
+                data.iconRight ? <Icon name={data.iconRight} /> : null
               }
             </View>
             {data.subStatus ? <Text style={[styles.subStatus, subStatusStyle]}>{data.subStatus}</Text> : null}
           </View>}
-      </View>
+      </Wrapper>
     )
   }
 }
@@ -108,7 +121,7 @@ const styles = StyleSheet.create({
     fontSize: ProUI.fontSize.medium
   },
   subStatus: {
-    fontSize: ProUI.fontSize.medium,
+    fontSize: ProUI.fontSize.small,
     color: ProUI.color.info,
     marginTop: ProUI.spaceY.small,
     textAlign: 'right'
