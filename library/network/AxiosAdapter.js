@@ -10,7 +10,6 @@ import Cache from './Cache'
  * @param next
  * @returns {Promise<*>}
  */
-const defaultCacheTime = 5 * 60000 // 5分钟
 const cachedResponse = {
   // $url: {
   //  createAt: '',
@@ -23,6 +22,7 @@ const _genUrlWithQuery = (path, params) => {
   return path + '?' + qs.stringify(params)
 }
 export default class AxiosAdapter {
+  defaultCacheTime = 5 * 60000 // 5分钟
   constructor () {
     this.cache = new Cache()
     this.adapter = this.adapter.bind(this)
@@ -46,7 +46,7 @@ export default class AxiosAdapter {
     if (config.method === 'get') {
       const cacheKey = _genUrlWithQuery(config.url)
 
-      const cacheData = this.cache.read(cacheKey, _.get(config, 'options.cacheMaxAgeInMs', defaultCacheTime))
+      const cacheData = this.cache.read(cacheKey, _.get(config, 'options.cacheMaxAgeInMs', this.defaultCacheTime))
       if (cacheData) {
         console.log('getCache: ', cacheKey, cacheData.createAt)
         // TODO 各种请求时间需要更新

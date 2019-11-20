@@ -35,6 +35,7 @@ class APIClient {
       }
     }
 
+    this.adapter = new AxiosAdapter()
     this._init()
   }
 
@@ -42,7 +43,6 @@ class APIClient {
     this.instance = axios.create({
       timeout: this._timeout
     })
-    this.adapter = new AxiosAdapter().adapter
 
     wrapLogInterceptor(this.instance, {
       consoleRequestKeys: ['method', 'url', 'params', 'data', 'requestHeader'],
@@ -59,8 +59,12 @@ class APIClient {
     this._init()
   }
 
+  setDefaultCacheMaxAgeInMs (defaultCacheMaxAgeInMs) {
+    this.adapter.defaultCacheTime = defaultCacheMaxAgeInMs
+  }
+
   /**
-   * 添加通用header
+   * 设置通用header
    * @param headers 通用header的内容
    * @param method 是否只在指定的method下携带此header， 默认所有method携带
    * @param match 匹配条件，只有路径匹配来此规则才会携带这些header，默认全匹配
@@ -98,10 +102,10 @@ class APIClient {
    */
   request (apiConfig, body, pathParams = {}, headers = {}, options = {}) {
     if (!apiConfig) {
-      return Promise.reject('invalid cgi config')
+      return Promise.reject('invalid api config')
     }
     // TODO warn the api format
-    // this._checkCGIFormat(apiConfig)
+    this._checkCGIFormat(apiConfig)
 
     const payload = {}
     if (apiConfig.method === 'get') {
@@ -117,7 +121,7 @@ class APIClient {
       ...apiConfig,
       ...payload,
       headers: this._mergeHeaders(apiConfig, headers),
-      adapter: this.adapter,
+      adapter: this.adapter.adapter,
       options
     }
     return this.instance.request(axiosConfig)
@@ -139,7 +143,7 @@ class APIClient {
         if (Object.prototype.toString.call(item.match) === '[object RegExp]') {
           return item.match.test(fullURL)
         } else {
-          return undefined
+          return false
         }
       })
       .map(item => item.headers)
@@ -176,17 +180,25 @@ class APIClient {
   _checkCGIFormat (cgi) {
     const descArray = []
 
+    if (!cgi.baseURL) {
+      descArray.push('baseURL should be set for api config')
+    }
+
+    if (!cgi.baseURL) {
+      descArray.push('baseURL should be set for api config ')
+    }
+
     if (!cgi.method) {
-      descArray.push('method should be set for cgi, used as HTTP Verb ')
+      descArray.push('method should be set for api, used as HTTP Verb ')
     }
     if (!cgi.desc) {
-      descArray.push('desc should be set for cgi, used for data report')
+      descArray.push('desc should be set for api, used for data report')
     }
     if (!cgi.request) {
-      descArray.push('request should be set for cgi, used for document')
+      descArray.push('request should be set for api, used for document')
     }
     if (!cgi.response) {
-      descArray.push('response should be set for cgi, used for document')
+      descArray.push('response should be set for api, used for document')
     }
     if (descArray.length > 0) {
       console.warn(descArray, cgi)
