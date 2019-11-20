@@ -1,6 +1,12 @@
 import axios from 'axios'
 import wrapLogInterceptor from './wrapLogInterceptor'
 import AxiosAdapter from './AxiosAdapter'
+import { setupCache } from 'axios-cache-adapter'
+
+// Create `axios-cache-adapter` instance
+const cache = setupCache({
+  maxAge: 15 * 60 * 1000
+})
 
 /**
  * 1. 封装axios
@@ -36,6 +42,7 @@ class APIClient {
     this.instance = axios.create({
       timeout: this._timeout
     })
+    this.adapter = new AxiosAdapter().adapter
 
     wrapLogInterceptor(this.instance, {
       consoleRequestKeys: ['method', 'url', 'params', 'data', 'requestHeader'],
@@ -82,16 +89,18 @@ class APIClient {
 
   /**
    *
-   * @param apiConfig
-   * @param body
-   * @param pathParams
-   * @param headers
+   * @param apiConfig api defined
+   * @param body request body, http request payload
+   * @param pathParams, path params, book/:isbn and {isbn: '9787111187776'} -> book/9787111187776
+   * @param headers custom header for this request
+   * @param options request config
    * @returns {Promise<never>|*}
    */
-  request (apiConfig, body, pathParams = {}, headers = {}) {
+  request (apiConfig, body, pathParams = {}, headers = {}, options = {}) {
     if (!apiConfig) {
       return Promise.reject('invalid cgi config')
     }
+    // TODO warn the api format
     // this._checkCGIFormat(apiConfig)
 
     const payload = {}
@@ -102,13 +111,14 @@ class APIClient {
     }
 
     const Route = require('route-parser')
-    apiConfig.path = new Route(apiConfig.url).reverse(pathParams)
+    apiConfig.url = new Route(apiConfig.url).reverse(pathParams)
 
     const axiosConfig = {
       ...apiConfig,
       ...payload,
       headers: this._mergeHeaders(apiConfig, headers),
-      adapter: new AxiosAdapter().adapter
+      adapter: this.adapter,
+      options
     }
     return this.instance.request(axiosConfig)
   }
@@ -135,11 +145,11 @@ class APIClient {
       .map(item => item.headers)
       .reduce((previousValue = {}, currentValue = {}) => ({ ...previousValue, ...currentValue }))
     const cgiConfigHeaders = apiConfig.headers || {}
-    console.log('mergeHeaders', {
-      ...matchedHeader,
-      ...cgiConfigHeaders,
-      ...apiHeaders
-    })
+    // console.log('mergeHeaders', {
+    //   ...matchedHeader,
+    //   ...cgiConfigHeaders,
+    //   ...apiHeaders
+    // })
 
     return {
       ...matchedHeader,

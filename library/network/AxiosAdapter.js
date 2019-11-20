@@ -1,5 +1,7 @@
 import axios from 'axios'
 import _ from 'lodash'
+import AxiosMocker from './AxiosMocker'
+import Cache from './Cache'
 
 /**
  * 1. 处理客户端的请求缓存
@@ -15,10 +17,17 @@ const cachedResponse = {
   //  response: {},
   // }
 }
+
+const qs = require('qs')
+const _genUrlWithQuery = (path, params) => {
+  return path + '?' + qs.stringify(params)
+}
 export default class AxiosAdapter {
-  // constructor () {
-  //   this.cache = new Cache()
-  // }
+  constructor () {
+    this.cache = new Cache()
+    this.adapter = this.adapter.bind(this)
+  }
+
   adapter (config) {
     // TODO 先判读Mock
     if (config.mockable === true) {
@@ -29,51 +38,42 @@ export default class AxiosAdapter {
         const randomMockFunc = mockResponse[randomIndex]
         const response = randomMockFunc(config)
         return Promise.resolve(response)
+      } else if (_.isObject(mockResponse)) {
+        return Promise.resolve(AxiosMocker.success(mockResponse)(config))
       }
     }
 
-    // TODO 再判读缓存, 只有get处理缓存
-    // if (config.method === 'get') {
-    //   const cacheKey = this._genUrlWithQuery(config.url)
-    //
-    //   const cacheData = this.cache.read(cacheKey)
-    //   if (cacheData) {
-    //     return Promise.resolve(cacheData)
-    //   }
-    // }
-    //
-    // try {
-    //   await axios.defaults.adapter(config)
-    // } catch (e) {
-    //   console.log(e)
-    // }
+    if (config.method === 'get') {
+      const cacheKey = _genUrlWithQuery(config.url)
 
+      const cacheData = this.cache.read(cacheKey, _.get(config, 'options.cacheMaxAgeInMs', defaultCacheTime))
+      if (cacheData) {
+        console.log('getCache: ', cacheKey, cacheData.createAt)
+        // TODO 各种请求时间需要更新
+        return Promise.resolve(cacheData.response)
+      }
+    }
+
+    // return axios.defaults.adapter(config)
     // TODO 最后直接走default的adapter
-    return axios.defaults.adapter(config)
+    return new Promise((resolve, reject) => {
+      axios.defaults.adapter(config).then((response) => {
+        this.setCacheResponse(config.url, config.params, response)
+        resolve(response)
+      }, reject)
+    })
   }
 
   setCacheResponse (url, params, response) {
-    const cacheKey = this._genUrlWithQuery(url, params, '')
-    this.cachedResponse[cacheKey] = {
+    const cacheKey = _genUrlWithQuery(url, params)
+    console.log('setCacheResponse: ', cacheKey)
+    this.cache.write(cacheKey, {
       createAt: new Date().getTime(),
-      response
-    }
-  }
-
-  _genUrlWithQuery (path, params, cgiPrefix) {
-    let url = path + '?'
-    params = params || {}
-    Object.keys(params).sort().forEach((key) => {
-      /* TODO 如果value是个对象（Array 或者 Object）序列化一下，但是这里要注意两个问题：
-       1, 内部keys是否需要有排序需求。
-       2, get请求串长度是有限制的，调用者请自己注意 -- feshionxu 20170713
-       */
-      if (typeof params[key] === 'object') {
-        url += (key + '=' + encodeURIComponent(JSON.stringify(params[key])) + '&')
-      } else {
-        url += (key + '=' + encodeURIComponent(params[key]) + '&')
+      response: {
+        ...response,
+        fromCache: true
       }
     })
-    return url
   }
+
 }
