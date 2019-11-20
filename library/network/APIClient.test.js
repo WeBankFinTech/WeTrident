@@ -119,7 +119,7 @@ describe('network request', () => {
       baseURL: 'http://localhost:4444',
       method: 'get',
       url: '/v1/bookList',
-      desc: '请求书籍列表'
+      desc: '请求书籍列表',
       request: {},
       response: {
         data: 'mockdata'
