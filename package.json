@@ -19,7 +19,7 @@
     "url": "git+http://git.weoa.com/app/trident.git"
   },
   "author": "erichua",
-  "license": "ISC",
+  "license": "Apache License 2.0",
   "bugs": {
     "url": "http://git.weoa.com/app/trident/issues"
   },

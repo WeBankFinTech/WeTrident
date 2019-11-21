@@ -5,3 +5,5 @@ docs/
 global-cli/node_modules/
 app-seed/node_modules/
 node_modules/
+.idea/
+.gradle/
