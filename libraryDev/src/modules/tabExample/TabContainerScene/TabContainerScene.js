@@ -4,6 +4,7 @@
  * Created by rcrabwu on 2019-10-28T08:43:20.544Z.
  */
 import React, { Component } from 'react'
+import { Image } from 'react-native'
 import { WeBaseScene } from '@webank/trident'
 import { TabNavigator, DrawerNavigator } from '@unpourtous/react-navigation'
 import ModuleManager from '@webank/trident/library/navigation/ModuleManager'
@@ -20,7 +21,7 @@ export default class TabContainerScene extends WeBaseScene {
   constructor (props) {
     super(props)
 
-    const wrappedModule = createModuleConnect(ModulePrivate)()
+    const wrappedModule = createModuleConnect(ModulePrivate('tabExamples'))()
     const homeTabConfig = HomeTab(ModuleManager.connectedContainer, wrappedModule)
     const settingTabConfig = SettingTab(ModuleManager.connectedContainer, wrappedModule)
 
@@ -29,6 +30,21 @@ export default class TabContainerScene extends WeBaseScene {
       'Home': createSceneConnect(homeTabConfig)(homeTabConfig.component),
       'Setting': createSceneConnect(settingTabConfig)(settingTabConfig.component)
     }, {
+      navigationOptions: ({navigation}) => ({
+        tabBarIcon: ({focused, tintColor}) => {
+          const {routeName} = navigation.state
+          let iconSource
+          if (routeName === 'Home') {
+            iconSource = focused ? require('../images/icon-home-focus.png') : require('../images/icon-home.png')
+          } else if (routeName === 'Setting') {
+            iconSource = focused ? require('../images/icon-setting-focus.png') : require('../images/icon-setting.png')
+          }
+
+          // You can return any component that you like here! We usually use an
+          // icon component from react-native-vector-icons
+          return <Image style={{width: 25, height: 25}} source={iconSource} resizeMode='cover' />
+        },
+      }),
       initialRouteName: this.params.initialTab
     })
 
