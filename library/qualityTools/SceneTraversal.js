@@ -341,7 +341,7 @@ class SceneTraversal {
     if (!_.isEmpty(config) && !_.isEmpty(this.current.moduleName) && !_.isEmpty(this.current.sceneName)) {
       let moduleConfig = config[this.current.moduleName]
       return ((_.isString(moduleConfig) && moduleConfig === '*') ||
-        (_.isArray(moduleConfig) && _.findIndex(moduleConfig, this.current.sceneName) >= 0))
+        (_.isArray(moduleConfig) && _.findIndex(moduleConfig, item => item === this.current.sceneName) >= 0))
     } else {
       return defaultValue
     }
