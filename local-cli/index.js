@@ -14,6 +14,16 @@ function run (root) {
       init(root, projectName, bundleId)
       break
     }
+    case 'distribute': {
+      switch (subCmd) {
+        case 'androidPack': {
+          const androidPackager = require('./distribute').androidPack
+          androidPack(root)
+          break
+        }
+      }
+      break
+    }
     case 'gen': {
       const gen = require('./gen')
       const projectName = subCmd

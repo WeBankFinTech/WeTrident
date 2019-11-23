@@ -4,6 +4,11 @@ mkdir bin
 
 echo 【2/4】准备源文件
 sourceApk=android_release.apk
+sourceApkPath=`find . -name $sourceApk`
+if [ ! -n "$sourceApkPath" ]; then
+	echo "[Error]: android_release.apk doesn't exists, check it out please."
+	exit
+fi
 cp $sourceApk ./bin
 
 function buildApks()
