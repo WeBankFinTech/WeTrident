@@ -115,7 +115,7 @@ io.sockets.on('connection', socket => {
       io.emit('prepare', {records: recentRecords, strategy})
     },
     () => {
-      io.emit('prepare', {records: [], strategy: []})
+      io.emit('prepare', {records: [], strategy: {}})
     }
   )
 
@@ -200,7 +200,31 @@ function loadRecentRecords() {
 }
 
 function loadStrategy() {
-  return Promise.resolve([])
+  let fs = require('fs')
+  let strategyFilePath = './strategy.json'
+  return new Promise((resolve, reject) => {
+    fs.exists(strategyFilePath, exists => {
+      if (exists) {
+        fs.readFile(strategyFilePath, (error, data) => {
+          if (error) {
+            console.log(error)
+            resolve({})
+          } else {
+            try {
+              let config = JSON.parse(data.toString().trim())
+              resolve(config)
+            } catch (error) {
+              console.log(error)
+              resolve({})
+            }
+          }
+        })
+      } else {
+        console.log("not exists")
+        resolve({})
+      }
+    })
+  })
 }
 
 function getRecordsRootDir() {

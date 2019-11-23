@@ -26,7 +26,8 @@ class SceneTraversal {
     this.preorder = {}
     this.current = {}
     this.activeTab = {}
-    this.appointmentList = {}
+    this.whitelist = null
+    this.blacklist = null
     this.traversing = false
     this.dataRecorder = new DataRecorder(this._onDataRecorderMessage.bind(this))
     this.isPrepared = false
@@ -148,6 +149,11 @@ class SceneTraversal {
     this.current.moduleName = moduleName
     this.current.sceneName = sceneName
     this.current.navigation = _.get(entrance, 'props.navigation', null)
+
+    if (this._isMatchBlacklist() || !this._isMatchWhitelist()) {
+      this._onTraversalEnd()
+      return
+    }
 
     const rootNode = this._findRootNode(moduleName, sceneName, currentNode)
     this._markNodeKeys(rootNode)
@@ -323,6 +329,24 @@ class SceneTraversal {
           ((TabConfig[currentScene[0]] && TabConfig[currentScene[0]][currentScene[1]]) && moduleName === currentScene[0] && moduleName === this.activeTab.tabModule && sceneName === this.activeTab.tabName)
   }
 
+  _isMatchWhitelist () {
+    return this._isMatchConfig(this.whitelist, true)
+  }
+
+  _isMatchBlacklist () {
+    return this._isMatchConfig(this.blacklist, false)
+  }
+
+  _isMatchConfig (config, defaultValue = false) {
+    if (!_.isEmpty(config) && !_.isEmpty(this.current.moduleName) && !_.isEmpty(this.current.sceneName)) {
+      let moduleConfig = config[this.current.moduleName]
+      return ((_.isString(moduleConfig) && moduleConfig === '*') ||
+        (_.isArray(moduleConfig) && _.findIndex(moduleConfig, this.current.sceneName) >= 0))
+    } else {
+      return defaultValue
+    }
+  }
+
   runTest (moduleName, sceneName, sceneInstance) {
     if (!_.has(this.isVisit, moduleName)) {
       this.isVisit[moduleName] = {}
@@ -432,6 +456,13 @@ class SceneTraversal {
             }
           })
         }
+
+        // load strategy
+        if (!_.isEmpty(content) && !_.isEmpty(content.strategy)) {
+          this.whitelist = _.get(content.strategy, 'whitelist', null)
+          this.blacklist = _.get(content.strategy, 'blacklist', null)
+        }
+
         this.isPrepared = true
         if (!_.isEmpty(this.cacheAction)) {
           let cacheModuleName = this.cacheAction.moduleName
