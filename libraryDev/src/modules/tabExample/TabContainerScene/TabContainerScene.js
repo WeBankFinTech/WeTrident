@@ -21,7 +21,7 @@ export default class TabContainerScene extends WeBaseScene {
   constructor (props) {
     super(props)
 
-    const wrappedModule = createModuleConnect(ModulePrivate('tabExamples'))()
+    const wrappedModule = createModuleConnect(ModulePrivate('tabExample'))()
     const homeTabConfig = HomeTab(ModuleManager.connectedContainer, wrappedModule)
     const settingTabConfig = SettingTab(ModuleManager.connectedContainer, wrappedModule)
 

@@ -8,7 +8,7 @@ export default (global, ModulePrivate) => ({
   moduleName: ModulePrivate.moduleName,
   sceneName: 'TabContainerScene',
   component: require('./TabContainerScene').default,
-  tabs: [HomeTab, SettingTab],
+  childComponent: [HomeTab, SettingTab],
   /**
    * 定义scene级别数据的初始值
    */

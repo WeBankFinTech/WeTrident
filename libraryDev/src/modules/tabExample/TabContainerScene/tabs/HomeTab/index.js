@@ -3,6 +3,7 @@
  */
 export default (global, ModulePrivate) => ({
   moduleName: ModulePrivate.moduleName,
+  parentName: 'TabContainerScene',
   sceneName: 'HomeTab',
   component: require('./HomeTab').default,
 
