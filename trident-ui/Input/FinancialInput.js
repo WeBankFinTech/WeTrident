@@ -12,9 +12,11 @@ import Icon from '../Icon/Icon'
 import { ProUI } from '../values'
 import WeWarningBar from './lib/WeWarningBar'
 import {RenderUtils} from '../utils'
+import CurrencySymbols from './CurrencySymbols'
 
 class FinancialInput extends Component {
   static propTypes = {
+    currencyCode: PropTypes.oneOf(Object.keys(CurrencySymbols)),
     autoFocus: PropTypes.bool, // 自动聚焦，拉起键盘
     disabled: PropTypes.bool, // 是否不可更改
 
@@ -37,6 +39,7 @@ class FinancialInput extends Component {
     amount: '',
     autoFocus: false,
     disabled: false,
+    currencyCode: 'CNY'
   }
 
   onFocus = () => {
@@ -64,7 +67,8 @@ class FinancialInput extends Component {
       warning,
       bottomInfo,
       autoFocus,
-      placeholder
+      placeholder,
+      currencyCode
     } = this.props
 
     let unit = this.getAmountInputUnit(amount)
@@ -102,7 +106,7 @@ class FinancialInput extends Component {
           paddingRight: ProUI.spaceX.large,
           paddingBottom: 10
         }}>
-          <TouchableWithoutFeedback accessibilityLabel={`金额 ${amount}`}>
+          <TouchableWithoutFeedback>
             <View style={{
               flex: 1,
               flexDirection: 'row',
@@ -113,9 +117,8 @@ class FinancialInput extends Component {
                 fontSize: 40,
                 color: disabled ? ProUI.color.sub : ProUI.color.primary,
                 marginRight: ProUI.spaceX.medium
-              }}>¥</Text>
+              }}>{CurrencySymbols[currencyCode]}</Text>
               <TextInput
-                ref={(ref) => { if (ref) { this._textInputRef = ref } }}
                 style={{
                   flex: 1,
                   fontSize: amount && amount.length > 10 ? 35 : 40,
