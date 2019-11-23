@@ -121,6 +121,11 @@ class SceneTraversal {
       (type === 'Text')) // text with onPress
   }
 
+  // 给元素添加 ignoreTraversal 属性，标记该元素跳过遍历
+  _isIgnored (node) {
+    return _.get(node, 'memoizedProps.ignoreTraversal', false)
+  }
+
   _getTouchableMethod (node) {
     return _.get(node, 'memoizedProps.onPress', null)
   }
@@ -162,11 +167,11 @@ class SceneTraversal {
 
     while (nodeQueue.length > 0) {
       currentNode = nodeQueue.shift()
-      if (this._isTouchable(currentNode)) {
+      if (!this._isIgnored(currentNode) && this._isTouchable(currentNode)) {
         nodeList.push(currentNode)
       }
 
-      if (currentNode.child) {
+      if (!this._isIgnored(currentNode) && currentNode.child) { // 父节点被屏蔽，子节点同样被屏蔽
         nodeQueue.push(currentNode.child)
       }
       if (currentNode.sibling) {
