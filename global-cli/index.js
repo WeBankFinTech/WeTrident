@@ -122,6 +122,7 @@ function initProject () {
       name: "eslint"
     }
   ];
+  // 如果使用命令行优先用命令行参数
   const _filterPromptList = promptList.filter(item => !options[item.name])
   // 先检查环境是否支持，引导安装
   if (checkResult.length > 0) {
