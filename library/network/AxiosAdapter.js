@@ -48,7 +48,7 @@ export default class AxiosAdapter {
 
       const cacheData = this.cache.read(cacheKey, _.get(config, 'options.cacheMaxAgeInMs', this.defaultCacheTime))
       if (cacheData) {
-        console.log('getCache: ', cacheKey, cacheData.createAt)
+        // console.log('getCache: ', cacheKey, cacheData.createAt)
         // TODO 各种请求时间需要更新
         return Promise.resolve(cacheData.response)
       }
@@ -66,7 +66,6 @@ export default class AxiosAdapter {
 
   setCacheResponse (url, params, response) {
     const cacheKey = _genUrlWithQuery(url, params)
-    console.log('setCacheResponse: ', cacheKey)
     this.cache.write(cacheKey, {
       createAt: new Date().getTime(),
       response: {
