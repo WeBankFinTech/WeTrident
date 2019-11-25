@@ -65,11 +65,10 @@ export default {
     ]
   },
   requestUseCache: {
-    mockable: false,
     cacheMaxAgeInMs: 60000,
 
     baseURL: 'https://www.mocky.io/',
-    method: 'post',
+    method: 'get',
     url: '/v2/5dc964632f0000760073ec4b',
     desc: '请求书籍列表',
     request: {

@@ -26,11 +26,11 @@ if (RNEnv.isDev()) {
           const temp = action.type.split('/')
           parts.push(`${temp[0]}/setSceneState`)
           parts.push(`(${time})`)
-          parts.push(`in ${took} ms`)
+          parts.push(`in ${took && took.toFixed(2)} ms`)
         } else {
           parts.push(`${String(action.type)}`)
           parts.push(`(${time})`)
-          parts.push(`in ${took} ms`)
+          parts.push(`in ${took && took.toFixed(2)} ms`)
         }
         return parts.join(' ')
       }

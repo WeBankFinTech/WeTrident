@@ -1,6 +1,12 @@
 import axios from 'axios'
 import wrapLogInterceptor from './wrapLogInterceptor'
 import AxiosAdapter from './AxiosAdapter'
+import { setupCache } from 'axios-cache-adapter'
+
+// Create `axios-cache-adapter` instance
+const cache = setupCache({
+  maxAge: 15 * 60 * 1000
+})
 
 /**
  * 1. 封装axios
@@ -29,6 +35,7 @@ class APIClient {
       }
     }
 
+    this.adapter = new AxiosAdapter()
     this._init()
   }
 
@@ -52,8 +59,12 @@ class APIClient {
     this._init()
   }
 
+  setDefaultCacheMaxAgeInMs (defaultCacheMaxAgeInMs) {
+    this.adapter.defaultCacheTime = defaultCacheMaxAgeInMs
+  }
+
   /**
-   * 添加通用header
+   * 设置通用header
    * @param headers 通用header的内容
    * @param method 是否只在指定的method下携带此header， 默认所有method携带
    * @param match 匹配条件，只有路径匹配来此规则才会携带这些header，默认全匹配
@@ -82,17 +93,19 @@ class APIClient {
 
   /**
    *
-   * @param apiConfig
-   * @param body
-   * @param pathParams
-   * @param headers
+   * @param apiConfig api defined
+   * @param body request body, http request payload
+   * @param pathParams, path params, book/:isbn and {isbn: '9787111187776'} -> book/9787111187776
+   * @param headers custom header for this request
+   * @param options request config
    * @returns {Promise<never>|*}
    */
-  request (apiConfig, body, pathParams = {}, headers = {}) {
+  request (apiConfig, body, pathParams = {}, headers = {}, options = {}) {
     if (!apiConfig) {
-      return Promise.reject('invalid cgi config')
+      return Promise.reject('invalid api config')
     }
-    // this._checkCGIFormat(apiConfig)
+    // TODO warn the api format
+    this._checkCGIFormat(apiConfig)
 
     const payload = {}
     if (apiConfig.method === 'get') {
@@ -102,13 +115,14 @@ class APIClient {
     }
 
     const Route = require('route-parser')
-    apiConfig.path = new Route(apiConfig.url).reverse(pathParams)
+    apiConfig.url = new Route(apiConfig.url).reverse(pathParams)
 
     const axiosConfig = {
       ...apiConfig,
       ...payload,
       headers: this._mergeHeaders(apiConfig, headers),
-      adapter: new AxiosAdapter().adapter
+      adapter: this.adapter.adapter,
+      options
     }
     return this.instance.request(axiosConfig)
   }
@@ -129,17 +143,17 @@ class APIClient {
         if (Object.prototype.toString.call(item.match) === '[object RegExp]') {
           return item.match.test(fullURL)
         } else {
-          return undefined
+          return false
         }
       })
       .map(item => item.headers)
       .reduce((previousValue = {}, currentValue = {}) => ({ ...previousValue, ...currentValue }))
     const cgiConfigHeaders = apiConfig.headers || {}
-    console.log('mergeHeaders', {
-      ...matchedHeader,
-      ...cgiConfigHeaders,
-      ...apiHeaders
-    })
+    // console.log('mergeHeaders', {
+    //   ...matchedHeader,
+    //   ...cgiConfigHeaders,
+    //   ...apiHeaders
+    // })
 
     return {
       ...matchedHeader,
@@ -166,18 +180,26 @@ class APIClient {
   _checkCGIFormat (cgi) {
     const descArray = []
 
+    if (!cgi.baseURL) {
+      descArray.push('baseURL should be set for api config')
+    }
+
+    if (!cgi.baseURL) {
+      descArray.push('baseURL should be set for api config ')
+    }
+
     if (!cgi.method) {
-      descArray.push('method should be set for cgi, used as HTTP Verb ')
+      descArray.push('method should be set for api, used as HTTP Verb ')
     }
     if (!cgi.desc) {
-      descArray.push('desc should be set for cgi, used for data report')
+      descArray.push('desc should be set for api, used for data report')
     }
-    if (!cgi.request) {
-      descArray.push('request should be set for cgi, used for document')
-    }
-    if (!cgi.response) {
-      descArray.push('response should be set for cgi, used for document')
-    }
+    // if (!cgi.request) {
+    //   descArray.push('request should be set for api, used for document')
+    // }
+    // if (!cgi.response) {
+    //   descArray.push('response should be set for api, used for document')
+    // }
     if (descArray.length > 0) {
       console.warn(descArray, cgi)
     }

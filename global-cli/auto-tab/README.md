@@ -34,7 +34,7 @@ compinit
 
 ### 2. 移动自动补全文件到指定目录
 
-将自动补全文件`auto-tab-bash.sh`移动到`$HOME/.oh-my-zsh/completions/`下
+将自动补全文件`auto-tab/_tdt.sh`移动到`$HOME/.oh-my-zsh/completions/`下
 
 ### 3. 运行`source ~/.zshrc`并重启terminal
 

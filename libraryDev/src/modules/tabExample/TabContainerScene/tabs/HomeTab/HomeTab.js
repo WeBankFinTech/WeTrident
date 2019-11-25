@@ -4,16 +4,13 @@
  * Created by rcrabwu on 2019-10-24T08:41:28.998Z.
  */
 import React, { Component } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, Button } from 'react-native'
 import { WeBaseScene } from '@webank/trident'
 import NavBar from '../../components/NavBar'
 import dimens from '@webank/trident/library/uiComponent/dimens'
+import PrimaryButton from '@webank/trident/library/uiComponent/PrimaryButton'
 
 export default class HomeTab extends WeBaseScene {
-
-  componentDidMount () {
-    console.log('HomeTab componentDidMount', this.props)
-  }
 
   onResume (fromScene, toScene) {
     super.onResume(fromScene, toScene)
@@ -26,7 +23,11 @@ export default class HomeTab extends WeBaseScene {
           title={'HomeTab'}
           hideLeftButton
         />
-        <Text>Hello HomeTab</Text>
+        <PrimaryButton text={'Open Drawer'}
+                       style={{margin: 20}}
+                       onPress={() => {
+          this.props.navigation.navigate('DrawerOpen')
+        }} />
       </View>
     )
   }

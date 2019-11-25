@@ -58,11 +58,9 @@ const getMainTarget = () => {
   Object.assign(target, styleMap)
   const proxy = new Proxy(target, {
     get(target, p) {
-      // console.log(p)
       const style = styleMap[p]
       if (style) {
         mergeStyle(target, style)
-        // console.log(target[__STYLE__])
         return proxy
       } else {
         return target[p]
@@ -75,14 +73,12 @@ const getMainTarget = () => {
 const getter = (_target, p, receiver) => {
   const target = getMainTarget()
   const style = styleMap[p]
-  console.log(p)
   if (style) {
     mergeStyle(target, {
       // 将Row或Cloumn中的style拷贝到target中
       ..._target[__STYLE__],
       ...style
     })
-    console.log(target[__STYLE__])
     return target
   } else {
     return _target[p]
