@@ -12,6 +12,7 @@ const GLOBAL_STATE_KEY = 'global'
 const GLOBAL_NAVIGATION_KEY = 'navigation'
 const MODULE_STATE_KEY = 'modulePrivate'
 const MODULE_SCENE_SEPARATOR = '-'
+const SCENE_STATE_KEY = 'scenePrivate' // for those have [childComponent] property
 const SCENE_ACTION_SEPARATOR = '/'
 
 function createSceneConnect (config = {}) {
@@ -206,6 +207,13 @@ function createSceneConnect (config = {}) {
           let sceneState = _.get(state, `modules.${moduleName}.${sceneName}`, {})
           if (stateKey !== undefined) {
             sceneState = _.get(sceneState, getRealKey(stateKey), initialState)
+          }
+          // TODO 感觉这里还是假的 connectComponent
+          if (config.childComponent && config.childComponent.length > 0) {
+            sceneState = _.get(state, `modules.${moduleName}.${sceneName}.${SCENE_STATE_KEY}`, {})
+          }
+          if (config.parentName) {
+            sceneState = _.get(state, `modules.${moduleName}.${config.parentName}.${sceneName}`, {})
           }
           const moduleState = _.get(state, `modules.${moduleName}.${MODULE_STATE_KEY}`, {})
           const globalState = _.get(state, `${GLOBAL_STATE_KEY}`, {})

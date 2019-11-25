@@ -5,16 +5,11 @@
  */
 import React, { Component } from 'react'
 import { View, Text } from 'react-native'
-import { AppNavigator, WeBaseScene } from '@webank/trident'
-import PrimaryButton from '@webank/trident/library/uiComponent/PrimaryButton'
+import { WeBaseScene } from '@webank/trident'
 import NavBar from '../../components/NavBar'
 import dimens from '@webank/trident/library/uiComponent/dimens'
 
 export default class SettingTab extends WeBaseScene {
-
-  componentDidMount () {
-    console.log('SettingTab componentDidMount', this.props)
-  }
 
   render () {
     return (
@@ -24,11 +19,6 @@ export default class SettingTab extends WeBaseScene {
           hideLeftButton
         />
         <Text>Hello SettingTab</Text>
-        <PrimaryButton text={'Trident-Framework'} onPress={() => {
-          this.props.navigation.navigate('DrawerOpen')
-          // this.props.navigation.navigate('HomeTab')
-          // AppNavigator.ui.UIScene()
-        }} />
       </View>
     )
   }

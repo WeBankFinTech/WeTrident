@@ -46,7 +46,7 @@ export default class ActionSheet extends React.Component {
     }
 
     Keyboard.dismiss()
-    return PopupStub.stub.addPopup(
+    ActionSheet._id = PopupStub.stub.addPopup(
       <ActionSheet header={option.header} items={option.items} footer={option.footer} />,
       {
         mask: true,
@@ -59,6 +59,8 @@ export default class ActionSheet extends React.Component {
         wrapperStyle: {alignSelf: 'stretch', minHeight: height}
       }
     )
+
+    return ActionSheet._id
   }
 
   static hide (id) {
@@ -83,7 +85,7 @@ export default class ActionSheet extends React.Component {
             </View>}
           </WeTouchable>
         ))}
-        <WeTouchable pressMode='highlight' onPress={() => ActionSheet.hide()}>
+        <WeTouchable pressMode='highlight' onPress={() => ActionSheet.hide(ActionSheet._id)}>
           <View style={styles.footer}>
             <Text style={styles.footerItem}>取消</Text>
           </View>

@@ -46,7 +46,7 @@ export default class DemoScene extends WeBaseScene {
         <PrimaryButton text={'TabView'} onPress={() => {
           // AppNavigator.example.PluginStoreScene()
           AppNavigator.tabExample.TabContainerScene({
-            initialTab: 'Setting'
+            // initialTab: 'Setting'
           })
         }} />
       </EntryList>
