@@ -10,7 +10,9 @@ const env = require('../config/npmConfig')
 
 function initEslint () {
   // 生成eslint 并初始化git 添加hook
-  execSync(`mkdir githooks`)
+  if (!fs.existsSync('githooks')) {
+    execSync(`mkdir githooks`)
+  }
   fs.writeFileSync(path.join('./githooks','pre-commit'), githook, {encoding: 'utf-8', mode: 0o766})
   fs.writeFileSync(path.join('.eslintrc.json'), eslintrc, {encoding: 'utf-8', mode: 0o766})
   execSync(`git init`)
