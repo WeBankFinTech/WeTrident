@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React, {Component} from 'react'
 import {Image, View} from 'react-native'
 import IconNames from './IconNames'
-import {iconNamePropType} from '../propTypeUtils'
+import {iconNamePropType} from '../../propTypeUtils'
 
 export default class Icon extends Component {
   static Names = IconNames

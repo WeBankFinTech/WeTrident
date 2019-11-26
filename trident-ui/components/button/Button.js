@@ -12,8 +12,8 @@ import {
 import PropTypes from 'prop-types'
 
 import React, { Component } from 'react'
-import WeTouchable from '../lib/WeTouchable'
-import { ProUI } from '../values'
+import WeTouchable from '../../lib/WeTouchable'
+import { ProUI } from '../../values'
 
 export default class Button extends Component {
   static propTypes = {

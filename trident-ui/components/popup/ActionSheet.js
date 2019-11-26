@@ -10,11 +10,11 @@ import {
 } from 'react-native'
 import PropTypes from 'prop-types'
 import { PopupStub } from '@unpourtous/react-native-popup-stub'
-import WeTouchable from '../lib/WeTouchable'
+import WeTouchable from '../../lib/WeTouchable'
 import {
   ProUI,
   dimens
-} from '../values'
+} from '../../values'
 // 每个popup都有一个静态的show和hide方法，以及一个render
 export default class ActionSheet extends React.Component {
   static _id

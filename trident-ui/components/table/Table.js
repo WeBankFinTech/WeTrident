@@ -5,7 +5,7 @@ import {
   StyleSheet
 } from 'react-native'
 import PropTypes from 'prop-types'
-import { ProUI } from '../values'
+import { ProUI } from '../../values'
 
 const oneStyleType = PropTypes.oneOfType([PropTypes.object, PropTypes.number])
 const styleType = PropTypes.oneOfType([oneStyleType, PropTypes.arrayOf(oneStyleType)])

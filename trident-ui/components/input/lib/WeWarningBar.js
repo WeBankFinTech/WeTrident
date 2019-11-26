@@ -6,7 +6,7 @@ import React, {Component} from 'react'
 import { View, Text, StyleSheet, Platform } from 'react-native'
 
 import PropTypes from 'prop-types'
-import { ProUI } from '../../values'
+import { ProUI } from '../../../values'
 
 export default class WeWarningBar extends Component {
   static propTypes = {

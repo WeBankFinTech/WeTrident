@@ -8,7 +8,7 @@ import {
 import PropTypes from 'prop-types'
 
 import React, {Component} from 'react'
-import { ProUI } from '../values'
+import { ProUI } from '../../values'
 
 export default class Checkbox extends Component {
   static propTypes = {

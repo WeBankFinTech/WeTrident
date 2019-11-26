@@ -14,8 +14,8 @@ import PropTypes from 'prop-types'
 
 import React, { Component } from 'react'
 import Item from './Item'
-import { ProUI } from '../values'
-import WeTouchable from '../lib/WeTouchable'
+import { ProUI } from '../../values'
+import WeTouchable from '../../lib/WeTouchable'
 
 let SEPARATOR = 'we_list_separator'
 let TOP_SEPARATOR = 'top'

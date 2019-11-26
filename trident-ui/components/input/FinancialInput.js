@@ -9,9 +9,9 @@ import {
 import PropTypes from 'prop-types'
 
 import Icon from '../icon/Icon'
-import { ProUI } from '../values'
+import { ProUI } from '../../values'
 import WeWarningBar from './lib/WeWarningBar'
-import {RenderUtils} from '../utils'
+import {RenderUtils} from '../../utils'
 import CurrencySymbols from './CurrencySymbols'
 
 class FinancialInput extends Component {

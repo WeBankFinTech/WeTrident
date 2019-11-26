@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import {} from 'react-native'
 import { PopupStub } from '@unpourtous/react-native-popup-stub'
 
 export default class Popup extends Component {

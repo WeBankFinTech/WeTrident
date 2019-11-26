@@ -9,10 +9,10 @@ import {View, Text, StyleSheet} from 'react-native'
 import PropTypes from 'prop-types'
 
 import Indicator from './Indicator'
-import { ProUI } from '../values'
+import { ProUI } from '../../values'
 import Icon from '../icon/Icon'
-import {iconNamePropType} from '../propTypeUtils'
-import WeTouchable from '../lib/WeTouchable'
+import {iconNamePropType} from '../../propTypeUtils'
+import WeTouchable from '../../lib/WeTouchable'
 
 /*
  * props属性中：

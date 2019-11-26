@@ -7,9 +7,9 @@ import { View, Text, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
 import { PopupStub } from '@unpourtous/react-native-popup-stub'
 import Icon from '../icon/Icon'
-import ProUI from '../values/pro'
+import ProUI from '../../values/pro'
 import PopupZIndex from './PopupZIndex'
-import {iconNamePropType} from '../propTypeUtils'
+import {iconNamePropType} from '../../propTypeUtils'
 
 export default class Toast extends Component {
   static propTypes = {

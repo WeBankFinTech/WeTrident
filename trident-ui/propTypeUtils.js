@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import IconNames from './icon/IconNames'
+import IconNames from './components/icon/IconNames'
 
 const stylePropType = PropTypes.oneOfType([
   PropTypes.number,
