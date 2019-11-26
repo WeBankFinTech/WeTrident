@@ -190,7 +190,7 @@ export default class Demo extends Component {
         {this._renderSection('Input')}
         <FinancialInput
           // autoFocus
-          currencyCode={'INR'}
+          currencyCode={'CNY'}
           topInfo={'请输入印度卢布（头部提示信息）'}
           bottomInfo={'底部提示信息'}
           warning={'警告'}

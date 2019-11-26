@@ -2,6 +2,7 @@ import {
   createStore,
   applyMiddleware
 } from 'redux'
+import { StatusBar } from 'react-native'
 import thunk from 'redux-thunk'
 import { createLogger } from 'redux-logger'
 import React, { Component } from 'react'
@@ -13,6 +14,9 @@ import PropTypes from 'prop-types'
 import { PopupStub } from '@unpourtous/react-native-popup-stub'
 import stateChangeListener from './navigation/stateChangeListener'
 import ModuleManager from './navigation/ModuleManager'
+import TianYan, {Dashboard} from '@unpourtous/tianyan-react-native'
+import ElementMark from './qualityTools/ElementMark'
+import SceneTraversal from './qualityTools/SceneTraversal'
 import RNEnv from './utils/RNEnv'
 
 export default class TridentApp extends Component {
@@ -74,6 +78,7 @@ export default class TridentApp extends Component {
     return (
       <Provider store={this.store}>
         <this.connectedContainer>
+          <StatusBar translucent backgroundColor='transparent' />
           <Navigator />
           <PopupStub
             maskColor='rgba(0,0,0,0.75)' ref={_ref => {
@@ -91,8 +96,8 @@ export default class TridentApp extends Component {
                 return ((arguments && typeof arguments[0] === 'string' && arguments[0].match(filterRule)) ||
                   (typeof arguments[1] === 'string' && arguments[1].match(filterRule)))
               }
-            }}
-          /> : null}
+            }} /> : null}
+          <ElementMark ref={_ref => SceneTraversal.setRef(_ref)} />
         </this.connectedContainer>
       </Provider>
     )

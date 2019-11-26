@@ -1,6 +1,7 @@
 import AppNavigator from './AppNavigator'
 import _ from 'lodash'
 import URLUtils from '../utils/URLUtils'
+import SceneTraversal from '../qualityTools/SceneTraversal'
 
 export default (state, nextState, action) => {
   // gets the current screen from navigation state
@@ -82,6 +83,20 @@ export default (state, nextState, action) => {
       console.log(routeName + ' 切换耗时 ' + (endTime - navTimeConsuming[routeName].startTime))
       // Statistics.reportTimeConsuming(routeName, navTimeConsuming[routeName].startTime, endTime)
       delete navTimeConsuming[routeName]
+    }
+
+    // Traversal
+    if (action.type === 'Navigation/NAVIGATE') {
+        if (action.routeName !== 'DrawerOpen' && action.routeName !== 'DrawerClose') {
+            let names = action.routeName && action.routeName.split('/')
+            if (names && names.length === 2) {
+                SceneTraversal.onNavigate(names[0], names[1])
+            }
+        } else if (action.routeName === 'DrawerOpen') {
+            SceneTraversal.onDrawerOpen()
+        }
+    } else if (action.type === 'Navigation/BACK') {
+        SceneTraversal.onBack()
     }
   }
 }
