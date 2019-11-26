@@ -12,7 +12,8 @@
     "npmLocalPublishAll": "npm version patch && npm publish --registry http://localhost:4873 && cd global-cli && npm version patch && npm publish --registry http://localhost:4873",
     "test-tpl": "echo 'test the trident framework' && rm -rf WeBookStore && trident-cli init --name=WeBookStore --bundleId=com.trident.wbstore --scheme=wbstore && cd WeBookStore && bundle exec fastlane ios release --verbose && bundle exec fastlane android release --verbose && rm -rf ./WeBookStore",
     "syncLib": "watchman watch ./trident-ui && watchman watch ./library && wml add trident-ui libraryDev/node_modules/@webank/trident/trident-ui && wml add library libraryDev/node_modules/@webank/trident/library && wml start",
-    "standardjs": "node_modules/standard/bin/cmd.js library/**/*.js"
+    "standardjs": "node_modules/standard/bin/cmd.js library/**/*.js",
+    "devEnv": "echo npmClient=$npmClient && echo useLocal=$useLocal"
   },
   "repository": {
     "type": "git",
@@ -31,8 +32,8 @@
     "@babel/types": "^7.4.0",
     "@unpourtous/react-native-popup-stub": "^1.4.6",
     "@unpourtous/react-native-touchable": "^1.0.3",
+    "@unpourtous/react-navigation": "1.2.6",
     "axios": "0.18.0",
-    "axios-cache-adapter": "^2.5.0",
     "babel-generator": "^6.26.1",
     "inquirer": "^6.3.1",
     "iwalk": "0.0.5",
@@ -42,9 +43,17 @@
     "prop-types": "^15.7.2",
     "proxy-polyfill": "^0.3.0",
     "qs": "^6.9.1",
+    "react-native": "https://github.com/UnPourTous/react-native.git#release/0.51.7",
     "replace-in-file": "^3.4.4",
+    "react-navigation-redux-helpers": "1.0.1",
+    "react-redux": "5.0.6",
+    "redux": "3.6.0",
+    "redux-actions": "2.2.1",
+    "redux-logger": "3.0.6",
+    "redux-thunk": "2.3.0",
     "route-parser": "0.0.5",
-    "shelljs": "^0.8.3"
+    "url": "0.11.0",
+    "url-search-params": "1.1.0"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.7.0",
