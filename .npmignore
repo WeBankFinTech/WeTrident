@@ -7,3 +7,4 @@ app-seed/node_modules/
 node_modules/
 .idea/
 .gradle/
+.tridentTemp/

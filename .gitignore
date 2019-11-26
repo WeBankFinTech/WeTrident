@@ -80,3 +80,5 @@ app-seed/fastlane/README.md
 website/release/*.tar.gz
 website/release/*.tgz
 website/release/*.zip
+
+.tridentTemp/

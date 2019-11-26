@@ -17,9 +17,9 @@ function run (root) {
       const gen = require('./gen')
       const projectName = subCmd
       if (projectName === 'module') {
-        gen.generatorModule()
+        gen.generateModule(options)
       } else if (projectName === 'scene') {
-        gen.generatorScene()
+        gen.generateScene(options)
       } else {
         console.warn('unknow type, use `gen module --name=` or `gen scene` ')
       }

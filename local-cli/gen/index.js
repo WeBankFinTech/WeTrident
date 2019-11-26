@@ -76,7 +76,7 @@ function replaceAuthorAndCreateTime (fileList) {
   replaceInFile.sync({ files: fileList, from: /{{createAt}}/g, to: new Date().toISOString() })
 }
 
-function _generatorScene (moduleName) {
+function _generateScene (moduleName, options = {}) {
   setTimeout(() => {
     if (!moduleName) {
       inquirer.prompt([{
@@ -86,14 +86,21 @@ function _generatorScene (moduleName) {
         message: chalk.green('\nPlease select the which module to push Scene in !\n'),
         name: 'moduleName'
       }]).then(answers => {
-        _generatorScene(answers.moduleName)
+        _generateScene(answers.moduleName)
       })
     } else {
-      inquirer.prompt([{
-        type: 'input',
-        message: chalk.green(`\nPlease input your Scene name(module: ${moduleName})!\n`),
-        name: 'sceneName'
-      }]).then(answers => {
+      let sceneNamePromise
+      if (options.sceneName) {
+        sceneNamePromise = Promise.resolve({ sceneName: options.sceneName })
+      } else {
+        sceneNamePromise = inquirer.prompt([{
+          type: 'input',
+          message: chalk.green('\nPlease input your scene name !\n'),
+          name: 'sceneName'
+        }])
+      }
+
+      sceneNamePromise.then(answers => {
         let { sceneName } = answers
         sceneName = _.upperFirst(sceneName)
 
@@ -132,9 +139,14 @@ function _generatorScene (moduleName) {
 
         // generator AppNavigator.d.ts
         require('./AppNavigatorDSTGenarator').generatorDTS()
-        setTimeout(() => {
-          _generatorScene(moduleName)
-        }, 500)
+
+        console.log(chalk.green(`Scene '${sceneName}' successfully generated in module '${moduleName}'!`))
+        // use for e2e test
+        if (!options.onlyOnceTime) {
+          setTimeout(() => {
+            _generateScene(moduleName)
+          }, 500)
+        }
       }, () => {
         console.log(chalk.red('Input Scene name error!'))
       })
@@ -142,13 +154,19 @@ function _generatorScene (moduleName) {
   }, 500)
 }
 
-function _generatorModule () {
+function _generateModule (options) {
   setTimeout(() => {
-    inquirer.prompt([{
-      type: 'input',
-      message: chalk.green('\nPlease input your module name !\n'),
-      name: 'moduleName'
-    }]).then(answers => {
+    let moduleNamePromise
+    if (options.moduleName) {
+      moduleNamePromise = Promise.resolve({ moduleName: options.moduleName })
+    } else {
+      moduleNamePromise = inquirer.prompt([{
+        type: 'input',
+        message: chalk.green('\nPlease input your module name !\n'),
+        name: 'moduleName'
+      }])
+    }
+    moduleNamePromise.then(answers => {
       let { moduleName } = answers
 
       if (!checkNameValid(moduleName)) {
@@ -171,14 +189,16 @@ function _generatorModule () {
       const newMemberCallExpression = t.callExpression(newMember, [t.stringLiteral(moduleName)])
       const moduleArrayFunction = t.arrowFunctionExpression([], newMemberCallExpression, false)
 
-      const generate = require('babel-generator').default
-      console.log(generate(t.objectProperty(t.identifier(moduleName), moduleArrayFunction), { retainLines: true }).code)
       addElementInObject(moduleIndexPath, t.objectProperty(t.identifier(moduleName), moduleArrayFunction))
 
-      // 提示是否继续创建Scene
-      setTimeout(() => {
-        _generatorScene(moduleName)
-      }, 300)
+      console.log(chalk.green(`Module '${moduleName}' successfully generated!`))
+      // use options.onlyModule to prevent launch generate scene flow
+      if (!options.onlyModule) {
+        // 提示是否继续创建Scene
+        setTimeout(() => {
+          _generateScene(moduleName, options)
+        }, 300)
+      }
     }, () => {
       console.log('Input error!!')
     })
@@ -197,19 +217,19 @@ function fillModuleName (moduleName) {
 }
 
 // add gulp meta data
-function generatorScene () {
-  _generatorScene()
+function generateScene (options) {
+  _generateScene(options.moduleName, options)
 }
 
-generatorScene.description = chalk.green('Create a Scene in a specified module from code template !')
+generateScene.description = chalk.green('Create a Scene in a specified module from code template !')
 
-function generatorModule () {
-  _generatorModule()
+function generateModule (options) {
+  _generateModule(options)
 }
 
-generatorModule.description = chalk.green('Create a new module from code template !')
+generateModule.description = chalk.green('Create a new module from code template !')
 
 module.exports = {
-  generatorModule,
-  generatorScene
+  generateModule,
+  generateScene
 }
