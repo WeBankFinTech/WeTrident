@@ -463,6 +463,7 @@ class SceneTraversal {
         }
         break
       case 'close':
+        this.isPrepared = false
         break
     }
   }
