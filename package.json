@@ -17,14 +17,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+http://git.weoa.com/app/trident.git"
+    "url": "git+http://github.com/WeBankFinTech/WeTrident.git"
   },
   "author": "erichua",
   "license": "Apache License 2.0",
   "bugs": {
-    "url": "http://git.weoa.com/app/trident/issues"
+    "url": "http://github.com/WeBankFinTech/WeTrident/issues"
   },
-  "homepage": "http://sit-hjdata.webank.com/trident",
+  "homepage": "http://github.com/WeBankFinTech/WeTrident",
   "description": "可快速开发支持商业运营App的框架。",
   "dependencies": {
     "@babel/parser": "^7.4.3",

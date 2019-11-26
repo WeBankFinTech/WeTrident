@@ -3,9 +3,9 @@
 
 ## clone项目代码库
 ``` shell
-git clone git@git.weoa.com:app/trident.git
+git clone git@github.com:WeBankFinTech/WeTrident.git
 
-cd trident
+cd WeTrident
 
 # 安装开发需要的node版本, 请严格使用 `.nvmrc` 中标明的node版本进行开发
 nvm install
