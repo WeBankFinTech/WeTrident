@@ -8,7 +8,6 @@ const prettier = require('prettier')
  * 在Array中插入元素
  */
 function insertElementInList (arrayFilePath, element) {
-  console.log(arrayFilePath)
   const fileContent = fs.readFileSync(arrayFilePath).toString()
 
   const estree = babelParser.parse(fileContent, {
@@ -16,7 +15,6 @@ function insertElementInList (arrayFilePath, element) {
   })
   babelTraverse(estree, {
     enter (path) {
-      // console.log(path.node.type)
       if (path.node.type === 'ExportDefaultDeclaration') {
         path.traverse({
           ArrayExpression (path) {
@@ -37,7 +35,6 @@ function insertElementInList (arrayFilePath, element) {
  * @param element
  */
 function addElementInObject (objectFilePath, element) {
-  console.log(objectFilePath)
   const fileContent = fs.readFileSync(objectFilePath).toString()
 
   const estree = babelParser.parse(fileContent, {
