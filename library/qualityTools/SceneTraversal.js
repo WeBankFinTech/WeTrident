@@ -140,8 +140,6 @@ class SceneTraversal {
   }
 
   _findNodes (moduleName, sceneName, entrance) {
-    console.log('[find nodes]: ' + moduleName + ' ' + sceneName)
-
     let currentNode
     try {
       currentNode = ReactNativeComponentTree.getInstanceFromNode(findNodeHandle(entrance))
@@ -180,7 +178,7 @@ class SceneTraversal {
     }
 
     this.current.nodeList = nodeList
-    console.log('[start]: ' + this.current.moduleName + ' ' + this.current.sceneName + ' get nodes = ' + nodeList.length)
+    // console.log('[start]: ' + this.current.moduleName + ' ' + this.current.sceneName + ' get nodes = ' + nodeList.length)
 
     let formerModule = _.get(this.preorder, 'former.moduleName')
     let formerScene = _.get(this.preorder, 'former.sceneName')
@@ -201,7 +199,6 @@ class SceneTraversal {
   _onMeasure (x, y, w, h) {
     if (this.ref) {
       this.ref.setMarkPosition(x, y, w, h)
-      console.log(x + ' ' + y + ' ' + w + ' ' + h)
     }
   }
 
@@ -220,7 +217,6 @@ class SceneTraversal {
       try {
         func()
       } catch (e) {
-        console.log('traversing error: ' + JSON.stringify(e))
         this.recordError(e)
       }
 
@@ -234,7 +230,7 @@ class SceneTraversal {
         this.dataRecorder.record(`[replay]${this.current.moduleName}_${this.current.sceneName}_${this.current.nodeList[index]._debugSource}`)
         func()
       } catch (e) {
-        console.log('replay error: ' + JSON.stringify(e))
+
       }
     }
 
@@ -248,8 +244,6 @@ class SceneTraversal {
         this.isVisit[this.current.moduleName][this.current.sceneName][node._debugSource] = true
         let func = this._getTouchableMethod(node)
         if (_.isFunction(func)) {
-          console.log(isReplay ? '[replaying]: ' : '[traversing]: ' + this.current.moduleName + ' ' + this.current.sceneName + ' ' + node._debugSource)
-
           let measure = this._findMeasure(node)
           if (measure) {
             try {
@@ -260,15 +254,12 @@ class SceneTraversal {
                 }, 1000)
               })
             } catch (e) {
-              console.log('on measure element error: ' + JSON.stringify(e))
               isReplay ? _replay(func) : _processElement(func)
             }
           } else {
-            console.log('no measure!!!!')
             isReplay ? _replay(func) : _processElement(func)
           }
         } else {
-          console.log('[not function]: ' + this.current.moduleName + ' ' + this.current.sceneName + ' ' + node._debugSource)
           this.current.timer = setTimeout(() => {
             this._traversal(index + 1)
           })
@@ -279,7 +270,6 @@ class SceneTraversal {
         })
       }
     } else {
-      console.log('[the end]: ' + this.current.moduleName + ' ' + this.current.sceneName)
       this.dataRecorder.record(`[finished]${this.current.moduleName}_${this.current.sceneName}`)
       _.set(this.preorder, [this.current.moduleName, this.current.sceneName, 'nodeMark'], undefined) // remove from preorder collections
       this.traversing = false
@@ -372,7 +362,6 @@ class SceneTraversal {
   }
 
   _onBreakOldTraversal () {
-    console.log('[break old]')
     if (this.current.timer) {
       clearTimeout(this.current.timer)
     }
@@ -385,12 +374,10 @@ class SceneTraversal {
   }
 
   onNavigate (moduleName, sceneName) {
-    console.log('[on navigate]')
     this._onBreakOldTraversal()
   }
 
   onBack () {
-    console.log('[on back]')
     this._onBreakOldTraversal()
     this.replay = !this.finishMarkOnBack
     this.finishMarkOnBack = false
@@ -403,7 +390,6 @@ class SceneTraversal {
 
   unregisterTab (moduleName, sceneName) {
     if (this.current.moduleName === moduleName && this.current.sceneName === sceneName) {
-      console.log('[on switch tab]')
       this._onBreakOldTraversal()
     }
   }
@@ -425,7 +411,6 @@ class SceneTraversal {
   }
 
   recordError (error) {
-    console.log(error)
     this.dataRecorder.record(`[error]${this.current.moduleName}_${this.current.sceneName}_${error && error.message}`)
   }
 
@@ -494,7 +479,6 @@ class DataRecorder {
     this.websocket = new window.WebSocket('ws://localhost:3000/socket.io/?EIO=4&transport=websocket')
 
     this.websocket.onopen = evt => {
-      console.log('[DataRecorder] Connection open.')
       this._startHeartBeat()
       if (_.isFunction(callback)) {
         callback()
@@ -518,14 +502,12 @@ class DataRecorder {
     }
 
     this.websocket.onclose = evt => {
-      console.log('[DataRecorder] Connection closed.')
       this._stopHeartBeat()
       this.messenger('close')
     }
 
     this.websocket.error = evt => {
-      console.log('[DataRecorder] Connection error.')
-      console.log(evt)
+
     }
   }
 
@@ -534,8 +516,7 @@ class DataRecorder {
       try {
         this.websocket.send(`42["message", "${message}"]`)
       } catch (e) {
-        console.log('[DataRecorder] Send message error.')
-        console.log(e)
+
       }
     }
     if (!_.isEmpty(message)) {
@@ -553,7 +534,7 @@ class DataRecorder {
         try {
           this.websocket.send('2probe')
         } catch (e) {
-          console.log('[DataRecorder] Send heart beat error.')
+
         }
       }
     }, 3000)
@@ -568,7 +549,7 @@ class DataRecorder {
   }
 
   _onHeartBeat () {
-    console.log('receive heart beat.')
+
   }
 
   _onBizMessage (message) {
@@ -584,7 +565,7 @@ class DataRecorder {
           this.messenger(params[0], params[1])
         }
       } catch (e) {
-        console.log('parse biz message error.')
+
       }
     }
   }

@@ -88,7 +88,6 @@ export default (state, nextState, action) => {
     // Traversal
     if (action.type === 'Navigation/NAVIGATE') {
         if (action.routeName !== 'DrawerOpen' && action.routeName !== 'DrawerClose') {
-            console.log(action.routeName)
             let names = action.routeName && action.routeName.split('/')
             if (names && names.length === 2) {
                 SceneTraversal.onNavigate(names[0], names[1])

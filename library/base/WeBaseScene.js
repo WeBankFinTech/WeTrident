@@ -73,7 +73,6 @@ export default class WeBaseScene extends Component {
 
   onIdle () {
       const { moduleName, sceneName } = this.props
-      console.log('on scene idle')
       SceneTraversal.runTest(moduleName, sceneName, this)
   }
 
