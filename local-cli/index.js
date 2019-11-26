@@ -4,7 +4,6 @@ const options = require('minimist')(process.argv.slice(2))
 function run (root) {
   const cmd = options._[0]
   const subCmd = options._[1]
-  // console.log('root: ' + root)
 
   switch (cmd) {
     case 'init': {
@@ -37,13 +36,46 @@ function run (root) {
       break
     }
     case 'packager': {
+      if (subCmd === 'start') {
+        const packager = require('./packager')
+        packager.start(options)
+        break
+      }
+      break
+    }
+    case 'release': {
+      const release = require('./release')
       switch (subCmd) {
-        case 'start': {
-          const packager = require('./packager')
-          packager.start(options)
+        case 'android': {
+          release.releaseAndroid(options)
+          break
+        }
+        case 'ios': {
+          release.releaseIOS(options)
           break
         }
       }
+      break
+    }
+    case 'install': {
+      const install = require('./install')
+      install.installAll(options)
+      break
+    }
+    case 'run': {
+      const run = require('./run')
+      switch (subCmd) {
+        case 'android': {
+          run.runAndroid(options)
+          break
+        }
+        case 'ios': {
+          run.runIOS(options)
+          break
+        }
+      }
+      run.runAndroid(options)
+      break
     }
     case 'plugin': {
       // TODO 每条命令添加参数检查

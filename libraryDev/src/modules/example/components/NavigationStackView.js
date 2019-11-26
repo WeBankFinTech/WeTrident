@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Text } from 'react-native'
-import { List, L } from '@webank/trident/trident-ui'
+import { List, Column } from '@webank/trident/trident-ui'
 import PropTypes from 'prop-types'
 
 export default class extends Component {
@@ -15,7 +15,7 @@ export default class extends Component {
       routes = []
     }
     return (
-      <L.Column.MainStart.CrossStart style={{
+      <Column.MainStart.CrossStart style={{
         paddingHorizontal: 16
       }}>
         <Text style={{
@@ -28,10 +28,12 @@ export default class extends Component {
           marginTop: 8
         }}>
           {[...routes].reverse().map((item, index) => {
-            return <Text style={{ paddingVertical: 4 }}>{routes.length - index - 1}. {item.routeName}</Text>
+            return <Text
+              key={'key' + index}
+              style={{ paddingVertical: 4 }}>{routes.length - index - 1}. {item.routeName}</Text>
           })}
         </List>
-      </L.Column.MainStart.CrossStart>
+      </Column.MainStart.CrossStart>
     )
   }
 }

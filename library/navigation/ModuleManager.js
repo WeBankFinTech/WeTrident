@@ -32,12 +32,12 @@ export default class ModuleManager {
   }
 
   static flatModule (connectedModules) {
-    let flatRoutes = {}
+    const flatRoutes = {}
     const moduleNames = Object.keys(connectedModules.routers)
-    for (let moduleName of moduleNames) {
+    for (const moduleName of moduleNames) {
       const sceneNames = Object.keys(connectedModules.routers[moduleName])
-      for (let sceneName of sceneNames) {
-        let routeName = generateRouteName(moduleName, sceneName)
+      for (const sceneName of sceneNames) {
+        const routeName = generateRouteName(moduleName, sceneName)
         flatRoutes[routeName] = connectedModules.routers[moduleName][sceneName]
       }
     }
@@ -65,14 +65,29 @@ export default class ModuleManager {
 
       const wrappedSceneList = []
       reducers[moduleItem.moduleName] = combineReducers({
-        ['modulePrivate']: wrappedModule.reducer,
+        modulePrivate: wrappedModule.reducer,
         ...(moduleItem.sceneList.reduce((result, getSceneItem) => {
           const sceneConfig = getSceneItem(connectedContainer, wrappedModule)
           const wrappedScene = createSceneConnect(sceneConfig)(sceneConfig.component)
           wrappedSceneList.push(wrappedScene)
+          let sceneReducer = wrappedScene.reducer
+
+          if (sceneConfig.childComponent && sceneConfig.childComponent.length > 0) {
+            const childComponents = {}
+            for (let childComponent of sceneConfig.childComponent) {
+              const childComponentConfig = childComponent(connectedContainer, wrappedModule)
+              const wrappedComponent = createSceneConnect(childComponentConfig)(childComponentConfig.component)
+              childComponents[wrappedComponent] = wrappedComponent.reducer
+            }
+            sceneReducer = combineReducers({
+              scenePrivate: wrappedScene.reducer,
+              ...childComponents
+            })
+          }
+
           return {
             ...result,
-            [wrappedScene]: wrappedScene.reducer
+            [wrappedScene]: sceneReducer
           }
         }, {}))
       })

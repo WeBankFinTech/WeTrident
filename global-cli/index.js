@@ -47,17 +47,39 @@ program
 // 此库目前这里有问题暂时用自定义提示
 //.command('init', 'init trident project', { executableFile: '' }).alias('i')
 .on('--help', function(){
-  console.log('');
-  console.log('Commands:');
-  console.log(' init         init trident project');
+  console.log(`Commands:
+  init         init trident project
+  env          check the environment required for the project
+  `);
 })
 .action((value, cmd) => {
   switch (value) {
     case 'init':
       initProject()
       break
-    default:
+    case 'env':
+      if (checkResult.length > 0) {
+        console.log(chalk.red('Error:'))
+        logError(checkResult)
+      } else {
+        console.log(chalk.green('Everything is OK!'))
+      }
+      break
+    case 'help':
       program.help()
+      break
+    default:
+      if (cli) { // 如果在Trident项目内，所有命令由local-cli接管
+        cli.run(path.resolve(options.name || '.'))
+      } else {
+        console.error(
+          'Command `%s` unrecognized. ' +
+          'Make sure that you are inside a trident project.',
+          commands[0]
+        )
+        process.exit(1)
+      }
+      break
   }
 })
 
@@ -91,7 +113,7 @@ function initProject () {
       default: "tridentDemo"
     }, {
       type: 'input',
-      message: '请输入远程调试端口(Please enter remove debug port):',
+      message: '请输入远程调试端口(Please enter remote debug port):',
       name: 'port',
       default: 8082
     }, {
@@ -100,20 +122,31 @@ function initProject () {
       name: "eslint"
     }
   ];
+  // 如果使用命令行优先用命令行参数
+  const _filterPromptList = promptList.filter(item => !options[item.name])
   // 先检查环境是否支持，引导安装
-  if (false && checkResult.length > 0) {
+  if (checkResult.length > 0) {
     processCheckResult(checkResult).then(() => {
-      inquirer.prompt(promptList).then(answers => {
-        console.log(answers);
-        const {name, bundleId, scheme, port, eslint} = answers
+      inquirer.prompt(_filterPromptList).then(answers => {
+        const {
+          name = answers.name,
+          bundleId = answers.bundleId,
+          scheme = answers.scheme,
+          port = answers.port,
+          eslint = answers.eslint} = options || answers
         createProject(name, bundleId, scheme, port, eslint, options)
       })
     }, () => {
       // console.log
     })
   } else {
-    inquirer.prompt(promptList).then(answers => {
-      const {name, bundleId, scheme, port, eslint} = answers
+    inquirer.prompt(_filterPromptList).then(answers => {
+      const {
+        name = answers.name,
+        bundleId = answers.bundleId,
+        scheme = answers.scheme,
+        port = answers.port,
+        eslint = answers.eslint} = options || answers
       createProject(name, bundleId, scheme, port, eslint, options)
     })
   }
@@ -244,6 +277,15 @@ function createNewProject (root, projectName, bundleId, scheme, port, eslint, op
 function getInstallPackage (rnPackage) {
   return '@webank/trident --exact'
 }
+
+function logError (...args) {
+  if (args.length === 1 && args[0] instanceof Error) {
+    var err = args[0];
+    console.error('Error: "' + err.message + '".  Stack:\n' + err.stack);
+  } else {
+    console.error.apply(console, args);
+  }
+};
 
 return
 // TODO ===========================end================================

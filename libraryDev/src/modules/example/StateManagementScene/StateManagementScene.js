@@ -5,7 +5,7 @@
  */
 import React from 'react'
 import { AppNavigator, WeBaseScene } from '@webank/trident'
-import { Column, L } from '@webank/trident/trident-ui'
+import { Column } from '@webank/trident/trident-ui'
 import EntryList from '../../../bizComponents/EntryList'
 import PrimaryButton from '@webank/trident/library/uiComponent/PrimaryButton'
 import ObjectView from '../components/ObjectView'
@@ -18,7 +18,7 @@ export default class StateManagementScene extends WeBaseScene {
   render () {
     const { sceneCount, moduleCount, globalCount } = this.props
     return (
-      <L.Column style={{ flex: 1 }}>
+      <Column style={{ flex: 1 }}>
         <EntryList style={{ flex: 1 }}>
           <PrimaryButton text={`Scene Count Sync ${sceneCount}+1`} onPress={() => {
             this.props.addCount(1)
@@ -42,7 +42,7 @@ export default class StateManagementScene extends WeBaseScene {
         </EntryList>
 
         <ObjectView {...this.props} />
-      </L.Column>
+      </Column>
     )
   }
 }

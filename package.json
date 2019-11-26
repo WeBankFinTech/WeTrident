@@ -1,24 +1,25 @@
 {
   "name": "@webank/trident",
-  "version": "1.2.17",
+  "version": "1.2.18",
   "main": "library/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node_modules/jest/bin/jest.js",
     "patchVersion": "npm version patch && cd global-cli && npm version patch && cd ..",
-    "publishAll": "npm publish && cd global-cli && npm publish",
+    "publishAll": "npm config set registry=http://localhost:4873/ && npm unpublish @webank/trident --force && npm unpublish @webank/trident-cli --force && npm publish && cd global-cli && npm publish",
     "wpublishAll": "wnpm publish && cd global-cli && wnpm publish",
     "reinstallCli": "echo 'reinstall the newest trident-cli' && npm uninstall @webank/trident-cli -g && npm install @webank/trident-cli -g",
     "wreinstallCli": "echo 'reinstall the newest trident-cli' && wnpm uninstall @webank/trident-cli -g && wnpm install @webank/trident-cli -g",
     "npmLocalPublishAll": "npm version patch && npm publish --registry http://localhost:4873 && cd global-cli && npm version patch && npm publish --registry http://localhost:4873",
-    "test-tpl": "echo 'test the trident framework' && rm -rf WeBookStore && trident-cli init --name=WeBookStore --bundleId=com.trident.wbstore --scheme=wbstore && cd WeBookStore && bundle exec fastlane ios release --verbose && bundle exec fastlane android release --verbose",
-    "syncLib": "watchman watch ./trident-ui && watchman watch ./library && wml add trident-ui libraryDev/node_modules/@webank/trident/trident-ui && wml add library libraryDev/node_modules/@webank/trident/library && wml start"
+    "test-tpl": "echo 'test the trident framework' && rm -rf WeBookStore && trident-cli init --name=WeBookStore --bundleId=com.trident.wbstore --scheme=wbstore && cd WeBookStore && bundle exec fastlane ios release --verbose && bundle exec fastlane android release --verbose && rm -rf ./WeBookStore",
+    "syncLib": "watchman watch ./trident-ui && watchman watch ./library && wml add trident-ui libraryDev/node_modules/@webank/trident/trident-ui && wml add library libraryDev/node_modules/@webank/trident/library && wml start",
+    "standardjs": "node_modules/standard/bin/cmd.js library/**/*.js"
   },
   "repository": {
     "type": "git",
     "url": "git+http://git.weoa.com/app/trident.git"
   },
   "author": "erichua",
-  "license": "ISC",
+  "license": "Apache License 2.0",
   "bugs": {
     "url": "http://git.weoa.com/app/trident/issues"
   },
@@ -31,6 +32,7 @@
     "@unpourtous/react-native-popup-stub": "^1.4.6",
     "@unpourtous/react-native-touchable": "^1.0.3",
     "axios": "0.18.0",
+    "axios-cache-adapter": "^2.5.0",
     "babel-generator": "^6.26.1",
     "inquirer": "^6.3.1",
     "iwalk": "0.0.5",
@@ -39,15 +41,28 @@
     "prettier": "1.18.2",
     "prop-types": "^15.7.2",
     "proxy-polyfill": "^0.3.0",
+    "qs": "^6.9.1",
     "replace-in-file": "^3.4.4",
     "route-parser": "0.0.5",
     "shelljs": "^0.8.3",
     "md5": "2.2.1"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.7.0",
+    "@babel/runtime": "^7.7.2",
+    "babel-eslint": "^10.0.3",
     "babel-jest": "^24.8.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
-    "jest": "^24.8.0"
+    "babel-preset-react-native": "^4.0.1",
+    "jest": "^24.8.0",
+    "metro-react-native-babel-preset": "^0.57.0",
+    "standard": "^14.3.1"
+  },
+  "standard": {
+    "env": [
+      "jest"
+    ],
+    "parser": "babel-eslint"
   }
 }

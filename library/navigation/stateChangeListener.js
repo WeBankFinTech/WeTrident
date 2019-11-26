@@ -99,5 +99,4 @@ export default (state, nextState, action) => {
         SceneTraversal.onBack()
     }
   }
-
 }

@@ -57,7 +57,7 @@ import AxiosMocker from '@webank/trident/library/network/AxiosMocker'
 export default {
   requestBookList: {
     baseURL: 'https://www.mocky.io/',
-    url: '/v2/5cf4c6622f00003a0e4f0453',
+    url: '/v2/5185415ba171ea3a00704eed',
     desc: '请求书籍列表',
 
     // set true to return mock data for this api

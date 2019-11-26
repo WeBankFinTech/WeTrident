@@ -17,13 +17,14 @@ import ModuleManager from './navigation/ModuleManager'
 import TianYan, {Dashboard} from '@unpourtous/tianyan-react-native'
 import ElementMark from './qualityTools/ElementMark'
 import SceneTraversal from './qualityTools/SceneTraversal'
+import RNEnv from './utils/RNEnv'
 
 export default class TridentApp extends Component {
   static propTypes = {
     reduxConfig: PropTypes.object,
     navigationConfig: PropTypes.object,
     modules: PropTypes.array, // static modules
-    dyModules: PropTypes.object, // dynamic modules
+    dyModules: PropTypes.object // dynamic modules
   }
 
   constructor () {
@@ -39,7 +40,7 @@ export default class TridentApp extends Component {
     const staticRouterConfig = ModuleManager.flatModule(connectedResult.connectedModules)
     AppNavigator.init(staticRouterConfig)
 
-    const {navigationConfig = require('./config/defaultNavigationConfig').default} = this.props
+    const { navigationConfig = require('./config/defaultNavigationConfig').default } = this.props
     this.WeNavigator = createTridentNavigator(staticRouterConfig, navigationConfig)
 
     this.store = createStore(
@@ -59,7 +60,7 @@ export default class TridentApp extends Component {
   }
 
   _getReduxMiddlewares () {
-    const {reduxConfig = require('./config/defaultReduxConfig').default.logger} = this.props
+    const { reduxConfig = require('./config/defaultReduxConfig').default.logger } = this.props
     return applyMiddleware(...[
       createLogger(reduxConfig),
       thunk
@@ -68,31 +69,34 @@ export default class TridentApp extends Component {
 
   render () {
     const Navigator = this.WeNavigator.stackNavigator
+
+    let WTConsole
+    if (!RNEnv.isRemoteDebug() && RNEnv.isDev()) {
+      WTConsole = require('@unpourtous/tianyan-react-native').default
+    }
+
     return (
       <Provider store={this.store}>
-        <this.connectedContainer initProps={{ ...this.props }}>
+        <this.connectedContainer>
           <StatusBar translucent backgroundColor='transparent' />
           <Navigator />
-          <PopupStub maskColor='rgba(0,0,0,0.75)' ref={_ref => {
+          <PopupStub
+            maskColor='rgba(0,0,0,0.75)' ref={_ref => {
             if (_ref) PopupStub.init(_ref)
-          }} />
-          <TianYan
+          }}
+          />
+          {WTConsole ? <WTConsole
             options={{
-              logServerUrl: 'http://10.107.104.145:3000/v1/log',
+              logServerUrl: 'http://example.com/api',
               maxLogLine: 1000,
               ignoreFilter: function () {
-                const filterLog = true
-
-                if (!filterLog) return false
-
-                let filterRule = /%c prev state|%c next state|%c action|%c CHANGED|%c ADDED|productinfo\/getfinancepageviewinfoV3|productinfo\/getinvestpageviewinfoV3|productinfo\/getproductlistbycode|gold\/query_current_price/g
+                const filterRule = /%c prev state|%c next state|%c action|%c CHANGED|[action] Navigation\/|%c ADDED|productinfo\/getfinancepageviewinfoV3|productinfo\/getinvestpageviewinfoV3|productinfo\/getproductlistbycode|gold\/query_current_price/g
 
                 // 过滤掉状态的打印, 避免刷屏
                 return ((arguments && typeof arguments[0] === 'string' && arguments[0].match(filterRule)) ||
                   (typeof arguments[1] === 'string' && arguments[1].match(filterRule)))
-                // 理财的实在太多了， 里面屏蔽一下
               }
-            }} />
+            }} /> : null}
           <ElementMark ref={_ref => SceneTraversal.setRef(_ref)} />
         </this.connectedContainer>
       </Provider>

@@ -5,10 +5,12 @@
 export default {
   component: require('./AppContainer').default,
   initialState: {
-    globalCount: 0
+    globalCount: 0,
+    theme: 'light'
   },
   actions: {
-    addGlobalCount: v => v
+    addGlobalCount: v => v,
+    changeTheme: v => v,
   },
   asyncActions: (actions) => ({
     addGlobalCountAsync: () => async dispatch => {
@@ -22,6 +24,7 @@ export default {
     }
   }),
   reducers: {
-    addGlobalCount: (state, action) => ({ ...state, globalCount: state.globalCount + action.payload })
+    addGlobalCount: (state, action) => ({ ...state, globalCount: state.globalCount + action.payload }),
+    changeTheme: (state, action) => ({ ...state, theme: action.payload })
   },
 }

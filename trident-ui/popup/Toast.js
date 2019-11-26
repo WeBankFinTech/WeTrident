@@ -6,21 +6,15 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
 import { PopupStub } from '@unpourtous/react-native-popup-stub'
-import Icon from './Icon'
-import ProUI from './UI'
+import Icon from '../icon/Icon'
+import ProUI from '../values/pro'
 import PopupZIndex from './PopupZIndex'
+import {iconNamePropType} from '../propTypeUtils'
 
 export default class Toast extends Component {
   static propTypes = {
-    iconSource: PropTypes.string,
-    iconWidth: PropTypes.number,
-    iconHeight: PropTypes.number,
+    icon: iconNamePropType,
     msg: PropTypes.string
-  }
-
-  // 一些内置的图标，便于统一
-  static ICON = {
-    SUCCESS: 'successWhite'
   }
 
   static show (msg, icon, duration) {
@@ -43,19 +37,14 @@ export default class Toast extends Component {
     })
   }
 
-  static isShowing () {
-    return PopupStub.isShow()
-  }
-
   render () {
-    const hasIcon = !!this.props.iconSource
+    const hasIcon = !!this.props.icon
 
     return (
       <View style={[styles.toast, hasIcon ? styles.toastX : null]}>
         {hasIcon && <Icon
           style={styles.toastIcon}
-          source={this.props.iconSource}
-          size={this.props.iconWidth} />}
+          name={this.props.icon} />}
         <View>
           <Text style={styles.toastMsg}>{this.props.msg}</Text>
         </View>

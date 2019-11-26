@@ -1,7 +1,7 @@
 function start (options) {
   const path = require('path')
   const fs = require('fs')
-  const execSync = (cmd) => require('child_process').execSync(cmd, {stdio: 'inherit'})
+  const execSync = require('../utils/execSync')
 
   // TODO 检查端口号范围
   // 从 trident-config.json 里面读取端口号

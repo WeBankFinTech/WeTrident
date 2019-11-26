@@ -9,7 +9,8 @@ export default class AxiosMocker {
       const response = response || {}
       return {
         ...response,
-        config
+        config,
+        fromMock: true
       }
     }
   }
@@ -41,6 +42,7 @@ export default class AxiosMocker {
     return (config) => {
       var error = new Error('Network Error')
       error.config = config
+      error.fromMock = true
       return Promise.reject(error)
     }
   }
@@ -54,6 +56,7 @@ export default class AxiosMocker {
       var error = new Error('timeout of ' + config.timeout + 'ms exceeded')
       error.config = config
       error.code = 'ECONNABORTED'
+      error.fromMock = true
       return Promise.reject(error)
     }
   }

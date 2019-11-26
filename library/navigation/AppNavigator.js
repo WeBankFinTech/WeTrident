@@ -31,6 +31,7 @@ class AppNavigator {
     onPause: {},
     onResume: {}
   }
+
   // 动态的路由配置
   staticRoutersConfig = {}
 
@@ -38,7 +39,7 @@ class AppNavigator {
   _cachedModuleReducer = {}
 
   init (staticRoutersConfig) {
-    let navigatorMethods = {}
+    const navigatorMethods = {}
     _.mapValues(staticRoutersConfig, (config, routeName) => {
       const {
         moduleName,
@@ -70,7 +71,7 @@ class AppNavigator {
     const routeNames = this._getRouteNames()
     // 1. 标准的路由名称
     for (let i = 0, len = routeNames.length; i < len; i += 1) {
-      let routeName = routeNames[i]
+      const routeName = routeNames[i]
       if (routeName === sceneName) {
         return routeName
       }
@@ -188,7 +189,7 @@ class AppNavigator {
     const routerStack = this.navigator.props.navigation.state.routes || []
     let currentRouteIndex = -1
     for (let i = 0; i < _routeNames.length; i++) {
-      let index = _.findIndex(routerStack, router => _routeNames[i] === router.routeName)
+      const index = _.findIndex(routerStack, router => _routeNames[i] === router.routeName)
       if (index !== -1 && (currentRouteIndex === -1 || index < currentRouteIndex)) {
         currentRouteIndex = index
       }
@@ -317,8 +318,8 @@ class AppNavigator {
    * @return {routes}
    */
   getCurrentSceneGestureFlag () {
-    let sceneNavigationOptions = this.getNavigationOptionsByNameInScene(this.currentScene.routeName)
-    let routerNavigationOptions = this.getNavigationOptionsByNameInRouters(this.currentScene.routeName)
+    const sceneNavigationOptions = this.getNavigationOptionsByNameInScene(this.currentScene.routeName)
+    const routerNavigationOptions = this.getNavigationOptionsByNameInRouters(this.currentScene.routeName)
 
     if (sceneNavigationOptions && sceneNavigationOptions.gesturesEnabled === false) {
       return false
@@ -396,7 +397,7 @@ class AppNavigator {
     _routeNames = this._getRealRouteNames(_routeNames)
 
     const routerStack = this.navigator.props.navigation.state.routes || []
-    let currentRouteIndex = _.findLastIndex(routerStack, router => _routeNames.find(routeName => routeName === router.routeName))
+    const currentRouteIndex = _.findLastIndex(routerStack, router => _routeNames.find(routeName => routeName === router.routeName))
     return currentRouteIndex !== -1
   }
 
@@ -475,7 +476,7 @@ class AppNavigator {
   }
 
   _prepareDyModuleLoader (dyModules) {
-    let appNavigator = this
+    const appNavigator = this
     Object.keys(dyModules || {}).forEach(moduleName => {
       if (appNavigator[moduleName]) {
         return
