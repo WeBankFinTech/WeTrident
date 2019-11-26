@@ -64,7 +64,6 @@ function run (root) {
           break
         }
       }
-      run.runAndroid(options)
       break
     }
     case 'plugin': {
