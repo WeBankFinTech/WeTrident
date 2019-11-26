@@ -42,7 +42,12 @@ grep -E "com.facebook.react:react-native:\\+" "$tempDir/$projectName/android/app
 # test the 'gen' cli
 tdt gen module --moduleName=moduleA --onlyModule
 tdt gen scene --moduleName=moduleA --sceneName=sceneB --onlyOnceTime
-tdt plugin init
+
+# test plugin init
+tdt plugin init moduleA
+
+# test plugin publish
+# tdt plugin publish moduleA
 
 info "Start the packager in another terminal by running 'tdt packager start' from the $tempDir/WeBookStore"
 info "and then press any key."
