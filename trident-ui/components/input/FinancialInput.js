@@ -158,11 +158,11 @@ class FinancialInput extends Component {
           </TouchableWithoutFeedback>
 
           {/* 有内容时显示清除按钮 */}
-          {isShowClearButton
-            ? <TouchableHighlight hitSlop={{top: 10, bottom: 10, left: 10, right: 10}} onPress={this.onClear}>
-              <Icon name={Icon.Names.clear} />
-            </TouchableHighlight>
-            : null}
+          {/*{isShowClearButton*/}
+          {/*  ? <TouchableHighlight hitSlop={{top: 10, bottom: 10, left: 10, right: 10}} onPress={this.onClear}>*/}
+          {/*    <Icon name={Icon.Names.clear} />*/}
+          {/*  </TouchableHighlight>*/}
+          {/*  : null}*/}
 
           {unit ? <View style={{
             alignItems: 'center',

@@ -4,8 +4,7 @@
  * Created by erichua on 2019-10-24T06:08:32.010Z.
  */
 import React from 'react'
-import { AppNavigator, WeBaseScene } from '@webank/trident'
-import { Column } from '@webank/trident/trident-ui/Layout/Layout'
+import { AppNavigator, WeBaseScene, Column } from '@webank/trident'
 import EntryList from '../../../bizComponents/EntryList'
 import PrimaryButton from '@webank/trident/library/uiComponent/PrimaryButton'
 import NavigationStackView from '../components/NavigationStackView'

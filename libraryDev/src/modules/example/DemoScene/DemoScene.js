@@ -4,10 +4,9 @@
  * Created by erichua on 2019-04-23T03:47:50.328Z.
  */
 import React from 'react'
-import { WeBaseScene, AppNavigator } from '@webank/trident'
+import { WeBaseScene, AppNavigator, Theme } from '@webank/trident'
 import PrimaryButton from '@webank/trident/library/uiComponent/PrimaryButton'
 import EntryList from '../../../bizComponents/EntryList'
-import { Theme } from '@webank/trident/trident-ui/theme'
 
 export default class DemoScene extends WeBaseScene {
   static navigationOptions = ({ navigation: { state: { params = {} } } }) => ({

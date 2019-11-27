@@ -5,8 +5,7 @@
  */
 import React, { Component } from 'react'
 import { View, Text } from 'react-native'
-import { AppNavigator, WeBaseScene } from '@webank/trident'
-import { Column } from '@webank/trident/trident-ui/Layout/Layout'
+import { AppNavigator, WeBaseScene, Column } from '@webank/trident'
 import EntryList from '../../../bizComponents/EntryList'
 import PrimaryButton from '@webank/trident/library/uiComponent/PrimaryButton'
 import ObjectView from '../components/ObjectView'

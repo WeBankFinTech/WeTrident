@@ -70,13 +70,13 @@ export default class Dialog extends Component {
 
     // 自定义的element，从视觉规范上看，不属于dialog，但为了向后兼容，暂时保留
     // 但是不开放position和wrapperStyle属性，element需负责自身位置、结构和样式
-    Dialog._id = PopupStub.stub.addPopup(comp, opt)
+    Dialog._id = PopupStub.addPopup(comp, opt)
 
     return Dialog._id
   }
 
   static hide (id) {
-    PopupStub.stub.removePopup(id || Dialog._id)
+    PopupStub.removePopup(id || Dialog._id)
   }
 
   render () {

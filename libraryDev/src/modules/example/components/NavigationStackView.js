@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Text } from 'react-native'
-import { List, Column } from '@webank/trident/trident-ui'
+import { List, Column } from '@webank/trident'
 import PropTypes from 'prop-types'
 
 export default class extends Component {
