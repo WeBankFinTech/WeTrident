@@ -13,10 +13,6 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		5F1F786422CDAC2E00231D25 /* RNLauncher.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F1F786322CDAC2E00231D25 /* RNLauncher.m */; };
-		5F1F7D3D22CDF96900231D25 /* back-icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F1F7D3922CDF96800231D25 /* back-icon@3x.png */; };
-		5F1F7D3E22CDF96900231D25 /* back-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F1F7D3A22CDF96800231D25 /* back-icon@2x.png */; };
-		5F1F7D3F22CDF96900231D25 /* back-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F1F7D3B22CDF96800231D25 /* back-icon.png */; };
-		5F1F7D4022CDF96900231D25 /* back-icon-mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F1F7D3C22CDF96800231D25 /* back-icon-mask.png */; };
 		5F1F7D4622CE008A00231D25 /* UpdateChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F1F7D4522CE008A00231D25 /* UpdateChecker.m */; };
 		97CF071B89F8AE53D1BDCD92 /* libPods-Develop.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D2824CAD790E81059F0AA52 /* libPods-Develop.a */; };
 /* End PBXBuildFile section */
@@ -302,10 +298,6 @@
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		5F1F786222CDAC2E00231D25 /* RNLauncher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RNLauncher.h; path = trident/bundleManager/RNLauncher.h; sourceTree = "<group>"; };
 		5F1F786322CDAC2E00231D25 /* RNLauncher.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = RNLauncher.m; path = trident/bundleManager/RNLauncher.m; sourceTree = "<group>"; };
-		5F1F7D3922CDF96800231D25 /* back-icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back-icon@3x.png"; sourceTree = "<group>"; };
-		5F1F7D3A22CDF96800231D25 /* back-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back-icon@2x.png"; sourceTree = "<group>"; };
-		5F1F7D3B22CDF96800231D25 /* back-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back-icon.png"; sourceTree = "<group>"; };
-		5F1F7D3C22CDF96800231D25 /* back-icon-mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back-icon-mask.png"; sourceTree = "<group>"; };
 		5F1F7D4422CE008A00231D25 /* UpdateChecker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UpdateChecker.h; path = trident/bundleManager/UpdateChecker.h; sourceTree = "<group>"; };
 		5F1F7D4522CE008A00231D25 /* UpdateChecker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UpdateChecker.m; path = trident/bundleManager/UpdateChecker.m; sourceTree = "<group>"; };
 		6FD837C7EB65024A276DD0AD /* libPods-tridentTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-tridentTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -480,65 +472,6 @@
 			name = bundleManager;
 			sourceTree = "<group>";
 		};
-		5F1F7D3222CDF96800231D25 /* assets */ = {
-			isa = PBXGroup;
-			children = (
-				5F1F7D3322CDF96800231D25 /* node_modules */,
-			);
-			path = assets;
-			sourceTree = "<group>";
-		};
-		5F1F7D3322CDF96800231D25 /* node_modules */ = {
-			isa = PBXGroup;
-			children = (
-				5F1F7D3422CDF96800231D25 /* @unpourtous */,
-			);
-			path = node_modules;
-			sourceTree = "<group>";
-		};
-		5F1F7D3422CDF96800231D25 /* @unpourtous */ = {
-			isa = PBXGroup;
-			children = (
-				5F1F7D3522CDF96800231D25 /* react-navigation */,
-			);
-			path = "@unpourtous";
-			sourceTree = "<group>";
-		};
-		5F1F7D3522CDF96800231D25 /* react-navigation */ = {
-			isa = PBXGroup;
-			children = (
-				5F1F7D3622CDF96800231D25 /* src */,
-			);
-			path = "react-navigation";
-			sourceTree = "<group>";
-		};
-		5F1F7D3622CDF96800231D25 /* src */ = {
-			isa = PBXGroup;
-			children = (
-				5F1F7D3722CDF96800231D25 /* views */,
-			);
-			path = src;
-			sourceTree = "<group>";
-		};
-		5F1F7D3722CDF96800231D25 /* views */ = {
-			isa = PBXGroup;
-			children = (
-				5F1F7D3822CDF96800231D25 /* assets */,
-			);
-			path = views;
-			sourceTree = "<group>";
-		};
-		5F1F7D3822CDF96800231D25 /* assets */ = {
-			isa = PBXGroup;
-			children = (
-				5F1F7D3922CDF96800231D25 /* back-icon@3x.png */,
-				5F1F7D3A22CDF96800231D25 /* back-icon@2x.png */,
-				5F1F7D3B22CDF96800231D25 /* back-icon.png */,
-				5F1F7D3C22CDF96800231D25 /* back-icon-mask.png */,
-			);
-			path = assets;
-			sourceTree = "<group>";
-		};
 		78C398B11ACF4ADC00677621 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -579,7 +512,6 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				5F1F7D3222CDF96800231D25 /* assets */,
 				13B07FAE1A68108700A75B9A /* trident */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
@@ -998,12 +930,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5F1F7D3D22CDF96900231D25 /* back-icon@3x.png in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
-				5F1F7D4022CDF96900231D25 /* back-icon-mask.png in Resources */,
-				5F1F7D3E22CDF96900231D25 /* back-icon@2x.png in Resources */,
-				5F1F7D3F22CDF96900231D25 /* back-icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
