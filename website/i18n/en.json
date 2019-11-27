@@ -5,8 +5,14 @@
     "previous": "Previous",
     "tagline": "可快速开发支持商业运营App的框架",
     "docs": {
+      "api/APIClient": {
+        "title": "APIClient"
+      },
       "api/AppNavigator": {
         "title": "AppNavigator"
+      },
+      "api/TridentApp": {
+        "title": "TridentApp"
       },
       "debug-skill": {
         "title": "调试方法和技巧"
@@ -31,6 +37,12 @@
       },
       "network": {
         "title": "使用网络"
+      },
+      "release-android": {
+        "title": "Android 发布参考"
+      },
+      "release-ios": {
+        "title": "iOS 发布参考"
       },
       "release": {
         "title": "构建和发布"

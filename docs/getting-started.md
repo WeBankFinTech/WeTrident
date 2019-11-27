@@ -5,6 +5,7 @@ title: 创建项目
 
 ## 开发环境依赖
 Trident目前仅支持macOS，其余环境Trident都会做详细的提示来协助安装。
+开始开发前需要先配置Android和iOS开发环境，具体配置方法可以参考Android和iOS官方文档。
 
 ## 内网配置
 为了避免各种网络问题，行内用户首先需要完成如下环境设置。
@@ -167,4 +168,3 @@ PS: `example`模块为测试所用，到这里我们可以移除它，移除一�
 
 本部分我们创建了所有需要的页面，接下来会介绍导航体系，把这些页面串联起来。
 
-[本节代码变更内容](http://github.com/WeBankFinTech/trident-demo/compare/f-init...f-add-modules-scenes)

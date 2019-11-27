@@ -131,5 +131,3 @@ export default class ResultScene extends WeBaseScene {
 更多配置见`react-navigation`官方文档。
 
 到这里，页面已经可以很容易的按我们的要求串联起来了，那下一步将会学习数据状态的管理。
-
-[本节代码变更内容](http://github.com/WeBankFinTech/trident-demo/compare/f-add-modules-scenes...f-custom-navbar)

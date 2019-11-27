@@ -10,10 +10,13 @@
       "network",
       "native-modules",
       "debug-skill",
-      "release"
+      "release-ios",
+      "release-android"
     ],
     "API Reference": [
-      "api/AppNavigator"
+      "api/TridentApp",
+      "api/AppNavigator",
+      "api/APIClient"
     ]
   }
 }
