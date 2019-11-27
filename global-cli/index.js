@@ -128,20 +128,35 @@ function initProject () {
       default: 'tab'
     }
   ];
+  // 如果使用命令行优先用命令行参数
+  const _filterPromptList = promptList.filter(item => !options[item.name])
   // 先检查环境是否支持，引导安装
   if (checkResult.length > 0) {
     processCheckResult(checkResult).then(() => {
-      inquirer.prompt(promptList).then(answers => {
-        console.log(answers)
-        const {name, bundleId, scheme, port, eslint, template} = answers
+      inquirer.prompt(_filterPromptList).then(answers => {
+        const {
+          name = answers.name,
+          bundleId = answers.bundleId,
+          scheme = answers.scheme,
+          port = answers.port,
+          eslint = answers.eslint,
+          template = answers.template
+        } = options || answers
         createProject({name, bundleId, scheme, port, eslint, options, template})
       })
     }, () => {
       // console.log
     })
   } else {
-    inquirer.prompt(promptList).then(answers => {
-      const {name, bundleId, scheme, port, eslint, template} = answers
+    inquirer.prompt(_filterPromptList).then(answers => {
+      const {
+        name = answers.name,
+        bundleId = answers.bundleId,
+        scheme = answers.scheme,
+        port = answers.port,
+        eslint = answers.eslint,
+        template = answers.template
+      } = options || answers
       createProject({name, bundleId, scheme, port, eslint, options, template})
     })
   }

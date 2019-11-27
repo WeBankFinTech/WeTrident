@@ -63,11 +63,31 @@ export default class NetworkScene extends WeBaseScene {
             this._showDialog('请求的Header为' + JSON.stringify(response.config.headers))
           }))
         }} />
-        <PrimaryButton text={`Mock使用`} onPress={() => {
+        <PrimaryButton text={`Mock使用(随机成功失败)`} onPress={() => {
           Loading.wrap(APIClient.request(CGI.requestUseMock).then(...requestProcessor))
         }} />
-        {/*<PrimaryButton text={`缓存设置(API级别)`} onPress={() => {}} />*/}
-        {/*<PrimaryButton text={`缓存设置(单次调用级别)`} onPress={() => { }} />*/}
+        <PrimaryButton text={`缓存设置(API级别)`} onPress={() => {
+          Loading.wrap(APIClient.request(CGI.requestUseCache).then((response) => {
+            let msg = ''
+            if (response.fromCache) {
+              msg = '读取缓存成功'
+            } else {
+              msg = '请求成功'
+            }
+            this._showDialog(msg + JSON.stringify(response.data))
+          }))
+        }} />
+        <PrimaryButton text={`缓存设置(单次调用级别)`} onPress={() => {
+          Loading.wrap(APIClient.request(
+            CGI.requestUseCache,
+            undefined,
+            undefined,
+            undefined,
+            { cacheMaxAgeInMs: 10 }
+          ).then((response) => {
+            this._showDialog('请求成功(fromCache: ' + response.fromCache + ')' + JSON.stringify(response.data))
+          }))
+        }} />
       </EntryList>
     )
   }

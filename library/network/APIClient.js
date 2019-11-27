@@ -194,12 +194,12 @@ class APIClient {
     if (!cgi.desc) {
       descArray.push('desc should be set for api, used for data report')
     }
-    if (!cgi.request) {
-      descArray.push('request should be set for api, used for document')
-    }
-    if (!cgi.response) {
-      descArray.push('response should be set for api, used for document')
-    }
+    // if (!cgi.request) {
+    //   descArray.push('request should be set for api, used for document')
+    // }
+    // if (!cgi.response) {
+    //   descArray.push('response should be set for api, used for document')
+    // }
     if (descArray.length > 0) {
       console.warn(descArray, cgi)
     }

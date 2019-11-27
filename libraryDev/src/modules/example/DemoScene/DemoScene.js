@@ -18,6 +18,14 @@ export default class DemoScene extends WeBaseScene {
     super(...arguments)
   }
 
+  componentDidMount () {
+      setTimeout(() => {
+          this.setState({
+              startTest: true
+          })
+      }, 3000)
+  }
+
   onPause (fromScene, toScene) {
     super.onPause(fromScene, toScene)
   }

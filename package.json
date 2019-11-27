@@ -19,7 +19,7 @@
     "url": "git+http://git.weoa.com/app/trident.git"
   },
   "author": "erichua",
-  "license": "ISC",
+  "license": "Apache License 2.0",
   "bugs": {
     "url": "http://git.weoa.com/app/trident/issues"
   },
@@ -44,7 +44,8 @@
     "qs": "^6.9.1",
     "replace-in-file": "^3.4.4",
     "route-parser": "0.0.5",
-    "shelljs": "^0.8.3"
+    "shelljs": "^0.8.3",
+    "md5": "2.2.1"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.7.0",
