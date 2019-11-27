@@ -22,7 +22,7 @@ info() {
     echo -e $BLUE"$@"$ENDCOLOR
 }
 
-node_modules/jest/bin/jest.js --silent --watch
+node_modules/jest/bin/jest.js --silent
 
 currentDir=${PWD}
 tempDir=$currentDir/.tridentTemp

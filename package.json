@@ -4,6 +4,7 @@
   "main": "library/index.js",
   "scripts": {
     "test": "node_modules/jest/bin/jest.js",
+    "e2e": "./__tests__/scripts/test-manual-e2e.sh",
     "patchVersion": "npm version patch && cd global-cli && npm version patch && cd ..",
     "publishAll": "npm config set registry=http://localhost:4873/ && npm unpublish @webank/trident --force && npm unpublish @webank/trident-cli --force && npm publish && cd global-cli && npm publish",
     "wpublishAll": "wnpm publish && cd global-cli && wnpm publish",
