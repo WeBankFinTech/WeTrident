@@ -16,7 +16,6 @@ import stateChangeListener from './navigation/stateChangeListener'
 import ModuleManager from './navigation/ModuleManager'
 import ElementMark from './qualityTools/ElementMark'
 import SceneTraversal from './qualityTools/SceneTraversal'
-import RNEnv from './utils/RNEnv'
 
 export default class TridentApp extends Component {
   static propTypes = {

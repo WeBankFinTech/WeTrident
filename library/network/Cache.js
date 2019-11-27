@@ -18,9 +18,10 @@ export default class Cache {
   }
 
   clear (key) {
-
+    // TODO
   }
 
   clearAll () {
+    // TODO
   }
 }

@@ -29,7 +29,6 @@ export default class AxiosAdapter {
   }
 
   adapter (config) {
-    // TODO 先判读Mock
     if (config.mockable === true) {
       const mockResponse = config.response
       if (_.isArray(mockResponse) && mockResponse.length > 0) {
@@ -48,14 +47,10 @@ export default class AxiosAdapter {
 
       const cacheData = this.cache.read(cacheKey, _.get(config, 'options.cacheMaxAgeInMs', this.defaultCacheTime))
       if (cacheData) {
-        // console.log('getCache: ', cacheKey, cacheData.createAt)
-        // TODO 各种请求时间需要更新
         return Promise.resolve(cacheData.response)
       }
     }
 
-    // return axios.defaults.adapter(config)
-    // TODO 最后直接走default的adapter
     return new Promise((resolve, reject) => {
       axios.defaults.adapter(config).then((response) => {
         this.setCacheResponse(config.url, config.params, response)
