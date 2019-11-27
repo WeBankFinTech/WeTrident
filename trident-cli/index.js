@@ -119,6 +119,12 @@ function initProject () {
       type: "confirm",
       message: "是否使用eslint？(use eslint?)",
       name: "eslint"
+    }, {
+      type: "list",
+      message: "请选择模板(Please choose a template?):",
+      choices: ['tab', 'default'],
+      name: "template",
+      default: 'tab'
     }
   ];
   // 如果使用命令行优先用命令行参数
@@ -132,8 +138,10 @@ function initProject () {
           bundleId = answers.bundleId,
           scheme = answers.scheme,
           port = answers.port,
-          eslint = answers.eslint} = options || answers
-        createProject(name, bundleId, scheme, port, eslint, options)
+          eslint = answers.eslint,
+          template = answers.template
+        } = options || answers
+        createProject({name, bundleId, scheme, port, eslint, options, template})
       })
     }, () => {
       // console.log
@@ -145,8 +153,10 @@ function initProject () {
         bundleId = answers.bundleId,
         scheme = answers.scheme,
         port = answers.port,
-        eslint = answers.eslint} = options || answers
-      createProject(name, bundleId, scheme, port, eslint, options)
+        eslint = answers.eslint,
+        template = answers.template
+      } = options || answers
+      createProject({name, bundleId, scheme, port, eslint, options, template})
     })
   }
 }
@@ -211,7 +221,7 @@ function CLI_MODULE_PATH () {
  * @param port project port
  * @param options arguments
  */
-function createProject (name, bundleId, scheme, port, eslint, options) {
+function createProject ({name, bundleId, scheme, port, eslint, options, template}) {
   var root = path.resolve(name)
   var projectName = path.basename(root)
 
@@ -235,7 +245,7 @@ function createProject (name, bundleId, scheme, port, eslint, options) {
   fs.writeFileSync(path.join(root, 'package.json'), JSON.stringify(packageJson))
   process.chdir(root)
 
-  createNewProject(root, projectName, bundleId, scheme, port, eslint, options)
+  createNewProject(root, options, {projectName, bundleId, scheme, port, eslint, template})
 }
 
 /**
@@ -248,7 +258,7 @@ function createProject (name, bundleId, scheme, port, eslint, options) {
  * @param eslint
  * @param options
  */
-function createNewProject (root, projectName, bundleId, scheme, port, eslint, options) {
+function createNewProject (root, options, {projectName, bundleId, scheme, port, eslint, template}) {
   // 自定义版本
   const rnPackage = options.version
   var installCommand
@@ -269,7 +279,7 @@ function createNewProject (root, projectName, bundleId, scheme, port, eslint, op
   // 安装完成这时候一定是有的
   let cliPath = CLI_MODULE_PATH()
   cli = require(cliPath)
-  cli.init(root, projectName, bundleId, scheme, port, eslint, options)
+  cli.init(root, projectName, bundleId, scheme, port, eslint, template, options)
 }
 
 function getInstallPackage () {

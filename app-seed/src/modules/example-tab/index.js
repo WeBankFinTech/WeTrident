@@ -1,10 +1,10 @@
 /**
- * 负责导出此模块的reducer和router到App级别
+ * 负责导出此模块的reducer和action到App级别
  *
- * Created by erichua on 2019-04-23T03:47:47.051Z.
+ * Created by rcrabwu on 2019-10-24T08:40:34.034Z.
  */
-export default {
-  moduleName: 'example',
+export default (moduleName) => ({
+  moduleName: moduleName,
   initialState: {
     // moduleCount: 0
   },
@@ -18,5 +18,5 @@ export default {
   reducers: {
     // addModuleCount: (state, action) => ({ ...state, moduleCount: state.moduleCount + action.payload })
   }
-}
+})
 
