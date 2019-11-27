@@ -1,7 +1,7 @@
 {
   "name": "@webank/trident",
   "version": "1.2.19",
-  "main": "index.js",
+  "main": "library/index.js",
   "scripts": {
     "test": "node_modules/jest/bin/jest.js",
     "e2e": "./__tests__/scripts/test-manual-e2e.sh",
