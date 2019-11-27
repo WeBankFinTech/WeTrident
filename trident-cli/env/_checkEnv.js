@@ -11,7 +11,7 @@ var compare = require('node-version-compare')
  */
 function checkCmdAndVersion ({cmd, versionCmd, min, max, installGuide, installCmd}) {
   var execSync = require('child_process').execSync
-  const checkCmdExisted = execSync(`if ! type ${cmd} 2> /dev/null; then echo "0"; else echo "-1"; fi`)
+  const checkCmdExisted = execSync(`if ! type ${cmd} &> /dev/null; then echo "0"; else echo "-1"; fi`)
   if (checkCmdExisted.toString().trim() !== '-1') {
     return {
       cmd,
