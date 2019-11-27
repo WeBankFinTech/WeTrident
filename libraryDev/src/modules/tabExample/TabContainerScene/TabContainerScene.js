@@ -6,7 +6,7 @@
 import React, { Component } from 'react'
 import { Image } from 'react-native'
 import { WeBaseScene } from '@webank/trident'
-import { TabNavigator, DrawerNavigator } from '@unpourtous/react-navigation'
+import { TabNavigator, DrawerNavigator, TabBarBottom } from '@unpourtous/react-navigation'
 import ModuleManager from '@webank/trident/library/navigation/ModuleManager'
 import { createModuleConnect, createSceneConnect } from '@webank/trident/library/reduxUtils'
 import ModulePrivate from '..'
@@ -45,6 +45,8 @@ export default class TabContainerScene extends WeBaseScene {
           return <Image style={{width: 25, height: 25}} source={iconSource} resizeMode='cover' />
         },
       }),
+      tabBarComponent: TabBarBottom,
+      tabBarPosition: 'bottom',
       initialRouteName: this.params.initialTab
     })
 
