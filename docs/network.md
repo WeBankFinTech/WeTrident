@@ -206,20 +206,4 @@ APIClient.request(
 ).then(...)
 ```
 
-#### 使用配置缓存
-```
-// modules/book/cgi/index.js 
-import AxiosMocker from '@webank/trident/library/network/AxiosMocker'
-// 接口定义
-export default {
-  requestUseCache: {
-    cacheMaxAgeInMs: 60000,
-
-    baseURL: 'https://www.mocky.io/',
-    method: 'get',
-    url: '/v2/5dc964632f0000760073ec4b',
-    desc: '请求书籍列表',
-    request: {
-    },
-  }
-```
+更多用法见：[APIClient API](/trident/docs/api/APIClient)

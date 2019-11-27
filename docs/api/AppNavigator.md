@@ -3,8 +3,7 @@ id: AppNavigator
 title: AppNavigator
 ---
 
-## 其他接口
-#### `goBack`
+### `goBack`
 
 返回routeNames指定的页面，不传递参，默认返回上一页面。
 
@@ -13,7 +12,7 @@ title: AppNavigator
 | routeNames | array | 返回的目标页面名称，支持多个候选页面 | 
 
 
-##### 说明及示例
+#### 说明及示例
 ```
 1.假设页面堆栈为 A->B->C->D
 - 在 D 页面调用 goBack() 返回 C
@@ -25,7 +24,7 @@ title: AppNavigator
 提示：为了避免字面值，推荐使用 AppNavigator.home.HomeScene 替代 'HomeScene' 字面值
 ```
 
-####  `goBackThenPush`
+###  `goBackThenPush`
 返回指定页面，然后跳转到新页面
 
 | 参数名 | 类型 | 描述 | 
@@ -33,7 +32,7 @@ title: AppNavigator
 | routeNames | array | 返回的目标页面名称，支持多个候选页面 | 
 | newRouter | string | 返回后要到达的页面 | 
 
-##### 说明及示例
+#### 说明及示例
 ```
 1)假设页面路径如下，D 页面有多重可能的返回路径：
 A -> C -> D
@@ -53,7 +52,7 @@ A -> I -> K
 则调用 AppNavigator.goBackThenPush([B, F, I], K)
 ```
 
-####  `goBackAndReplace`
+###  `goBackAndReplace`
 返回指定页面，并使用新页面替换
 
 | 参数名 | 类型 | 描述 | 
@@ -61,7 +60,7 @@ A -> I -> K
 | routeNames | array | 返回的目标页面名称，支持多个候选页面 | 
 | newRouter | string | 返回后要替换的页面 | 
 
-##### 说明及示例
+#### 说明及示例
 ```
 1）假设页面路径可能为：
 A -> C -> D
