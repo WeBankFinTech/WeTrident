@@ -11,3 +11,4 @@ global.console = {
   info: console.info,
   debug: console.debug,
 }
+

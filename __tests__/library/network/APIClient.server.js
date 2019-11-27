@@ -1,5 +1,5 @@
 const http = require('http')
-http.createServer(function (req, res) {
+const startServer = () => http.createServer(function (req, res) {
   res.json = (jsonObj) => {
     res.setHeader('Content-Type', 'application/json')
     res.end(JSON.stringify(jsonObj))
@@ -40,3 +40,5 @@ http.createServer(function (req, res) {
     }
   }
 }).listen(4444, function () {})
+
+module.exports = startServer

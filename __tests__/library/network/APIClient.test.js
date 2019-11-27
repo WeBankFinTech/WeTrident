@@ -1,7 +1,21 @@
-import AxiosMocker from './AxiosMocker'
+import AxiosMocker from '../../../library/network/AxiosMocker'
+const APIClientCls = require('./../../../library/network/APIClient').APIClientCls
 
-const APIClientCls = require('./APIClient').APIClientCls
-test.only('APIClient test global addHeaders', () => {
+let httpServer
+beforeEach(() => {
+  console.log('Starting the APIClient test server')
+  const startServer = require('./APIClient.server')
+  httpServer = startServer()
+});
+
+afterEach(() => {
+  if (httpServer) {
+    console.log('Stopping the APIClient test server')
+    httpServer.close()
+  }
+})
+
+test('APIClient test global addHeaders', () => {
   const APIClient = new APIClientCls()
 
   const postCommonHeader = { testHeader: 'testHeader' }
@@ -19,7 +33,7 @@ test.only('APIClient test global addHeaders', () => {
 /**
  * 验证是否可以根据不同host的匹配规则针对性的addHeaders
  */
-test.only('APIClient addHeaders with match rule', () => {
+test('APIClient addHeaders with match rule', () => {
   const APIClient = new APIClientCls()
 
   const postHostAHeader = { testHeaderA: 'testHeader' }
@@ -65,7 +79,7 @@ test.only('APIClient addHeaders with match rule', () => {
   expect(Object.keys(getMergeHeaders)).toEqual(['Accept', 'testHeaderA'])
 })
 
-test.only('APIClient setHeaders', () => {
+test('APIClient setHeaders', () => {
   const APIClient = new APIClientCls()
 
   const postHostBHeader = { testHeaderBset: 'testHeader' }
@@ -115,7 +129,7 @@ test.only('APIClient setHeaders', () => {
   expect(Object.keys(mergeHeaders)).toEqual([])
 })
 
-test.only('APIClient _checkCGIFormat', () => {
+test('APIClient _checkCGIFormat', () => {
   const APIClient = new APIClientCls()
 
   expect(APIClient._checkCGIFormat({
@@ -126,14 +140,12 @@ test.only('APIClient _checkCGIFormat', () => {
     'baseURL should be set for api config',
     'baseURL should be set for api config ',
     'method should be set for api, used as HTTP Verb ',
-    'desc should be set for api, used for data report',
-    'request should be set for api, used for document',
-    'response should be set for api, used for document'
+    'desc should be set for api, used for data report'
   ])
 })
 
 describe('network request', () => {
-  test.only('normal request', async () => {
+  test('normal request', async () => {
     const APIClient = new APIClientCls()
       await APIClient.request().then(() => {}, (error) => {
         expect(error).toEqual('invalid api config')
@@ -180,7 +192,7 @@ describe('network request', () => {
     })
   })
 
-  test.only('using path params', async () => {
+  test('using path params', async () => {
     const APIClient = new APIClientCls()
     await APIClient.request({
       baseURL: 'http://localhost:4444',
@@ -199,7 +211,7 @@ describe('network request', () => {
     })
   })
 
-  test.only('mock request', async () => {
+  test('mock request', async () => {
     const APIClient = new APIClientCls()
     await APIClient.request({
       mockable: true,
@@ -219,7 +231,7 @@ describe('network request', () => {
     })
   })
 
-  test.only('request timeout', async () => {
+  test('request timeout', async () => {
     const APIClient = new APIClientCls()
     APIClient.setRequestTimeoutInMs(1)
     await APIClient.request({
@@ -266,7 +278,7 @@ describe('network request', () => {
     })
   })
 
-  test.only('simple request mock', async () => {
+  test('simple request mock', async () => {
     const APIClient = new APIClientCls()
     await APIClient.request({
       mockable: true,
@@ -287,7 +299,7 @@ describe('network request', () => {
     })
   })
 
-  test.only('request cache', async () => {
+  test('request cache', async () => {
     const APIClient = new APIClientCls()
 
     // fist time request, no cache

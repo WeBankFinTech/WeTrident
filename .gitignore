@@ -82,3 +82,5 @@ website/release/*.tgz
 website/release/*.zip
 
 .tridentTemp/
+
+coverage/

@@ -3,7 +3,7 @@ const {
   compareRoute,
   generateRouteName,
   separateRouteName
-} = require('./NavigationUtils')
+} = require('../../library/navigation/NavigationUtils')
 
 test('a/b?c=1 === a/b?c=1', () => {
   expect(compareRoute('a/b', 'a/b')).toBe(RouteCompareResult.equal)

@@ -22,6 +22,8 @@ info() {
     echo -e $BLUE"$@"$ENDCOLOR
 }
 
+node_modules/jest/bin/jest.js --silent --watch
+
 currentDir=${PWD}
 tempDir=$currentDir/.tridentTemp
 projectName=WeBookStore
@@ -34,10 +36,6 @@ cd $tempDir/$projectName
 
 info "Checking the versions in build.gradle are correct:"
 grep -E "com.facebook.react:react-native:\\+" "$tempDir/$projectName/android/app/build.gradle" || error "Dependency in $tempDir/$projectName/android/app/build.gradle must be com.facebook.react:react-native:+"
-
-# 验证init完成以后是否能正常release
-# tdt release ios --verbose
-# tdt release android --verbose
 
 # test the 'gen' cli
 tdt gen module --moduleName=moduleA --onlyModule
