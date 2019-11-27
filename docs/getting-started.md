@@ -167,4 +167,3 @@ PS: `example`模块为测试所用，到这里我们可以移除它，移除一�
 
 本部分我们创建了所有需要的页面，接下来会介绍导航体系，把这些页面串联起来。
 
-[本节代码变更内容](http://github.com/WeBankFinTech/trident-demo/compare/f-init...f-add-modules-scenes)

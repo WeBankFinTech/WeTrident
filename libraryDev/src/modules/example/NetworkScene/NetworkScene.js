@@ -10,7 +10,7 @@ import EntryList from '../../../bizComponents/EntryList'
 import PrimaryButton from '@webank/trident/library/uiComponent/PrimaryButton'
 import APIClient from '@webank/trident/library/network/APIClient'
 
-import Loading from '@webank/trident/trident-ui/popup/Loading'
+import Loading from '@webank/trident/trident-ui/components/popup/Loading'
 import Dialog from '@webank/trident/library/uiComponent/popup/Dialog'
 import CGI from './cgi/CGI'
 

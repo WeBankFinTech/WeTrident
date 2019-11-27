@@ -13,7 +13,9 @@
       "release"
     ],
     "API Reference": [
-      "api/AppNavigator"
+      "api/TridentApp",
+      "api/AppNavigator",
+      "api/APIClient"
     ]
   }
 }
