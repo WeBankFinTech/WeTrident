@@ -54,7 +54,7 @@
         "title": "数据状态管理"
       },
       "trident-cli": {
-        "title": "trident-cli"
+        "title": "trident-cli使用"
       },
       "trident-ui": {
         "title": "界面开发"
@@ -69,7 +69,8 @@
     "categories": {
       "背景介绍": "背景介绍",
       "快速入门": "快速入门",
-      "API Reference": "API Reference"
+      "API Reference": "API Reference",
+      "Trident-cli": "Trident-cli"
     }
   },
   "pages-strings": {

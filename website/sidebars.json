@@ -17,6 +17,9 @@
       "api/TridentApp",
       "api/AppNavigator",
       "api/APIClient"
+    ],
+    "Trident-cli": [
+      "trident-cli"
     ]
   }
 }

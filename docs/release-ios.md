@@ -3,8 +3,6 @@ id: release-ios
 title: iOS 发布参考
 ---
 
-# iOS 发布参考
-
 ### 前提
 
 完成 appid 与证书创建，可以参考此篇文章[苹果APPID和证书创建](https://www.jianshu.com/p/44e31512c42d)
