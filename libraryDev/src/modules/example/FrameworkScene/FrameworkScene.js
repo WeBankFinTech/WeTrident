@@ -5,9 +5,7 @@
  */
 import React, { Component } from 'react'
 import { View, Text } from 'react-native'
-import { AppNavigator, WeBaseScene } from '@webank/trident'
-import PrimaryButton from '@webank/trident/library/uiComponent/PrimaryButton'
-
+import { AppNavigator, WeBaseScene, Button } from '@webank/trident'
 
 export default class FrameworkScene extends WeBaseScene {
   static navigationOptions = ({ navigation: { state: { params = {} } } }) => ({
@@ -21,15 +19,15 @@ export default class FrameworkScene extends WeBaseScene {
         justifyContent: 'space-around',
         paddingHorizontal: 20
       }}>
-        <PrimaryButton text={'Navigation'} onPress={() => {
+        <Button text={'Navigation'} onPress={() => {
           AppNavigator.example.NavigationScene()
         }} />
 
-        <PrimaryButton text={'Network'} onPress={() => {
+        <Button text={'Network'} onPress={() => {
           AppNavigator.example.NetworkScene()
         }} />
 
-        <PrimaryButton text={'State Management'} onPress={() => {
+        <Button text={'State Management'} onPress={() => {
           AppNavigator.example.StateManagementScene()
         }} />
       </View>

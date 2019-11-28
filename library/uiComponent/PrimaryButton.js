@@ -4,6 +4,9 @@ import {
   Text,
   Keyboard
 } from 'react-native'
+import {
+  WeTouchable
+} from '@webank/trident'
 
 /**
  * Created by vengeanliu on 17/3/1.
@@ -12,7 +15,6 @@ import {
 import PropTypes from 'prop-types'
 
 import React, { Component } from 'react'
-import WeTouchable from '@unpourtous/react-native-touchable/library/WeTouchable'
 import Theme from './Theme'
 
 export default class PrimaryButton extends Component {

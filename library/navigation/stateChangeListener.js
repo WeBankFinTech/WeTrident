@@ -2,6 +2,7 @@ import AppNavigator from './AppNavigator'
 import _ from 'lodash'
 import URLUtils from '../utils/URLUtils'
 import SceneTraversal from '../qualityTools/SceneTraversal'
+import TridentStat from '../statistics/TridentStat'
 
 export default (state, nextState, action) => {
   // gets the current screen from navigation state
@@ -33,6 +34,31 @@ export default (state, nextState, action) => {
   toRouteName = newTopSceneState.routeName
   toSceneKey = newTopSceneState.key
 
+  // @@redux/INIT may triggered multiple times
+  if (action.type === '@@redux/INIT' && AppNavigator.currentSceneURL === undefined) {
+    if (fromSceneKey && _.isFunction(AppNavigator.lifecycleCallback.onResume[toSceneKey])) {
+      AppNavigator.lifecycleCallback.onResume[toSceneKey]('null', toRouteName)
+    } else {
+      AppNavigator.addPendingLifecycleCallback(toSceneKey, { fromScene: 'null', toScene: toRouteName })
+    }
+
+
+    const lastSceneURL = 'null'
+    AppNavigator.lastSceneURL = lastSceneURL
+
+    const currentSceneURL = URLUtils.appendParams(toRouteName || 'null')
+    AppNavigator.currentSceneURL = currentSceneURL
+
+    TridentStat.emitStatEvent({
+      type: TridentStat.StatType.sceneChange,
+      ts: new Date().getTime(),
+      payload: {
+        from: lastSceneURL,
+        to: currentSceneURL
+      },
+    })
+  }
+
   if ((AppNavigator.lastScene === undefined && AppNavigator.currentScene === undefined && fromSceneKey === null) ||
     (!!fromSceneKey && !!toSceneKey && fromSceneKey !== toSceneKey)) {
     // 从action里面拿数据，不要从state里面拿，state里面可能是用setParams修改过的
@@ -43,8 +69,14 @@ export default (state, nextState, action) => {
     // 过滤参数
     const lastSceneURL = AppNavigator.currentSceneURL || 'null'
     const currentSceneURL = URLUtils.appendParams(toRouteName || 'null', currentParams)
-    // Statistics.reportPageEnd(lastSceneURL)
-    // Statistics.reportPageStart(currentSceneURL)
+    TridentStat.emitStatEvent({
+      type: TridentStat.StatType.sceneChange,
+      ts: new Date().getTime(),
+      payload: {
+        from: lastSceneURL,
+        to: currentSceneURL
+      },
+    })
 
     if (fromSceneKey && fromSceneKey !== toSceneKey) {
       //* 如果有注册onPause，则调用
@@ -64,7 +96,6 @@ export default (state, nextState, action) => {
 
     AppNavigator.lastSceneURL = lastSceneURL
     AppNavigator.currentSceneURL = currentSceneURL
-    // console.log('currentScene change')
   }
   const navTimeConsuming = {}
   if (AppNavigator.currentScene && AppNavigator.currentScene.routeName) {
@@ -80,7 +111,8 @@ export default (state, nextState, action) => {
       const endTime = new Date().getTime()
       navTimeConsuming[routeName].endTime = endTime
 
-      console.log(routeName + ' 切换耗时 ' + (endTime - navTimeConsuming[routeName].startTime))
+      // console.log(routeName + ' 切换耗时 ' + (endTime - navTimeConsuming[routeName].startTime))
+
       // Statistics.reportTimeConsuming(routeName, navTimeConsuming[routeName].startTime, endTime)
       delete navTimeConsuming[routeName]
     }

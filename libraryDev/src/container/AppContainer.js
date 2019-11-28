@@ -3,12 +3,13 @@ import React, { Component } from 'react'
 import {
   View
 } from 'react-native'
-import { AppNavigator } from '@webank/trident'
+import { AppNavigator, TridentStat } from '@webank/trident'
 import { Linking } from 'react-native'
-import { LightTheme, createTheme, ThemeProvider, DarkTheme } from '@webank/trident/trident-ui/theme'
+import { LightTheme, createTheme, ThemeProvider } from '@webank/trident/trident-ui/theme'
 
-const lightTheme = createTheme(LightTheme, LightTheme)
-const darkTheme = createTheme(LightTheme, DarkTheme)
+TridentStat.setOnStatEventHandler(require('./stat').default)
+
+const lightTheme = createTheme(LightTheme)
 
 export default class AppContainer extends Component {
   constructor (props) {
@@ -36,7 +37,7 @@ export default class AppContainer extends Component {
 
   render () {
     return (
-      <ThemeProvider theme={this.props.theme === 'dark' ? darkTheme : lightTheme}>
+      <ThemeProvider theme={lightTheme}>
         <View style={{
           flex: 1,
           alignSelf: 'stretch',

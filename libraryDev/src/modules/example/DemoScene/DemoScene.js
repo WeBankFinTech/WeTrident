@@ -5,8 +5,10 @@
  */
 import React from 'react'
 import { WeBaseScene, AppNavigator, Theme } from '@webank/trident'
-import PrimaryButton from '@webank/trident/library/uiComponent/PrimaryButton'
 import EntryList from '../../../bizComponents/EntryList'
+import {
+  Button
+} from '@webank/trident'
 
 export default class DemoScene extends WeBaseScene {
   static navigationOptions = ({ navigation: { state: { params = {} } } }) => ({
@@ -38,19 +40,19 @@ export default class DemoScene extends WeBaseScene {
       <EntryList style={[{
         backgroundColor: Theme.Color.backgroundPrimary
       }, this.props.style]}>
-        <PrimaryButton text={'Trident-Framework'} onPress={() => {
+        <Button text={'Trident-Framework'} onPress={() => {
           AppNavigator.example.FrameworkScene()
         }} />
 
-        <PrimaryButton text={'Trident-UI'} onPress={() => {
+        <Button text={'Trident-UI'} onPress={() => {
           AppNavigator.ui.UIScene()
         }} />
 
-        <PrimaryButton text={'Plugin Store'} onPress={() => {
+        <Button text={'Plugin Store'} onPress={() => {
           AppNavigator.example.PluginStoreScene()
         }} />
 
-        <PrimaryButton text={'TabView'} onPress={() => {
+        <Button text={'TabView'} onPress={() => {
           // AppNavigator.example.PluginStoreScene()
           AppNavigator.tabExample.TabContainerScene({
             // initialTab: 'Setting'

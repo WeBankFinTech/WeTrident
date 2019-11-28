@@ -8,8 +8,8 @@ import RNEnv from '@webank/trident/library/utils/RNEnv'
 
 const navigationBarHeight = 44
 const statusBarHeight = Platform.select({
-    android: Platform.Version >= 21 ? StatusBar.currentHeight : 0,
-    ios: 20 // ios: Device.isPhoneX() ? 44 : 20
+  android: Platform.Version >= 21 ? StatusBar.currentHeight : 0,
+  ios: 20 // ios: Device.isPhoneX() ? 44 : 20
 })
 
 export default class AppEntry extends Component {
