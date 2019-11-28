@@ -45,7 +45,7 @@
     "prop-types": "^15.7.2",
     "proxy-polyfill": "^0.3.0",
     "qs": "^6.9.1",
-    "react-native": "https://github.com/UnPourTous/react-native.git#release/0.51.8",
+    "react-native": "https://github.com/UnPourTous/react-native.git#release/0.51.7",
     "react-native-animatable": "https://github.com/UnPourTous/react-native-animatable.git#v1.2.5",
     "react-navigation-redux-helpers": "1.0.1",
     "react-redux": "5.0.6",
