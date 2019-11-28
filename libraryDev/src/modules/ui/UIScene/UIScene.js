@@ -5,15 +5,12 @@
  */
 import React from 'react'
 import { View, Text } from 'react-native'
-import { WeBaseScene } from '@webank/trident'
-import Loading from '@webank/trident/library/uiComponent/popup/Loading'
-import Dialog from '@webank/trident/library/uiComponent/popup/Dialog'
-import Toast from '@webank/trident/library/uiComponent/popup/Toast'
 import EntryList from '../../../bizComponents/EntryList'
 import PrimaryButton from '@webank/trident/library/uiComponent/PrimaryButton'
 
 import Button from './components/ThemeRect'
-import { ThemeProvider, Theme } from '@webank/trident/trident-ui/theme'
+import { ThemeProvider, Theme, Toast, Dialog, Loading, WeBaseScene } from '@webank/trident'
+import Demo from '@webank/trident/trident-ui/Demo'
 
 export default class UIScene extends WeBaseScene {
   static navigationOptions = ({ navigation: { state: { params = {} } } }) => ({
@@ -32,18 +29,10 @@ export default class UIScene extends WeBaseScene {
           <PrimaryButton text={`Change Theme (${this.props.theme})`} onPress={() => {
             this.props.changeTheme(this.props.theme === 'light' ? 'dark' : 'light')
           }} />
-
-          <PrimaryButton text={'Dialog'} onPress={this._showDialog} />
-          <PrimaryButton text={'Loading'} onPress={() => {
-            Loading.show()
-            this.props.addCount(100)
-            setTimeout(() => {
-              Loading.hide()
-            }, 1000)
-          }} />
-          <PrimaryButton text={'Toast'} onPress={() => {Toast.show('Hello Trident')}} />
-          <PrimaryButton text={'CustomDialog'} onPress={() => { Toast.show('TODO')}} />
         </EntryList>
+        <View style={{backgroundColor: '#fff'}}>
+          <Demo />
+        </View>
         {/*<JSONTree data={this.props} hideRoot={true} getItemString={(type, data, itemType, itemString) => <Text>{type}</Text>} />*/}
       </View>
     )

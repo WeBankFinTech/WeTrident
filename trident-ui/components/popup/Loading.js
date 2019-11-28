@@ -32,9 +32,7 @@ export default class Loading extends Component {
   }
 
   static show () {
-    if (!PopupStub.stub) return
-
-    Loading._id = PopupStub.stub.addPopup(<Loading />, {
+    Loading._id = PopupStub.addPopup(<Loading />, {
       name: 'Loading',
       mask: false,
       lock: true,
@@ -48,10 +46,7 @@ export default class Loading extends Component {
   }
 
   static hide () {
-    if (!PopupStub.stub) return
-
-    PopupStub.stub.removePopup(Loading._id)
-
+    PopupStub.removePopup(Loading._id)
     Loading._id = null
   }
 

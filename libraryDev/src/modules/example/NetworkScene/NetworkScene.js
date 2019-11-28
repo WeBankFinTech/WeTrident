@@ -4,14 +4,11 @@
  * Created by erichua on 2019-09-07T07:36:49.896Z.
  */
 import React, { Component } from 'react'
-import { AppNavigator, WeBaseScene } from '@webank/trident'
-import { Theme } from '@webank/trident/trident-ui/theme'
+import { AppNavigator, WeBaseScene, Theme, Loading, Dialog } from '@webank/trident'
 import EntryList from '../../../bizComponents/EntryList'
 import PrimaryButton from '@webank/trident/library/uiComponent/PrimaryButton'
 import APIClient from '@webank/trident/library/network/APIClient'
 
-import Loading from '@webank/trident/trident-ui/components/popup/Loading'
-import Dialog from '@webank/trident/library/uiComponent/popup/Dialog'
 import CGI from './cgi/CGI'
 
 export default class NetworkScene extends WeBaseScene {

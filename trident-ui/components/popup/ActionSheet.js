@@ -46,7 +46,7 @@ export default class ActionSheet extends React.Component {
     }
 
     Keyboard.dismiss()
-    ActionSheet._id = PopupStub.stub.addPopup(
+    ActionSheet._id = PopupStub.addPopup(
       <ActionSheet header={option.header} items={option.items} footer={option.footer} />,
       {
         mask: true,
@@ -64,7 +64,7 @@ export default class ActionSheet extends React.Component {
   }
 
   static hide (id) {
-    PopupStub.stub.removePopup(id)
+    PopupStub.removePopup(id || ActionSheet._id)
   }
 
   render () {
