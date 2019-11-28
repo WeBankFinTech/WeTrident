@@ -4,7 +4,7 @@
  * Created by rcrabwu on 2019-10-24T08:41:28.998Z.
  */
 import React from 'react'
-import { View, Button, StyleSheet } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import { WeBaseScene, Button } from '@webank/trident'
 import NavBar from '../../components/NavBar'
 import dimens from '@webank/trident/library/uiComponent/dimens'
