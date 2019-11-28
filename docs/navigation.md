@@ -1,6 +1,6 @@
 ---
 id: navigation
-title: 导航系统
+title: 页面间导航
 ---
 
 Trident App中你可以非常轻松的通过模块名和页面名进行跳转。通过`AppNavigator.$moduleName.$sceneName()`即可完成跳转。这样的设计主要是为了达到如下几个目的： 
