@@ -72,7 +72,7 @@ export default class TridentApp extends Component {
 
     let WTConsole
     if (this.props.showWTConsole) {
-      WTConsole = require('@unpourtous/tianyan-react-native').default
+      WTConsole = require('@unpourtous/wt-console').default
     }
     return (
       <Provider store={this.store}>

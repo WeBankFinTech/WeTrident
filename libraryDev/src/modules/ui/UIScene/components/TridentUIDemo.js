@@ -11,7 +11,7 @@ import {
   Table, Checkbox
 } from '@webank/trident/trident-ui'
 
-export default class Demo extends Component {
+export default class TridentUIDemo extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -130,7 +130,7 @@ export default class Demo extends Component {
           <Button style={{ marginTop: 10 }} text={'展示自定义的Popup'} onPress={() => {
             const id = Popup.show(
               <View style={{ backgroundColor: '#fff', marginVertical: 20, paddingHorizontal: 20, paddingVertical: 10 }}>
-                <Demo />
+                <TridentUIDemo />
                 <Button style={{ marginTop: 10 }} text={'关闭Popup'} onPress={() => {
                   Popup.hide(id)
                 }} />
