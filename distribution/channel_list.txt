@@ -1,0 +1,3 @@
+channelName=cdn
+webank
+yingyongbao
