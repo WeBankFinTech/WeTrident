@@ -14,17 +14,17 @@ import PropTypes from 'prop-types'
 import { PopupStub } from '@unpourtous/react-native-popup-stub'
 import stateChangeListener from './navigation/stateChangeListener'
 import ModuleManager from './navigation/ModuleManager'
-import TianYan, {Dashboard} from '@unpourtous/tianyan-react-native'
 import ElementMark from './qualityTools/ElementMark'
 import SceneTraversal from './qualityTools/SceneTraversal'
-import RNEnv from './utils/RNEnv'
 
 export default class TridentApp extends Component {
   static propTypes = {
     reduxConfig: PropTypes.object,
     navigationConfig: PropTypes.object,
     modules: PropTypes.array, // static modules
-    dyModules: PropTypes.object // dynamic modules
+    dyModules: PropTypes.object, // dynamic modules,
+    showWTConsole: PropTypes.bool,
+    wtConsoleOptions: PropTypes.object // wtConsole config
   }
 
   constructor () {
@@ -71,31 +71,28 @@ export default class TridentApp extends Component {
     const Navigator = this.WeNavigator.stackNavigator
 
     let WTConsole
-    if (!RNEnv.isRemoteDebug() && RNEnv.isDev()) {
-      WTConsole = require('@unpourtous/tianyan-react-native').default
+    if (this.props.showWTConsole) {
+      WTConsole = require('@unpourtous/wt-console').default
     }
-
     return (
       <Provider store={this.store}>
         <this.connectedContainer>
           <StatusBar translucent backgroundColor='transparent' />
           <Navigator />
-          <PopupStub
-            maskColor='rgba(0,0,0,0.75)' ref={_ref => {
+          <PopupStub maskColor='rgba(0,0,0,0.75)' ref={_ref => {
             if (_ref) PopupStub.init(_ref)
           }}
           />
           {WTConsole ? <WTConsole
             options={{
-              logServerUrl: 'http://example.com/api',
+              logServerUrl: 'http://wt-console-server.com/upload',
               maxLogLine: 1000,
               ignoreFilter: function () {
-                const filterRule = /%c prev state|%c next state|%c action|%c CHANGED|[action] Navigation\/|%c ADDED|productinfo\/getfinancepageviewinfoV3|productinfo\/getinvestpageviewinfoV3|productinfo\/getproductlistbycode|gold\/query_current_price/g
-
-                // 过滤掉状态的打印, 避免刷屏
+                const filterRule = /%c prev state|%c next state|%c action|%c CHANGED|[action] Navigation\/|%c ADDED/g
                 return ((arguments && typeof arguments[0] === 'string' && arguments[0].match(filterRule)) ||
                   (typeof arguments[1] === 'string' && arguments[1].match(filterRule)))
-              }
+              },
+              ...(this.props.wtConsoleOptions || {})
             }} /> : null}
           <ElementMark ref={_ref => SceneTraversal.setRef(_ref)} />
         </this.connectedContainer>

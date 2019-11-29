@@ -229,7 +229,7 @@ class AppNavigator {
    * 示例：
    * 1)假设页面堆栈为 A->B->C->D
    * * 在 D 页面调用 goBack() 返回 C
-   * * 在 D 页面调用 goback('B') 返回 B
+   * * 在 D 页面调用 goBack('B') 返回 B
    *
    * 2) 假设页面 D 是一个公共页面，存在多种路径跳转过来：A->B->C->D, E->F->D
    * * 在 D 页面调用 goBack(['A', 'E'])，如果从 A 跳转过来返回 A，如果从 E 条转过来返回 E

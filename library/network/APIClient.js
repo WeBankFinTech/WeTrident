@@ -1,12 +1,6 @@
 import axios from 'axios'
 import wrapLogInterceptor from './wrapLogInterceptor'
 import AxiosAdapter from './AxiosAdapter'
-import { setupCache } from 'axios-cache-adapter'
-
-// Create `axios-cache-adapter` instance
-const cache = setupCache({
-  maxAge: 15 * 60 * 1000
-})
 
 /**
  * 1. 封装axios

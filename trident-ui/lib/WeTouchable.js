@@ -3,7 +3,11 @@ import WeTouchableHighlight from './WeTouchableHighlight'
 import WeTouchableOpacity from './WeTouchableOpacity'
 import WeTouchableMask from './WeTouchableMask'
 import PropTypes from 'prop-types'
+import _ from 'lodash'
+import TridentStat from '../../library/statistics/TridentStat'
+import NavigationUtils from '../../library/navigation/NavigationUtils'
 
+let i = 1
 const PRESS_MODE = Object.freeze({
   opacity: 'opacity',
   highlight: 'highlight',
@@ -86,6 +90,62 @@ class WeTouchable extends Component {
     }
   }
 
+  // 获取按钮中文本信息
+  _getButtonDesc () {
+    // 目前可以解析的节点类型
+    let result = ''
+    let breakPoint = null
+    const supportVNodeList = ['Text', 'Icon', 'Image']
+    const _getDesc = (vNode) => {
+      switch (_getNodeName(vNode)) {
+        case 'Text':
+          return _.get(vNode, 'props.children', '')
+        case 'Icon':
+          return _.get(vNode, 'props.name', '')
+        case 'Image':
+          return _.get(vNode, 'props.source.uri', '')
+      }
+    }
+    const _getNodeName = (children) => _.get(children, 'type.displayName', '')
+    const _getChildren = (children) => _.get(children, 'props.children', '')
+    const _isSupportType = (vNode) => supportVNodeList.includes(_getNodeName(vNode))
+
+    // 解析节点
+    const _resolveNode = (vNode) => {
+      if (_isSupportType(vNode) && _getDesc(vNode)) {
+        breakPoint = true
+        result = _getDesc(vNode)
+      } else if (_getChildren(vNode)) {
+        let child = _getChildren(vNode)
+        if (_.isArray(child)) {
+          for (let key in child) {
+            !breakPoint && _resolveNode(child[key])
+          }
+        } else {
+          !breakPoint && _resolveNode(child)
+        }
+      } else if (_.isArray(vNode)) {
+        for (let key in vNode) {
+          !breakPoint && _resolveNode(vNode[key])
+        }
+      } else {
+      }
+    }
+
+    if (this.props.children) {
+      _resolveNode(this.props.children)
+    }
+
+    // 处理result
+    if (result && _.isString(result)) {
+      return result
+    } else if (result && _.isArray(result) && _.isString(result[0])) {
+      return result[0]
+    } else {
+      return '不支持的节点需要添加:' + _getNodeName(this.props.children)
+    }
+  }
+
   onPress () {
     let {
       onPress: originOnPress = () => {},
@@ -93,10 +153,18 @@ class WeTouchable extends Component {
     } = this.props
 
     if (throttleOnPress) {
-      if (!this.isEnabled) {
-        console.log('别点了，喝杯水休息一下')
+      if (!this .isEnabled) {
+        console.log('throttle!!')
         return
       }
+
+      TridentStat.emitStatEvent({
+        type: TridentStat.StatType.userAction,
+        payload: {
+          id: this._getButtonDesc(),
+          currentURL: NavigationUtils.generateRouteName(this.context.moduleName, this.context.sceneName)
+        }
+      })
       originOnPress()
     } else {
       originOnPress()
@@ -105,5 +173,6 @@ class WeTouchable extends Component {
 }
 
 WeTouchable.PressMode = PRESS_MODE
+WeTouchable.pressMode= PRESS_MODE
 
 export default WeTouchable

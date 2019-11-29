@@ -3,7 +3,10 @@ const path = require('path')
 
 function generatorDTS () {
   let code = ''
-  const pathConfig = require('../config/pathConfig-local')
+  let pathConfig = require('../config/pathConfig')
+  if (process.env.useLocal === 'true') {
+    pathConfig = require('../config/pathConfig-local')
+  }
   let modules = {}
 
   fs.readdirSync(pathConfig.modulesPath).sort().forEach(moduleName => {

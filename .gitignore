@@ -71,6 +71,9 @@ libraryDev/ios/main.jsbundle
 libraryDev/ios/build/
 libraryDev/node_modules/
 
+
+trident-cli/package-lock.json
+
 fastlane/report.xml
 
 lab/
@@ -80,3 +83,7 @@ app-seed/fastlane/README.md
 website/release/*.tar.gz
 website/release/*.tgz
 website/release/*.zip
+
+.tridentTemp/
+
+coverage/

@@ -1,6 +1,6 @@
 ---
 id: navigation
-title: 导航系统
+title: 页面间导航
 ---
 
 Trident App中你可以非常轻松的通过模块名和页面名进行跳转。通过`AppNavigator.$moduleName.$sceneName()`即可完成跳转。这样的设计主要是为了达到如下几个目的： 
@@ -131,5 +131,3 @@ export default class ResultScene extends WeBaseScene {
 更多配置见`react-navigation`官方文档。
 
 到这里，页面已经可以很容易的按我们的要求串联起来了，那下一步将会学习数据状态的管理。
-
-[本节代码变更内容](http://git.weoa.com/app/trident-demo/compare/f-add-modules-scenes...f-custom-navbar)

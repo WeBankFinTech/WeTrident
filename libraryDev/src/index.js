@@ -4,11 +4,12 @@
 import React, { Component } from 'react'
 import { StatusBar, Platform } from 'react-native'
 import { TridentApp } from '@webank/trident'
+import RNEnv from '@webank/trident/library/utils/RNEnv'
 
 const navigationBarHeight = 44
 const statusBarHeight = Platform.select({
-    android: Platform.Version >= 21 ? StatusBar.currentHeight : 0,
-    ios: 20 // ios: Device.isPhoneX() ? 44 : 20
+  android: Platform.Version >= 21 ? StatusBar.currentHeight : 0,
+  ios: 20 // ios: Device.isPhoneX() ? 44 : 20
 })
 
 export default class AppEntry extends Component {
@@ -48,6 +49,8 @@ export default class AppEntry extends Component {
         container={require('./container').default}
         modules={require('./modules').default}
         dyModules={require('./modules').dyModules}
+        showWTConsole={!RNEnv.isRemoteDebug() && RNEnv.isDev()}
+        wtConsoleOptions={{}}
       />
     )
   }

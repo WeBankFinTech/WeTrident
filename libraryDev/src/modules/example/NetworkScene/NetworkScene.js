@@ -4,15 +4,12 @@
  * Created by erichua on 2019-09-07T07:36:49.896Z.
  */
 import React, { Component } from 'react'
-import { AppNavigator, WeBaseScene } from '@webank/trident'
-import { Theme } from '@webank/trident/trident-ui/theme'
+import { AppNavigator, WeBaseScene, Theme, Loading, Dialog } from '@webank/trident'
 import EntryList from '../../../bizComponents/EntryList'
-import PrimaryButton from '@webank/trident/library/uiComponent/PrimaryButton'
 import APIClient from '@webank/trident/library/network/APIClient'
 
-import Loading from '@webank/trident/trident-ui/popup/Loading'
-import Dialog from '@webank/trident/library/uiComponent/popup/Dialog'
 import CGI from './cgi/CGI'
+import { Button } from '@webank/trident/trident-ui'
 
 export default class NetworkScene extends WeBaseScene {
   static navigationOptions = ({ navigation: { state: { params = {} } } }) => ({
@@ -41,32 +38,32 @@ export default class NetworkScene extends WeBaseScene {
       <EntryList style={[{
         backgroundColor: Theme.Color.backgroundPrimary
       }, this.props.style]}>
-        <PrimaryButton text={`正常POST请求`} onPress={() => {
+        <Button text={`正常POST请求`} onPress={() => {
           Loading.wrap(APIClient.request(CGI.postBookListNormal).then(...requestProcessor))
         }} />
-        <PrimaryButton text={`异常POST请求`} onPress={() => {
+        <Button text={`异常POST请求`} onPress={() => {
           Loading.wrap(APIClient.request(CGI.postBookListException).then(...requestProcessor))
         }} />
-        <PrimaryButton text={`正常GET请求`} onPress={() => {
+        <Button text={`正常GET请求`} onPress={() => {
           Loading.wrap(APIClient.request(CGI.getBookListNormal).then(...requestProcessor))
         }} />
-        <PrimaryButton text={`异常GET请求`} onPress={() => {
+        <Button text={`异常GET请求`} onPress={() => {
           Loading.wrap(APIClient.request(CGI.getBookListException).then(...requestProcessor))
         }} />
-        <PrimaryButton text={`全局增加自定义Header`} onPress={() => {
+        <Button text={`全局增加自定义Header`} onPress={() => {
           Loading.wrap(APIClient.request(CGI.requestUseGlobalHeader).then((response) => {
             this._showDialog('请求的Header为' + JSON.stringify(response.config.headers))
           }))
         }} />
-        <PrimaryButton text={`特定URL()增加自定义Header`} onPress={() => {
+        <Button text={`特定URL()增加自定义Header`} onPress={() => {
           Loading.wrap(APIClient.request(CGI.requestUseSpecificHeader).then((response) => {
             this._showDialog('请求的Header为' + JSON.stringify(response.config.headers))
           }))
         }} />
-        <PrimaryButton text={`Mock使用(随机成功失败)`} onPress={() => {
+        <Button text={`Mock使用(随机成功失败)`} onPress={() => {
           Loading.wrap(APIClient.request(CGI.requestUseMock).then(...requestProcessor))
         }} />
-        <PrimaryButton text={`缓存设置(API级别)`} onPress={() => {
+        <Button text={`缓存设置(API级别)`} onPress={() => {
           Loading.wrap(APIClient.request(CGI.requestUseCache).then((response) => {
             let msg = ''
             if (response.fromCache) {
@@ -77,7 +74,7 @@ export default class NetworkScene extends WeBaseScene {
             this._showDialog(msg + JSON.stringify(response.data))
           }))
         }} />
-        <PrimaryButton text={`缓存设置(单次调用级别)`} onPress={() => {
+        <Button text={`缓存设置(单次调用级别)`} onPress={() => {
           Loading.wrap(APIClient.request(
             CGI.requestUseCache,
             undefined,

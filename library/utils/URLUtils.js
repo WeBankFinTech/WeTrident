@@ -4,7 +4,7 @@
 const URL = require('url')
 
 export default class {
-  static appendParams (url, paramsToAppend) {
+  static appendParams (url, paramsToAppend = {}) {
     const parsed = URL.parse(url, true)
     parsed.query = {
       ...(parsed.query || {}),

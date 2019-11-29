@@ -5,9 +5,8 @@
  */
 import React from 'react'
 import { Text } from 'react-native'
-import { WeBaseScene } from '@webank/trident'
+import { WeBaseScene, Column } from '@webank/trident'
 import ObjectView from '../components/ObjectView'
-import { Column } from '@webank/trident/trident-ui'
 
 export default class StateShareScene extends WeBaseScene {
   static navigationOptions = ({ navigation: { state: { params = {} } } }) => ({

@@ -1,51 +1,63 @@
 {
   "name": "@webank/trident",
-  "version": "1.2.18",
+  "version": "1.3.1",
   "main": "library/index.js",
   "scripts": {
     "test": "node_modules/jest/bin/jest.js",
-    "patchVersion": "npm version patch && cd global-cli && npm version patch && cd ..",
-    "publishAll": "npm config set registry=http://localhost:4873/ && npm unpublish @webank/trident --force && npm unpublish @webank/trident-cli --force && npm publish && cd global-cli && npm publish",
-    "wpublishAll": "wnpm publish && cd global-cli && wnpm publish",
+    "e2e": "./__tests__/scripts/test-manual-e2e.sh",
+    "patchVersion": "npm version patch && cd trident-cli && npm version patch && cd ..",
+    "publishAll": "npm config set registry=http://localhost:4873/ && npm unpublish @webank/trident --force && npm unpublish @webank/trident-cli --force && npm publish && cd trident-cli && npm publish",
+    "wpublishAll": "wnpm publish && cd trident-cli && wnpm publish",
     "reinstallCli": "echo 'reinstall the newest trident-cli' && npm uninstall @webank/trident-cli -g && npm install @webank/trident-cli -g",
     "wreinstallCli": "echo 'reinstall the newest trident-cli' && wnpm uninstall @webank/trident-cli -g && wnpm install @webank/trident-cli -g",
-    "npmLocalPublishAll": "npm version patch && npm publish --registry http://localhost:4873 && cd global-cli && npm version patch && npm publish --registry http://localhost:4873",
-    "test-tpl": "echo 'test the trident framework' && rm -rf WeBookStore && trident-cli init --name=WeBookStore --bundleId=com.trident.wbstore --scheme=wbstore && cd WeBookStore && bundle exec fastlane ios release --verbose && bundle exec fastlane android release --verbose && rm -rf ./WeBookStore",
+    "npmLocalPublishAll": "npm version patch && npm publish --registry http://localhost:4873 && cd trident-cli && npm version patch && npm publish --registry http://localhost:4873",
+    "test-tpl": "echo 'test the trident framework' && rm -rf WeBookStore && trident-cli init --name=WeBookStore --bundleId=com.trident.wbstore --scheme=wbstore --port=8081 --eslint && cd WeBookStore && bundle exec fastlane ios release --verbose && bundle exec fastlane android release --verbose && rm -rf ./WeBookStore",
     "syncLib": "watchman watch ./trident-ui && watchman watch ./library && wml add trident-ui libraryDev/node_modules/@webank/trident/trident-ui && wml add library libraryDev/node_modules/@webank/trident/library && wml start",
-    "standardjs": "node_modules/standard/bin/cmd.js library/**/*.js"
+    "standardjs": "node_modules/standard/bin/cmd.js library/**/*.js",
+    "devEnv": "echo npmClient=$npmClient && echo useLocal=$useLocal"
   },
   "repository": {
     "type": "git",
-    "url": "git+http://git.weoa.com/app/trident.git"
+    "url": "git+http://github.com/WeBankFinTech/WeTrident.git"
   },
   "author": "erichua",
   "license": "Apache License 2.0",
   "bugs": {
-    "url": "http://git.weoa.com/app/trident/issues"
+    "url": "http://github.com/WeBankFinTech/WeTrident/issues"
   },
-  "homepage": "http://sit-hjdata.webank.com/trident",
+  "homepage": "http://github.com/WeBankFinTech/WeTrident",
   "description": "可快速开发支持商业运营App的框架。",
   "dependencies": {
     "@babel/parser": "^7.4.3",
     "@babel/traverse": "^7.4.3",
     "@babel/types": "^7.4.0",
-    "@unpourtous/react-native-popup-stub": "^1.4.6",
+    "@unpourtous/react-native-popup-stub": "1.4.12",
     "@unpourtous/react-native-touchable": "^1.0.3",
+    "@unpourtous/react-navigation": "1.2.6",
     "axios": "0.18.0",
-    "axios-cache-adapter": "^2.5.0",
     "babel-generator": "^6.26.1",
     "inquirer": "^6.3.1",
     "iwalk": "0.0.5",
+    "md5": "2.2.1",
     "minimist": "^1.2.0",
     "node-version-compare": "^1.0.2",
     "prettier": "1.18.2",
     "prop-types": "^15.7.2",
     "proxy-polyfill": "^0.3.0",
     "qs": "^6.9.1",
+    "react-native": "https://github.com/UnPourTous/react-native.git#release/0.51.7",
+    "react-native-animatable": "https://github.com/UnPourTous/react-native-animatable.git#v1.2.5",
+    "react-navigation-redux-helpers": "1.0.1",
+    "react-redux": "5.0.6",
+    "redux": "3.6.0",
+    "redux-actions": "2.2.1",
+    "redux-logger": "3.0.6",
+    "redux-thunk": "2.3.0",
     "replace-in-file": "^3.4.4",
     "route-parser": "0.0.5",
     "shelljs": "^0.8.3",
-    "md5": "2.2.1"
+    "url": "0.11.0",
+    "url-search-params": "1.1.0"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.7.0",

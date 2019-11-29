@@ -18,5 +18,5 @@ tdt install
 ```
 
 ## 4. 启动项目
-完成上述步骤以后即可根据文档的指引继续开发, 具体指引参见: [文档中启动应用部分](http://10.107.104.145/trident/docs/getting-started/#3-%E5%90%AF%E5%8A%A8%E5%BA%94%E7%94%A8ios)
+完成上述步骤以后即可根据文档的指引继续开发, 具体指引参见: [文档中启动应用部分](/trident/docs/getting-started/#3-%E5%90%AF%E5%8A%A8%E5%BA%94%E7%94%A8ios)
 

@@ -11,7 +11,6 @@ import _ from 'lodash'
 import { generateRouteName } from '../navigation/NavigationUtils'
 import RNEnv from '../utils/RNEnv'
 import moment from 'moment'
-import Statistics from '../statistics/Statistics'
 import SceneTraversal from '../qualityTools/SceneTraversal'
 
 export default class WeBaseScene extends Component {
@@ -63,7 +62,7 @@ export default class WeBaseScene extends Component {
   componentWillUnmount () {}
 
   componentDidUpdate () {
-      this._setTraversalTimer()
+    this._setTraversalTimer()
   }
 
   // Invoked when this scene become visible again. It won't be invoked at the first time
@@ -72,8 +71,8 @@ export default class WeBaseScene extends Component {
   onPause (fromScene, toScene) {}
 
   onIdle () {
-      const { moduleName, sceneName } = this.props
-      SceneTraversal.runTest(moduleName, sceneName, this)
+    const { moduleName, sceneName } = this.props
+    SceneTraversal.runTest(moduleName, sceneName, this)
   }
 
   /**
@@ -128,19 +127,19 @@ export default class WeBaseScene extends Component {
     const sceneDetailName = generateRouteName(_.get(this, 'props.moduleName', ''), _.get(this, 'props.sceneName', ''))
     console.log(`🐈${sceneDetailName}(${sceneKey})`, 'onPause', `${fromScene} --> ${toScene}`)
 
-    this.stayEndTime = moment()
-    if (this.isUnmounted) {
-      if (this.stayStartTime) {
-        Statistics.reportSceneStayTime(this.stayStartTime, this.stayEndTime, this.sceneUrl, 'back')
-      }
-    } else {
-      if (this.stayStartTime) {
-        Statistics.reportSceneStayTime(this.stayStartTime, this.stayEndTime, this.sceneUrl, 'navigate')
-      }
-    }
+    // this.stayEndTime = moment()
+    // if (this.isUnmounted) {
+    //   if (this.stayStartTime) {
+    //     Statistics.reportSceneStayTime(this.stayStartTime, this.stayEndTime, this.sceneUrl, 'back')
+    //   }
+    // } else {
+    //   if (this.stayStartTime) {
+    //     Statistics.reportSceneStayTime(this.stayStartTime, this.stayEndTime, this.sceneUrl, 'navigate')
+    //   }
+    // }
 
     if (this.timer) {
-        clearTimeout(this.timer)
+      clearTimeout(this.timer)
     }
   }
 
@@ -181,11 +180,11 @@ export default class WeBaseScene extends Component {
   }
 
   _setTraversalTimer () {
-      if (this.timer) {
-          clearTimeout(this.timer)
-      }
-      this.timer = setTimeout(() => {
-          this.onIdle()
-      }, 3000)
+    if (this.timer) {
+      clearTimeout(this.timer)
+    }
+    this.timer = setTimeout(() => {
+      this.onIdle()
+    }, 3000)
   }
 }

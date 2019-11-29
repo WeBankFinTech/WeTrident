@@ -5,6 +5,7 @@ title: 创建项目
 
 ## 开发环境依赖
 Trident目前仅支持macOS，其余环境Trident都会做详细的提示来协助安装。
+开始开发前需要先配置Android和iOS开发环境，具体配置方法可以参考Android和iOS官方文档。
 
 ## 内网配置
 为了避免各种网络问题，行内用户首先需要完成如下环境设置。
@@ -99,17 +100,23 @@ cd WeBookStore
 # 启动react native packager
 tdt packager start
 
-# 在XCode中打开项目
+# 通过命令行启动App
+tdt run ios 
+
+# 也可以在XCode中打开项目, 在XCode中Run即可。
 open ios/WeBookStore.xcworkspace/
 ```
-在XCode中Run即可。
 
 #### 4. 启动应用(Android)
 ```shell
 # 启动Packager，如果已经启动可以忽略
 tdt packager start
 
-# Android Studio中打开 'WeBookStore/android', 用Android Studio打开项目运行即可, 请确保gradle的代理配置已经如本文前面部分所述设置完成。
+# 通过命令行启动App
+tdt run android
+
+# 也可以在Android Studio中打开'WeBookStore/android', 
+# 用Android Studio打开项目运行即可, 请确保gradle的代理配置已经如本文前面部分所述设置完成。
 ```
 如果你的网络不好，连接maven失败，可以选择添加阿里云的maven镜像，在`WeBookStore/android/app/build.gradle`和`WeBookStore/android/build.gradle`中的 repositories 区域添加如下代码:
 ```
@@ -167,4 +174,3 @@ PS: `example`模块为测试所用，到这里我们可以移除它，移除一�
 
 本部分我们创建了所有需要的页面，接下来会介绍导航体系，把这些页面串联起来。
 
-[本节代码变更内容](http://git.weoa.com/app/trident-demo/compare/f-init...f-add-modules-scenes)
