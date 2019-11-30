@@ -24,7 +24,11 @@ export default class TridentApp extends Component {
     modules: PropTypes.array, // static modules
     dyModules: PropTypes.object, // dynamic modules,
     showWTConsole: PropTypes.bool,
-    wtConsoleOptions: PropTypes.object // wtConsole config
+    wtConsoleOptions: PropTypes.object, // wtConsole config
+    customWTConsoleTab: PropTypes.shape({ // wtConsole other view
+      name: PropTypes.string,
+      view: PropTypes.object
+    })
   }
 
   constructor () {
@@ -66,14 +70,30 @@ export default class TridentApp extends Component {
       thunk
     ])
   }
-
+  _renderWTConsole () {
+    if (this.props.showWTConsole) {
+      let WTConsole = require('@unpourtous/wt-console').default
+      if (this.props.customWTConsoleTab) {
+        const {name, view} = this.props.customWTConsoleTab
+        let Dashboard = require('@unpourtous/wt-console').Dashboard
+        Dashboard.register({}, {tabLabel: name || '自定义'}, view)
+      }
+      return <WTConsole
+        options={{
+          logServerUrl: 'http://wt-console-server.com/upload',
+          maxLogLine: 1000,
+          ignoreFilter: function () {
+            const filterRule = /%c prev state|%c next state|%c action|%c CHANGED|[action] Navigation\/|%c ADDED/g
+            return ((arguments && typeof arguments[0] === 'string' && arguments[0].match(filterRule)) ||
+              (typeof arguments[1] === 'string' && arguments[1].match(filterRule)))
+          },
+          ...(this.props.wtConsoleOptions || {})
+        }} />
+    }
+  }
   render () {
     const Navigator = this.WeNavigator.stackNavigator
 
-    let WTConsole
-    if (this.props.showWTConsole) {
-      WTConsole = require('@unpourtous/wt-console').default
-    }
     return (
       <Provider store={this.store}>
         <this.connectedContainer>
@@ -83,17 +103,8 @@ export default class TridentApp extends Component {
             if (_ref) PopupStub.init(_ref)
           }}
           />
-          {WTConsole ? <WTConsole
-            options={{
-              logServerUrl: 'http://wt-console-server.com/upload',
-              maxLogLine: 1000,
-              ignoreFilter: function () {
-                const filterRule = /%c prev state|%c next state|%c action|%c CHANGED|[action] Navigation\/|%c ADDED/g
-                return ((arguments && typeof arguments[0] === 'string' && arguments[0].match(filterRule)) ||
-                  (typeof arguments[1] === 'string' && arguments[1].match(filterRule)))
-              },
-              ...(this.props.wtConsoleOptions || {})
-            }} /> : null}
+          {this._renderWTConsole()}
+
           <ElementMark ref={_ref => SceneTraversal.setRef(_ref)} />
         </this.connectedContainer>
       </Provider>
