@@ -76,6 +76,16 @@ function run (root) {
       }
       break
     }
+    case 'traversal': {
+      const traversal = require('./traversal')
+      switch (subCmd) {
+        case 'start': {
+          traversal.start(root)
+          break
+        }
+      }
+      break
+    }
     case 'plugin': {
       // TODO 每条命令添加参数检查
       switch (subCmd) {
