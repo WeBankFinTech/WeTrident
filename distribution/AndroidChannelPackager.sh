@@ -15,16 +15,13 @@ function buildApks()
 {
 
 	echo 【3/4】开始打包
-	#开始打CDN包....
-	java -jar $PWD/WeBankChannelTool $PWD/$sourceApk channel_cdn.txt
-	#开始打商店包....
-	java -jar $PWD/WeBankChannelTool $PWD/$sourceApk channel_store.txt
+	java -jar $PWD/webankchanneltools.jar $PWD/$sourceApk channel_list.txt
 
 	cp *.zip ./bin
 	rm *.zip
 
 	cd -
-    echo 【4/4】打包完成
+    echo 【4/4】打包完成，文件路径：$PWD/bin/渠道名称—apks.zip
 
 }
 

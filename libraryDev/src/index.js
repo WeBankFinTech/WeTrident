@@ -5,6 +5,7 @@ import React, { Component } from 'react'
 import { StatusBar, Platform } from 'react-native'
 import { TridentApp } from '@webank/trident'
 import RNEnv from '@webank/trident/library/utils/RNEnv'
+import {WTConsoleView} from './bizComponents/WTConsoleView'
 
 const navigationBarHeight = 44
 const statusBarHeight = Platform.select({
@@ -49,8 +50,12 @@ export default class AppEntry extends Component {
         container={require('./container').default}
         modules={require('./modules').default}
         dyModules={require('./modules').dyModules}
-        showWTConsole={!RNEnv.isRemoteDebug() && RNEnv.isDev()}
+        showWTConsole={true || !RNEnv.isRemoteDebug() && RNEnv.isDev()}
         wtConsoleOptions={{}}
+        customWTConsoleTab={{
+          name: '自定义',
+          view: <WTConsoleView />
+        }}
       />
     )
   }
