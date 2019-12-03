@@ -50,7 +50,7 @@ export default class AppEntry extends Component {
         container={require('./container').default}
         modules={require('./modules').default}
         dyModules={require('./modules').dyModules}
-        showWTConsole={true || !RNEnv.isRemoteDebug() && RNEnv.isDev()}
+        showWTConsole={!RNEnv.isRemoteDebug() && RNEnv.isDev()}
         wtConsoleOptions={{}}
         customWTConsoleTab={{
           name: '自定义',
