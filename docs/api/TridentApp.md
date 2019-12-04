@@ -12,7 +12,6 @@ TridentApp中完成了Trident的主要功能，导航和状态数据管理都由
 | dyModules | array | 通常情况保持创建项目以后的值即可，无需改动
 | showWTConsole | bool | 是否需要显示WTConsole，WTConsole可用于App内日志采集和上传
 | wtConsoleOptions | object | 见 [wtConsoleOptions 定义](/trident/docs/api/TridentApp#wtconsoleoptions)
-| match | RegExp | 用于匹配URL的正则，确保只有满足规则的请求才会添加对应的Header
 
 ##### wtConsoleOptions
 | 参数名 | 类型 | 描述 | 

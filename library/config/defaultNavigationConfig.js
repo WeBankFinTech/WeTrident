@@ -1,3 +1,5 @@
+import CardStackStyleInterpolator from '@unpourtous/react-navigation/src/views/CardStack/CardStackStyleInterpolator'
+
 export default {
   navigationOptions: {
     gesturesEnabled: true,
@@ -13,5 +15,11 @@ export default {
       textAlign: 'center'
     }
   },
-  headerMode: 'screen'
+  headerMode: 'screen',
+
+  transitionConfig: () => ({
+    screenInterpolator: sceneProps => {
+      return CardStackStyleInterpolator.forHorizontal(sceneProps)
+    }
+  })
 }

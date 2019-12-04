@@ -1,56 +1,54 @@
 import AxiosMocker from '@webank/trident/library/network/AxiosMocker'
 
-function mockable (b) {
-
-}
+const baseURL = 'http://47.75.152.113:3000/'
 
 export default {
   postBookListNormal: {
-    baseURL: 'https://www.mocky.io/',
+    baseURL,
     method: 'post',
-    url: '/v2/5dc964632f0000760073ec4b',
+    url: '/comments',
     desc: '请求书籍列表',
     request: {},
   },
   postBookListException: {
-    baseURL: 'https://www.mocky.io/',
+    baseURL,
     method: 'post',
-    url: '/v2/error',
-    desc: '请求书籍列表',
+    url: '/books/error',
+    desc: '请求书籍列表错误',
     request: {},
   },
   getBookListNormal: {
-    baseURL: 'https://www.mocky.io/',
+    baseURL,
     method: 'get',
-    url: '/v2/5dc964632f0000760073ec4b',
+    url: '/books',
     desc: '请求书籍列表',
     request: {},
   },
   getBookListException: {
-    baseURL: 'https://www.mocky.io/',
+    baseURL,
     method: 'get',
-    url: '/v2/error',
+    url: '/books/error',
     desc: '请求书籍列表',
     request: {},
   },
   requestUseGlobalHeader: {
-    baseURL: 'https://www.mocky.io/',
-    method: 'post',
-    url: '/v2/5dc96cf72f0000560073ecb9',
+    baseURL,
+    method: 'get',
+    url: '/books',
     desc: '请求书籍列表',
     request: {},
   },
   requestUseSpecificHeader: {
-    baseURL: 'https://www.mocky.io/',
-    method: 'post',
-    url: '/v2/5dc964632f0000760073ec4b',
+    baseURL,
+    method: 'get',
+    url: '/books',
     desc: '请求书籍列表',
     request: {},
   },
   requestUseMock: {
-    baseURL: 'https://www.mocky.io/',
+    baseURL,
     method: 'get',
-    url: '/v2/5dc964632f0000760073ec4b',
+    url: '/books',
     desc: '请求书籍列表',
     request: {},
     mockable: true,
@@ -67,11 +65,10 @@ export default {
   requestUseCache: {
     cacheMaxAgeInMs: 60000,
 
-    baseURL: 'https://www.mocky.io/',
+    baseURL,
     method: 'get',
-    url: '/v2/5dc964632f0000760073ec4b',
+    url: '/books',
     desc: '请求书籍列表',
-    request: {
-    },
+    request: {},
   }
 }
