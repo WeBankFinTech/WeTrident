@@ -6,6 +6,7 @@ import { StatusBar, Platform } from 'react-native'
 import { TridentApp } from '@webank/trident'
 import RNEnv from '@webank/trident/library/utils/RNEnv'
 import {WTConsoleView} from './bizComponents/WTConsoleView'
+import CardStackStyleInterpolator from '@unpourtous/react-navigation/src/views/CardStack/CardStackStyleInterpolator'
 
 const navigationBarHeight = 44
 const statusBarHeight = Platform.select({
@@ -45,7 +46,13 @@ export default class AppEntry extends Component {
           headerMode: 'screen',
           cardStyle: {
             // backgroundColor: 'red'
-          }
+          },
+          // make android and ios have the same transition effect
+          transitionConfig: () => ({
+            screenInterpolator: sceneProps => {
+              return CardStackStyleInterpolator.forHorizontal(sceneProps)
+            }
+          })
         }}
         container={require('./container').default}
         modules={require('./modules').default}
