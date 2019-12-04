@@ -21,6 +21,7 @@ wnpm install -g @webank/trident-cli
 - [`plugin`](#plugin)
 - [`distribute`](#distribute)
 - [`env`](#env)
+- [`traversal`](#traversal)
 
 
 ### `init`
@@ -206,3 +207,13 @@ tdt env
 ```
 
 Trident 运行环境检测。
+
+### `traversal`
+
+使用方法：
+
+```sh
+tdt traversal start
+```
+
+启动自动化遍历测试server
