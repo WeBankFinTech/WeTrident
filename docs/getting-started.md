@@ -58,9 +58,9 @@ Trident目前仅支持macOS，其余环境Trident都会做详细的提示来协�
 4. Gradle代理配置，在`~/.gradle/gradle.properties`中添加如下内容
 
     ```
-    systemProp.http.proxyHost=proxyhk.webank.com
+    systemProp.http.proxyHost=proxy.webank.com
     systemProp.http.proxyPort=8080
-    systemProp.https.proxyHost=proxyhk.webank.com
+    systemProp.https.proxyHost=proxy.webank.com
     systemProp.https.proxyPort=8080
     ```
 
