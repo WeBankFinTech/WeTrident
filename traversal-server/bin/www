@@ -102,7 +102,7 @@ var messages = []
 var intervalTimer
 
 io.sockets.on('connection', socket => {
-  console.log('connect is called')
+  console.log('客户端已连接')
   intervalTimer = setInterval(saveMessages, 60000)
   Promise.all([
     loadRecentRecords(),
@@ -111,7 +111,6 @@ io.sockets.on('connection', socket => {
     result => {
       let recentRecords = result[0]
       let strategy = result[1]
-      console.log(result)
       io.emit('prepare', {records: recentRecords, strategy})
     },
     () => {
@@ -121,13 +120,13 @@ io.sockets.on('connection', socket => {
 
   //断开连接
   socket.on('disconnect', () => {
-    console.log('disconnect')
+    console.log('客户端已断开连接')
     clearInterval(intervalTimer)
     saveMessages()
   })
 
   socket.on('message', data => {
-    console.log(data)
+    // console.log(data)
     messages.push(data)
   })
 
@@ -148,13 +147,7 @@ function saveMessages() {
   
   let fs = require('fs')
   let writeMessage = function () {
-    fs.writeFile(getFilePath(), buffer.join('\n') + '\n', {flag: 'a'}, error => {
-      if (error) {
-        console.log('写入失败')
-      } else {
-        console.log('写入成功')
-      }
-    })
+    fs.writeFile(getFilePath(), buffer.join('\n') + '\n', {flag: 'a'}, error => {})
   }
   if (buffer.length > 0) {
     
@@ -164,9 +157,8 @@ function saveMessages() {
       } else {
         fs.mkdir(getRecordsRootDir(), error => {
           if (error) {
-            console.log('创建folder失败')
+            console.log('创建目录失败')
           } else {
-            console.log('创建folder成功')
             writeMessage()
           }
         })
@@ -220,7 +212,6 @@ function loadStrategy() {
           }
         })
       } else {
-        console.log("not exists")
         resolve({})
       }
     })
