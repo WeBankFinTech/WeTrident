@@ -20,6 +20,9 @@
     ],
     "Trident-cli": [
       "trident-cli"
+    ],
+    "测试工具": [
+      "test/Traversal"
     ]
   }
 }
