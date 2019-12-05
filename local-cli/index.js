@@ -17,7 +17,7 @@ function run (root) {
       switch (subCmd) {
         case 'androidPack': {
           const androidPackager = require('./distribute').androidPack
-          androidPack(root)
+          androidPackager(root)
           break
         }
       }

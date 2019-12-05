@@ -4,7 +4,7 @@ function androidPack (root) {
   let path = shell.exec('find . -name AndroidChannelPackager.sh').stdout
   if (path) {
     let dictionary = path.replace('/AndroidChannelPackager.sh', '')
-    shell.exec(`cd ${dictionary}`)
+    shell.cd(`${dictionary}`)
     shell.exec('./AndroidChannelPackager.sh')
     shell.exit(1);
   } else {
