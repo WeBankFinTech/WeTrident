@@ -9,7 +9,9 @@
       "state-management",
       "network",
       "native-modules",
-      "debug-skill",
+      "debug-skill"
+    ],
+    "发布": [
       "release-ios",
       "release-android"
     ],
