@@ -33,7 +33,7 @@
         "title": "使用原生组件"
       },
       "navigation": {
-        "title": "导航系统"
+        "title": "页面间导航"
       },
       "network": {
         "title": "使用网络"
@@ -53,6 +53,9 @@
       "state-management": {
         "title": "数据状态管理"
       },
+      "test/Traversal": {
+        "title": "test/Traversal"
+      },
       "trident-cli": {
         "title": "trident-cli使用"
       },
@@ -69,8 +72,10 @@
     "categories": {
       "背景介绍": "背景介绍",
       "快速入门": "快速入门",
+      "发布": "发布",
       "API Reference": "API Reference",
-      "Trident-cli": "Trident-cli"
+      "Trident-cli": "Trident-cli",
+      "测试工具": "测试工具"
     }
   },
   "pages-strings": {
