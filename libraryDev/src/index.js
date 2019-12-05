@@ -3,9 +3,9 @@
  */
 import React, { Component } from 'react'
 import { StatusBar, Platform } from 'react-native'
-import { TridentApp } from '@webank/trident'
-import RNEnv from '@webank/trident/library/utils/RNEnv'
-import {WTConsoleView} from './bizComponents/WTConsoleView'
+import { TridentApp, RNEnv } from '@webank/trident'
+
+import { WTConsoleView } from './bizComponents/WTConsoleView'
 import CardStackStyleInterpolator from '@unpourtous/react-navigation/src/views/CardStack/CardStackStyleInterpolator'
 
 const navigationBarHeight = 44

@@ -4,10 +4,7 @@
  * Created by rcrabwu on 2019-09-01T10:36:12.859Z.
  */
 
-// 常用的import
-// import Dialog from '@webank/trident/library/uiComponent/popup/Dialog'
-import Toast from '@webank/trident/library/uiComponent/popup/Toast'
-import Loading from '@webank/trident/library/uiComponent/popup/Loading'
+import { Toast, Loading } from '@webank/trident'
 
 class WebViewService {
   constructor () {

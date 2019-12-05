@@ -5,7 +5,7 @@ import {
 } from 'react-native'
 import { AppNavigator, TridentStat } from '@webank/trident'
 import { Linking } from 'react-native'
-import { LightTheme, createTheme, ThemeProvider } from '@webank/trident/trident-ui/theme'
+import { LightTheme, createTheme, ThemeProvider } from '@webank/trident'
 
 TridentStat.setOnStatEventHandler(require('./stat').default)
 

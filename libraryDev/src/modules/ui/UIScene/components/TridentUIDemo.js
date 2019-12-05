@@ -4,13 +4,12 @@
  * Created by erichua on 2019-04-23T03:47:50.328Z.
  */
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, ScrollView, KeyboardAvoidingView } from 'react-native'
+import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import {
   FinancialInput, List, Button, Row, Column, Icon,
   Dialog, Loading, Toast, Popup, ActionSheet,
   Table, Checkbox
 } from '@webank/trident/trident-ui'
-import WeTouchable from '@webank/trident/trident-ui/lib/WeTouchable'
 
 export default class TridentUIDemo extends Component {
   constructor (props) {

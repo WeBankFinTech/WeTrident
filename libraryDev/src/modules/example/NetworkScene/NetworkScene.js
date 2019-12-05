@@ -3,13 +3,11 @@
  *
  * Created by erichua on 2019-09-07T07:36:49.896Z.
  */
-import React, { Component } from 'react'
-import { AppNavigator, WeBaseScene, Theme, Loading, Dialog } from '@webank/trident'
+import React from 'react'
+import { WeBaseScene, Theme, Loading, Dialog, Button, APIClient } from '@webank/trident'
 import EntryList from '../../../bizComponents/EntryList'
-import APIClient from '@webank/trident/library/network/APIClient'
 
 import CGI from './cgi/CGI'
-import { Button } from '@webank/trident/trident-ui'
 
 export default class NetworkScene extends WeBaseScene {
   static navigationOptions = ({ navigation: { state: { params = {} } } }) => ({
