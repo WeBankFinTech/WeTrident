@@ -57,7 +57,7 @@ function getPublishDependencies (root, rawDependencies) {
   rawDependencies.forEach(dep => {
     if (projDependList.indexOf(dep) !== -1) {
       pubDependencies[dep] = projDependencies[dep]
-    } else { // 特例 @webank/trident/library/uiComponent/popup/Dialog && @webank/trident
+    } else { // 特例 @webank/trident
       for (let i in projDependList) {
         if (dep.startsWith(projDependList[i])) {
           pubDependencies[projDependList[i]] = projDependencies[projDependList[i]]

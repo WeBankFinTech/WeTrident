@@ -7,7 +7,6 @@ import _ from 'lodash'
 import TridentStat from '../../library/statistics/TridentStat'
 import NavigationUtils from '../../library/navigation/NavigationUtils'
 
-let i = 1
 const PRESS_MODE = Object.freeze({
   opacity: 'opacity',
   highlight: 'highlight',
