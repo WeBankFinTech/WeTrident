@@ -15,6 +15,7 @@ router.get('/', function(req, res, next) {
 					finishedRecords = parseFinishedRecords(result.finishedRecords)
 					res.render('analysis', {
 						title,
+						error,
 						traversingRecords,
 						finishedRecords
 					})

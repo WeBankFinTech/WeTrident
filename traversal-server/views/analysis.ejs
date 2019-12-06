@@ -5,45 +5,54 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
+
+    <% if (error) { %>
+
+    <h1><%-error %></h1>
+
+    <% } else { %>
+
     <h1><%= title %></h1>
 
-	<% if (traversingRecords) { %>
-	<ul>
-	<% for(let module in traversingRecords) {%>
-	<li>【Module】 <%-module %>
-		<% for(let scene in traversingRecords[module]) {%>
+	    <% if (traversingRecords) { %>
 		<ul>
-			<li>【Scene】 <%-scene %>
-				<% if (finishedRecords && finishedRecords[module] && finishedRecords[module][scene]) { %>
-				✅
-				<% } else { %>
-				⌛️...
-				<% } %>
-
-				<% for(let element in traversingRecords[module][scene]) {%>
-					<ul>
-						<% if (traversingRecords[module][scene][element] && traversingRecords[module][scene][element].length > 0) { %>
-						<!-- 遍历异常信息 -->
-						<li>🙅<font color="red">【ERROR】</font><%-element %></li>
-						<ul>
-							<% for(let index = 0; index < traversingRecords[module][scene][element].length; index++) {%>
-							<li><font color="red">[<%-index + 1 %>]  <%-traversingRecords[module][scene][element][index] %></font></li>
-							<% } %>
-						</ul>
+			<% for(let module in traversingRecords) {%>
+			<li>【Module】 <%-module %>
+				<% for(let scene in traversingRecords[module]) {%>
+				<ul>
+					<li>【Scene】 <%-scene %>
+						<% if (finishedRecords && finishedRecords[module] && finishedRecords[module][scene]) { %>
+						✅
 						<% } else { %>
-						<!-- 正常遍历结果 -->
-						<li>🙆‍♂️<font color="green">【PASS】</font><%-element %></li>
+						⌛️...
 						<% } %>
-					</ul>
-				<% } %>
 
+						<% for(let element in traversingRecords[module][scene]) {%>
+							<ul>
+								<% if (traversingRecords[module][scene][element] && traversingRecords[module][scene][element].length > 0) { %>
+								<!-- 遍历异常信息 -->
+								<li>🙅<font color="red">【ERROR】</font><%-element %></li>
+								<ul>
+									<% for(let index = 0; index < traversingRecords[module][scene][element].length; index++) {%>
+									<li><font color="red">[<%-index + 1 %>]  <%-traversingRecords[module][scene][element][index] %></font></li>
+									<% } %>
+								</ul>
+								<% } else { %>
+								<!-- 正常遍历结果 -->
+								<li>🙆‍♂️<font color="green">【PASS】</font><%-element %></li>
+								<% } %>
+							</ul>
+						<% } %>
+
+					</li>
+				</ul>
+				<% } %>
 			</li>
-		</ul>
+			<% } %>
+		<ul>
 		<% } %>
-	<% } %>
-	</li>
-	<ul>
-	<% } %>
+
+    <% } %>
 
   </body>
 </html>
