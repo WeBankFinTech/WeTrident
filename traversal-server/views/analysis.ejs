@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+
+	<% if (traversingRecords) { %>
+	<ul>
+	<% for(let module in traversingRecords) {%>
+	<li>【Module】 <%-module %>
+		<% for(let scene in traversingRecords[module]) {%>
+		<ul>
+			<li>【Scene】 <%-scene %>
+				<% if (finishedRecords && finishedRecords[module] && finishedRecords[module][scene]) { %>
+				✅
+				<% } else { %>
+				⌛️...
+				<% } %>
+
+				<!-- 正常遍历结果 -->
+				<% for(let index = 0; index < traversingRecords[module][scene].length; index++) {%>
+				<ul>
+					<li>🙆‍♂️<font color="green">【PASS】</font><%-traversingRecords[module][scene][index] %></li>
+				</ul>
+				<% } %>
+
+				<!-- 遍历异常信息 -->
+				<% if (errorRecords && errorRecords[module] && errorRecords[module][scene] && errorRecords[module][scene].length > 0) { %>
+					<% for(let index = 0; index < errorRecords[module][scene].length; index++) {%>
+					<ul>
+						<li>🙅<font color="red">【ERROR】</font><%-errorRecords[module][scene][index] %></li>
+					</ul>
+					<% } %>
+           		<% } %>
+			</li>
+		</ul>
+		<% } %>
+	<% } %>
+	</li>
+	<ul>
+	<% } %>
+
+  </body>
+</html>
