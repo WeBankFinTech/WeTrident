@@ -20,21 +20,23 @@
 				⌛️...
 				<% } %>
 
-				<!-- 正常遍历结果 -->
-				<% for(let index = 0; index < traversingRecords[module][scene].length; index++) {%>
-				<ul>
-					<li>🙆‍♂️<font color="green">【PASS】</font><%-traversingRecords[module][scene][index] %></li>
-				</ul>
+				<% for(let element in traversingRecords[module][scene]) {%>
+					<ul>
+						<% if (traversingRecords[module][scene][element] && traversingRecords[module][scene][element].length > 0) { %>
+						<!-- 遍历异常信息 -->
+						<li>🙅<font color="red">【ERROR】</font><%-element %></li>
+						<ul>
+							<% for(let index = 0; index < traversingRecords[module][scene][element].length; index++) {%>
+							<li><font color="red">[<%-index + 1 %>]  <%-traversingRecords[module][scene][element][index] %></font></li>
+							<% } %>
+						</ul>
+						<% } else { %>
+						<!-- 正常遍历结果 -->
+						<li>🙆‍♂️<font color="green">【PASS】</font><%-element %></li>
+						<% } %>
+					</ul>
 				<% } %>
 
-				<!-- 遍历异常信息 -->
-				<% if (errorRecords && errorRecords[module] && errorRecords[module][scene] && errorRecords[module][scene].length > 0) { %>
-					<% for(let index = 0; index < errorRecords[module][scene].length; index++) {%>
-					<ul>
-						<li>🙅<font color="red">【ERROR】</font><%-errorRecords[module][scene][index] %></li>
-					</ul>
-					<% } %>
-           		<% } %>
 			</li>
 		</ul>
 		<% } %>
