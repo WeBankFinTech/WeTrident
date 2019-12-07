@@ -15,16 +15,19 @@
       "release-ios",
       "release-android"
     ],
-    "API Reference": [
-      "api/TridentApp",
-      "api/AppNavigator",
-      "api/APIClient"
-    ],
     "Trident-cli": [
       "trident-cli"
     ],
     "测试工具": [
       "test/Traversal"
+    ],
+    "Plugin Store": [
+      "pluginStore/WebView"
+    ],
+    "API Reference": [
+      "api/TridentApp",
+      "api/AppNavigator",
+      "api/APIClient"
     ]
   }
 }

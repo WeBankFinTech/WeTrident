@@ -70,7 +70,8 @@ function getPublishDependencies (root, rawDependencies) {
 
 function publish (root, name) {
   // TODO 这里应该还要支持添加额外的参数，例如发布到组下面需要添加 `--access publish`
-  let publishCommand = `npm publish --verbose`
+  const npmClient = process.env.npmClient || 'wnpm'
+  let publishCommand = `${npmClient} publish --verbose`
 
   try {
     process.chdir(path.join(root, pathConfig.modulesPath + name))

@@ -38,6 +38,9 @@
       "network": {
         "title": "使用网络"
       },
+      "pluginStore/WebView": {
+        "title": "WebView"
+      },
       "release-android": {
         "title": "Android 发布参考"
       },
@@ -54,7 +57,7 @@
         "title": "数据状态管理"
       },
       "test/Traversal": {
-        "title": "test/Traversal"
+        "title": "自动化遍历使用指南"
       },
       "trident-cli": {
         "title": "trident-cli使用"
@@ -73,9 +76,10 @@
       "背景介绍": "背景介绍",
       "快速入门": "快速入门",
       "发布": "发布",
-      "API Reference": "API Reference",
       "Trident-cli": "Trident-cli",
-      "测试工具": "测试工具"
+      "测试工具": "测试工具",
+      "Plugin Store": "Plugin Store",
+      "API Reference": "API Reference"
     }
   },
   "pages-strings": {
