@@ -5,6 +5,7 @@
  */
 
 export default [
+  require('./TabContainerScene').default,
   require('./DemoScene').default,
   require('./FrameworkScene').default,
   require('./NetworkScene').default,
