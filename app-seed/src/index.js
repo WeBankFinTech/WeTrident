@@ -3,6 +3,7 @@
  */
 import React, { Component } from 'react'
 import { TridentApp } from '@webank/trident'
+import RNEnv from '@webank/trident/library/utils/RNEnv'
 
 export default class AppEntry extends Component {
   render () {
@@ -10,7 +11,10 @@ export default class AppEntry extends Component {
     return (
       <TridentApp
         container={require('./container').default}
-        modules={require('./modules').default} />
+        modules={require('./modules').default}
+        dyModules={require('./modules').dyModules}
+        showWTConsole={!RNEnv.isRemoteDebug() && RNEnv.isDev()}
+      />
     )
   }
 }
