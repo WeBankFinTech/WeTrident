@@ -4,8 +4,8 @@
 export default (global, ModulePrivate) => ({
   moduleName: ModulePrivate.moduleName,
   parentName: 'TabContainerScene',
-  sceneName: 'HomeTab',
-  component: require('./HomeTab').default,
+  sceneName: 'SettingTab',
+  component: require('./SettingTab').default,
 
   /**
    * 定义scene级别数据的初始值
@@ -50,7 +50,7 @@ export default (global, ModulePrivate) => ({
    * 将global级别的共享数据映射到props
    */
   mapGlobalState: state => ({
-    globalCount: state.globalCount
+    // globalCount: state.globalCount
   }),
 
   /**

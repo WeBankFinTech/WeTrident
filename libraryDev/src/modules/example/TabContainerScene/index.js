@@ -1,12 +1,14 @@
 /**
  * Created by erichua on 2019-02-23T10:25:07.640Z.
  */
+import HomeTab from './tabs/HomeTab'
+import SettingTab from './tabs/SettingTab'
+
 export default (global, ModulePrivate) => ({
   moduleName: ModulePrivate.moduleName,
-  parentName: 'TabContainerScene',
-  sceneName: 'HomeTab',
-  component: require('./HomeTab').default,
-
+  sceneName: 'TabContainerScene',
+  component: require('./TabContainerScene').default,
+  childComponent: [HomeTab, SettingTab],
   /**
    * 定义scene级别数据的初始值
    */
@@ -50,7 +52,7 @@ export default (global, ModulePrivate) => ({
    * 将global级别的共享数据映射到props
    */
   mapGlobalState: state => ({
-    globalCount: state.globalCount
+    // globalCount: state.globalCount
   }),
 
   /**

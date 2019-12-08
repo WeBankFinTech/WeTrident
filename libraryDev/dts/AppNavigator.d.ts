@@ -1,7 +1,6 @@
 declare module '@webank/trident' {
   interface AppNavigator {
     example: {
-      BechcheckScene(): void
       DemoScene(): void
       FrameworkScene(): void
       NavAScene(): void
@@ -12,6 +11,10 @@ declare module '@webank/trident' {
       PluginStoreScene(): void
       StateManagementScene(): void
       StateShareScene(): void
+      TabContainerScene(): void
+    },
+    tabExample: {
+      TabContainerScene(): void
     },
     tridentPluginWebView: {
       WebViewScene(): void

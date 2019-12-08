@@ -62,7 +62,7 @@ tdt init [options]
 
 项目模板。目前可选`tab`: tabView模板、`default`: 空模板。
 
-####Example
+#### Example
 
 ```sh
 tdt init
@@ -166,7 +166,13 @@ tdt run <subCmd>
 tdt plugin add <pluginName>
 ```
 
-安装一个插件。
+安装一个插件，该插件将以模块的形式添加至项目中，模块名字可以自定义。例如，添加 `@webank/trident-plugin-webview` 插件，最终会作为`tridentPluginWebview`模块插入到项目中，即可以跳转至该模块
+
+```
+AppNavigator.tridentPluginWebview.WebViewScene({
+  url: 'https://www.webank.com'
+})
+```
 
 #### init
 

@@ -1,18 +1,15 @@
 /**
  * 负责用户交互逻辑
  *
- * Created by rcrabwu on 2019-10-28T08:43:20.544Z.
+ * Created by rcrabwu on 2019-12-07T10:18:48.246Z.
  */
-import React from 'react'
+import React, { Component } from 'react'
 import { Image } from 'react-native'
-import {
-  WeBaseScene,
-  ModuleManager,
-  createModuleConnect,
-  createSceneConnect
-} from '@webank/trident'
+import { WeBaseScene } from '@webank/trident'
 import { TabNavigator, DrawerNavigator, TabBarBottom } from '@unpourtous/react-navigation'
-import ModulePrivate from '../'
+import ModuleManager from '@webank/trident/library/navigation/ModuleManager'
+import { createModuleConnect, createSceneConnect } from '@webank/trident/library/reduxUtils'
+import ModulePrivate from '..'
 import HomeTab from './tabs/HomeTab'
 import SettingTab from './tabs/SettingTab'
 
