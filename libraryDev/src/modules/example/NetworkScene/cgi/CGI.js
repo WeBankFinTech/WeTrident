@@ -1,4 +1,4 @@
-import AxiosMocker from '@webank/trident/library/network/AxiosMocker'
+import {AxiosMocker} from '@webank/trident'
 
 const baseURL = 'http://47.75.152.113:3000/'
 

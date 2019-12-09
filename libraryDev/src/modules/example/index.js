@@ -3,8 +3,8 @@
  *
  * Created by erichua on 2019-04-23T03:47:47.051Z.
  */
-export default {
-  moduleName: 'example',
+export default (moduleName) => ({
+  moduleName: moduleName,
   initialState: {
     moduleCount: 0
   },
@@ -18,4 +18,4 @@ export default {
   reducers: {
     addModuleCount: (state, action) => ({ ...state, moduleCount: state.moduleCount + action.payload })
   }
-}
+})

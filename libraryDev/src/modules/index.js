@@ -1,5 +1,5 @@
 export default [
-  require("./example").default,
+  require("./example").default("example"),
   require("./tabExample").default("tabExample"),
   require("./tridentPluginWebView").default("tridentPluginWebView")
 ]

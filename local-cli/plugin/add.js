@@ -75,7 +75,7 @@ function getModuleName (npmPluginName) {
 
     // not in existed moduleList
     if (existedModuleList.indexOf(finalName) === -1) {
-      addAsModule(finalName)
+      addAsModule(finalName, npmPluginName)
     } else {
       console.log(chalk.red(`Module called '${finalName}' has existed, please change a name or delete the existed one`))
       setTimeout(() => getModuleName(npmPluginName), 1000)
@@ -85,8 +85,8 @@ function getModuleName (npmPluginName) {
   })
 }
 
-function addAsModule (moduleName) {
-  const requireCallExpression = t.callExpression(t.identifier('require'), [t.stringLiteral(moduleName)])
+function addAsModule (moduleName, npmPluginName) {
+  const requireCallExpression = t.callExpression(t.identifier('require'), [t.stringLiteral(npmPluginName)])
   const newMember = t.memberExpression(requireCallExpression, t.identifier('default'))
   const newMemberCallExpression = t.callExpression(newMember, [t.stringLiteral(moduleName)])
   const moduleArrayFunction = t.arrowFunctionExpression([], newMemberCallExpression, false)

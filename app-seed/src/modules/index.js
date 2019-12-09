@@ -1,7 +1,5 @@
 export default [require('./example').default('example')]
 
-const dyModules = {
-  ui: () => require('./ui').default('ui')
-}
+const dyModules = {}
 
 export { dyModules }
