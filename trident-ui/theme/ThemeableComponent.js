@@ -8,16 +8,37 @@ export default class ThemeableComponent extends Component {
   }
 
   getComponentTheme () {
-    const theme = _.get(this.context, 'theme')
+    const theme = _.get(this.context, 'theme', {})
     if (this.namespace && _.isObject(theme[this.namespace])) {
-      return this._mergeTheme(theme[this.namespace])
+      const styles = {};
+      (this.themeStyleKeys || []).forEach(key => {
+        // Table.Tr:
+        // {
+        //
+        // }
+        // Table.Td: {}
+        styles[key] = [theme[this.namespace][key], this.context[key], this.props[key]]
+      })
+      return {
+        theme: {},
+        ...this.props,
+        ...styles
+      }
     }
-    return this.props
+    return {
+      theme: {},
+      ...this.props
+    }
   }
 
   _mergeTheme (customComponentTheme = {}) {
     return {
-      ...customComponentTheme,
+      theme: {
+        ...customComponentTheme,
+      },
+      context: {
+        ...this.context,
+      },
       ...(this.props || {}),
     }
   }

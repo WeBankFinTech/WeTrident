@@ -1,4 +1,5 @@
 export default [
+  require("./ui").default("ui"),
   require("./example").default("example"),
   require("./tabExample").default("tabExample"),
   require("./tridentPluginWebView").default("tridentPluginWebView")
@@ -6,7 +7,6 @@ export default [
 
 const dyModules = {
   ui: () => require("./ui").default("ui"),
-  // tabExample: () => require("./tabExample").default
 }
 
 export { dyModules }

@@ -49,4 +49,14 @@ export default {
   fontXL: 18,
   // 资产数字
   fontXXL: 30,
+
+  lineHeightS: 18,
+  // 表单文字、正文文字等行高
+  lineHeightM: 21,
+  // 模块标题行高
+  lineHeightL: 24,
+  // 标题栏标题、按钮文字行高
+  lineHeightXL: 27,
+  // 资产数字
+  lineHeightXXL: 45,
 }

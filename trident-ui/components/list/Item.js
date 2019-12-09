@@ -4,22 +4,24 @@
  * @created Lemorili
  */
 
-import React, {Component} from 'react'
-import {View, Text, StyleSheet} from 'react-native'
+import React, { Component } from 'react'
+import { View, Text, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
 
 import Indicator from './Indicator'
 import { ProUI } from '../../values'
 import Icon from '../icon/Icon'
-import {iconNamePropType} from '../../propTypeUtils'
+import { iconNamePropType } from '../../propTypeUtils'
 import WeTouchable from '../../lib/WeTouchable'
+import ThemeableComponent from '../../theme/ThemeableComponent'
 
 /*
  * props属性中：
  * label和status可自定义
  * iconStyle应做到统一风格
 */
-export default class Item extends Component {
+export default class Item extends ThemeableComponent {
+  namespace = 'List.Item'
   static propTypes = {
     data: PropTypes.shape({
       // 左侧图标（可选）
@@ -53,13 +55,15 @@ export default class Item extends Component {
   render () {
     const {
       data,
-      iconStyle,
-      style,
-      labelStyle,
-      statusStyle,
-      rightStyle,
-      subStatusStyle
-    } = this.props
+      theme: {
+        iconStyle,
+        style,
+        labelStyle,
+        statusStyle,
+        rightStyle,
+        subStatusStyle
+      } = {}
+    } = this.getComponentTheme()
     const {
       onPress
     } = data
@@ -67,26 +71,26 @@ export default class Item extends Component {
     const Wrapper = onPress ? WeTouchable : View
 
     return (
-      <Wrapper style={[styles.item, style]} onPress={onPress}>
-        <View style={styles.piece}>
-          {data.icon ? <Icon name={data.icon} style={[styles.icon, iconStyle]} /> : null}
-          {this.props.renderLabel ? this.props.renderLabel() : <Text style={[styles.label, labelStyle]}>{data.label}</Text>}
+      <Wrapper style={[style]} onPress={onPress}>
+        <View style={[rightStyle]}>
+          {data.icon ? <Icon name={data.icon} style={[iconStyle]} /> : null}
+          {this.props.renderLabel ? this.props.renderLabel() : <Text style={[labelStyle]}>{data.label}</Text>}
         </View>
 
         {data.renderRight
           ? data.renderRight()
           : <View>
-            <View style={[styles.piece, rightStyle]}>
+            <View style={[rightStyle]}>
               {
                 data.loading ? <Indicator style={data.iconRight ? styles.mr10 : null} />
-                  : data.status ? <Text style={[styles.status, data.iconRight ? styles.mr10 : null, statusStyle]}>{data.status}</Text>
+                  : data.status ? <Text style={[data.iconRight ? styles.mr10 : null, statusStyle]}>{data.status}</Text>
                   : null
               }
               {
                 data.iconRight ? <Icon name={data.iconRight} /> : null
               }
             </View>
-            {data.subStatus ? <Text style={[styles.subStatus, subStatusStyle]}>{data.subStatus}</Text> : null}
+            {data.subStatus ? <Text style={[subStatusStyle]}>{data.subStatus}</Text> : null}
           </View>}
       </Wrapper>
     )
@@ -94,38 +98,6 @@ export default class Item extends Component {
 }
 
 const styles = StyleSheet.create({
-  item: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingVertical: ProUI.spaceY.medium,
-    paddingHorizontal: ProUI.spaceX.large,
-    minHeight: ProUI.fixedRowHeight
-  },
-  piece: {
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-  icon: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    width: 30,
-    marginRight: ProUI.spaceX.medium
-  },
-  label: {
-    color: ProUI.color.primary,
-    fontSize: ProUI.fontSize.medium
-  },
-  status: {
-    color: ProUI.color.sub,
-    fontSize: ProUI.fontSize.medium
-  },
-  subStatus: {
-    fontSize: ProUI.fontSize.small,
-    color: ProUI.color.info,
-    marginTop: ProUI.spaceY.small,
-    textAlign: 'right'
-  },
   mr10: {
     marginRight: ProUI.spaceX.medium
   }

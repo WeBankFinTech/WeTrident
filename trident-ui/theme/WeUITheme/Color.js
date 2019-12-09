@@ -1,7 +1,7 @@
 
 export default {
   // 标准文字颜色
-  textPrimary: '#FFFFFF',
+  textPrimary: '#000000',
   // 辅助文字颜色，例如副标题
   textSecondary: '#999',
   // 强调文字颜色, 比 textPrimary 强, 但是非警告色
@@ -13,15 +13,19 @@ export default {
   // 错误文字颜色, 用于出错后的提醒
   textError: '#F00',
 
-  backgroundPrimary: '#F29360',
-  backgroundPrimaryDark: '#D98456',
+  // 浅色区域文字主色
+  textLightPrimary: '#FFFFFF',
+
+
+  backgroundPrimary: '#1AAD19',
+  backgroundPrimaryDark: '#1AAD19',
   backgroundSecondary: '#DDD',
   backgroundImportant: '#FFF',
   backgroundInfo: '#FFF',
   backgroundWarning: '#FFF',
   backgroundError: '#FFF',
 
-  borderPrimary: '#DDD',
+  borderPrimary: '#E5E5E5',
   borderSecondary: '#DDD',
   borderImportant: '#DDD',
   borderInfo: '#DDD',

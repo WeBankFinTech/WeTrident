@@ -6,40 +6,59 @@ import {
 } from 'react-native'
 import PropTypes from 'prop-types'
 import { ProUI } from '../../values'
+import ThemeableComponent from '../../theme/ThemeableComponent'
 
 const oneStyleType = PropTypes.oneOfType([PropTypes.object, PropTypes.number])
 const styleType = PropTypes.oneOfType([oneStyleType, PropTypes.arrayOf(oneStyleType)])
 
-class Tr extends React.Component {
+class Tr extends ThemeableComponent {
+  namespace = 'Table.Tr'
+  themeStyleKeys = ['style', 'textStyle']
+
   static propTypes = {
     style: styleType
+  }
+  static childContextTypes = {
+    textStyle: PropTypes.style,
+    borderStyle: PropTypes.style
+  }
+
+  getChildContext () {
+    const {
+      textStyle,
+    } = this.props
+
+    return {
+      textStyle,
+    }
   }
 
   render () {
     const {
       children,
-      style
-    } = this.props
+
+      style,
+    } = this.getComponentTheme()
     return (
-      <View style={[styles.defaultRowStyle, style]}>
+      <View style={[style]}>
         {children}
       </View>
     )
   }
 }
 
-class Td extends React.Component {
+class Td extends ThemeableComponent {
+  namespace = 'Table.Td'
+  themeStyleKeys = ['style', 'textStyle', 'borderStyle']
+
   static propTypes = {
     row: PropTypes.number,
-    align: PropTypes.string,
+
     textStyle: styleType
   }
   static contextTypes = {
-    borderColor: PropTypes.string,
-    borderWidth: PropTypes.number,
-    color: PropTypes.string,
-    align: PropTypes.string,
-    fontSize: PropTypes.number
+    textStyle: PropTypes.style,
+    borderStyle: PropTypes.style
   }
 
   static defaultProps = {
@@ -51,114 +70,92 @@ class Td extends React.Component {
     const {
       children,
       row,
-      textStyle
-    } = this.props
-    const {
-      borderColor,
-      borderWidth,
-      color,
-      align,
-      fontSize
-    } = this.context
+
+      style,
+      textStyle,
+      borderStyle
+    } = this.getComponentTheme()
 
     return (
-      <View style={[styles.defaultCellStyle, {
-        flex: row,
-        borderColor: borderColor,
-        borderRightWidth: borderWidth,
-        borderBottomWidth: borderWidth
-      }]}>
-        <Text style={[styles.defaultTextStyle, {textAlign: align, color: color, fontSize: fontSize}, textStyle]}>{children}</Text>
+      <View style={[style, borderStyle, { flex: row }]}>
+        <Text style={[textStyle]}>{children}</Text>
       </View>
     )
   }
 }
 
-class Th extends React.Component {
+class Th extends ThemeableComponent {
+  namespace = 'Table.Th'
+  themeStyleKeys = ['style', 'textStyle']
+
   static propTypes = {
     row: PropTypes.number,
     align: PropTypes.string,
     textStyle: styleType
   }
+
   render () {
     const {
       children,
       row,
+
+      // move to style
       align,
-      textStyle
-    } = this.props
+      textStyle,
+    } = this.getComponentTheme()
     return (
-      <Td row={row} align={align} textStyle={[{color: ProUI.color.sub, fontWeight: 'bold'}, textStyle]}>{children}</Td>
+      <Td row={row} align={align}
+          textStyle={[{ color: ProUI.color.sub, fontWeight: 'bold' }, textStyle]}>{children}</Td>
     )
   }
 }
 
-export default class Table extends React.Component {
-  static propTypes = {
-    style: PropTypes.any,
-    borderColor: PropTypes.string,
-    color: PropTypes.string,
-    borderWidth: PropTypes.number,
-    align: PropTypes.string,
-    fontSize: PropTypes.number,
-    backgroundColor: PropTypes.string
-  }
+export default class Table extends ThemeableComponent {
+  namespace = 'Table'
+  themeStyleKeys = ['style', 'textStyle']
 
-  static defaultProps = {
-    borderColor: ProUI.color.border,
-    borderWidth: 0.5,
-    color: ProUI.color.primary,
-    fontSize: ProUI.fontSize.small,
-    align: 'left',
-    ratio: 1,
-    backgroundColor: ProUI.color.moduleBackground
-  }
-
-  static childContextTypes = {
-    borderColor: PropTypes.string,
-    borderWidth: PropTypes.number,
-    color: PropTypes.string,
-    align: PropTypes.string,
-    fontSize: PropTypes.number
-  }
   static Tr = Tr
   static Th = Th
   static Td = Td
 
+  static propTypes = {
+    style: PropTypes.style,
+
+    // context
+    borderStyle: PropTypes.style,
+    textStyle: Text.propTypes.style
+  }
+
+  static defaultProps = {}
+
+  static childContextTypes = {
+    textStyle: Text.propTypes.style,
+    borderStyle: PropTypes.style,
+  }
+
   // 为下层组件提供感知当前上下文的能力
   getChildContext () {
     const {
-      borderColor,
-      borderWidth,
-      color,
-      align,
-      fontSize
+      textStyle,
+      borderStyle,
     } = this.props
 
     return {
-      borderColor,
-      borderWidth,
-      color,
-      align,
-      fontSize
+      borderStyle,
+      textStyle
     }
   }
 
   render () {
     const {
-      borderColor,
-      borderWidth,
-      style,
       children,
-      backgroundColor
-    } = this.props
+
+      style,
+      borderStyle
+    } = this.getComponentTheme()
+
     return (
-      <View style={[style, {
-        borderColor: borderColor,
-        borderLeftWidth: borderWidth,
-        borderTopWidth: borderWidth,
-        backgroundColor: backgroundColor
-      }]}>
+      <View style={[style, borderStyle]}>
         {children}
       </View>
     )
@@ -166,20 +163,7 @@ export default class Table extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  defaultRowStyle: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'stretch',
-    backgroundColor: ProUI.color.moduleBackground
-  },
-  defaultCellStyle: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'stretch',
-    paddingHorizontal: 15,
-    paddingVertical: 13,
-    backgroundColor: ProUI.color.moduleBackground
-  },
+  defaultCellStyle: {},
   defaultTextStyle: {
     lineHeight: ProUI.lineHeight.medium,
     backgroundColor: ProUI.color.moduleBackground

@@ -16,12 +16,14 @@ import React, { Component } from 'react'
 import Item from './Item'
 import { ProUI } from '../../values'
 import WeTouchable from '../../lib/WeTouchable'
+import ThemeableComponent from '../../theme/ThemeableComponent'
 
 let SEPARATOR = 'we_list_separator'
 let TOP_SEPARATOR = 'top'
 let BOTTOM_SEPARATOR = 'bottom'
 
-class Index extends Component {
+class Index extends ThemeableComponent {
+  namespace = 'List'
   static Item = Item
 
   static propTypes = {
@@ -55,13 +57,14 @@ class Index extends Component {
   }
 
   _renderSeparator (key) {
+    const {
+      theme: {
+        separatorStyle
+      }
+    } = this.getComponentTheme()
     return (<View
       ref={SEPARATOR + key}
-      style={[{
-        backgroundColor: this.props.lineColor,
-        height: 1 / PixelRatio.get(),
-        marginLeft: ProUI.spaceX.large
-      }, this.props.separatorStyle]}
+      style={[separatorStyle]}
       key={SEPARATOR + key}
     />)
   }
@@ -149,8 +152,14 @@ class Index extends Component {
       this.renderItems.push(this._renderChild(child, i))
     }
 
+    const {
+      theme: {
+        style
+      }
+    } = this.getComponentTheme()
+
     return (
-      <View style={this.props.style}>
+      <View style={[style, this.props.style]}>
         {this.props.renderBorder && this._renderSeparator(TOP_SEPARATOR)}
         {this.renderItems}
         {this.props.renderBorder && this._renderSeparator(BOTTOM_SEPARATOR)}
@@ -167,7 +176,8 @@ class Index extends Component {
   }
 }
 
-class Row extends Component {
+class Row extends ThemeableComponent {
+  namespace = 'List.Row'
   static propTypes = {
     // 模式1， 简单纯文字，直接提供sting即可, 优先级别最低
     label: PropTypes.string,
@@ -182,34 +192,23 @@ class Row extends Component {
   }
 
   render () {
+    const {
+      normalText,
+      primaryText,
+      rowStyle
+    } = this.getComponentTheme()
     if (this.props.renderRow) {
-      return <View style={styles.row}>
+      return <View style={rowStyle}>
         {this.props.renderRow()}
       </View>
     } else {
-      return <View style={styles.row}>
-        {this.props.renderLabel ? this.props.renderLabel() : <Text style={styles.normalTxt}>{this.props.label}</Text>}
-        {this.props.renderValue ? this.props.renderValue() : <Text style={styles.primaryTxt}>{this.props.value}</Text>}
+      return <View style={rowStyle}>
+        {this.props.renderLabel ? this.props.renderLabel() : <Text style={normalText}>{this.props.label}</Text>}
+        {this.props.renderValue ? this.props.renderValue() : <Text style={primaryText}>{this.props.value}</Text>}
       </View>
     }
   }
 }
-
-const styles = StyleSheet.create({
-  normalTxt: {
-    fontSize: ProUI.fontSize.medium,
-    color: ProUI.color.sub
-  },
-  primaryTxt: {
-    fontSize: ProUI.fontSize.medium,
-    color: ProUI.color.primary
-  },
-  row: {
-    ...ProUI.layout.rowJustify,
-    height: ProUI.fixedRowHeight,
-    paddingHorizontal: ProUI.spaceX.large
-  }
-})
 
 Index.Row = Row
 export default Index

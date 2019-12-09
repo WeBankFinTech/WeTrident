@@ -5,11 +5,12 @@ import {
 } from 'react-native'
 import { AppNavigator, TridentStat } from '@webank/trident'
 import { Linking } from 'react-native'
-import { LightTheme, createTheme, ThemeProvider } from '@webank/trident'
+import { WeUITheme, createTheme, ThemeProvider } from '@webank/trident'
 
 TridentStat.setOnStatEventHandler(require('./stat').default)
 
-const lightTheme = createTheme(LightTheme)
+// const lightTheme = createTheme(LightTheme)
+const weuiTheme = createTheme(WeUITheme)
 
 export default class AppContainer extends Component {
   constructor (props) {
@@ -37,7 +38,7 @@ export default class AppContainer extends Component {
 
   render () {
     return (
-      <ThemeProvider theme={lightTheme}>
+      <ThemeProvider theme={weuiTheme}>
         <View style={{
           flex: 1,
           alignSelf: 'stretch',

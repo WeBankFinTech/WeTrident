@@ -3,15 +3,30 @@
  *
  * Created by erichua on 2019-04-23T03:47:50.328Z.
  */
-import React, { Component } from 'react'
+import React from 'react'
 import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import {
-  FinancialInput, List, Button, Row, Column, Icon,
-  Dialog, Loading, Toast, Popup, ActionSheet,
-  Table, Checkbox
-} from '@webank/trident/trident-ui'
+  FinancialInput,
+  List,
+  Button,
+  Row,
+  Column,
+  Icon,
+  Dialog,
+  Loading,
+  Toast,
+  Popup,
+  ActionSheet,
+  Table,
+  Checkbox,
+  ThemeableComponent,
+  Theme,
+  ThemeProvider,
+  createTheme,
+  WeUITheme
+} from '@webank/trident'
 
-export default class TridentUIDemo extends Component {
+export default class TridentUIDemo extends ThemeableComponent {
   constructor (props) {
     super(props)
     this.state = {
@@ -46,35 +61,81 @@ export default class TridentUIDemo extends Component {
         </Row.CrossCenter>
 
         {this._renderSection('Table')}
-        <Table borderColor={'#000'} align={'center'} fontSize={16} borderWidth={2}>
-          <Table.Tr>
-            <Table.Th row={1}>标题1</Table.Th>
-            <Table.Th row={2}>标题2</Table.Th>
-            <Table.Th row={3}>标题3</Table.Th>
+        <Table
+          borderStyle={{
+            borderColor: 'red',
+            borderWidth: 1
+          }}
+          textStyle={{
+            fontSize: Theme.Size.fontM,
+            color: 'blue'
+          }}
+        >
+          <Table.Tr
+            style={{backgroundColor: Theme.Color.backgroundSecondary}}
+            textStyle={{
+              fontSize: Theme.Size.fontM,
+              color: 'red'
+            }}>
+            <Table.Th row={1}>Table全局色</Table.Th>
+            <Table.Th row={2}>Table全局设置border</Table.Th>
           </Table.Tr>
-          <Table.Tr>
-            <Table.Td row={1}>td1</Table.Td>
-            <Table.Td row={2}>td2</Table.Td>
-            <Table.Td row={3}>td3</Table.Td>
+
+          <Table.Tr
+            style={{backgroundColor: Theme.Color.backgroundSecondary}}
+            textStyle={{
+              fontSize: Theme.Size.fontM,
+              color: 'green'
+            }}>
+            <Table.Td row={1}>整行定义文字颜色</Table.Td>
+            <Table.Td row={1}>标题2</Table.Td>
           </Table.Tr>
+
           <Table.Tr>
-            <Table.Td row={3}>td1</Table.Td>
-            <Table.Td row={3}>td3</Table.Td>
+            <Table.Td row={1} style={{backgroundColor: 'red'}} textStyle={{color: 'yellow'}}>TD自定义色</Table.Td>
+            <Table.Td row={2}>标题2</Table.Td>
           </Table.Tr>
         </Table>
 
-        {this._renderSection('List')}
-        <List style={{ backgroundColor: '#fff' }} onItemPress={() => {
 
-        }}>
-          <List.Item data={{
-            label: '最简单'
-          }} />
+        {/*<Table borderColor={Theme.Color.borderPrimary} align={'center'} fontSize={16} borderWidth={1}>*/}
+        {/*  <Table.Tr>*/}
+        {/*    <Table.Th row={1}>标题1</Table.Th>*/}
+        {/*    <Table.Th row={1}>标题1</Table.Th>*/}
+        {/*    <Table.Th row={1}>标题1</Table.Th>*/}
+        {/*    <Table.Th row={1}>标题1</Table.Th>*/}
+        {/*    <Table.Th row={2}>标题2</Table.Th>*/}
+        {/*    <Table.Th row={3}>标题3</Table.Th>*/}
+        {/*  </Table.Tr>*/}
+
+        {/*  <Table.Tr>*/}
+        {/*    <Table.Th row={1} textStyle={{ color: 'green' }}>Green</Table.Th>*/}
+        {/*    <Table.Th row={1}>标题1</Table.Th>*/}
+        {/*    <Table.Th row={1}>标题1</Table.Th>*/}
+        {/*    <Table.Th row={1}>标题1</Table.Th>*/}
+        {/*    <Table.Th row={2}>标题2</Table.Th>*/}
+        {/*    <Table.Th row={3}>标题3</Table.Th>*/}
+        {/*  </Table.Tr>*/}
+
+        {/*  <Table.Tr>*/}
+        {/*    <Table.Td row={1}>td1</Table.Td>*/}
+        {/*    <Table.Td row={2}>td2</Table.Td>*/}
+        {/*    <Table.Td row={3}>td3</Table.Td>*/}
+        {/*  </Table.Tr>*/}
+        {/*  <Table.Tr>*/}
+        {/*    <Table.Td row={3}>td1</Table.Td>*/}
+        {/*    <Table.Td row={3}>td3</Table.Td>*/}
+        {/*  </Table.Tr>*/}
+        {/*</Table>*/}
+
+        {this._renderSection('List')}
+        <List style={{ backgroundColor: '#fff' }}>
+          <List.Item data={{ label: '最简单' }} />
           <List.Item data={{
             label: '可点击',
             iconRight: Icon.Names.right_arrow,
             onPress: () => {
-              Toast.show('点了我啦')
+              Toast.show('Item pressed')
             }
           }} />
           {/*<List.Item data={{*/}
@@ -88,17 +149,28 @@ export default class TridentUIDemo extends Component {
           <List.Item data={{
             icon: Icon.Names.clear,
             label: '带有图表和loading',
-            loading: true
+            loading: true,
+            onPress: () => {
+              Toast.show('Item pressed')
+            }
           }} />
-          <List.Item data={{
-            label: '带有状态',
-            status: '状态'
-          }} />
+          <List.Item
+            data={{
+              label: '带有状态',
+              status: '状态',
+              onPress: () => {
+                Toast.show('Item pressed')
+              }
+            }}
+          />
           <List.Item data={{
             label: '带有状态说明',
             status: '状态',
             subStatus: '状态说明',
-            iconRight: Icon.Names.right_arrow
+            iconRight: Icon.Names.right_arrow,
+            onPress: () => {
+              Toast.show('Item pressed')
+            }
           }} />
         </List>
 
@@ -185,7 +257,7 @@ export default class TridentUIDemo extends Component {
 
         {this._renderSection('Button')}
         <Button text={'button'} style={{ marginTop: 10 }} onPress={() => {
-          console.log('点击了按钮')
+          Toast.show('Button pressed!')
         }} />
         <Button disabled text={'disabled'} style={{ marginTop: 10 }} />
 
@@ -233,7 +305,7 @@ export default class TridentUIDemo extends Component {
 
 const styles = StyleSheet.create({
   border: {
-    borderColor: 'gray',
-    borderWidth: 1
+    borderColor: Theme.Color.borderPrimary,
+    borderWidth: Theme.Size.borderWidthM
   }
 })
