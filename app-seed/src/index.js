@@ -2,8 +2,7 @@
  * Created by erichua on 26/12/2017.
  */
 import React, { Component } from 'react'
-import { TridentApp } from '@webank/trident'
-import RNEnv from '@webank/trident/library/utils/RNEnv'
+import { TridentApp, RNEnv } from '@webank/trident'
 
 export default class AppEntry extends Component {
   render () {

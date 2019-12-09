@@ -5,9 +5,8 @@
  */
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
-import { WeBaseScene, AppNavigator, Button, Theme } from '@webank/trident'
+import { WeBaseScene, AppNavigator, Button, Theme, dimens } from '@webank/trident'
 import NavBar from '../../components/NavBar'
-import dimens from '@webank/trident/library/uiComponent/dimens'
 import EntryList from '../../../../../bizComponents/EntryList'
 
 export default class HomeTab extends WeBaseScene {

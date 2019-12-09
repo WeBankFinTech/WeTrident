@@ -7,12 +7,12 @@ import {
   Text
 } from 'react-native'
 import PropTypes from 'prop-types'
-import { AppNavigator } from '@webank/trident'
-import Theme from '@webank/trident/library/uiComponent/Theme'
-import dimens from '@webank/trident/library/uiComponent/dimens'
-import WeTouchable from '@unpourtous/react-native-touchable/library/WeTouchable'
+import { AppNavigator, WeTouchable, Theme, dimens } from '@webank/trident'
 
 export default class NavBar extends Component {
+  render () {
+    return null
+  }
   static propTypes = {
     hideLeftButton: PropTypes.bool,
     leftButtonText: PropTypes.string,
@@ -114,22 +114,22 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     zIndex: 3,
-    backgroundColor: Theme.color.pageBackground,
+    backgroundColor: Theme.Color.backgroundPrimary,
     width: dimens.WINDOW_WIDTH,
     height: dimens.TOTAL_NAV_BAR_HEIGHT,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     paddingTop: dimens.STATUS_BAR_HEIGHT,
-    paddingLeft: Theme.spaceX.medium,
-    paddingRight: Theme.spaceX.medium
+    paddingLeft: Theme.Size.spaceM,
+    paddingRight: Theme.Size.spaceM
 
   },
   actionLeftItem: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    justifyContent: 'flex-start',
-    width: 70
+    // flexDirection: 'row',
+    // alignItems: 'flex-start',
+    // justifyContent: 'flex-start',
+    // width: 70
   },
   actionCloseItem: {
     marginBottom: 0
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
     fontSize: 17
   },
   buttonText: {
-    color: Theme.color.lightPrimary,
-    fontSize: Theme.fontSize.medium
+    color: Theme.Color.textLightPrimary,
+    fontSize: Theme.Size.fontM
   }
 })
