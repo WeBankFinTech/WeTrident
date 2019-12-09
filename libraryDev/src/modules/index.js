@@ -7,6 +7,8 @@ export default [
 const dyModules = {
   ui: () => require("./ui").default("ui"),
   // tabExample: () => require("./tabExample").default
+  tridentPluginFeedback: () =>
+    require("./tridentPluginFeedback").default("tridentPluginFeedback")
 }
 
 export { dyModules }
