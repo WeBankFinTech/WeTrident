@@ -49,6 +49,10 @@ export default (state, nextState, action) => {
     const currentSceneURL = URLUtils.appendParams(toRouteName || 'null')
     AppNavigator.currentSceneURL = currentSceneURL
 
+    // set topScene to currentScene
+    AppNavigator.lastScene = oldTopSceneState || {}
+    AppNavigator.currentScene = newTopSceneState || {}
+
     TridentStat.emitStatEvent({
       type: TridentStat.StatType.sceneChange,
       ts: new Date().getTime(),
