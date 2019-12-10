@@ -4,7 +4,9 @@ export default [
 ]
 
 const dyModules = {
-  ui: () => require("./ui").default("ui")
+  ui: () => require("./ui").default("ui"),
+  tridentPluginFeedback: () =>
+    require("./tridentPluginFeedback").default("tridentPluginFeedback")
 }
 
 export { dyModules }

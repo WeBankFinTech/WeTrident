@@ -38,6 +38,9 @@
       "network": {
         "title": "使用网络"
       },
+      "pluginStore/feedback": {
+        "title": "Feedback"
+      },
       "pluginStore/WebView": {
         "title": "WebView"
       },

@@ -16,6 +16,9 @@ declare module '@webank/trident' {
     tabExample: {
       TabContainerScene(): void
     },
+    tridentPluginFeedback: {
+      FeedbackScene(): void
+    },
     tridentPluginWebView: {
       WebViewScene(): void
     },
