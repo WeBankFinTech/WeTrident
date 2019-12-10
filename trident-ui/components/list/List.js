@@ -24,6 +24,8 @@ let BOTTOM_SEPARATOR = 'bottom'
 
 class Index extends ThemeableComponent {
   namespace = 'List'
+  themeStyleKeys = ['style', 'separatorStyle']
+
   static Item = Item
 
   static propTypes = {
@@ -58,9 +60,7 @@ class Index extends ThemeableComponent {
 
   _renderSeparator (key) {
     const {
-      theme: {
-        separatorStyle
-      }
+      separatorStyle
     } = this.getComponentTheme()
     return (<View
       ref={SEPARATOR + key}
@@ -83,17 +83,17 @@ class Index extends ThemeableComponent {
     let bottomSeparator = this.refs[SEPARATOR + (parseInt(key) + 1)]
     if (this.props.renderBorder) {
       if (parseInt(key) === 0) {
-        this.refs[SEPARATOR + TOP_SEPARATOR].setNativeProps({style: {opacity: 0}})
+        this.refs[SEPARATOR + TOP_SEPARATOR].setNativeProps({ style: { opacity: 0 } })
       }
       if (parseInt(key) === this.account - 1) {
-        this.refs[SEPARATOR + BOTTOM_SEPARATOR].setNativeProps({style: {opacity: 0}})
+        this.refs[SEPARATOR + BOTTOM_SEPARATOR].setNativeProps({ style: { opacity: 0 } })
       }
     }
     if (topSeparator) {
-      topSeparator.setNativeProps({style: {opacity: 0}})
+      topSeparator.setNativeProps({ style: { opacity: 0 } })
     }
     if (bottomSeparator) {
-      bottomSeparator.setNativeProps({style: {opacity: 0}})
+      bottomSeparator.setNativeProps({ style: { opacity: 0 } })
     }
   }
 
@@ -103,17 +103,17 @@ class Index extends ThemeableComponent {
     let bottomSeparator = this.refs[SEPARATOR + (parseInt(key) + 1)]
     if (this.props.renderBorder) {
       if (parseInt(key) === 0) {
-        this.refs[SEPARATOR + TOP_SEPARATOR].setNativeProps({style: {opacity: 1}})
+        this.refs[SEPARATOR + TOP_SEPARATOR].setNativeProps({ style: { opacity: 1 } })
       }
       if (parseInt(key) === this.account - 1) {
-        this.refs[SEPARATOR + BOTTOM_SEPARATOR].setNativeProps({style: {opacity: 1}})
+        this.refs[SEPARATOR + BOTTOM_SEPARATOR].setNativeProps({ style: { opacity: 1 } })
       }
     }
     if (topSeparator) {
-      topSeparator.setNativeProps({style: {opacity: 1}})
+      topSeparator.setNativeProps({ style: { opacity: 1 } })
     }
     if (bottomSeparator) {
-      bottomSeparator.setNativeProps({style: {opacity: 1}})
+      bottomSeparator.setNativeProps({ style: { opacity: 1 } })
     }
   }
 
@@ -139,7 +139,7 @@ class Index extends ThemeableComponent {
 
   _renderRowByChildren () {
     // 这段变量声明不能放到constructor里面去，否则有一些动态渲染的列表无法刷新列表项
-    let {children} = this.props
+    let { children } = this.props
     let childrenArray = React.Children.toArray(children)
     this.account = childrenArray.length
     this.renderItems = []
@@ -153,9 +153,7 @@ class Index extends ThemeableComponent {
     }
 
     const {
-      theme: {
-        style
-      }
+      style
     } = this.getComponentTheme()
 
     return (

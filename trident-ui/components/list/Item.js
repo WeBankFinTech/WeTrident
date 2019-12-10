@@ -22,6 +22,15 @@ import ThemeableComponent from '../../theme/ThemeableComponent'
 */
 export default class Item extends ThemeableComponent {
   namespace = 'List.Item'
+  themeStyleKeys = [
+    'style',
+    'iconStyle',
+    'labelStyle',
+    'statusStyle',
+    'rightStyle',
+    'subStatusStyle'
+  ]
+
   static propTypes = {
     data: PropTypes.shape({
       // 左侧图标（可选）
@@ -55,14 +64,13 @@ export default class Item extends ThemeableComponent {
   render () {
     const {
       data,
-      theme: {
-        iconStyle,
-        style,
-        labelStyle,
-        statusStyle,
-        rightStyle,
-        subStatusStyle
-      } = {}
+
+      iconStyle,
+      style,
+      labelStyle,
+      statusStyle,
+      rightStyle,
+      subStatusStyle
     } = this.getComponentTheme()
     const {
       onPress

@@ -15,8 +15,11 @@ import {
   ProUI,
   dimens
 } from '../../values'
+import ThemeableComponent from '../../theme/ThemeableComponent'
 // 每个popup都有一个静态的show和hide方法，以及一个render
-export default class ActionSheet extends React.Component {
+export default class ActionSheet extends ThemeableComponent {
+  namespace = 'ActionSheet'
+  themeStyleKeys = ['style', 'titleTextStyle', 'itemTextStyle']
   static _id
 
   static propTypes = {
@@ -56,7 +59,7 @@ export default class ActionSheet extends React.Component {
         animation: keyframes,
         easing: 'ease-in-out',
         position: 'bottom',
-        wrapperStyle: {alignSelf: 'stretch', minHeight: height}
+        wrapperStyle: { alignSelf: 'stretch', minHeight: height }
       }
     )
 
@@ -68,21 +71,30 @@ export default class ActionSheet extends React.Component {
   }
 
   render () {
-    const { header, items } = this.props
+    const {
+      header,
+      items,
+
+      style,
+      titleTextStyle,
+      itemTextStyle
+    } = this.getComponentTheme()
 
     return (
-      <View style={{backgroundColor: ProUI.color.pageBackground, paddingBottom: dimens.PORTRAIT_UNSAFE_AREA_BOTTOM_HEIGHT}}>
+      <View style={style}>
         {header ? <View style={styles.header}>
-          <Text style={styles.headerItem}>{header}</Text>
+          <Text style={[titleTextStyle]}>{header}</Text>
         </View> : null}
         {items.map((item, index) => (
           <WeTouchable pressMode='highlight' key={index} onPress={() => { item.onPress(item, index) }}>
-            {item.subhead ? <View style={styles.fixedItem}>
-              <Text style={[styles.fixedItemText, item.isWarning ? styles.warning : null]}>{item.text}</Text>
-              <Text style={styles.subhead}>{item.subhead}</Text>
-            </View> : <View style={styles.item}>
-              <Text style={[styles.itemText, item.isWarning ? styles.warning : null]}>{item.text}</Text>
-            </View>}
+            {item.subhead
+              ? <View style={styles.fixedItem}>
+                <Text style={[itemTextStyle, item.textStyle]}>{item.text}</Text>
+                <Text style={styles.subhead}>{item.subhead}</Text>
+              </View>
+              : <View style={styles.item}>
+                <Text style={[itemTextStyle, item.textStyle]}>{item.text}</Text>
+              </View>}
           </WeTouchable>
         ))}
         <WeTouchable pressMode='highlight' onPress={() => ActionSheet.hide(ActionSheet._id)}>
@@ -101,12 +113,6 @@ const styles = StyleSheet.create({
     backgroundColor: ProUI.color.moduleBackground,
     paddingHorizontal: ProUI.spaceX.large,
     paddingVertical: 7
-  },
-  headerItem: {
-    fontSize: ProUI.fontSize.medium,
-    lineHeight: ProUI.lineHeight.medium,
-    color: ProUI.color.sub,
-    textAlign: 'center'
   },
   warning: {
     color: ProUI.color.red

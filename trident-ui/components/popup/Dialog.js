@@ -12,6 +12,7 @@ import {WeTouchable} from '@unpourtous/react-native-touchable'
 import {ProUI} from '../../values'
 import PreDefinedAnimation from './PreDefinedAnimation'
 import PopupZIndex from './PopupZIndex'
+import ThemeableComponent from '../../theme/ThemeableComponent'
 
 const DEFAULT_OPTIONS = {
   autoClose: false,
@@ -24,18 +25,16 @@ const DEFAULT_OPTIONS = {
   useNativeDriver: true
 }
 
-export default class Dialog extends Component {
+export default class Dialog extends ThemeableComponent {
+  namespace = 'Dialog'
+  themeStyleKeys = ['style', 'borderStyle', 'contentStyle', 'titleTextStyle', 'contentTextStyle', 'buttonTextStyle']
   static propTypes = {
     title: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
     texts: PropTypes.oneOfType([PropTypes.array, PropTypes.element]),
     items: PropTypes.array,
     icon: PropTypes.element,
     vertical: PropTypes.bool,
-    autoClose: PropTypes.bool,
-    // containerStyle: WePropTypes.viewPropTypesStyle,
-    // contentStyle: WePropTypes.viewPropTypesStyle,
-    // titleStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-    // renderContent: WePropTypes.func // 定制内容，兼容公告的可滑动
+    autoClose: PropTypes.bool
   }
 
   static AnimationType = {
@@ -80,16 +79,25 @@ export default class Dialog extends Component {
   }
 
   render () {
+    const {
+      style,
+      borderStyle,
+      contentStyle,
+      titleTextStyle,
+      contentTextStyle,
+      buttonTextStyle
+    } = this.getComponentTheme()
+
     return (
-      <View style={[styles.container, this.props.containerStyle]}>
-        <View style={[styles.content, this.props.contentStyle]}>
+      <View style={[style]}>
+        <View style={[contentStyle]}>
           {this.props.icon && <View style={{alignItems: 'center', marginBottom: ProUI.spaceY.small}}>
             {this.props.icon}
           </View>}
-          {this.props.title ? <Text style={[styles.title, this.props.titleStyle]}>{this.props.title}</Text> : null}
+          {this.props.title ? <Text style={[titleTextStyle]}>{this.props.title}</Text> : null}
           {React.isValidElement(this.props.texts) ? {...this.props.texts}
             : this.props.texts && this.props.texts.length > 0 && this.props.texts.map((text, index) => (
-            <Text style={[styles.text, {marginTop: index === 0 ? 0 : ProUI.spaceY.small}]} key={index}>{text}</Text>
+            <Text style={[contentTextStyle, {marginTop: index === 0 ? 0 : ProUI.spaceY.small}]} key={index}>{text}</Text>
           ))}
           {this.props.renderContent && this.props.renderContent()}
         </View>
@@ -101,15 +109,10 @@ export default class Dialog extends Component {
               onPress={item.onItemPress ? () => item.onItemPress() : () => Dialog.hide()}
               style={[
                 this.props.vertical ? styles.itemVertical : styles.item,
-                !this.props.vertical && index > 0 && {
-                  borderLeftWidth: ProUI.realOnePixel,
-                  borderColor: ProUI.color.border
-                }
+                !this.props.vertical && index > 0 && borderStyle
               ]}>
-              <View
-                key={index}
-              >
-                <Text style={[styles.itemText, item.textStyle]}>{item.text}</Text>
+              <View key={index}>
+                <Text style={[buttonTextStyle, item.textStyle]}>{item.text}</Text>
               </View>
             </WeTouchable>
           ))}
@@ -120,19 +123,6 @@ export default class Dialog extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    width: 270,
-    backgroundColor: ProUI.color.moduleBackground,
-    borderRadius: ProUI.borderRadius,
-    shadowColor: 'rgba(12, 2, 3, 0.6)',
-    shadowRadius: 6,
-    overflow: 'hidden'
-  },
-  content: {
-    minHeight: 96,
-    padding: 20,
-    justifyContent: 'center'
-  },
   title: {
     color: ProUI.color.primary,
     fontSize: ProUI.fontSize.xlarge,
@@ -161,10 +151,5 @@ const styles = StyleSheet.create({
     borderTopWidth: ProUI.realOnePixel,
     borderColor: ProUI.color.border,
     justifyContent: 'center'
-  },
-  itemText: {
-    color: ProUI.color.link,
-    fontSize: ProUI.fontSize.xlarge,
-    textAlign: 'center'
   }
 })

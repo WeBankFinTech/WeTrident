@@ -7,6 +7,7 @@ import {
 import PropTypes from 'prop-types'
 import { ProUI } from '../../values'
 import ThemeableComponent from '../../theme/ThemeableComponent'
+import WePropTypes from '../../utils/WePropTypes'
 
 const oneStyleType = PropTypes.oneOfType([PropTypes.object, PropTypes.number])
 const styleType = PropTypes.oneOfType([oneStyleType, PropTypes.arrayOf(oneStyleType)])
@@ -19,8 +20,8 @@ class Tr extends ThemeableComponent {
     style: styleType
   }
   static childContextTypes = {
-    textStyle: PropTypes.style,
-    borderStyle: PropTypes.style
+    textStyle: WePropTypes.textPropTypesStyle,
+    borderStyle: WePropTypes.viewPropTypesStyle
   }
 
   getChildContext () {
@@ -54,16 +55,17 @@ class Td extends ThemeableComponent {
   static propTypes = {
     row: PropTypes.number,
 
-    textStyle: styleType
+    textStyle: WePropTypes.textPropTypesStyle
   }
   static contextTypes = {
-    textStyle: PropTypes.style,
-    borderStyle: PropTypes.style
+    textStyle: WePropTypes.textPropTypesStyle,
+    borderStyle: WePropTypes.viewPropTypesStyle,
+
+    theme: WePropTypes.object
   }
 
   static defaultProps = {
     row: 1,
-    align: 'left'
   }
 
   render () {
@@ -90,8 +92,7 @@ class Th extends ThemeableComponent {
 
   static propTypes = {
     row: PropTypes.number,
-    align: PropTypes.string,
-    textStyle: styleType
+    textStyle: WePropTypes.textPropTypesStyle
   }
 
   render () {
@@ -100,37 +101,36 @@ class Th extends ThemeableComponent {
       row,
 
       // move to style
-      align,
       textStyle,
     } = this.getComponentTheme()
     return (
-      <Td row={row} align={align}
-          textStyle={[{ color: ProUI.color.sub, fontWeight: 'bold' }, textStyle]}>{children}</Td>
+      <Td row={row}
+          textStyle={[textStyle]}>{children}</Td>
     )
   }
 }
 
 export default class Table extends ThemeableComponent {
   namespace = 'Table'
-  themeStyleKeys = ['style', 'textStyle']
+  themeStyleKeys = ['style', 'textStyle', 'borderStyle']
 
   static Tr = Tr
   static Th = Th
   static Td = Td
 
   static propTypes = {
-    style: PropTypes.style,
+    style: WePropTypes.viewPropTypesStyle,
 
     // context
-    borderStyle: PropTypes.style,
-    textStyle: Text.propTypes.style
+    borderStyle: WePropTypes.viewPropTypesStyle,
+    textStyle: WePropTypes.textPropTypesStyle
   }
 
   static defaultProps = {}
 
   static childContextTypes = {
-    textStyle: Text.propTypes.style,
-    borderStyle: PropTypes.style,
+    textStyle: WePropTypes.textPropTypesStyle,
+    borderStyle: WePropTypes.viewPropTypesStyle,
   }
 
   // 为下层组件提供感知当前上下文的能力
@@ -138,11 +138,11 @@ export default class Table extends ThemeableComponent {
     const {
       textStyle,
       borderStyle,
-    } = this.props
+    } = this.getComponentTheme()
 
     return {
       borderStyle,
-      textStyle
+      textStyle,
     }
   }
 
@@ -162,10 +162,3 @@ export default class Table extends ThemeableComponent {
   }
 }
 
-const styles = StyleSheet.create({
-  defaultCellStyle: {},
-  defaultTextStyle: {
-    lineHeight: ProUI.lineHeight.medium,
-    backgroundColor: ProUI.color.moduleBackground
-  }
-})

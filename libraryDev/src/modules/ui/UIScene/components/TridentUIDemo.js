@@ -4,7 +4,7 @@
  * Created by erichua on 2019-04-23T03:47:50.328Z.
  */
 import React from 'react'
-import { View, Text, StyleSheet, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, PixelRatio } from 'react-native'
 import {
   FinancialInput,
   List,
@@ -61,72 +61,29 @@ export default class TridentUIDemo extends ThemeableComponent {
         </Row.CrossCenter>
 
         {this._renderSection('Table')}
-        <Table
-          borderStyle={{
-            borderColor: 'red',
-            borderWidth: 1
-          }}
-          textStyle={{
-            fontSize: Theme.Size.fontM,
-            color: 'blue'
-          }}
-        >
-          <Table.Tr
-            style={{backgroundColor: Theme.Color.backgroundSecondary}}
-            textStyle={{
-              fontSize: Theme.Size.fontM,
-              color: 'red'
-            }}>
+        <Table>
+          <Table.Tr>
             <Table.Th row={1}>Table全局色</Table.Th>
             <Table.Th row={2}>Table全局设置border</Table.Th>
           </Table.Tr>
 
           <Table.Tr
-            style={{backgroundColor: Theme.Color.backgroundSecondary}}
-            textStyle={{
-              fontSize: Theme.Size.fontM,
-              color: 'green'
-            }}>
-            <Table.Td row={1}>整行定义文字颜色</Table.Td>
-            <Table.Td row={1}>标题2</Table.Td>
+            textStyle={{color: 'blue'}}>
+            <Table.Td row={1}>TR定义文字颜色</Table.Td>
+            <Table.Td row={1}>TR定义背景颜色</Table.Td>
           </Table.Tr>
 
           <Table.Tr>
-            <Table.Td row={1} style={{backgroundColor: 'red'}} textStyle={{color: 'yellow'}}>TD自定义色</Table.Td>
-            <Table.Td row={2}>标题2</Table.Td>
+            <Table.Td row={1}>主题默认样式</Table.Td>
+            <Table.Td row={1}>主题默认样式</Table.Td>
+          </Table.Tr>
+
+          <Table.Tr>
+            <Table.Td row={1} style={{backgroundColor: '#EEF'}}>TD自定义颜色</Table.Td>
+            <Table.Td row={2}>边框颜色继承Table</Table.Td>
           </Table.Tr>
         </Table>
 
-
-        {/*<Table borderColor={Theme.Color.borderPrimary} align={'center'} fontSize={16} borderWidth={1}>*/}
-        {/*  <Table.Tr>*/}
-        {/*    <Table.Th row={1}>标题1</Table.Th>*/}
-        {/*    <Table.Th row={1}>标题1</Table.Th>*/}
-        {/*    <Table.Th row={1}>标题1</Table.Th>*/}
-        {/*    <Table.Th row={1}>标题1</Table.Th>*/}
-        {/*    <Table.Th row={2}>标题2</Table.Th>*/}
-        {/*    <Table.Th row={3}>标题3</Table.Th>*/}
-        {/*  </Table.Tr>*/}
-
-        {/*  <Table.Tr>*/}
-        {/*    <Table.Th row={1} textStyle={{ color: 'green' }}>Green</Table.Th>*/}
-        {/*    <Table.Th row={1}>标题1</Table.Th>*/}
-        {/*    <Table.Th row={1}>标题1</Table.Th>*/}
-        {/*    <Table.Th row={1}>标题1</Table.Th>*/}
-        {/*    <Table.Th row={2}>标题2</Table.Th>*/}
-        {/*    <Table.Th row={3}>标题3</Table.Th>*/}
-        {/*  </Table.Tr>*/}
-
-        {/*  <Table.Tr>*/}
-        {/*    <Table.Td row={1}>td1</Table.Td>*/}
-        {/*    <Table.Td row={2}>td2</Table.Td>*/}
-        {/*    <Table.Td row={3}>td3</Table.Td>*/}
-        {/*  </Table.Tr>*/}
-        {/*  <Table.Tr>*/}
-        {/*    <Table.Td row={3}>td1</Table.Td>*/}
-        {/*    <Table.Td row={3}>td3</Table.Td>*/}
-        {/*  </Table.Tr>*/}
-        {/*</Table>*/}
 
         {this._renderSection('List')}
         <List style={{ backgroundColor: '#fff' }}>
@@ -177,21 +134,26 @@ export default class TridentUIDemo extends ThemeableComponent {
         {this._renderSection('Popup')}
         <Button style={{ marginTop: 10 }} text={'展示ActionSheet'} onPress={() => {
           ActionSheet.show({
-            header: '题目',
+            header: '不同样式的Item',
             items: [{
-              text: '选项1',
+              text: '查看',
               onPress: (item, index) => {
                 Toast.show(item.text)
               }
             }, {
-              text: '选项2',
-              isWarning: true,
+              text: '更新',
+              textStyle: {
+                color: Theme.Color.textWarning
+              },
               onPress: (item, index) => {
                 Toast.show(item.text)
               }
             }, {
-              text: '选项3',
-              subhead: 'xxx',
+              text: '删除',
+              subhead: '',
+              textStyle: {
+                color: Theme.Color.textError
+              },
               onPress: (item, index) => {
                 Toast.show(item.text)
               }
@@ -200,8 +162,14 @@ export default class TridentUIDemo extends ThemeableComponent {
         }} />
         <Button style={{ marginTop: 10 }} text={'展示自定义的Popup'} onPress={() => {
           const id = Popup.show(
-            <View
-              style={{ backgroundColor: '#fff', marginVertical: 20, paddingHorizontal: 20, paddingVertical: 10 }}>
+            <View style={{
+              height: 400,
+              backgroundColor: '#fff',
+              marginVertical: 20,
+              paddingHorizontal: 20,
+              paddingVertical: 10,
+              borderRadius: 10
+            }}>
               <TridentUIDemo />
               <Button style={{ marginTop: 10 }} text={'关闭Popup'} onPress={() => {
                 Popup.hide(id)

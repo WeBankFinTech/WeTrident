@@ -11,13 +11,15 @@ import ProUI from '../../values/pro'
 import PopupZIndex from './PopupZIndex'
 import { iconNamePropType } from '../../propTypeUtils'
 import ThemeableComponent from '../../theme/ThemeableComponent'
+import WePropTypes from '../../utils/WePropTypes'
 
 export default class Toast extends ThemeableComponent {
   namespace = 'Toast'
+  themeStyleKeys = ['style', 'styleWithIcon', 'textStyle']
   static propTypes = {
     icon: iconNamePropType,
     msg: PropTypes.string,
-    textStyle: PropTypes.style
+    textStyle: WePropTypes.textPropTypesStyle
   }
 
   static show (msg, icon, duration) {
@@ -43,11 +45,9 @@ export default class Toast extends ThemeableComponent {
   render () {
     const hasIcon = !!this.props.icon
     const {
-      theme: {
-        style,
-        styleWithIcon,
-        textStyle
-      }
+      style,
+      styleWithIcon,
+      textStyle
     } = this.getComponentTheme()
 
     return (
@@ -77,8 +77,7 @@ function calcDuration (len) {
 }
 
 const styles = StyleSheet.create({
-  toastX: {
-  },
+  toastX: {},
   toastIcon: {
     alignSelf: 'center',
     marginBottom: ProUI.spaceY.medium

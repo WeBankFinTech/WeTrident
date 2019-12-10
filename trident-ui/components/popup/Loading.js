@@ -75,25 +75,29 @@ export default class Loading extends ThemeableComponent {
 
   render () {
     const {
-      theme: {
-        style
-      }
+      style
     } = this.getComponentTheme()
     return (
       <View style={style}>
         <View style={styles.dotContainer}>
-          <Animated.View renderToHardwareTextureAndroid style={[styles.dot, {opacity: this.state.rotate.interpolate({
-            inputRange: [0, 1, 2, 3],
-            outputRange: [0.2, 1, 0.2, 0.2]
-          })}]} />
-          <Animated.View renderToHardwareTextureAndroid style={[styles.dot, {opacity: this.state.rotate.interpolate({
-            inputRange: [0, 1, 2, 3],
-            outputRange: [0.2, 0.2, 1, 0.2]
-          })}]} />
-          <Animated.View renderToHardwareTextureAndroid style={[styles.dot, {opacity: this.state.rotate.interpolate({
-            inputRange: [0, 1, 2, 3],
-            outputRange: [0.2, 0.2, 0.2, 1]
-          })}]} />
+          <Animated.View renderToHardwareTextureAndroid style={[styles.dot, {
+            opacity: this.state.rotate.interpolate({
+              inputRange: [0, 1, 2, 3],
+              outputRange: [0.2, 1, 0.2, 0.2]
+            })
+          }]} />
+          <Animated.View renderToHardwareTextureAndroid style={[styles.dot, {
+            opacity: this.state.rotate.interpolate({
+              inputRange: [0, 1, 2, 3],
+              outputRange: [0.2, 0.2, 1, 0.2]
+            })
+          }]} />
+          <Animated.View renderToHardwareTextureAndroid style={[styles.dot, {
+            opacity: this.state.rotate.interpolate({
+              inputRange: [0, 1, 2, 3],
+              outputRange: [0.2, 0.2, 0.2, 1]
+            })
+          }]} />
         </View>
       </View>
     )

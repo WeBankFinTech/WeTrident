@@ -18,20 +18,26 @@ import ThemeableComponent from '../../theme/ThemeableComponent'
 
 export default class Button extends ThemeableComponent {
   namespace = 'Button'
+  themeStyleKeys = [
+    'style', 'textStyle'
+  ]
+  themeValueKeys = ['activeColor']
+
   static propTypes = {
     disabled: PropTypes.bool,
     onPress: PropTypes.func,
     text: PropTypes.string,
+
     activeColor: PropTypes.string
   }
 
   static defaultProps = {
-    activeColor: ProUI.color.activeFilling,
   }
 
   render () {
     const {
       style,
+
       textStyle,
       activeColor,
     } = this.getComponentTheme()
