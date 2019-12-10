@@ -10,6 +10,8 @@ export { default as Popup } from './components/popup/Popup'
 export { default as ActionSheet } from './components/popup/ActionSheet'
 export { default as Table } from './components/table/Table'
 export { default as Checkbox } from './components/checkbox/Checkbox'
+export { default as NavBar } from './components/navBar/NavBar'
+
 export { default as dimens } from './dimens'
 export { default as WeTouchable } from './lib/WeTouchable'
 

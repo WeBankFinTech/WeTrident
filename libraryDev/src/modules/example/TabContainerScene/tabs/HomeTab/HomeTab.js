@@ -4,9 +4,8 @@
  * Created by rcrabwu on 2019-10-24T08:41:28.998Z.
  */
 import React from 'react'
-import { View, StyleSheet } from 'react-native'
-import { WeBaseScene, AppNavigator, Button, Theme, dimens, ActionSheet } from '@webank/trident'
-import NavBar from '../../components/NavBar'
+import { View } from 'react-native'
+import { WeBaseScene, AppNavigator, Button, Theme, dimens, ActionSheet, NavBar } from '@webank/trident'
 import EntryList from '../../../../../bizComponents/EntryList'
 
 export default class HomeTab extends WeBaseScene {
@@ -52,12 +51,12 @@ export default class HomeTab extends WeBaseScene {
               }, {
                 text: 'boolean',
                 onPress: () => {
-                  console.log('打印boolean：', Math.random()* 100 > 50)
+                  console.log('打印boolean：', Math.random() * 100 > 50)
                 }
               }, {
                 text: 'object',
                 onPress: () => {
-                  console.log('打印object：', {a: 1, b: 2})
+                  console.log('打印object：', { a: 1, b: 2 })
                 }
               }, {
                 text: 'array',

@@ -7,7 +7,10 @@ import {
   Text
 } from 'react-native'
 import PropTypes from 'prop-types'
-import { AppNavigator, WeTouchable, Theme, dimens } from '@webank/trident'
+import WeTouchable from '../../lib/WeTouchable'
+import dimens from '../../dimens'
+import ThemeProvider from '../../theme/ThemeProvider'
+const Theme = ThemeProvider.Theme
 
 export default class NavBar extends Component {
   render () {
@@ -36,8 +39,6 @@ export default class NavBar extends Component {
       }
       if (this.props.onPressLeft) {
         this.props.onPressLeft()
-      } else {
-        AppNavigator.goBack()
       }
     }
     return (
@@ -47,7 +48,7 @@ export default class NavBar extends Component {
             {
               !this.props.leftButtonText ? <Image
                 style={[{width: 26, height: 26}, this.props.leftButtonImageStyle]} // 原w,h:18
-                source={this.props.leftButtonImage || require('../../images/back-icon.png')}
+                source={this.props.leftButtonImage || require('./images/back-icon.png')}
                 resizeMode='cover' /> : null
             }
             {

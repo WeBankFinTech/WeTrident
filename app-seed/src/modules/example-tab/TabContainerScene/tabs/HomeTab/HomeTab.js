@@ -5,8 +5,7 @@
  */
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
-import { WeBaseScene, Button, dimens } from '@webank/trident'
-import NavBar from '../../components/NavBar'
+import { WeBaseScene, Button, dimens, NavBar } from '@webank/trident'
 
 export default class HomeTab extends WeBaseScene {
   onResume (fromScene, toScene) {

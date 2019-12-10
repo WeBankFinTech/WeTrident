@@ -5,8 +5,7 @@
  */
 import React, { Component } from 'react'
 import { View, Text } from 'react-native'
-import { WeBaseScene, dimens } from '@webank/trident'
-import NavBar from '../../components/NavBar'
+import { WeBaseScene, dimens, NavBar } from '@webank/trident'
 
 export default class SettingTab extends WeBaseScene {
 
