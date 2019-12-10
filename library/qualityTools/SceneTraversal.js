@@ -370,7 +370,7 @@ class SceneTraversal {
     this.current.sceneName = null
     this.current.navigation = null
     this.current.nodeList = null
-    this._onMeasure(0, 0, 0, 0) // reset
+    this._onMeasure(-1000, -1000, 0, 0) // reset
   }
 
   onNavigate (moduleName, sceneName) {
