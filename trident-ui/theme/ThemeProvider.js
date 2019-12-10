@@ -18,6 +18,10 @@ export default class ThemeProvider extends Component {
 
   constructor () {
     super(...arguments)
+
+    if (this.props.theme) {
+      ThemeProvider.Theme = _.merge(ThemeProvider.Theme, this.props.theme.ThemeConst)
+    }
   }
 
   componentWillReceiveProps (nextProps: Readonly<P>, nextContext: any): void {

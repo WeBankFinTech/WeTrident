@@ -25,7 +25,7 @@ export default class NavBScene extends WeBaseScene {
             AppNavigator.goBack([AppNavigator.example.NavigationScene])
           }} />
 
-          <Button text={`Back to NavigationScene && push NavCScene`} onPress={() => {
+          <Button text={`Back Then Push`} onPress={() => {
             AppNavigator.goBackThenPush([AppNavigator.example.NavigationScene], AppNavigator.example.NavCScene)
           }} />
         </EntryList>

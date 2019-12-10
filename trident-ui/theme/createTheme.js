@@ -2,7 +2,9 @@ import _ from 'lodash'
 
 export default function createTheme (baseTheme = {}, customComponentTheme = {}) {
   if (!customComponentTheme || !customComponentTheme.createComponentTheme || !customComponentTheme.ThemeConst) {
-    return baseTheme
+    const themeConst = baseTheme.ThemeConst
+    const componentTheme = baseTheme.createComponentTheme(themeConst)
+    return _.merge({}, { ThemeConst: themeConst }, componentTheme)
   }
   const mergedThemeConst = _.merge(baseTheme.ThemeConst, customComponentTheme.ThemeConst)
 

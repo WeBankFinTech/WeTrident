@@ -9,16 +9,21 @@ import { PopupStub } from '@unpourtous/react-native-popup-stub'
 import Icon from '../icon/Icon'
 import ProUI from '../../values/pro'
 import PopupZIndex from './PopupZIndex'
-import {iconNamePropType} from '../../propTypeUtils'
+import { iconNamePropType } from '../../propTypeUtils'
+import ThemeableComponent from '../../theme/ThemeableComponent'
+import WePropTypes from '../../utils/WePropTypes'
 
-export default class Toast extends Component {
+export default class Toast extends ThemeableComponent {
+  namespace = 'Toast'
+  themeStyleKeys = ['style', 'styleWithIcon', 'textStyle']
   static propTypes = {
     icon: iconNamePropType,
-    msg: PropTypes.string
+    msg: PropTypes.string,
+    textStyle: WePropTypes.textPropTypesStyle
   }
 
   static show (msg, icon, duration) {
-    const id = PopupStub.addPopup(<Toast msg={msg} icon={icon}/>, {
+    const id = PopupStub.addPopup(<Toast msg={msg} icon={icon} />, {
       mask: false,
       position: 'center',
       zIndex: PopupZIndex.Toast,
@@ -39,14 +44,19 @@ export default class Toast extends Component {
 
   render () {
     const hasIcon = !!this.props.icon
+    const {
+      style,
+      styleWithIcon,
+      textStyle
+    } = this.getComponentTheme()
 
     return (
-      <View style={[styles.toast, hasIcon ? styles.toastX : null]}>
+      <View style={[style, hasIcon ? styleWithIcon : null]}>
         {hasIcon && <Icon
           style={styles.toastIcon}
           name={this.props.icon} />}
         <View>
-          <Text style={styles.toastMsg}>{this.props.msg}</Text>
+          <Text style={[textStyle, this.props.textStyle]}>{this.props.msg}</Text>
         </View>
       </View>
     )
@@ -67,24 +77,9 @@ function calcDuration (len) {
 }
 
 const styles = StyleSheet.create({
-  toast: {
-    backgroundColor: 'rgba(0,0,0,.6)',
-    borderRadius: ProUI.borderRadius,
-    paddingHorizontal: ProUI.spaceX.large,
-    paddingTop: 7,
-    paddingBottom: 7
-  },
-  toastX: {
-    paddingTop: 16,
-    paddingBottom: ProUI.spaceY.medium
-  },
+  toastX: {},
   toastIcon: {
     alignSelf: 'center',
     marginBottom: ProUI.spaceY.medium
   },
-  toastMsg: {
-    color: ProUI.color.lightPrimary,
-    fontSize: ProUI.fontSize.medium,
-    lineHeight: ProUI.lineHeight.medium
-  }
 })

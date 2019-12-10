@@ -16,6 +16,7 @@ import stateChangeListener from './navigation/stateChangeListener'
 import ModuleManager from './navigation/ModuleManager'
 import ElementMark from './qualityTools/ElementMark'
 import SceneTraversal from './qualityTools/SceneTraversal'
+import ThemeProvider from '../trident-ui/theme/ThemeProvider'
 
 export default class TridentApp extends Component {
   static propTypes = {
@@ -70,13 +71,14 @@ export default class TridentApp extends Component {
       thunk
     ])
   }
+
   _renderWTConsole () {
     if (this.props.showWTConsole) {
       let WTConsole = require('@unpourtous/wt-console').default
       if (this.props.customWTConsoleTab) {
-        const {name, view} = this.props.customWTConsoleTab
+        const { name, view } = this.props.customWTConsoleTab
         let Dashboard = require('@unpourtous/wt-console').Dashboard
-        Dashboard.register({}, {tabLabel: name || '自定义'}, view)
+        Dashboard.register({}, { tabLabel: name || '自定义' }, view)
       }
       return <WTConsole
         options={{
@@ -91,22 +93,25 @@ export default class TridentApp extends Component {
         }} />
     }
   }
+
   render () {
     const Navigator = this.WeNavigator.stackNavigator
 
     return (
       <Provider store={this.store}>
-        <this.connectedContainer>
-          <StatusBar translucent backgroundColor='transparent' />
-          <Navigator />
-          <PopupStub maskColor='rgba(0,0,0,0.75)' ref={_ref => {
-            if (_ref) PopupStub.init(_ref)
-          }}
-          />
-          {this._renderWTConsole()}
+        <ThemeProvider theme={this.props.theme}>
+          <this.connectedContainer>
+            <StatusBar translucent backgroundColor='transparent' />
+            <Navigator />
+            <PopupStub maskColor='rgba(0,0,0,0.75)' ref={_ref => {
+              if (_ref) PopupStub.init(_ref)
+            }}
+            />
+            {this._renderWTConsole()}
 
-          <ElementMark ref={_ref => SceneTraversal.setRef(_ref)} />
-        </this.connectedContainer>
+            <ElementMark ref={_ref => SceneTraversal.setRef(_ref)} />
+          </this.connectedContainer>
+        </ThemeProvider>
       </Provider>
     )
   }

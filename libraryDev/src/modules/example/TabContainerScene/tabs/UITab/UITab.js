@@ -11,7 +11,7 @@ import TridentUIDemo from './components/TridentUIDemo'
 export default class UITab extends WeBaseScene {
   render () {
     return (
-      <View style={{paddingTop: dimens.TOTAL_NAV_BAR_HEIGHT}}>
+      <View>
         <NavBar
           title={'SettingTab'}
           hideLeftButton

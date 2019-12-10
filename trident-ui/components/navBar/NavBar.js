@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import {
   View,
   Image,
@@ -8,14 +8,25 @@ import {
 } from 'react-native'
 import PropTypes from 'prop-types'
 import WeTouchable from '../../lib/WeTouchable'
-import dimens from '../../dimens'
 import ThemeProvider from '../../theme/ThemeProvider'
+import ThemeableComponent from '../../theme/ThemeableComponent'
+
 const Theme = ThemeProvider.Theme
 
-export default class NavBar extends Component {
-  render () {
-    return null
-  }
+export default class NavBar extends ThemeableComponent {
+  namespace = 'NavBar'
+  themeStyleKeys = [
+    'style',
+    'leftButtonStyle',
+    'leftButtonTextStyle',
+    'leftButtonImageStyle',
+
+    'titleStyle',
+    'titleTextStyle',
+
+    'rightButtonStyle',
+    'rightButtonTextStyle',
+  ]
   static propTypes = {
     hideLeftButton: PropTypes.bool,
     leftButtonText: PropTypes.string,
@@ -41,18 +52,24 @@ export default class NavBar extends Component {
         this.props.onPressLeft()
       }
     }
+
+    const {
+      leftButtonTextStyle,
+      leftButtonImageStyle
+    } = this.getComponentTheme()
     return (
-      <WeTouchable onPress={onPress} hitSlop={{top: 10, left: 20, bottom: 10, right: 20}}>
-        {(this.props.hideLeftButton && this.props.hideLeftButton === true) ? <View style={{width: 70}} />
+      <WeTouchable onPress={onPress} hitSlop={{ top: 10, left: 20, bottom: 10, right: 20 }}>
+        {(this.props.hideLeftButton && this.props.hideLeftButton === true) ? <View style={{ width: 70 }} />
           : <View style={styles.actionLeftItem}>
             {
               !this.props.leftButtonText ? <Image
-                style={[{width: 26, height: 26}, this.props.leftButtonImageStyle]} // 原w,h:18
+                style={[leftButtonImageStyle]} // 原w,h:18
                 source={this.props.leftButtonImage || require('./images/back-icon.png')}
                 resizeMode='cover' /> : null
             }
             {
-              this.props.leftButtonText && <Text style={[styles.buttonText, this.props.leftButtonTextStyle]}>{this.props.leftButtonText}</Text>
+              this.props.leftButtonText &&
+              <Text style={[leftButtonTextStyle]}>{this.props.leftButtonText}</Text>
             }
           </View>}
       </WeTouchable>
@@ -60,7 +77,10 @@ export default class NavBar extends Component {
   }
 
   renderTitle () {
-    return <Animated.Text numberOfLines={1} style={[styles.titleView, this.props.titleStyle]}>{this.props.title ? this.props.title : ''}</Animated.Text>
+    const { titleTextStyle } = this.getComponentTheme()
+    return <Animated.Text
+      numberOfLines={1}
+      style={[titleTextStyle]}>{this.props.title ? this.props.title : ''}</Animated.Text>
   }
 
   renderRight () {
@@ -70,24 +90,27 @@ export default class NavBar extends Component {
       }
       if (this.props.onPressRight) {
         this.props.onPressRight()
-      } else {
-        AppNavigator.goBack()
       }
     }
+
+    const {
+      rightButtonTextStyle
+    } = this.getComponentTheme()
     return (
-      <WeTouchable onPress={onPress}
-                   hitSlop={{top: 10, left: 20, bottom: 10, right: 20}}
-                   style={{width: 70}}>
+      <WeTouchable
+        onPress={onPress}
+        hitSlop={{ top: 10, left: 20, bottom: 10, right: 20 }}
+        style={{ width: 70 }}>
         {
           (this.props.rightButtonText || this.props.rightButtonImage) && <View style={styles.actionRightItem}>
             {
               this.props.rightButtonImage && <Image
-                style={[{width: 26, height: 26}, this.props.rightButtonImageStyle]}
+                style={[{ width: 26, height: 26 }, this.props.rightButtonImageStyle]}
                 source={this.props.rightButtonImage}
                 resizeMode='cover' />
             }
             {
-              this.props.rightButtonText && <Text style={[styles.buttonText, this.props.rightButtonTextStyle]}>
+              this.props.rightButtonText && <Text style={[rightButtonTextStyle]}>
                 {this.props.rightButtonText}
               </Text>
             }
@@ -98,9 +121,20 @@ export default class NavBar extends Component {
   }
 
   render () {
+    const {
+      style,
+      leftButtonStyle,
+      leftButtonTextStyle,
+
+      titleStyle,
+      titleTextStyle,
+
+      rightButtonStyle,
+      rightButtonTextStyle,
+    } = this.getComponentTheme()
     return (
       <Animated.View
-        style={[styles.overlay, this.props.style]}>
+        style={[style]}>
         {this.props.renderLeft ? this.props.renderLeft() : this.renderLeft()}
         {this.props.renderTitle ? this.props.renderTitle() : this.renderTitle()}
         {this.props.renderRight ? this.props.renderRight() : this.renderRight()}
@@ -110,45 +144,15 @@ export default class NavBar extends Component {
 }
 
 const styles = StyleSheet.create({
-  overlay: {
-    flex: 1,
-    position: 'absolute',
-    top: 0,
-    zIndex: 3,
-    backgroundColor: Theme.Color.backgroundPrimary,
-    width: dimens.WINDOW_WIDTH,
-    height: dimens.TOTAL_NAV_BAR_HEIGHT,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop: dimens.STATUS_BAR_HEIGHT,
-    paddingLeft: Theme.Size.spaceM,
-    paddingRight: Theme.Size.spaceM
-
-  },
   actionLeftItem: {
     // flexDirection: 'row',
     // alignItems: 'flex-start',
     // justifyContent: 'flex-start',
     // width: 70
   },
-  actionCloseItem: {
-    marginBottom: 0
-  },
   actionRightItem: {
     flexDirection: 'row',
     alignItems: 'flex-end',
     justifyContent: 'flex-end'
   },
-  titleView: {
-    flex: 1,
-    color: 'rgba(0, 0, 0, 0.9)',
-    backgroundColor: 'transparent',
-    textAlign: 'center',
-    fontSize: 17
-  },
-  buttonText: {
-    color: Theme.Color.textLightPrimary,
-    fontSize: Theme.Size.fontM
-  }
 })

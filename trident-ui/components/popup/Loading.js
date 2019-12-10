@@ -5,8 +5,10 @@
 import React, { Component } from 'react'
 import { View, Animated, StyleSheet, Image } from 'react-native'
 import { PopupStub } from '@unpourtous/react-native-popup-stub'
+import ThemeableComponent from '../../theme/ThemeableComponent'
 
-export default class Loading extends Component {
+export default class Loading extends ThemeableComponent {
+  namespace = 'Loading'
   static _id = null
 
   constructor (props) {
@@ -72,21 +74,30 @@ export default class Loading extends Component {
   }
 
   render () {
+    const {
+      style
+    } = this.getComponentTheme()
     return (
-      <View style={styles.container}>
+      <View style={style}>
         <View style={styles.dotContainer}>
-          <Animated.View renderToHardwareTextureAndroid style={[styles.dot, {opacity: this.state.rotate.interpolate({
-            inputRange: [0, 1, 2, 3],
-            outputRange: [0.2, 1, 0.2, 0.2]
-          })}]} />
-          <Animated.View renderToHardwareTextureAndroid style={[styles.dot, {opacity: this.state.rotate.interpolate({
-            inputRange: [0, 1, 2, 3],
-            outputRange: [0.2, 0.2, 1, 0.2]
-          })}]} />
-          <Animated.View renderToHardwareTextureAndroid style={[styles.dot, {opacity: this.state.rotate.interpolate({
-            inputRange: [0, 1, 2, 3],
-            outputRange: [0.2, 0.2, 0.2, 1]
-          })}]} />
+          <Animated.View renderToHardwareTextureAndroid style={[styles.dot, {
+            opacity: this.state.rotate.interpolate({
+              inputRange: [0, 1, 2, 3],
+              outputRange: [0.2, 1, 0.2, 0.2]
+            })
+          }]} />
+          <Animated.View renderToHardwareTextureAndroid style={[styles.dot, {
+            opacity: this.state.rotate.interpolate({
+              inputRange: [0, 1, 2, 3],
+              outputRange: [0.2, 0.2, 1, 0.2]
+            })
+          }]} />
+          <Animated.View renderToHardwareTextureAndroid style={[styles.dot, {
+            opacity: this.state.rotate.interpolate({
+              inputRange: [0, 1, 2, 3],
+              outputRange: [0.2, 0.2, 0.2, 1]
+            })
+          }]} />
         </View>
       </View>
     )
@@ -94,14 +105,6 @@ export default class Loading extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    width: 80,
-    height: 80,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 5
-  },
   img: {
     width: 31,
     height: 37

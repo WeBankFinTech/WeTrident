@@ -16,12 +16,16 @@ import React, { Component } from 'react'
 import Item from './Item'
 import { ProUI } from '../../values'
 import WeTouchable from '../../lib/WeTouchable'
+import ThemeableComponent from '../../theme/ThemeableComponent'
 
 let SEPARATOR = 'we_list_separator'
 let TOP_SEPARATOR = 'top'
 let BOTTOM_SEPARATOR = 'bottom'
 
-class Index extends Component {
+class Index extends ThemeableComponent {
+  namespace = 'List'
+  themeStyleKeys = ['style', 'separatorStyle']
+
   static Item = Item
 
   static propTypes = {
@@ -55,13 +59,12 @@ class Index extends Component {
   }
 
   _renderSeparator (key) {
+    const {
+      separatorStyle
+    } = this.getComponentTheme()
     return (<View
       ref={SEPARATOR + key}
-      style={[{
-        backgroundColor: this.props.lineColor,
-        height: 1 / PixelRatio.get(),
-        marginLeft: ProUI.spaceX.large
-      }, this.props.separatorStyle]}
+      style={[separatorStyle]}
       key={SEPARATOR + key}
     />)
   }
@@ -80,17 +83,17 @@ class Index extends Component {
     let bottomSeparator = this.refs[SEPARATOR + (parseInt(key) + 1)]
     if (this.props.renderBorder) {
       if (parseInt(key) === 0) {
-        this.refs[SEPARATOR + TOP_SEPARATOR].setNativeProps({style: {opacity: 0}})
+        this.refs[SEPARATOR + TOP_SEPARATOR].setNativeProps({ style: { opacity: 0 } })
       }
       if (parseInt(key) === this.account - 1) {
-        this.refs[SEPARATOR + BOTTOM_SEPARATOR].setNativeProps({style: {opacity: 0}})
+        this.refs[SEPARATOR + BOTTOM_SEPARATOR].setNativeProps({ style: { opacity: 0 } })
       }
     }
     if (topSeparator) {
-      topSeparator.setNativeProps({style: {opacity: 0}})
+      topSeparator.setNativeProps({ style: { opacity: 0 } })
     }
     if (bottomSeparator) {
-      bottomSeparator.setNativeProps({style: {opacity: 0}})
+      bottomSeparator.setNativeProps({ style: { opacity: 0 } })
     }
   }
 
@@ -100,17 +103,17 @@ class Index extends Component {
     let bottomSeparator = this.refs[SEPARATOR + (parseInt(key) + 1)]
     if (this.props.renderBorder) {
       if (parseInt(key) === 0) {
-        this.refs[SEPARATOR + TOP_SEPARATOR].setNativeProps({style: {opacity: 1}})
+        this.refs[SEPARATOR + TOP_SEPARATOR].setNativeProps({ style: { opacity: 1 } })
       }
       if (parseInt(key) === this.account - 1) {
-        this.refs[SEPARATOR + BOTTOM_SEPARATOR].setNativeProps({style: {opacity: 1}})
+        this.refs[SEPARATOR + BOTTOM_SEPARATOR].setNativeProps({ style: { opacity: 1 } })
       }
     }
     if (topSeparator) {
-      topSeparator.setNativeProps({style: {opacity: 1}})
+      topSeparator.setNativeProps({ style: { opacity: 1 } })
     }
     if (bottomSeparator) {
-      bottomSeparator.setNativeProps({style: {opacity: 1}})
+      bottomSeparator.setNativeProps({ style: { opacity: 1 } })
     }
   }
 
@@ -136,7 +139,7 @@ class Index extends Component {
 
   _renderRowByChildren () {
     // 这段变量声明不能放到constructor里面去，否则有一些动态渲染的列表无法刷新列表项
-    let {children} = this.props
+    let { children } = this.props
     let childrenArray = React.Children.toArray(children)
     this.account = childrenArray.length
     this.renderItems = []
@@ -149,8 +152,12 @@ class Index extends Component {
       this.renderItems.push(this._renderChild(child, i))
     }
 
+    const {
+      style
+    } = this.getComponentTheme()
+
     return (
-      <View style={this.props.style}>
+      <View style={[style, this.props.style]}>
         {this.props.renderBorder && this._renderSeparator(TOP_SEPARATOR)}
         {this.renderItems}
         {this.props.renderBorder && this._renderSeparator(BOTTOM_SEPARATOR)}
@@ -167,7 +174,8 @@ class Index extends Component {
   }
 }
 
-class Row extends Component {
+class Row extends ThemeableComponent {
+  namespace = 'List.Row'
   static propTypes = {
     // 模式1， 简单纯文字，直接提供sting即可, 优先级别最低
     label: PropTypes.string,
@@ -182,34 +190,23 @@ class Row extends Component {
   }
 
   render () {
+    const {
+      normalText,
+      primaryText,
+      rowStyle
+    } = this.getComponentTheme()
     if (this.props.renderRow) {
-      return <View style={styles.row}>
+      return <View style={rowStyle}>
         {this.props.renderRow()}
       </View>
     } else {
-      return <View style={styles.row}>
-        {this.props.renderLabel ? this.props.renderLabel() : <Text style={styles.normalTxt}>{this.props.label}</Text>}
-        {this.props.renderValue ? this.props.renderValue() : <Text style={styles.primaryTxt}>{this.props.value}</Text>}
+      return <View style={rowStyle}>
+        {this.props.renderLabel ? this.props.renderLabel() : <Text style={normalText}>{this.props.label}</Text>}
+        {this.props.renderValue ? this.props.renderValue() : <Text style={primaryText}>{this.props.value}</Text>}
       </View>
     }
   }
 }
-
-const styles = StyleSheet.create({
-  normalTxt: {
-    fontSize: ProUI.fontSize.medium,
-    color: ProUI.color.sub
-  },
-  primaryTxt: {
-    fontSize: ProUI.fontSize.medium,
-    color: ProUI.color.primary
-  },
-  row: {
-    ...ProUI.layout.rowJustify,
-    height: ProUI.fixedRowHeight,
-    paddingHorizontal: ProUI.spaceX.large
-  }
-})
 
 Index.Row = Row
 export default Index

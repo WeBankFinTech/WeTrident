@@ -3,15 +3,30 @@
  *
  * Created by erichua on 2019-04-23T03:47:50.328Z.
  */
-import React, { Component } from 'react'
-import { View, Text, StyleSheet, ScrollView } from 'react-native'
+import React from 'react'
+import { View, Text, StyleSheet, ScrollView, PixelRatio } from 'react-native'
 import {
-  FinancialInput, List, Button, Row, Column, Icon,
-  Dialog, Loading, Toast, Popup, ActionSheet,
-  Table, Checkbox
-} from '@webank/trident/trident-ui'
+  FinancialInput,
+  List,
+  Button,
+  Row,
+  Column,
+  Icon,
+  Dialog,
+  Loading,
+  Toast,
+  Popup,
+  ActionSheet,
+  Table,
+  Checkbox,
+  ThemeableComponent,
+  Theme,
+  ThemeProvider,
+  createTheme,
+  WeUITheme
+} from '@webank/trident'
 
-export default class TridentUIDemo extends Component {
+export default class TridentUIDemo extends ThemeableComponent {
   constructor (props) {
     super(props)
     this.state = {
@@ -46,35 +61,38 @@ export default class TridentUIDemo extends Component {
         </Row.CrossCenter>
 
         {this._renderSection('Table')}
-        <Table borderColor={'#000'} align={'center'} fontSize={16} borderWidth={2}>
+        <Table>
           <Table.Tr>
-            <Table.Th row={1}>标题1</Table.Th>
-            <Table.Th row={2}>标题2</Table.Th>
-            <Table.Th row={3}>标题3</Table.Th>
+            <Table.Th row={1}>Table全局色</Table.Th>
+            <Table.Th row={2}>Table全局设置border</Table.Th>
           </Table.Tr>
-          <Table.Tr>
-            <Table.Td row={1}>td1</Table.Td>
-            <Table.Td row={2}>td2</Table.Td>
-            <Table.Td row={3}>td3</Table.Td>
+
+          <Table.Tr
+            textStyle={{color: 'blue'}}>
+            <Table.Td row={1}>TR定义文字颜色</Table.Td>
+            <Table.Td row={1}>TR定义背景颜色</Table.Td>
           </Table.Tr>
+
           <Table.Tr>
-            <Table.Td row={3}>td1</Table.Td>
-            <Table.Td row={3}>td3</Table.Td>
+            <Table.Td row={1}>主题默认样式</Table.Td>
+            <Table.Td row={1}>主题默认样式</Table.Td>
+          </Table.Tr>
+
+          <Table.Tr>
+            <Table.Td row={1} style={{backgroundColor: '#EEF'}}>TD自定义颜色</Table.Td>
+            <Table.Td row={2}>边框颜色继承Table</Table.Td>
           </Table.Tr>
         </Table>
 
-        {this._renderSection('List')}
-        <List style={{ backgroundColor: '#fff' }} onItemPress={() => {
 
-        }}>
-          <List.Item data={{
-            label: '最简单'
-          }} />
+        {this._renderSection('List')}
+        <List style={{ backgroundColor: '#fff' }}>
+          <List.Item data={{ label: '最简单' }} />
           <List.Item data={{
             label: '可点击',
             iconRight: Icon.Names.right_arrow,
             onPress: () => {
-              Toast.show('点了我啦')
+              Toast.show('Item pressed')
             }
           }} />
           {/*<List.Item data={{*/}
@@ -88,38 +106,54 @@ export default class TridentUIDemo extends Component {
           <List.Item data={{
             icon: Icon.Names.clear,
             label: '带有图表和loading',
-            loading: true
+            loading: true,
+            onPress: () => {
+              Toast.show('Item pressed')
+            }
           }} />
-          <List.Item data={{
-            label: '带有状态',
-            status: '状态'
-          }} />
+          <List.Item
+            data={{
+              label: '带有状态',
+              status: '状态',
+              onPress: () => {
+                Toast.show('Item pressed')
+              }
+            }}
+          />
           <List.Item data={{
             label: '带有状态说明',
             status: '状态',
             subStatus: '状态说明',
-            iconRight: Icon.Names.right_arrow
+            iconRight: Icon.Names.right_arrow,
+            onPress: () => {
+              Toast.show('Item pressed')
+            }
           }} />
         </List>
 
         {this._renderSection('Popup')}
         <Button style={{ marginTop: 10 }} text={'展示ActionSheet'} onPress={() => {
           ActionSheet.show({
-            header: '题目',
+            header: '不同样式的Item',
             items: [{
-              text: '选项1',
+              text: '查看',
               onPress: (item, index) => {
                 Toast.show(item.text)
               }
             }, {
-              text: '选项2',
-              isWarning: true,
+              text: '更新',
+              textStyle: {
+                color: Theme.Color.textWarning
+              },
               onPress: (item, index) => {
                 Toast.show(item.text)
               }
             }, {
-              text: '选项3',
-              subhead: 'xxx',
+              text: '删除',
+              subhead: '',
+              textStyle: {
+                color: Theme.Color.textError
+              },
               onPress: (item, index) => {
                 Toast.show(item.text)
               }
@@ -128,8 +162,14 @@ export default class TridentUIDemo extends Component {
         }} />
         <Button style={{ marginTop: 10 }} text={'展示自定义的Popup'} onPress={() => {
           const id = Popup.show(
-            <View
-              style={{ backgroundColor: '#fff', marginVertical: 20, paddingHorizontal: 20, paddingVertical: 10 }}>
+            <View style={{
+              height: 400,
+              backgroundColor: '#fff',
+              marginVertical: 20,
+              paddingHorizontal: 20,
+              paddingVertical: 10,
+              borderRadius: 10
+            }}>
               <TridentUIDemo />
               <Button style={{ marginTop: 10 }} text={'关闭Popup'} onPress={() => {
                 Popup.hide(id)
@@ -185,7 +225,7 @@ export default class TridentUIDemo extends Component {
 
         {this._renderSection('Button')}
         <Button text={'button'} style={{ marginTop: 10 }} onPress={() => {
-          console.log('点击了按钮')
+          Toast.show('Button pressed!')
         }} />
         <Button disabled text={'disabled'} style={{ marginTop: 10 }} />
 
@@ -233,7 +273,7 @@ export default class TridentUIDemo extends Component {
 
 const styles = StyleSheet.create({
   border: {
-    borderColor: 'gray',
-    borderWidth: 1
+    borderColor: Theme.Color.borderPrimary,
+    borderWidth: Theme.Size.borderWidthM
   }
 })

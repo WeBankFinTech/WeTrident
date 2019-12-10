@@ -14,7 +14,7 @@ export default class HomeTab extends WeBaseScene {
 
   render () {
     return (
-      <View style={{ flex: 1, paddingTop: dimens.TOTAL_NAV_BAR_HEIGHT }}>
+      <View style={{ flex: 1}}>
         <NavBar
           title={'HomeTab'}
           hideLeftButton

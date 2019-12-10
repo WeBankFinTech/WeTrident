@@ -20,9 +20,9 @@ const createComponentTheme = (Theme = ThemeConst) => ({
       paddingHorizontal: Theme.Size.spaceM,
 
       backgroundColor: Theme.Color.backgroundPrimary,
-      borderRadius: Theme.Size.rowHeightM / 2,
+      borderRadius: 5,
       borderWidth: 1 / PixelRatio.get(),
-      borderColor: Theme.Color.borderPrimary
+      borderColor: '#050505'
     },
     textStyle: {
       fontSize: Theme.Size.fontXL,
@@ -245,7 +245,7 @@ const createComponentTheme = (Theme = ThemeConst) => ({
   },
   'NavBar': {
     style: {
-      backgroundColor: '#445C95',
+      backgroundColor: Theme.Color.backgroundPrimary,
       width: dimens.WINDOW_WIDTH,
       height: dimens.TOTAL_NAV_BAR_HEIGHT,
       flexDirection: 'row',
