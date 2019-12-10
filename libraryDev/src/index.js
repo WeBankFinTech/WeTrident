@@ -22,7 +22,9 @@ export default class AppEntry extends Component {
               gesturesEnabled: true,
               header: ({ scene, getScreenDetails, navigation: { state: { params = {} } } }) => {
                 const sceneDetail = getScreenDetails(scene)
-                return <NavBar title={sceneDetail.options.headerTitle} onPressLeft={() => {
+                return <NavBar
+                  hideLeftButton={AppNavigator.getCurrentRoutes().length <= 1}
+                  title={sceneDetail.options.headerTitle} onPressLeft={() => {
                   AppNavigator.goBack()
                 }} />
               }

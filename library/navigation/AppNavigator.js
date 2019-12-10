@@ -294,7 +294,7 @@ class AppNavigator {
   getCurrentRoutes () {
     if (!this.navigator) {
       console.warn('AppNavigation.navigator is null')
-      return null
+      return []
     }
 
     try {
