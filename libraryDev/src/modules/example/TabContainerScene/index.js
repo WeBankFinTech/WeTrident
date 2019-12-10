@@ -2,13 +2,13 @@
  * Created by erichua on 2019-02-23T10:25:07.640Z.
  */
 import HomeTab from './tabs/HomeTab'
-import SettingTab from './tabs/SettingTab'
+import UITab from './tabs/UITab'
 
 export default (global, ModulePrivate) => ({
   moduleName: ModulePrivate.moduleName,
   sceneName: 'TabContainerScene',
   component: require('./TabContainerScene').default,
-  childComponent: [HomeTab, SettingTab],
+  childComponent: [HomeTab, UITab],
   /**
    * 定义scene级别数据的初始值
    */

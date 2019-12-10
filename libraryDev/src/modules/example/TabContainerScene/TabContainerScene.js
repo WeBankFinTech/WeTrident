@@ -9,7 +9,7 @@ import { WeBaseScene, ModuleManager, createModuleConnect, createSceneConnect } f
 import { TabNavigator, DrawerNavigator, TabBarBottom } from '@unpourtous/react-navigation'
 import ModulePrivate from '../'
 import HomeTab from './tabs/HomeTab'
-import SettingTab from './tabs/SettingTab'
+import SettingTab from './tabs/UITab'
 
 export default class TabContainerScene extends WeBaseScene {
   static navigationOptions = ({ navigation: { state: { params = {} } } }) => ({

@@ -5,7 +5,7 @@
  */
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
-import { WeBaseScene, AppNavigator, Button, Theme, dimens } from '@webank/trident'
+import { WeBaseScene, AppNavigator, Button, Theme, dimens, ActionSheet } from '@webank/trident'
 import NavBar from '../../components/NavBar'
 import EntryList from '../../../../../bizComponents/EntryList'
 
@@ -18,53 +18,61 @@ export default class HomeTab extends WeBaseScene {
     return (
       <View style={{ flex: 1, paddingTop: dimens.TOTAL_NAV_BAR_HEIGHT }}>
         <NavBar
-          title={'HomeTab'}
+          title={'Home'}
           hideLeftButton
         />
-        {/*<View style={styles.main}>*/}
-          {/*<Button*/}
-            {/*text={'Open Drawer'}*/}
-            {/*style={styles.button}*/}
-            {/*onPress={() => {*/}
-              {/*this.props.navigation.navigate('DrawerOpen')*/}
-            {/*}} />*/}
-        {/*</View>*/}
         <EntryList style={[{
           backgroundColor: Theme.Color.backgroundPrimary
         }, this.props.style]}>
-          <Button text={'Trident-Framework'} onPress={() => {
-            AppNavigator.example.FrameworkScene()
+
+          <Button text={'Navigation'} onPress={() => {
+            AppNavigator.example.NavigationScene()
           }} />
 
-          <Button text={'Trident-UI'} onPress={() => {
-            AppNavigator.ui.UIScene()
+          <Button text={'Network'} onPress={() => {
+            AppNavigator.example.NetworkScene()
+          }} />
+
+          <Button text={'State Management'} onPress={() => {
+            AppNavigator.example.StateManagementScene()
+          }} />
+          <Button text={'Console log'} onPress={() => {
+            ActionSheet.show({
+              header: 'console不同格式log',
+              items: [{
+                text: 'string',
+                onPress: () => {
+                  console.log('打印string：', '123456789')
+                }
+              }, {
+                text: 'number',
+                onPress: () => {
+                  console.log('打印number：', 123456789)
+                }
+              }, {
+                text: 'boolean',
+                onPress: () => {
+                  console.log('打印boolean：', Math.random()* 100 > 50)
+                }
+              }, {
+                text: 'object',
+                onPress: () => {
+                  console.log('打印object：', {a: 1, b: 2})
+                }
+              }, {
+                text: 'array',
+                onPress: () => {
+                  console.log('打印array：', [1, 2, 3, 4, 5, 6])
+                }
+              }]
+            })
           }} />
 
           <Button text={'Plugin Store'} onPress={() => {
             AppNavigator.example.PluginStoreScene()
           }} />
-
-          {/*<Button text={'TabView'} onPress={() => {*/}
-          {/*// AppNavigator.example.PluginStoreScene()*/}
-          {/*AppNavigator.tabExample.TabContainerScene({*/}
-          {/*// initialTab: 'Setting'*/}
-          {/*})*/}
-          {/*}} />*/}
         </EntryList>
       </View>
     )
   }
 }
-
-const styles = StyleSheet.create({
-  main: {
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginHorizontal: 20
-  },
-  button: {
-    width: '100%'
-  }
-})

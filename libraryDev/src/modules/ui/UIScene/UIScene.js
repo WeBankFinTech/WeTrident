@@ -7,7 +7,6 @@ import React from 'react'
 import { View } from 'react-native'
 
 import { WeBaseScene } from '@webank/trident'
-import TridentUIDemo from './components/TridentUIDemo'
 
 export default class UIScene extends WeBaseScene {
   static navigationOptions = ({ navigation: { state: { params = {} } } }) => ({
@@ -17,7 +16,6 @@ export default class UIScene extends WeBaseScene {
   render () {
     return (
       <View style={{ flex: 1, backgroundColor: '#fff' }}>
-        <TridentUIDemo />
       </View>
     )
   }

@@ -7,10 +7,9 @@ import React from 'react'
 import { View } from 'react-native'
 import { WeBaseScene, dimens } from '@webank/trident'
 import NavBar from '../../components/NavBar'
-import TridentUIDemo from '../../../../ui/UIScene/components/TridentUIDemo'
+import TridentUIDemo from './components/TridentUIDemo'
 
-export default class SettingTab extends WeBaseScene {
-
+export default class UITab extends WeBaseScene {
   render () {
     return (
       <View style={{paddingTop: dimens.TOTAL_NAV_BAR_HEIGHT}}>
