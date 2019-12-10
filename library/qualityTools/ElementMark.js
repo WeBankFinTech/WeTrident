@@ -28,7 +28,7 @@ export default class ElementMark extends Component {
         height: 0,
         backgroundColor: 'transparent',
         borderRadius: 5,
-        borderWidth: 5 / PixelRatio.get(),
+        borderWidth: 0,
         borderColor: '#E26B53',
         borderStyle: 'dashed'
       }, this.state.style || {}]} ref={_ref => { SceneTraversal.setRef(_ref) }} />
@@ -41,7 +41,8 @@ export default class ElementMark extends Component {
         left: x,
         top: y,
         width,
-        height
+        height,
+        borderWidth: width === 0 && height === 0 ? 0 : 5 / PixelRatio.get()
       }
     })
   }

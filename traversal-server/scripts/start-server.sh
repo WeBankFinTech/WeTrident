@@ -12,7 +12,7 @@ if [ -e  $BASE_DIR/traversal-server/node_modules ];then
 	echo "👍 环境检查通过"
 else
 	echo "⌛️ 环境检查不通过，正在安装依赖..."
-	npm install
+	npm install --verbose
 fi
 
 fileName=`date '+%Y-%m-%d.txt'`
