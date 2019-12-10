@@ -3,6 +3,8 @@ website/
 website2/
 docs/
 trident-cli/node_modules/
+app-seed/ios/build/
+app-seed/ios/Pods/
 app-seed/node_modules/
 node_modules/
 .idea/

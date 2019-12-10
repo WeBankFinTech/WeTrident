@@ -9,7 +9,8 @@ import {
   WeBaseScene,
   ModuleManager,
   createModuleConnect,
-  createSceneConnect
+  createSceneConnect,
+  Theme
 } from '@webank/trident'
 import { TabNavigator, DrawerNavigator, TabBarBottom } from '@unpourtous/react-navigation'
 import ModulePrivate from '../'
@@ -55,13 +56,14 @@ export default class TabContainerScene extends WeBaseScene {
 
     this.MyDrawerNavigator = new DrawerNavigator(
       {
-        TabContainer: MyTabNavigator
+        TabContainer: MyTabNavigator,
+        TabContainer2: MyTabNavigator
       },
       {
         drawerBackgroundColor: 'rgba(255,255,255,.9)',
         contentOptions: {
-          activeTintColor: '#fff',
-          activeBackgroundColor: '#6b52ae',
+          activeTintColor: Theme.Color.textLightPrimary,
+          activeBackgroundColor: Theme.Color.backgroundPrimary,
         },
       }
     )

@@ -11,7 +11,7 @@ export default class SettingTab extends WeBaseScene {
 
   render () {
     return (
-      <View style={{ paddingTop: dimens.TOTAL_NAV_BAR_HEIGHT }}>
+      <View>
         <NavBar
           title={'SettingTab'}
           hideLeftButton
