@@ -3,10 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node_modules/react-native/scripts/packager.sh",
-    "test": "jest",
-    "bundle-ios": "node ./node_modules/react-native/local-cli/cli.js bundle --entry-file index.js --platform ios --dev false --reset-cache --bundle-output ./ios/main.jsbundle --assets-dest \"./ios\"",
-    "bundle-android": "node ./node_modules/react-native/local-cli/cli.js bundle --entry-file index.js --platform ios --dev false --reset-cache --bundle-output ./ios/main.jsbundle --assets-dest \"./ios\""
+    "test": "jest"
   },
   "dependencies": {
     "@babel/core": "7.0.0-beta.56",
@@ -29,6 +26,7 @@
     "moment": "2.23.0",
     "qs": "^6.9.1",
     "react": "16.0.0",
+    "react-native": "https://github.com/UnPourTous/react-native.git#release/0.51.8",
     "react-native-cookies": "3.3.0",
     "react-native-json-tree": "^1.2.0",
     "react-navigation-redux-helpers": "1.0.1",
