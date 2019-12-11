@@ -10,7 +10,7 @@
     "WebView"
   ],
   "author": "shuqiangwu@webank.com",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "dependencies": {
     "react": "16.0.0",
     "@webank/trident": "^1.3.1",

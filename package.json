@@ -21,7 +21,7 @@
     "url": "git+http://github.com/WeBankFinTech/WeTrident.git"
   },
   "author": "erichua",
-  "license": "Apache License 2.0",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "http://github.com/WeBankFinTech/WeTrident/issues"
   },
