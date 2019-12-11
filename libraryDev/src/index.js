@@ -7,22 +7,23 @@ import { AppNavigator, TridentApp, NavBar, RNEnv } from '@webank/trident'
 import { WTConsoleView } from './bizComponents/WTConsoleView'
 import CardStackStyleInterpolator from '@unpourtous/react-navigation/src/views/CardStack/CardStackStyleInterpolator'
 
-import { LightTheme, createTheme } from '@webank/trident'
+import { LightTheme, WeUITheme, createTheme } from '@webank/trident'
 
-const weuiTheme = createTheme(LightTheme)
+const theme = createTheme(WeUITheme)
 
 export default class AppEntry extends Component {
   render () {
     // All you need to setup
     return (
         <TridentApp
-          theme={weuiTheme}
+          theme={theme}
           navigationConfig={{
             navigationOptions: {
               gesturesEnabled: true,
               header: ({ scene, getScreenDetails, navigation: { state: { params = {} } } }) => {
                 const sceneDetail = getScreenDetails(scene)
                 return <NavBar
+                  leftButtonImage={require('./images/icon-back.png')}
                   hideLeftButton={AppNavigator.getCurrentRoutes().length <= 1}
                   title={sceneDetail.options.headerTitle} onPressLeft={() => {
                   AppNavigator.goBack()

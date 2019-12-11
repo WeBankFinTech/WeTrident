@@ -22,6 +22,7 @@ export default class AppEntry extends Component {
             header: ({ scene, getScreenDetails, navigation: { state: { params = {} } } }) => {
               const sceneDetail = getScreenDetails(scene)
               return <NavBar
+                leftButtonImage={require('./images/icon-back.png')}
                 hideLeftButton={AppNavigator.getCurrentRoutes().length <= 1}
                 title={sceneDetail.options.headerTitle} onPressLeft={() => {
                 AppNavigator.goBack()

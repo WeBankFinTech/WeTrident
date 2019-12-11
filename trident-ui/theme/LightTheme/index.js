@@ -255,17 +255,13 @@ const createComponentTheme = (Theme = ThemeConst) => ({
       paddingLeft: Theme.Size.spaceM,
       paddingRight: Theme.Size.spaceM
     },
-    leftButtonStyle: {
-
-    },
+    leftButtonStyle: {},
+    leftButtonImageStyle: { width: 20, height: 20 },
     leftButtonTextStyle: {
       color: Theme.Color.textLightPrimary,
       fontSize: Theme.Size.fontM
     },
-
-    titleStyle: {
-
-    },
+    titleStyle: {},
     titleTextStyle: {
       flex: 1,
       color: Theme.Color.textLightPrimary,
@@ -273,10 +269,9 @@ const createComponentTheme = (Theme = ThemeConst) => ({
       textAlign: 'center',
       fontSize: 17
     },
-
     rightButtonStyle: {
-
     },
+    rightButtonImageStyle: { width: 20, height: 20 },
     rightButtonTextStyle: {
       color: Theme.Color.textLightPrimary,
       fontSize: Theme.Size.fontM
