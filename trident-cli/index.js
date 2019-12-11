@@ -71,7 +71,6 @@ program
         printVersionsAndExit()
         break
       case 'install':
-        console.log(path.resolve(process.cwd(), 'package.json'))
         try {
           const wtPackage = require(path.resolve(process.cwd(), 'package.json'))
           if (wtPackage.dependencies && wtPackage.dependencies['@webank/trident']) {
