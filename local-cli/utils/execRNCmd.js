@@ -14,7 +14,7 @@ module.exports = (relativeCmdPath) => {
     console.log(chalk.yellow('Dependencies not installed, use "tdt install" to install all dependencies'))
     return false
   } else {
-    execSync(rnPath + relativeCmdPath)
+    execSync('node ' + rnPath + relativeCmdPath)
     return true
   }
 }
