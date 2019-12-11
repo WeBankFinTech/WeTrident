@@ -5,11 +5,12 @@
  */
 import React from 'react'
 import { Image } from 'react-native'
-import { WeBaseScene, ModuleManager, createModuleConnect, createSceneConnect } from '@webank/trident'
+import { WeBaseScene, ModuleManager, createModuleConnect, createSceneConnect, dimens } from '@webank/trident'
 import { TabNavigator, DrawerNavigator, TabBarBottom } from '@unpourtous/react-navigation'
+import Sidebar from './components/Sidebar'
 import ModulePrivate from '../'
 import HomeTab from './tabs/HomeTab'
-import SettingTab from './tabs/UITab'
+import UITab from './tabs/UITab'
 
 export default class TabContainerScene extends WeBaseScene {
   static navigationOptions = ({ navigation: { state: { params = {} } } }) => ({
@@ -21,12 +22,12 @@ export default class TabContainerScene extends WeBaseScene {
 
     const wrappedModule = createModuleConnect(ModulePrivate('example'))()
     const homeTabConfig = HomeTab(ModuleManager.connectedContainer, wrappedModule)
-    const settingTabConfig = SettingTab(ModuleManager.connectedContainer, wrappedModule)
+    const uiTabConfig = UITab(ModuleManager.connectedContainer, wrappedModule)
 
     // 自定义样式请参考 https://reactnavigation.org/docs/en/1.x/tab-based-navigation.html#customizing-the-appearance
     const MyTabNavigator = TabNavigator({
       'Home': createSceneConnect(homeTabConfig)(homeTabConfig.component),
-      'Setting': createSceneConnect(settingTabConfig)(settingTabConfig.component)
+      'UI': createSceneConnect(uiTabConfig)(uiTabConfig.component)
     }, {
       navigationOptions: ({navigation}) => ({
         tabBarIcon: ({focused, tintColor}) => {
@@ -34,7 +35,7 @@ export default class TabContainerScene extends WeBaseScene {
           let iconSource
           if (routeName === 'Home') {
             iconSource = focused ? require('../images/icon-home-focus.png') : require('../images/icon-home.png')
-          } else if (routeName === 'Setting') {
+          } else if (routeName === 'UI') {
             iconSource = focused ? require('../images/icon-setting-focus.png') : require('../images/icon-setting.png')
           }
 
@@ -53,11 +54,13 @@ export default class TabContainerScene extends WeBaseScene {
         TabContainer: MyTabNavigator
       },
       {
-        drawerBackgroundColor: 'rgba(255,255,255,.9)',
-        contentOptions: {
-          activeTintColor: '#fff',
-          activeBackgroundColor: '#6b52ae',
-        },
+        contentComponent: Sidebar,
+        headerMode: 'screen',
+        drawerWidth: dimens.WINDOW_WIDTH - 64,
+        drawerPosition: 'left',
+        drawerOpenRoute: 'DrawerOpen',
+        drawerCloseRoute: 'DrawerClose',
+        drawerToggleRoute: 'DrawerToggle'
       }
     )
   }

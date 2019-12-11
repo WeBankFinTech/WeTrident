@@ -13,7 +13,7 @@ export default class UITab extends WeBaseScene {
     return (
       <View>
         <NavBar
-          title={'SettingTab'}
+          title={'UITab'}
           hideLeftButton
         />
         <TridentUIDemo />
