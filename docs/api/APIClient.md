@@ -12,11 +12,11 @@ request (apiConfig, body, pathParams = {}, headers = {}, options = {})
 
 | 参数名 | 类型 | 描述 | 
 | --- | --- | --- |
-| apiConfig | object | 见 [apiConfig定义](/trident/docs/api/APIClient#apiconfig) | 
+| apiConfig | object | 见 [apiConfig定义](/WeTrident/docs/api/APIClient#apiconfig) | 
 | body | object | http请求的body，get请求的params, post请求的body | 
 | pathParams | object | 用于处理带动态参数的path，例如apiConfig.url为 /book/:id, pathParams为 `{id: 888}`时，对应的请求路径为 `/book/888` | 
 | headers | object | 当前请求需要自定义的header内容 |
-| options | object | 见 [options定义](/trident/docs/api/APIClient#options)  
+| options | object | 见 [options定义](/WeTrident/docs/api/APIClient#options)  
 
 ##### Params Definition
 ###### apiConfig

@@ -19,7 +19,7 @@ export default {
 Trident App中建议统一管理后台的API，每个模块强相关的后台API，都放到 `modules/$moduleName/cgi/`目录统一管理，并且通过配置都方式配置每个API需要的信息。
 主要出于如下几点考虑： 
 1. 统一的存放方便后期维护
-2. 统一的配置格式要求每个接口要填写一些关键字段，方便以后理解。所有字段的说明见 [API配置](/trident/docs/api/APIClient#api配置)： 
+2. 统一的配置格式要求每个接口要填写一些关键字段，方便以后理解。所有字段的说明见 [API配置](/WeTrident/docs/api/APIClient#api配置)： 
 
 | 字段名 | 说明 | 是否必须 | 
 | --- | --- | --- |
@@ -53,7 +53,7 @@ export default class BookListScene extends WeBaseScene {
 开发过程中，可能会需要再服务器端接口开发完之前开始开发前端，为了解决没有接口可用的问题，Trident支持了mock的功能，只需要简单的再接口配置中配置mock的返回即可，例如上面的拉去书籍列表的接口如下配置以后即可支持mock，`APIClient`发出请求以后会直接返回mock数据。response是一个数组，这个数组里面的内容随机返回，用于模拟调试失败或者多种返回数据的情况。
 ```javascript
 // modules/book/cgi/index.js
-import AxiosMocker from '@webank/trident/library/network/AxiosMocker'
+import {AxiosMocker} from '@webank/trident'
 export default {
   requestBookList: {
     baseURL: 'https://www.mocky.io/',
@@ -97,11 +97,10 @@ export default {
 ```js
 import React, { Component } from 'react'
 import { View, Text } from 'react-native'
-import { AppNavigator, WeBaseScene } from '@webank/trident'
+import { AppNavigator, WeBaseScene, Toast } from '@webank/trident'
 import BookDetail from './components/BookDetail'
 import SimpleButton from './components/SimpleButton'
 import BookDetailService from './BookDetailService'
-import Toast from '@webank/trident/library/uiComponent/popup/Toast'
 
 export default class BookDetailScene extends WeBaseScene {
   static navigationOptions = ({ navigation: { state: { params = {} } } }) => ({
@@ -176,7 +175,7 @@ APIClient.setDefaultCacheMaxAgeInMs(5 * 60 * 1000)
 2. API静态配置缓存时间
 ```
 // modules/book/cgi/index.js 
-import AxiosMocker from '@webank/trident/library/network/AxiosMocker'
+import {AxiosMocker} from '@webank/trident'
 // 接口定义
 export default {
   requestBookListUseCache: {
@@ -206,4 +205,4 @@ APIClient.request(
 ).then(...)
 ```
 
-更多用法见：[APIClient API](/trident/docs/api/APIClient)
+更多用法见：[APIClient API](/WeTrident/docs/api/APIClient)

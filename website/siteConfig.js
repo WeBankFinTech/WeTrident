@@ -24,7 +24,7 @@ const siteConfig = {
   title: 'Trident', // Title for your website.
   tagline: '可快速开发支持商业运营App的框架',
   // url: 'https://your-docusaurus-test-site.com', // Your website URL
-  baseUrl: '/trident/', // Base URL for your project */
+  baseUrl: '/WeTrident/', // Base URL for your project */
   // For github.io type URLs, you would set the url and baseUrl like:
   //   url: 'https://facebook.github.io',
   //   baseUrl: '/test-site/',
