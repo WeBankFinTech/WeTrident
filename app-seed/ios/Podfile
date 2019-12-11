@@ -24,17 +24,16 @@ def deps_pods
   pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
   pod 'GLog', :podspec => '../node_modules/react-native/third-party-podspecs/GLog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
-  
+
   pod 'AFNetworking'
   pod 'SSZipArchive'
 end
 
 post_install do |installer|
-  print "Called!!!"
   tridentConfig = JSON.parse(File.read('../trident-config.json'))
   port = tridentConfig["port"] || "8081"
   puts port
-  
+
   installer.pods_project.build_configurations.each do |config|
     if config.name == 'Debug'
         config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)']

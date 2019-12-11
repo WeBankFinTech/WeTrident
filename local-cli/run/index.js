@@ -1,4 +1,4 @@
-const execSync = require('../utils/execSync')
+const execRNCmd = require('../utils/execRNCmd')
 
 const runAndroid = (options) => {
   if (!options['main-activity']) {
@@ -6,14 +6,14 @@ const runAndroid = (options) => {
     options['main-activity'] = 'io.unpourtous.trident.MainActivity'
   }
 
-  execSync('node node_modules/react-native/local-cli/cli.js run-android ' + compositeArguments(options))
+  execRNCmd('local-cli/cli.js run-android ' + compositeArguments(options))
 }
 
 const runIOS = (options) => {
   if (!options['scheme']) {
     options['scheme'] = 'Build'
   }
-  execSync('node node_modules/react-native/local-cli/cli.js run-ios ' + compositeArguments(options))
+  execRNCmd('local-cli/cli.js run-ios ' + compositeArguments(options))
 }
 
 const compositeArguments = (options) => {

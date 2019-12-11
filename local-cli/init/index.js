@@ -34,7 +34,7 @@ function init (root, projectName, bundleId, scheme, port = 8081, eslint, templat
   process.chdir(root)
 
   if (!scheme) {
-    console.warn('scheme invalid')
+    console.log(chalk.yellow('scheme invalid'))
     return
   }
   // TODO 换到从npm拉取

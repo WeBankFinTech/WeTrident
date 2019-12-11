@@ -31,7 +31,7 @@ function run (root) {
       } else if (projectName === 'scene') {
         gen.generateScene(options)
       } else {
-        console.warn('unknow type, use `gen module --name=` or `gen scene` ')
+        console.log(chalk.yellow('Unknown type, use `gen module --name=` or `gen scene` '))
       }
       break
     }

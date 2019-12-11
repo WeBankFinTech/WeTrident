@@ -1,7 +1,7 @@
+const execRNCmd = require('../utils/execRNCmd')
 function start (options) {
   const path = require('path')
   const fs = require('fs')
-  const execSync = require('../utils/execSync')
 
   // TODO 检查端口号范围
   // 从 trident-config.json 里面读取端口号
@@ -11,17 +11,14 @@ function start (options) {
   }
   options.port = options.port || tridentConfig.port || 8081 // react native's default value
 
-  // TODO 持续输入现在打不到控制台，这里需要调整一下
-  console.log('React Native packager is started...')
-
   const passArgs = Object.keys(options).filter(key => key !== '_').map(key => {
     if (options[key] === true) {
       return `--${key}`
     }
     return `--${key}=${options[key]}`
   }).join(' ')
-  console.log('node_modules/react-native/scripts/packager.sh ' + passArgs)
-  execSync('node_modules/react-native/scripts/packager.sh ' + passArgs, {stdio: 'inherit'})
+
+  execRNCmd(`scripts/packager.sh ${passArgs}`) && console.log('React Native packager is started...')
 }
 
 module.exports = {

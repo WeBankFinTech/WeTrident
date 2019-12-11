@@ -1,13 +1,20 @@
-module.exports = () => {
-  let packagerSh = undefined
+const execSync = require('./execSync')
+const fs = require('fs')
+const chalk = require('chalk')
+
+module.exports = (relativeCmdPath) => {
+  let rnPath = undefined
   if (fs.existsSync('node_modules/react-native/')) {
-    packagerSh = 'node_modules/react-native/'
+    rnPath = 'node_modules/react-native/'
   } else if (fs.existsSync('node_modules/@webank/trident/node_modules/react-native/')) {
-    packagerSh = 'node_modules/@webank/trident/node_modules/react-native/'
+    rnPath = 'node_modules/@webank/trident/node_modules/react-native/'
   }
 
-  if (!packagerSh) {
-    console.warn('Dependencies not installed, use "tdt install" to install all dependencies')
+  if (!rnPath) {
+    console.log(chalk.yellow('Dependencies not installed, use "tdt install" to install all dependencies'))
+    return false
+  } else {
+    execSync(rnPath + relativeCmdPath)
+    return true
   }
-  return packagerSh
 }
