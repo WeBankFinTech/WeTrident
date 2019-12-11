@@ -14,11 +14,11 @@
       "api/TridentApp": {
         "title": "TridentApp"
       },
+      "CONTRIBUTING": {
+        "title": "CONTRIBUTING"
+      },
       "debug-skill": {
         "title": "调试方法和技巧"
-      },
-      "development/Development": {
-        "title": "development/Development"
       },
       "faq": {
         "title": "faq"
@@ -71,9 +71,7 @@
     },
     "links": {
       "使用文档": "使用文档",
-      "源码库(开发网)": "源码库(开发网)",
-      "示例工程(开发网)": "示例工程(开发网)",
-      "开发团队": "开发团队"
+      "WeTrident@Github": "WeTrident@Github"
     },
     "categories": {
       "背景介绍": "背景介绍",
@@ -82,7 +80,8 @@
       "Trident-cli": "Trident-cli",
       "测试工具": "测试工具",
       "Plugin Store": "Plugin Store",
-      "API Reference": "API Reference"
+      "API Reference": "API Reference",
+      "CONTRIBUTING": "CONTRIBUTING"
     }
   },
   "pages-strings": {
