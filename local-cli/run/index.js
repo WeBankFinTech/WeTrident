@@ -6,14 +6,14 @@ const runAndroid = (options) => {
     options['main-activity'] = 'io.unpourtous.trident.MainActivity'
   }
 
-  execRNCmd('local-cli/cli.js run-android ' + compositeArguments(options))
+  execRNCmd('local-cli/cli.js run-android ' + compositeArguments(options), 'node')
 }
 
 const runIOS = (options) => {
   if (!options['scheme']) {
     options['scheme'] = 'Build'
   }
-  execRNCmd('local-cli/cli.js run-ios ' + compositeArguments(options))
+  execRNCmd('local-cli/cli.js run-ios ' + compositeArguments(options), 'node')
 }
 
 const compositeArguments = (options) => {

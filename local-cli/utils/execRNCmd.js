@@ -2,7 +2,7 @@ const execSync = require('./execSync')
 const fs = require('fs')
 const chalk = require('chalk')
 
-module.exports = (relativeCmdPath) => {
+module.exports = (relativeCmdPath, type) => {
   let rnPath = undefined
   if (fs.existsSync('node_modules/react-native/')) {
     rnPath = 'node_modules/react-native/'
@@ -14,7 +14,11 @@ module.exports = (relativeCmdPath) => {
     console.log(chalk.yellow('Dependencies not installed, use "tdt install" to install all dependencies'))
     return false
   } else {
-    execSync('node ' + rnPath + relativeCmdPath)
+    if (type === 'node') {
+      execSync('node ' + rnPath + relativeCmdPath)
+    } else {
+      execSync(rnPath + relativeCmdPath)
+    }
     return true
   }
 }
