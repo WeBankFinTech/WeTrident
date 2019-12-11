@@ -11,7 +11,7 @@
     "reinstallCli": "echo 'reinstall the newest trident-cli' && npm uninstall @webank/trident-cli -g && npm install @webank/trident-cli -g",
     "wreinstallCli": "echo 'reinstall the newest trident-cli' && wnpm uninstall @webank/trident-cli -g && wnpm install @webank/trident-cli -g",
     "npmLocalPublishAll": "npm version patch && npm publish --registry http://localhost:4873 && cd trident-cli && npm version patch && npm publish --registry http://localhost:4873",
-    "test-tpl": "echo 'test the trident framework' && rm -rf WeBookStore && trident-cli init --name=WeBookStore --bundleId=com.trident.wbstore --scheme=wbstore --port=8081 --eslint && cd WeBookStore && bundle exec fastlane ios release --verbose && bundle exec fastlane android release --verbose && rm -rf ./WeBookStore",
+    "test-tpl": "echo 'test the trident framework' && rm -rf WeBookStore && trident-cli init --name=WeBookStore --bundleId=com.trident.wbstore --scheme=wbstore --eslint && cd WeBookStore && bundle exec fastlane ios release --verbose && bundle exec fastlane android release --verbose && rm -rf ./WeBookStore",
     "syncLib": "watchman watch ./trident-ui && watchman watch ./library && wml add trident-ui libraryDev/node_modules/@webank/trident/trident-ui && wml add library libraryDev/node_modules/@webank/trident/library && wml start",
     "standardjs": "node_modules/standard/bin/cmd.js library/**/*.js",
     "devEnv": "echo npmClient=$npmClient && echo useLocal=$useLocal"

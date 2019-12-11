@@ -48,12 +48,6 @@ tdt init [options]
 
 项目跳转的 scheme。关于 scheme 可以了解 👉 [URL Schemes 使用详解](https://sspai.com/post/31500)。
 
-#### `--port [number]`
-
-> default: 8081
-
-调试端口。
-
 #### `--eslint [boolean]`
 
 是否使用 eslint。
@@ -100,10 +94,6 @@ tdt packager start
 本地代码调试，打开一个用于实现动态代码加载的 Node 服务。
 
 #### Options
-
-#### `--port [number]`
-
-调试端口，也可以通过 `trident-config.json` 的 `port` 属性进行指定。
 
 ### `release`
 

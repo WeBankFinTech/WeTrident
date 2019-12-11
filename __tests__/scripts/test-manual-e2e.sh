@@ -31,7 +31,7 @@ mkdir -p $tempDir
 cd $tempDir
 
 rm -rf $tempDir/$projectName
-tdt init --name=WeBookStore --bundleId=com.trident.wbstore --scheme=wbstore --port=8081 --eslint --template=tab
+tdt init --name=WeBookStore --bundleId=com.trident.wbstore --scheme=wbstore --eslint --template=tab
 cd $tempDir/$projectName
 
 info "Checking the versions in build.gradle are correct:"

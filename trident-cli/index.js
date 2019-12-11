@@ -126,11 +126,6 @@ function initProject () {
       name: 'scheme',
       default: 'tridentDemo'
     }, {
-      type: 'input',
-      message: '请输入远程调试端口(Please enter remote debug port):',
-      name: 'port',
-      default: 8082
-    }, {
       type: 'confirm',
       message: '是否使用eslint？(use eslint?)',
       name: 'eslint'
@@ -152,7 +147,7 @@ function initProject () {
           name = answers.name,
           bundleId = answers.bundleId,
           scheme = answers.scheme,
-          port = answers.port,
+          port = 8081,
           eslint = answers.eslint,
           template = answers.template
         } = options || answers
@@ -289,7 +284,7 @@ function createNewProject (root, options, { projectName, bundleId, scheme, port,
 }
 
 function getInstallPackage () {
-  return '@webank/trident --exact'
+  return '@webank/trident --exact --verbose'
 }
 
 function logError (...args) {
