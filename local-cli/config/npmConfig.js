@@ -1,4 +1,4 @@
-const npmClient = process.env.npmClient || 'wnpm'
+const npmClient = process.env.npmClient || 'npm'
 
 const config = {
   wnpm: {
