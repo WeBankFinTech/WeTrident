@@ -70,6 +70,19 @@ program
       case 'version':
         printVersionsAndExit()
         break
+      case 'install':
+        console.log(path.resolve(process.cwd(), 'package.json'))
+        try {
+          const wtPackage = require(path.resolve(process.cwd(), 'package.json'))
+          if (wtPackage.dependencies && wtPackage.dependencies['@webank/trident']) {
+            require('./install').installAll()
+          } else {
+            console.log(chalk.red('Make sure that you are inside a trident project.'))
+          }
+        } catch (e) {
+          console.log(chalk.red('Make sure that you are inside a trident project.'))
+        }
+        break
       default:
         if (cli) { // 如果在Trident项目内，所有命令由local-cli接管
           cli.run(path.resolve(options.name || '.'))
@@ -167,9 +180,9 @@ function initProject () {
 function printVersionsAndExit () {
   console.log('trident-cli: ' + require('./package.json').version)
   try {
-    if (fs.existsSync(path.resolve(process.cwd(), 'package.json'))) {
-      const versionInPackage = require(path.resolve(process.cwd(), 'package.json')).dependencies['@webank/trident']
-      console.log('trident: ' + versionInPackage)
+    const wtPackage = require(path.resolve(process.cwd(), 'package.json'))
+    if (wtPackage.dependencies && wtPackage.dependencies['@webank/trident']) {
+      console.log('trident: ' + wtPackage.dependencies['@webank/trident'])
 
       if (!fs.existsSync(path.resolve(process.cwd(), 'node_modules', '@webank', 'trident', 'package.json'))) {
         console.log(chalk.yellow('Dependencies not installed, use "tdt install" to install all dependencies'))

@@ -16,15 +16,15 @@
   "license": "MIT",
   "dependencies": {
     "chalk": "^2.4.2",
-    "commander": "^3.0.1",
-    "inquirer": "^6.5.2",
+    "commander": "3.0.1",
+    "inquirer": "6.5.2",
     "iwalk": "0.0.5",
-    "minimist": "^1.2.0",
-    "node-version-compare": "^1.0.2",
-    "prompt": "^1.0.0",
-    "replace-in-file": "^4.0.0",
-    "semver": "^6.3.0",
-    "shelljs": "^0.8.3"
+    "minimist": "1.2.0",
+    "node-version-compare": "1.0.2",
+    "prompt": "1.0.0",
+    "replace-in-file": "4.0.0",
+    "semver": "6.3.0",
+    "shelljs": "0.8.3"
   },
   "engines": {
     "node": ">=8.3"

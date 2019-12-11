@@ -57,11 +57,6 @@ function run (root) {
       }
       break
     }
-    case 'install': {
-      const install = require('./install')
-      install.installAll(options)
-      break
-    }
     case 'run': {
       const run = require('./run')
       switch (subCmd) {

@@ -1,7 +1,7 @@
 const execSync = require('../utils/execSync')
-const npmConfig = require('../config/npmConfig')
+const npmConfig = require('../npmConfig')
 const installAll = () => {
-  execSync(npmConfig.npm_install_all)
+  execSync(npmConfig.npm_install_all + ' --verbose')
   process.chdir('ios')
   execSync('pod install')
   process.chdir('..')
