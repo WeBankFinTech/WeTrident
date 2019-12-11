@@ -1,6 +1,6 @@
 {
   "name": "@webank/trident",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "library/index.js",
   "scripts": {
     "test": "node_modules/jest/bin/jest.js",
