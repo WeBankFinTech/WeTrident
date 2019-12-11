@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+    <channel>
+        <title>WeTrident Blog</title>
+        <link>undefined/WeTrident/blog</link>
+        <description>The best place to stay up-to-date with the latest WeTrident news and events.</description>
+        <lastBuildDate>Tue, 24 Oct 2017 06:00:00 GMT</lastBuildDate>
+        <docs>http://blogs.law.harvard.edu/tech/rss</docs>
+        <generator>Feed for Node.js</generator>
+        <image>
+            <title>WeTrident Blog</title>
+            <url>undefined/WeTrident/undefined</url>
+            <link>undefined/WeTrident/blog</link>
+        </image>
+        <copyright>Copyright © 2019 WeBank App Team</copyright>
+        <item>
+            <title><![CDATA[Release 1.0.0]]></title>
+            <link>undefined/WeTrident/blog/2017/10/24/new-version-1.0.0.html</link>
+            <guid>undefined/WeTrident/blog/2017/10/24/new-version-1.0.0.html</guid>
+            <pubDate>Tue, 24 Oct 2017 06:00:00 GMT</pubDate>
+            <description><![CDATA[<p>正式发布，发布特性如下：</p> <ol> <li>xxxx</li> <li>xxxx</li> <li>xxxx</li> <li>xxxx</li> <li>xxxx</li> </ol> ]]></description>
+        </item>
+    </channel>
+</rss>

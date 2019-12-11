@@ -21,7 +21,7 @@ const users = [
 ];
 
 const siteConfig = {
-  title: 'Trident', // Title for your website.
+  title: 'WeTrident', // Title for your website.
   tagline: '可快速开发支持商业运营App的框架',
   // url: 'https://your-docusaurus-test-site.com', // Your website URL
   baseUrl: '/WeTrident/', // Base URL for your project */
@@ -35,6 +35,8 @@ const siteConfig = {
   // For top-level user or org sites, the organization is still the same.
   // e.g., for the https://JoelMarcey.github.io site, it would be set like...
   //   organizationName: 'JoelMarcey'
+  customDocsPath: 'docsSrc',
+  docsUrl: 'docs',
 
   // For no header links in the top nav bar -> headerLinks: [],
   headerLinks: [

@@ -1,0 +1,65 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Release 1.0.0 · WeTrident</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="正式发布，发布特性如下： "/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Release 1.0.0 · WeTrident"/><meta property="og:type" content="website"/><meta property="og:url" content="undefined/WeTrident/blog/2017/10/24/new-version-1.0.0"/><meta property="og:description" content="正式发布，发布特性如下： "/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/WeTrident/undefined"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css"/><script type="text/javascript" src="./scripts/codeblock.js"></script><script type="text/javascript" src="./scripts/buttons.js"></script><script type="text/javascript" src="./scripts/mta.js"></script><script src="/WeTrident/js/scrollSpy.js"></script><link rel="stylesheet" href="/WeTrident/css/main.css"/><script src="/WeTrident/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/WeTrident/"><h2 class="headerTitle">WeTrident</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/WeTrident/docs/getting-started" target="_self">使用文档</a></li><li class=""><a href="http://github.com/WeBankFinTech/WeTrident" target="_self">WeTrident@Github</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Recent Posts</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Recent Posts</h3><ul class=""><li class="navListItem navListItemActive"><a class="navItem" href="/WeTrident/blog/2017/10/24/new-version-1.0.0">Release 1.0.0</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer postContainer blogContainer"><div class="wrapper"><div class="lonePost"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle"><a href="/WeTrident/blog/2017/10/24/new-version-1.0.0">Release 1.0.0</a></h1><p class="post-meta">October 24, 2017</p><div class="authorBlock"><p class="post-authorName"><a target="_blank" rel="noreferrer noopener">erichua</a></p></div></header><div><span><p>正式发布，发布特性如下：</p>
+<ol>
+<li>xxxx</li>
+<li>xxxx</li>
+<li>xxxx</li>
+<li>xxxx</li>
+<li>xxxx</li>
+</ol>
+</span></div></div><div class="blogSocialSection"></div></div><div class="blog-recent"><a class="button" href="/WeTrident/blog">Recent Posts</a></div></div></div><nav class="onPageNav"></nav></div><footer class="nav-footer" id="footer"><section class="copyright">Copyright © 2019 WeBank App Team</section></footer></div></body></html>
