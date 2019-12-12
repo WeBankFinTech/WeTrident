@@ -1,6 +1,6 @@
-## Feedback - Trident Plugin
+## Feedback - WeTrident Plugin
 
-Trident 项目的意见反馈插件，是对腾讯 [吐个槽](https://tucao.qq.com/) 平台的封装，开发者可快速为项目添加意见反馈模块。关于腾讯吐个槽平台更多说明可查看[吐个槽接入文档](https://tucao.qq.com/helper/WXPGuide)。
+WeTrident 项目的意见反馈插件，是对腾讯 [吐个槽](https://tucao.qq.com/) 平台的封装，开发者可快速为项目添加意见反馈模块。关于腾讯吐个槽平台更多说明可查看[吐个槽接入文档](https://tucao.qq.com/helper/WXPGuide)。
 
 ## Install
 

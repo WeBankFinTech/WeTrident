@@ -1,6 +1,6 @@
-## WebView - Trident Plugin
+## WebView - WeTrident Plugin
 
-Trident 项目的 WebView 插件，支持以下特性
+WeTrident 项目的 WebView 插件，支持以下特性
 
 * 页面标题自动切换
 * JS SDK，可自定义处理api
@@ -25,7 +25,7 @@ AppNavigator.tridentPluginWebview.WebViewScene({
 
 ## JS SDK
 
-Trident WebView 会在 window 上挂载`TridentWebViewBridge`属性，通过该属性可以调用 WebView 的内置 api 与自定义 api。
+WeTrident WebView 会在 window 上挂载`TridentWebViewBridge`属性，通过该属性可以调用 WebView 的内置 api 与自定义 api。
 
 ### 内置 API
 

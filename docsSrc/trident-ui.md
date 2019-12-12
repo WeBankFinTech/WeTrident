@@ -70,7 +70,7 @@ trident-ui提供了基础的弹出层组件供开发者使用。可以直接通�
 const dialogId = Dialog.show({
   texts: [
     'Hello...',
-    'Trident',
+    'WeTrident',
   ],
   items: [
     {

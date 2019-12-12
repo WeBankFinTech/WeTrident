@@ -54,12 +54,12 @@ export default class VersionScene extends WeBaseScene {
         }} source={require('assets/images/icon.png')} />
         <Text style={{
           paddingTop: 16
-        }}>Trident Framework Demo {DeviceInfo.getVersion()}({DeviceInfo.getBuildNumber()})</Text>
+        }}>WeTrident Framework Demo {DeviceInfo.getVersion()}({DeviceInfo.getBuildNumber()})</Text>
 
         <Text
           style={{ color: '#53b4ff' }}
           onPress={() => Linking.openURL('http://trident.webank.com')}>
-          Trident Website
+          WeTrident Website
         </Text>
       </View>
     )

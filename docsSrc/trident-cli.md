@@ -32,7 +32,7 @@ wnpm install -g @webank/trident-cli
 tdt init [options]
 ```
 
-创建 Trident 项目，所有参数可以直接指定或以命令行问答的方式输入。
+创建 WeTrident 项目，所有参数可以直接指定或以命令行问答的方式输入。
 
 #### Options
 
@@ -202,7 +202,7 @@ tdt distribute androidPack
 tdt env
 ```
 
-Trident 运行环境检测。
+WeTrident 运行环境检测。
 
 ### `traversal`
 

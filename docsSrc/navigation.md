@@ -3,7 +3,7 @@ id: navigation
 title: 页面间导航
 ---
 
-Trident App中你可以非常轻松的通过模块名和页面名进行跳转。通过`AppNavigator.$moduleName.$sceneName()`即可完成跳转。这样的设计主要是为了达到如下几个目的： 
+WeTrident App中你可以非常轻松的通过模块名和页面名进行跳转。通过`AppNavigator.$moduleName.$sceneName()`即可完成跳转。这样的设计主要是为了达到如下几个目的： 
 
 1. 用法统一，一个规则适用于App内所有跳转。
 1. 隔离依赖，因为AppNavigator的方法都是动态添加的，页面间相互跳转时避免了引入目标的模块。

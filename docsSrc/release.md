@@ -3,7 +3,7 @@ id: release
 title: 构建和发布
 ---
 
-Trident App的发布依赖fastlane，并且已经集成了最常用的一些插件。
+WeTrident App的发布依赖fastlane，并且已经集成了最常用的一些插件。
 ## iOS构建和发布
 iOS发布前需要保证你有一个可正常使用的苹果开发者账号。
 

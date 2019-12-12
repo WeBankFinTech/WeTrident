@@ -4,7 +4,7 @@ title: 使用网络
 ---
 
 ### 配置及调用
-Trident 推荐将服务器端的API统一管理，相比于把api接口直接零散的写入代码，配置的方式可以为后续针对接口的数据分析提供诸多便利。Trident中网络的配置如下: 
+WeTrident 推荐将服务器端的API统一管理，相比于把api接口直接零散的写入代码，配置的方式可以为后续针对接口的数据分析提供诸多便利。Trident中网络的配置如下: 
 
 ``` js
 // modules/book/cgi/index.js
@@ -16,7 +16,7 @@ export default {
   }
 }
 ```
-Trident App中建议统一管理后台的API，每个模块强相关的后台API，都放到 `modules/$moduleName/cgi/`目录统一管理，并且通过配置都方式配置每个API需要的信息。
+WeTrident App中建议统一管理后台的API，每个模块强相关的后台API，都放到 `modules/$moduleName/cgi/`目录统一管理，并且通过配置都方式配置每个API需要的信息。
 主要出于如下几点考虑： 
 1. 统一的存放方便后期维护
 2. 统一的配置格式要求每个接口要填写一些关键字段，方便以后理解。所有字段的说明见 [API配置](/WeTrident/docs/api/APIClient#api配置)： 

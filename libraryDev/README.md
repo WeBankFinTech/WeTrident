@@ -55,7 +55,7 @@ npm run start
 生成的项目结构如下: 
 ![](2019-06-02-23-57-36.png)
 
-Trident App把App的结构分为三层： 全局容器 -> 模块 -> 页面(我们称之为Scene)。
+WeTrident App把App的结构分为三层： 全局容器 -> 模块 -> 页面(我们称之为Scene)。
 `container`即为全局容器，所有App全局需要的一些逻辑都在这个模块，这个模块产生的数据也供全局共享。
 `modules` 该目录下面是App的业务模块。
 // `example` 该目录是初始生成的demo目录，表示一个业务模块，该模块的所有Scene均在此目录下。
@@ -190,7 +190,7 @@ PS: 可能有人会质疑scene这一级的数据的必要性，因为看起来�
 具体使用示例下一个部分一起详述。
 
 # 使用网络
-Trident 推荐将服务器端的API统一管理，相比于把api接口直接零散的写入代码，配置的方式可以为后续针对接口的数据分析提供诸多便利。Trident中网络的配置如下: 
+WeTrident 推荐将服务器端的API统一管理，相比于把api接口直接零散的写入代码，配置的方式可以为后续针对接口的数据分析提供诸多便利。Trident中网络的配置如下: 
 
 ``` js
 // modules/book/cgi/index.js
@@ -265,7 +265,7 @@ TODO
 
 
 # 构建和发布
-Trident App的发布依赖fastlane，并且已经集成了最常用的一些插件。
+WeTrident App的发布依赖fastlane，并且已经集成了最常用的一些插件。
 ## iOS发布
 ``` shell 
 bundle exec fastlane ios release --verbose

@@ -73,7 +73,7 @@ maven{ url 'https://maven.google.com' }
 上面的过程生成了Trident App最基础的结构，生成的项目结构如下:
 ![](assets/images/2019-06-24-01-04-55.png)
 
-Trident App把App的结构分为三层： `全局容器 -> 模块 -> 页面(Trident中称为Scene)`。
+WeTrident App把App的结构分为三层： `全局容器 -> 模块 -> 页面(Trident中称为Scene)`。
 - `container`即为全局容器，所有App全局需要的一些逻辑都在这个模块，这个模块产生的数据也供全局共享。
 - `modules` 该目录下面是App的业务模块，通过命令创建的业务模块都会存放在这里。
 - `example` 该目录是初始生成的demo目录，表示一个业务模块，该模块的所有Scene均在此目录下。
