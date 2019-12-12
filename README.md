@@ -25,4 +25,4 @@ Trident的技术选型风格如我们团队一样，稳健为第一要求，不�
 PS: Trident在设计过程中会增加一些限制，作为一套通用框架，我们深知应该留给使用者足够的扩展空间，所以我们在设计过程中尽可能的控制限制的数量。
 并且做到，"框架增加一项限制，就至少给使用者带来一批好处"。
 
-使用文档见 [快速开始](/trident/docs/getting-started/)
+使用文档见 [快速开始](https://webankfintech.github.io/WeTrident/docs/getting-started)
