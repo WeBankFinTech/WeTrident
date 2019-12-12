@@ -21,7 +21,7 @@
         "title": "调试方法和技巧"
       },
       "faq": {
-        "title": "faq"
+        "title": "常见问题"
       },
       "getting-started": {
         "title": "创建项目"
@@ -81,7 +81,8 @@
       "测试工具": "测试工具",
       "Plugin Store": "Plugin Store",
       "API Reference": "API Reference",
-      "CONTRIBUTING": "CONTRIBUTING"
+      "CONTRIBUTING": "CONTRIBUTING",
+      "FAQ": "FAQ"
     }
   },
   "pages-strings": {

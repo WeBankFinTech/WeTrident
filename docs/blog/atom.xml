@@ -2,8 +2,8 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>undefined/WeTrident/blog</id>
     <title>WeTrident Blog</title>
-    <updated>2017-10-24T06:00:00Z</updated>
-    <generator>Feed for Node.js</generator>
+    <updated>2017-10-24T06:00:00.000Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="undefined/WeTrident/blog"/>
     <subtitle>The best place to stay up-to-date with the latest WeTrident news and events.</subtitle>
     <logo>undefined/WeTrident/undefined</logo>
@@ -11,12 +11,13 @@
     <entry>
         <title type="html"><![CDATA[Release 1.0.0]]></title>
         <id>undefined/WeTrident/blog/2017/10/24/new-version-1.0.0.html</id>
-        <link href="undefined/WeTrident/blog/2017/10/24/new-version-1.0.0.html">
-        </link>
-        <updated>2017-10-24T06:00:00Z</updated>
+        <link href="undefined/WeTrident/blog/2017/10/24/new-version-1.0.0.html"/>
+        <updated>2017-10-24T06:00:00.000Z</updated>
         <summary type="html"><![CDATA[<p>正式发布，发布特性如下：</p> <ol> <li>xxxx</li> <li>xxxx</li> <li>xxxx</li> <li>xxxx</li> <li>xxxx</li> </ol> ]]></summary>
         <author>
             <name>erichua</name>
+            <email/>
+            <uri/>
         </author>
     </entry>
 </feed>

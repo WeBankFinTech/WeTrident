@@ -39,6 +39,7 @@ if [[ $compareResult == 1 ]]
 then
     echo "!!!!!!!!!!!!!!!!!!!!!!!!!!  Node Version ERROR !!!!!!!!!!!!!!!!!!!!!!!!!!"
     echo "node version ${requireNodeVersion} is required, please update your node version, current version is ${currentNodeVersion} "
+    echo "check this link for help => https://webankfintech.github.io/WeTrident/docs/faq"
     echo "!!!!!!!!!!!!!!!!!!!!!!!!!!  Node Version ERROR !!!!!!!!!!!!!!!!!!!!!!!!!!"
     exit -1
 fi

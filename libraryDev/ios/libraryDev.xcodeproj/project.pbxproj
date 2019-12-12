@@ -972,7 +972,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "../node_modules/@webank/trident/library/scripts/checkEnv.sh\n";
+			shellScript = "if [ -f ~/.bash_profile ];then\n  source ~/.bash_profile\nfi\n../node_modules/@webank/trident/library/scripts/checkEnv.sh\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
