@@ -25,4 +25,70 @@ WeTrident的技术选型风格如我们团队一样，稳健为第一要求，�
 PS: WeTrident在设计过程中会增加一些限制，作为一套通用框架，我们深知应该留给使用者足够的扩展空间，所以我们在设计过程中尽可能的控制限制的数量。
 并且做到，"框架增加一项限制，就至少给使用者带来一批好处"。
 
-使用文档见 [快速开始](https://webankfintech.github.io/WeTrident/docs/getting-started)
+## 开发环境依赖
+WeTrident目前仅支持macOS，其余环境WeTrident都会做详细的提示来协助安装。
+开始开发前需要先配置Android和iOS开发环境，具体配置方法可以参考Android和iOS官方文档。
+
+## 创建项目
+为了快速的理解WeTrident的使用，我们从一个简单应用开始，逐步的说明各种基础用法。整个讲解过程中一些UI细节实现不会详细描述，所以建议你把WeBookStore的git库clone下来，跟着尝试会有比较不错的效果。
+
+我们开发一个简单的图书管理App，App的页面如下：
+![](assets/images/2019-06-24-03-55-20.png)
+
+- App名称: WeBookStore
+- App BundleId(Android上的packageName): com.trident.wbstore
+- App schema: wbstore
+
+### 创建项目
+#### 1. 安装trident-cli
+``` shell
+wnpm install -g @webank/trident-cli
+```
+
+#### 2. 用trident-cli 创建项目
+``` shell
+tdt init
+```
+
+根据命令行提示输入相应信息来创建项目，如果是试验demo，可以连续回车使用默认信息
+
+等待安装完成即可。
+
+PS: 初始化过程中会对当前的开发环境做检查，如果有提示某些环境不满足，请先按照提示安装或者升级。
+
+#### 3. 启动应用(iOS)
+``` shell
+cd WeBookStore
+
+# 启动react native packager
+tdt packager start
+
+# 通过命令行启动App
+tdt run ios 
+
+# 也可以在XCode中打开项目, 在XCode中Run即可。
+open ios/WeBookStore.xcworkspace/
+```
+
+#### 4. 启动应用(Android)
+```shell
+# 启动Packager，如果已经启动可以忽略
+tdt packager start
+
+# 通过命令行启动App
+tdt run android
+
+# 也可以在Android Studio中打开'WeBookStore/android', 
+# 用Android Studio打开项目运行即可, 请确保gradle的代理配置已经如本文前面部分所述设置完成。
+```
+如果你的网络不好，连接maven失败，可以选择添加阿里云的maven镜像，在`WeBookStore/android/app/build.gradle`和`WeBookStore/android/build.gradle`中的 repositories 区域添加如下代码:
+```
+maven{ url'http://maven.aliyun.com/nexus/content/groups/public/' }
+maven{ url'http://maven.aliyun.com/nexus/content/repositories/jcenter'}
+maven{ url 'https://maven.google.com' }
+```
+
+恭喜你，到这里你已经成功到创建并运行了一个新的WeTrident工程。需要调试可以使用React Native官方调试工具即可，调试前请先安装最新版本Chrome，具体使用方法见： [React Nativ调试方法](https://facebook.github.io/react-native/docs/0.51/debugging)
+
+更多文档见 [快速开始](https://webankfintech.github.io/WeTrident/docs/getting-started)
+

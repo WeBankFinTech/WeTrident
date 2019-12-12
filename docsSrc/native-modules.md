@@ -58,7 +58,7 @@ export default class VersionScene extends WeBaseScene {
 
         <Text
           style={{ color: '#53b4ff' }}
-          onPress={() => Linking.openURL('http://trident.webank.com')}>
+          onPress={() => Linking.openURL('https://github.com/WeBankFinTech/WeTrident')}>
           WeTrident Website
         </Text>
       </View>
