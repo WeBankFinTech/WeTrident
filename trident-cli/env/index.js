@@ -37,9 +37,9 @@ function checkAllVersion () {
     checkCmdAndVersion({
       cmd: 'pod',
       versionCmd: 'pod --version',
-      min: '1.4.0',
+      min: '1.5.3',
       max: null,
-      installCmd: 'sudo gem install cocoapods -v 1.4.0'
+      installCmd: 'sudo gem install cocoapods -v 1.5.3'
     }),
 
     checkCmdAndVersion({
