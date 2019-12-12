@@ -67,4 +67,4 @@ export default class VersionScene extends WeBaseScene {
 }
 ```
 
-至此我们的WeBookStore也基本成型，接着我们详细介绍一些Trident为了方面调试做的一些工作。
+至此我们的WeBookStore也基本成型，接着我们详细介绍一些WeTrident为了方面调试做的一些工作。

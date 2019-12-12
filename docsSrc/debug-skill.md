@@ -3,7 +3,7 @@ id: debug-skill
 title: 调试方法和技巧
 ---
 
-为了方便调试，Trident在Debug时默认会打印大量的日志，目前Trident打印的日志包含网络请求、页面跳转、Redux数据变化。日志相比于调试器的好处在于bug有迹可循。例如下面这张图是WeBookStore运行的日志。
+为了方便调试，WeTrident在Debug时默认会打印大量的日志，目前WeTrident打印的日志包含网络请求、页面跳转、Redux数据变化。日志相比于调试器的好处在于bug有迹可循。例如下面这张图是WeBookStore运行的日志。
 ![](assets/images/2019-06-24-03-30-51.png)
 
 ## 状态数据的变化日志

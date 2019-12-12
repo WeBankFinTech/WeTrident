@@ -4,11 +4,11 @@ title: 创建项目
 ---
 
 ## 开发环境依赖
-Trident目前仅支持macOS，其余环境Trident都会做详细的提示来协助安装。
+WeTrident目前仅支持macOS，其余环境WeTrident都会做详细的提示来协助安装。
 开始开发前需要先配置Android和iOS开发环境，具体配置方法可以参考Android和iOS官方文档。
 
 ## 创建项目
-为了快速的理解Trident的使用，我们从一个简单应用开始，逐步的说明各种基础用法。整个讲解过程中一些UI细节实现不会详细描述，所以建议你把WeBookStore的git库clone下来，跟着尝试会有比较不错的效果。
+为了快速的理解WeTrident的使用，我们从一个简单应用开始，逐步的说明各种基础用法。整个讲解过程中一些UI细节实现不会详细描述，所以建议你把WeBookStore的git库clone下来，跟着尝试会有比较不错的效果。
 
 我们开发一个简单的图书管理App，App的页面如下：
 ![](assets/images/2019-06-24-03-55-20.png)
@@ -66,14 +66,14 @@ maven{ url'http://maven.aliyun.com/nexus/content/repositories/jcenter'}
 maven{ url 'https://maven.google.com' }
 ```
 
-恭喜你，到这里你已经成功到创建并运行了一个新的Trident工程。需要调试可以使用React Native官方调试工具即可，调试前请先安装最新版本Chrome，具体使用方法见： [React Nativ调试方法](https://facebook.github.io/react-native/docs/0.51/debugging)
+恭喜你，到这里你已经成功到创建并运行了一个新的WeTrident工程。需要调试可以使用React Native官方调试工具即可，调试前请先安装最新版本Chrome，具体使用方法见： [React Nativ调试方法](https://facebook.github.io/react-native/docs/0.51/debugging)
 
 # 代码结构和模版工具
 ## App脚手架介绍
-上面的过程生成了Trident App最基础的结构，生成的项目结构如下:
+上面的过程生成了WeTrident App最基础的结构，生成的项目结构如下:
 ![](assets/images/2019-06-24-01-04-55.png)
 
-WeTrident App把App的结构分为三层： `全局容器 -> 模块 -> 页面(Trident中称为Scene)`。
+WeTrident App把App的结构分为三层： `全局容器 -> 模块 -> 页面(WeTrident中称为Scene)`。
 - `container`即为全局容器，所有App全局需要的一些逻辑都在这个模块，这个模块产生的数据也供全局共享。
 - `modules` 该目录下面是App的业务模块，通过命令创建的业务模块都会存放在这里。
 - `example` 该目录是初始生成的demo目录，表示一个业务模块，该模块的所有Scene均在此目录下。
@@ -81,7 +81,7 @@ WeTrident App把App的结构分为三层： `全局容器 -> 模块 -> 页面(Tr
 剩下两个目录是分别用于存放App全局公用的业务组件和App内自定义的Native Modules。
 
 ## 业务模块的划分
-这一部分我们介绍Trident的模块和页面划分机制，并且介绍如何我创建它们。
+这一部分我们介绍WeTrident的模块和页面划分机制，并且介绍如何我创建它们。
 WeBookStore的页面我们按业务功能分类分为两部分，一部分是书籍相关的我们暂且命名为 `book`，版本信息的页面我们单独新建一个模块叫 `about`，这里的模块划分没有严格的限制，可以根据每个App自身业务逻辑关联情况来划分，通常可以根据业务流程和每个页面的数据共享关系来划分。
 
 在正式开始写代码前我们先整理我们开发这个App所需要的模块和页面如下:

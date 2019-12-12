@@ -4,7 +4,7 @@ title: 使用网络
 ---
 
 ### 配置及调用
-WeTrident 推荐将服务器端的API统一管理，相比于把api接口直接零散的写入代码，配置的方式可以为后续针对接口的数据分析提供诸多便利。Trident中网络的配置如下: 
+WeTrident 推荐将服务器端的API统一管理，相比于把api接口直接零散的写入代码，配置的方式可以为后续针对接口的数据分析提供诸多便利。WeTrident中网络的配置如下: 
 
 ``` js
 // modules/book/cgi/index.js
@@ -50,7 +50,7 @@ export default class BookListScene extends WeBaseScene {
 
 
 ### 使用Mock
-开发过程中，可能会需要再服务器端接口开发完之前开始开发前端，为了解决没有接口可用的问题，Trident支持了mock的功能，只需要简单的再接口配置中配置mock的返回即可，例如上面的拉去书籍列表的接口如下配置以后即可支持mock，`APIClient`发出请求以后会直接返回mock数据。response是一个数组，这个数组里面的内容随机返回，用于模拟调试失败或者多种返回数据的情况。
+开发过程中，可能会需要再服务器端接口开发完之前开始开发前端，为了解决没有接口可用的问题，WeTrident支持了mock的功能，只需要简单的再接口配置中配置mock的返回即可，例如上面的拉去书籍列表的接口如下配置以后即可支持mock，`APIClient`发出请求以后会直接返回mock数据。response是一个数组，这个数组里面的内容随机返回，用于模拟调试失败或者多种返回数据的情况。
 ```javascript
 // modules/book/cgi/index.js
 import {AxiosMocker} from '@webank/trident'
@@ -166,7 +166,7 @@ export default class ResultScene extends WeBaseScene {
 
 
 ### 使用Cache
-除了可以发起正常请求，Trident的APIClient还支持了客户端的缓存。
+除了可以发起正常请求，WeTrident的APIClient还支持了客户端的缓存。
 目前的缓存支持三种模式配置缓存时间： 
 1. 全局缓存时间配置
 ```

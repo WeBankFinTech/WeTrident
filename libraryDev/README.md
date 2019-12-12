@@ -1,15 +1,15 @@
 
 
-# Trident的目标
+# WeTrident的目标
 可快速开发支持商业运营的App框架。
 
-# Trident的开发背景
+# WeTrident的开发背景
 很多开发者会发现开发完成一套App，仅仅开发业务功能可以很快，但是开发完以后，为了配合运营，需要开发很多额外的功能，这些功能是有一定共性的。除此之外，开发团队变大以后为了能让开发团队协作，又需要对整体架构做重新的设计以适应各个模块同时迭代开发的需求。
 
-Trident就是为解决这两个问题而生的，Trident在设计初期就考虑了后续的各种正式运营的需求，而且明确的做了垂直的分层和水平的分模块，做到来足够大高内聚、低偶合。
+WeTrident就是为解决这两个问题而生的，WeTrident在设计初期就考虑了后续的各种正式运营的需求，而且明确的做了垂直的分层和水平的分模块，做到来足够大高内聚、低偶合。
 
 # 快速开始
-为了快速的理解Trident的使用，我们从一个简单应用开始，逐步的说明各种用法和设计思路，帮助你快速的理解Trident。
+为了快速的理解WeTrident的使用，我们从一个简单应用开始，逐步的说明各种用法和设计思路，帮助你快速的理解WeTrident。
 
 在开发App之前我们先确定了我们是需要开发一个图书管理App，App的交互设计如下：
 ![](2019-06-02-23-35-20.png)
@@ -46,7 +46,7 @@ npm run start
 ```
 在XCode中Run即可。
 
-恭喜你，到这里你已经成功到创建并运行了一个新的Trident工程。
+恭喜你，到这里你已经成功到创建并运行了一个新的WeTrident工程。
 
 
 
@@ -61,7 +61,7 @@ WeTrident App把App的结构分为三层： 全局容器 -> 模块 -> 页面(我
 // `example` 该目录是初始生成的demo目录，表示一个业务模块，该模块的所有Scene均在此目录下。
 
 ## 业务模块的划分
-这一部分我们介绍Trident的模块和页面划分机制，并且介绍如何我创建它们。
+这一部分我们介绍WeTrident的模块和页面划分机制，并且介绍如何我创建它们。
 WeBookStore到页面我们按业务功能分类分为两部分，一部分是书籍相关的我们暂且命名为 `book`，关于我们的页面我们单独新建一个模块叫 `about`，这里的模块划分没有严格的限制，可以根据每个App自身的逻辑关联关系来划分，可以根据业务流程和每个页面的数据共享关系来划分。
 确定了模块以后我们按业务规划我们的页面则有如下计划
 
@@ -89,7 +89,7 @@ trident-cli gen module
 PS: 此时我们可以移除测试模块 `example` 了，移除一个模块非常简单，在`modules/index.js` 中删除对应模块的`require`并且删除目录即可。此时我们刷新App进入的第一个页面已经是 BookListScene 了。
 
 # 路由控制
-主要的页面已经生成，可能你已经迫不及待的想试一下让页面串联起来。在Trident App中你可以非常轻松的通过模块名和页面名进行跳转。通过 AppNavigator.$moduleName.$sceneName()即可完成跳转。
+主要的页面已经生成，可能你已经迫不及待的想试一下让页面串联起来。在WeTrident App中你可以非常轻松的通过模块名和页面名进行跳转。通过 AppNavigator.$moduleName.$sceneName()即可完成跳转。
 ## 普通跳转
 按上面规则，可以改写BookListScene如下，完成到BookDetailScene的跳转。
 /**
@@ -159,23 +159,23 @@ export default class BookListScene extends WeBaseScene {
 ## 生命周期
 相比react component的生命周期，trident提供的生命周期更容易使用，我们用onResume和onPause分别来表示对应页面状态都变化。其中融合了页面创建，页面恢复，App整体前后台切换。
 ### onResume 
-在每个页面首次进入和恢复的时候都会调用，比 componentDidMount特别的是，在App切换到后台切回来以及Trident的页面切会到该页时也会调用。
+在每个页面首次进入和恢复的时候都会调用，比 componentDidMount特别的是，在App切换到后台切回来以及WeTrident的页面切会到该页时也会调用。
 
 ### onPause 
 在每个页面离开会调用，比 componentWillUnMount特别的是，在App切换到后台也会调用。
 
 ### 特别说明
-Trident的生命周期不影响 react component、react-navigation、AppState提供的生命周期，如果需要更为精细的控制可以考虑使用她们。
+WeTrident的生命周期不影响 react component、react-navigation、AppState提供的生命周期，如果需要更为精细的控制可以考虑使用她们。
 
 
 # 数据状态管理
-前面我们已经让几个页面串联起来了，接着我们讨论数据状态大管理我，Trident中通过redux来做数据状态的管理。并且设计了一套固定的数据状态隔离和共享的方案来解决redux store上数据管理混乱的问题。
+前面我们已经让几个页面串联起来了，接着我们讨论数据状态大管理我，WeTrident中通过redux来做数据状态的管理。并且设计了一套固定的数据状态隔离和共享的方案来解决redux store上数据管理混乱的问题。
 
 如果没有使用过redux，建议先阅读redux官方文档。
 ## 数据的隔离和共享
 redux提供来足够的数据共享能力，但是所有数据在一个store上，既提供了方便，又带来了危害，redux的可以算做是一个全局变量，虽然通过固定的数据流来维护数据，但是始终无法完全摆脱全局变量多处共同维护和使用一份数据导致的问题。想象一下，如果整个App有上百个页面，所有共享数据均无规则存储在store上，那将会是一番如何混乱的景象。
 
-因此在Trident的对store上的数据结构和层次做了明确的区分，与我们的目录结构类似，store上的数据结构也分为了三层：global、modulePrivate和scene。
+因此在WeTrident的对store上的数据结构和层次做了明确的区分，与我们的目录结构类似，store上的数据结构也分为了三层：global、modulePrivate和scene。
 
 global为全局共享数据，这些数据可以供所有模块的页面读取，维护这些数据对应的action也可供所有模块的页面使用用于更新数据。
 
@@ -185,12 +185,12 @@ scene级别的数据为页面私有数据，其他页面无法共享。
 
 通过上述层次划分，使用过程中，按 scene -> modulePrivate -> global的顺序去存放数据，尽可能控制数据的访问范围。
 
-PS: 可能有人会质疑scene这一级的数据的必要性，因为看起来可以用this.state 替代，Trident单独设计scene级别的数据在store上存储主要考虑数据统一管理的便利性。
+PS: 可能有人会质疑scene这一级的数据的必要性，因为看起来可以用this.state 替代，WeTrident单独设计scene级别的数据在store上存储主要考虑数据统一管理的便利性。
 
 具体使用示例下一个部分一起详述。
 
 # 使用网络
-WeTrident 推荐将服务器端的API统一管理，相比于把api接口直接零散的写入代码，配置的方式可以为后续针对接口的数据分析提供诸多便利。Trident中网络的配置如下: 
+WeTrident 推荐将服务器端的API统一管理，相比于把api接口直接零散的写入代码，配置的方式可以为后续针对接口的数据分析提供诸多便利。WeTrident中网络的配置如下: 
 
 ``` js
 // modules/book/cgi/index.js
@@ -287,7 +287,7 @@ bundle exec fastlane android release --verbose
 
 
 # 使用业务插件
-业务差价是别人给予Trident的结构开发，可一键式接入到其他Trident App使用独立模块。
+业务差价是别人给予WeTrident的结构开发，可一键式接入到其他WeTrident App使用独立模块。
 // TODO 
 
 # 开发业务插件
