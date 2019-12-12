@@ -11,5 +11,9 @@ node_modules/
 .gradle/
 .tridentTemp/
 
+yarn.lock
+coverage/
+docsSrc/
+docs/
 app-seed/ios/Podfile.lock
 app-seed/package-lock.json
