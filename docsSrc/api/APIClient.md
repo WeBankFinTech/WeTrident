@@ -51,7 +51,7 @@ addHeaders (headers, method, match = /.*/)
 <br />
 
 #### `setHeaders`
-同 `addHeaders`, 差别在于该API会覆盖所有默认配置，所有Header由开发则自行设定.
+同 `addHeaders`， 差别在于该API会覆盖所有默认配置，所有Header由开发则自行设定。
 
 <br />
 
