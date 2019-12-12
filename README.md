@@ -9,7 +9,7 @@
 可快速开发支持商业运营App的框架。
 
 ## WeTrident的开发背景
-WeTrident由微众银行App团队开发，开发过程中我们通过调研其他一些RN的开发框架发现发现大部分适合比较小的项目，或者是用到后期要真实运营的时候还需要补充很多运营相关的基础能力。
+WeTrident由微众银行App团队开发，开发过程中我们通过调研其他一些RN的开发框架发现大部分适合比较小的项目，或者是用到后期要真实运营的时候还需要补充很多运营相关的基础能力。
 要开发真正商业运营的App，需要很多打磨，没有办法做到快速开发高质量产品，以此为出发点我们开发了WeTrident，希望在开发、运营、测试几方面提供更好的基础开发设施。
 
 WeTrident的技术选型风格如我们团队一样，稳健为第一要求，不盲目追求新技术炫技而随意使用不稳定的技术方案。
@@ -88,7 +88,7 @@ maven{ url'http://maven.aliyun.com/nexus/content/repositories/jcenter'}
 maven{ url 'https://maven.google.com' }
 ```
 
-恭喜你，到这里你已经成功到创建并运行了一个新的WeTrident工程。需要调试可以使用React Native官方调试工具即可，调试前请先安装最新版本Chrome，具体使用方法见： [React Nativ调试方法](https://facebook.github.io/react-native/docs/0.51/debugging)
+恭喜你，到这里你已经成功的创建并运行了一个新的WeTrident工程。需要调试可以使用React Native官方调试工具即可，调试前请先安装最新版本Chrome，具体使用方法见： [React Nativ调试方法](https://facebook.github.io/react-native/docs/0.51/debugging)
 
 更多文档见 [快速开始](https://webankfintech.github.io/WeTrident/docs/getting-started)
 
