@@ -47,12 +47,9 @@ npm install -g @webank/trident-cli
 
 #### 2. 用trident-cli 创建项目
 ``` shell
-tdt init
+tdt init --name=WeBookStore --bundleId=com.trident.wbstore --scheme=wbstore --eslint
 ```
-
-根据命令行提示输入相应信息来创建项目，如果是试验demo，可以连续回车使用默认信息
-
-等待安装完成即可。
+等待安装完成即可, 如果需要自定义这些参数也可运行 `tdt init` 并根据命令行提示输入自定义参数即可。
 
 PS: 初始化过程中会对当前的开发环境做检查，如果有提示某些环境不满足，请先按照提示安装或者升级。
 
