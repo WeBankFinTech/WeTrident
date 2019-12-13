@@ -25,7 +25,7 @@ WeTrident就是为解决这两个问题而生的，WeTrident在设计初期就�
 
 1. 安装trident-cli
 ``` shell 
-wnpm install -g @webank/trident-cli
+npm install -g @webank/trident-cli
 ```
 
 2. 用trident-cli 创建项目

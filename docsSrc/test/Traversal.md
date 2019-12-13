@@ -23,7 +23,7 @@ tdt traversal start
 
 > A：可以手动在traversal-server的目录下运行命令：
 > ```
-> wnpm i
+> npm i
 > ```
 
 + 测试包

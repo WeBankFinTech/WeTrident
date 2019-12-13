@@ -6,7 +6,7 @@ title: trident-cli使用
 ## 安装/更新 CLI
 
 ```sh
-wnpm install -g @webank/trident-cli
+npm install -g @webank/trident-cli
 ```
 ##### `trident-cli` 支持缩写为 `tdt`。
 
