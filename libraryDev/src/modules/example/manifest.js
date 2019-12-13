@@ -16,5 +16,7 @@ export default [
   require('./NavAScene').default,
   require('./NavAScene').default,
   require('./NavBScene').default,
-  require('./NavCScene').default
+  require('./NavCScene').default,
+  require('./StateKeyScene').default,
+  require('./StateKeyHomeScene').default
 ]
