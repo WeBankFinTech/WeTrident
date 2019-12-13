@@ -42,7 +42,7 @@ WeTrident目前仅支持macOS，其余环境WeTrident都会做详细的提示来
 ### 创建项目
 #### 1. 安装trident-cli
 ``` shell
-wnpm install -g @webank/trident-cli
+npm install -g @webank/trident-cli
 ```
 
 #### 2. 用trident-cli 创建项目
