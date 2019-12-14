@@ -1,4 +1,8 @@
+<img width="500" src="https://user-images.githubusercontent.com/1309744/70851262-db06b400-1ecd-11ea-9032-824385710e7d.png" />
 
+<br />
+
+[![npm version](https://badge.fury.io/js/%40webank%2Ftrident.svg)](https://badge.fury.io/js/%40webank%2Ftrident)
 [![](https://img.shields.io/badge/node-%3E%3D8.3.0-brightgreen.svg)](https://nodejs.org/en/)
 [![](https://img.shields.io/badge/npm-%3E%3D5.8.0-brightgreen.svg)](https://nodejs.org/en/)
 [![](https://img.shields.io/badge/git-%3E%3D2.9.0-brightgreen.svg)](https://git-scm.com/)
