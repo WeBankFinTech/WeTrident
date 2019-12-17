@@ -99,10 +99,9 @@ export default class NavBar extends ThemeableComponent {
     return (
       <WeTouchable
         onPress={onPress}
-        hitSlop={{ top: 10, left: 20, bottom: 10, right: 20 }}
-        style={{ width: 70 }}>
+        hitSlop={{ top: 10, left: 20, bottom: 10, right: 20 }}>
         {
-          (this.props.rightButtonText || this.props.rightButtonImage) && <View style={styles.actionRightItem}>
+          (this.props.rightButtonText || this.props.rightButtonImage) ? <View style={styles.actionRightItem}>
             {
               this.props.rightButtonImage && <Image
                 style={[{ width: 26, height: 26 }, this.props.rightButtonImageStyle]}
@@ -114,7 +113,7 @@ export default class NavBar extends ThemeableComponent {
                 {this.props.rightButtonText}
               </Text>
             }
-          </View>
+          </View> : <View style={{ width: 70 }} />
         }
       </WeTouchable>
     )
@@ -145,14 +144,9 @@ export default class NavBar extends ThemeableComponent {
 
 const styles = StyleSheet.create({
   actionLeftItem: {
-    // flexDirection: 'row',
-    // alignItems: 'flex-start',
-    // justifyContent: 'flex-start',
-    // width: 70
+    width: 70
   },
   actionRightItem: {
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    justifyContent: 'flex-end'
+    width: 70
   },
 })
