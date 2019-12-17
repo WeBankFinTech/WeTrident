@@ -3,6 +3,7 @@
 <br />
 
 [![npm version](https://badge.fury.io/js/%40webank%2Ftrident.svg)](https://badge.fury.io/js/%40webank%2Ftrident)
+[![travis status](https://api.travis-ci.org/WeBankFinTech/WeTrident.svg?branch=master)](https://travis-ci.org/WeBankFinTech/WeTrident)
 [![](https://img.shields.io/badge/node-%3E%3D8.3.0-brightgreen.svg)](https://nodejs.org/en/)
 [![](https://img.shields.io/badge/npm-%3E%3D5.8.0-brightgreen.svg)](https://nodejs.org/en/)
 [![](https://img.shields.io/badge/git-%3E%3D2.9.0-brightgreen.svg)](https://git-scm.com/)
