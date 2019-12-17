@@ -65,9 +65,16 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-react-native": "^4.0.1",
+    "husky": "^3.1.0",
     "jest": "^24.8.0",
     "metro-react-native-babel-preset": "^0.57.0",
+    "snazzy": "^8.0.0",
     "standard": "^14.3.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "./scripts/githooks/pre-commit.sh"
+    }
   },
   "standard": {
     "env": [
