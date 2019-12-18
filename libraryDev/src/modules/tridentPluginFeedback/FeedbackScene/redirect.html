@@ -20,8 +20,8 @@
     document.body.appendChild(form)
 
     // 设置相应参数
-    for (let key in data) {
-      let input = document.createElement('input')
+    for (var key in data) {
+      var input = document.createElement('input')
       input.type = 'text'
       input.name = key
       input.value = data[key]
@@ -38,11 +38,14 @@
     document.body.removeChild(form)
   }
 
+  var count = 0
+
   function start () {
-    if (window.FEEDBACK_PARAMS && window.FEEDBACK_PARAMS.prodID) {
+    if (window.FEEDBACK_PARAMS && window.FEEDBACK_PARAMS.prodID && count < 3) {
       request(window.FEEDBACK_PARAMS.prodID, window.FEEDBACK_PARAMS.data)
     } else {
-      setTimeout(() => {
+      setTimeout(function() {
+        count++
         start()
       }, 300)
     }

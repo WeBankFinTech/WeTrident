@@ -16,10 +16,10 @@ export default class PluginStoreScene extends WeBaseScene {
     return (
       <EntryList>
         <Button text={'Plugin-WebView'} onPress={() => {
-          AppNavigator.tridentPluginWebView.WebViewScene({ url: 'https://www.qq.com' })
+          AppNavigator.tridentPluginWebView.WebViewScene({ url: 'https://www.webank.com' })
         }} />
 
-        <Button text={'Feedback'} onPress={() => {
+        <Button text={'Plugin-Feedback'} onPress={() => {
           AppNavigator.tridentPluginFeedback.FeedbackScene({
             title: '用户反馈',
             prodID: '107751',

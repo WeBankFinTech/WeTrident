@@ -59,7 +59,7 @@ export default class FeedbackScene extends WeBaseScene {
         style={{flex: 1}}
         behavior={Platform.OS === 'android' ? 'padding' : undefined}>
         <WebView
-          source={require('./redirect.html')}
+          source={Platform.OS === 'android' ? {uri: `https://support.qq.com/product/${prodID}`} : require('./redirect.html')}
           injectedJavaScript={this.FEEDBACK_PARAMS}
         />
       </KeyboardAvoidingView>

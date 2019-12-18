@@ -90,7 +90,7 @@ maven{ url'http://maven.aliyun.com/nexus/content/repositories/jcenter'}
 maven{ url 'https://maven.google.com' }
 ```
 
-恭喜你，到这里你已经成功的创建并运行了一个新的WeTrident工程。需要调试可以使用React Native官方调试工具即可，调试前请先安装最新版本Chrome，具体使用方法见： [React Nativ调试方法](https://facebook.github.io/react-native/docs/0.51/debugging)
+恭喜你，到这里你已经成功的创建并运行了一个新的WeTrident工程。需要调试可以使用React Native官方调试工具即可，调试前请先安装最新版本Chrome，具体使用方法见： [React Native调试方法](https://facebook.github.io/react-native/docs/0.51/debugging)
 
 更多文档见 [快速开始](https://webankfintech.github.io/WeTrident/docs/getting-started)
 
