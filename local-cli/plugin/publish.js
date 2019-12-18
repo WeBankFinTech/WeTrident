@@ -10,6 +10,8 @@ const chalk = require('chalk')
 const inquirer = require('inquirer')
 const semver = require('semver')
 
+let packageJson // 插件 package.json
+
 function run (root, name) {
   if (!fs.existsSync(path.join(root, pathConfig.modulesPath + name))) {
     console.log(chalk.red(`Plugin(module) ${name} not found  ❌ , please check!`))
@@ -28,7 +30,7 @@ function run (root, name) {
       console.log('new dependencies for plugin [%s]: %o', name, pubDependencies)
 
       const pluginJsonPath = path.join(root, `${pathConfig.modulesPath + name}/package.json`)
-      let packageJson = require(pluginJsonPath)
+      packageJson = require(pluginJsonPath)
       // 替换依赖
       packageJson.dependencies = pubDependencies
 
@@ -69,9 +71,12 @@ function getPublishDependencies (root, rawDependencies) {
 }
 
 function publish (root, name) {
-  // TODO 这里应该还要支持添加额外的参数，例如发布到组下面需要添加 `--access publish`
   const npmClient = process.env.npmClient || 'npm'
   let publishCommand = `${npmClient} publish --verbose`
+
+  if (packageJson.name && /^@.+\/.+/.test(packageJson.name)) {
+    publishCommand = `${npmClient} publish --verbose --access public`
+  }
 
   try {
     process.chdir(path.join(root, pathConfig.modulesPath + name))
