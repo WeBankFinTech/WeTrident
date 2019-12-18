@@ -148,7 +148,7 @@ describe('network request', () => {
   test('normal request', async () => {
     const APIClient = new APIClientCls()
     await APIClient.request().then(() => {}, (error) => {
-      expect(error).toEqual('invalid api config')
+      expect(error).toEqual(new Error('invalid api config'))
     })
 
     await APIClient.request({
