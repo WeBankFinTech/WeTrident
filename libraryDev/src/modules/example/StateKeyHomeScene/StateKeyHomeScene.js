@@ -4,8 +4,8 @@
  * Created by lhtin on 2019-12-13T11:19:01.084Z.
  */
 import React from 'react'
-import { View } from 'react-native'
 import { AppNavigator, Button, WeBaseScene } from '@webank/trident'
+import EntryList from '../../../bizComponents/EntryList'
 
 export default class StateKeyHomeScene extends WeBaseScene {
   static navigationOptions = ({ navigation: { state: { params = {} } } }) => ({
@@ -14,19 +14,15 @@ export default class StateKeyHomeScene extends WeBaseScene {
 
   render () {
     return (
-      <View>
-        <Button
-          text='WeTrident' style={{ marginTop: 10 }} onPress={() => {
-            AppNavigator.example.StateKeyScene({ id: 'prod-1' })
-          }}
-        />
+      <EntryList style={{ flex: 1 }}>
+        <Button text={'WeTrident'} onPress={() => {
+          AppNavigator.example.StateKeyScene({ id: 'prod-1' })
+        }} />
 
-        <Button
-          text='React' style={{ marginTop: 10 }} onPress={() => {
-            AppNavigator.example.StateKeyScene({ id: 'prod-2' })
-          }}
-        />
-      </View>
+        <Button text={'React'} onPress={() => {
+          AppNavigator.example.StateKeyScene({ id: 'prod-2' })
+        }} />
+      </EntryList>
     )
   }
 }

@@ -34,11 +34,16 @@ PS: WeTrident在设计过程中会增加一些限制，作为一套通用框架�
 WeTrident目前仅支持macOS，其余环境WeTrident都会做详细的提示来协助安装。
 开始开发前需要先配置Android和iOS开发环境，具体配置方法可以参考Android和iOS官方文档。
 
+## Demo
+
+- [WeTrident demo apk](https://github.com/WeBankFinTech/WeTrident/releases/download/untagged-717cba61f6eb59513bf7/WeTrident-1.0.2.apk)
+
 ## 创建项目
 为了快速的理解WeTrident的使用，我们从一个简单应用开始，逐步的说明各种基础用法。整个讲解过程中一些UI细节实现不会详细描述，所以建议你把WeBookStore的git库clone下来，跟着尝试会有比较不错的效果。
 
 我们开发一个简单的图书管理App，App的页面如下：
-![](assets/images/2019-06-24-03-55-20.png)
+
+![](https://webankfintech.github.io/WeTrident/docs/assets/images/2019-06-24-03-55-20.png)
 
 - App名称: WeBookStore
 - App BundleId(Android上的packageName): com.trident.wbstore
@@ -90,7 +95,12 @@ maven{ url'http://maven.aliyun.com/nexus/content/repositories/jcenter'}
 maven{ url 'https://maven.google.com' }
 ```
 
-恭喜你，到这里你已经成功的创建并运行了一个新的WeTrident工程。需要调试可以使用React Native官方调试工具即可，调试前请先安装最新版本Chrome，具体使用方法见： [React Nativ调试方法](https://facebook.github.io/react-native/docs/0.51/debugging)
+恭喜你，到这里你已经成功的创建并运行了一个新的WeTrident工程。需要调试可以使用React Native官方调试工具即可，调试前请先安装最新版本Chrome，具体使用方法见： [React Native调试方法](https://facebook.github.io/react-native/docs/0.51/debugging)
 
 更多文档见 [快速开始](https://webankfintech.github.io/WeTrident/docs/getting-started)
 
+## 社区
+
+| Github Issue | 微信群 |
+| ------ | ------ |
+| [WeBankFinTech/WeTrident/issues](https://github.com/WeBankFinTech/WeTrident/issues) | <img src="https://webankfintech.github.io/WeTrident/docs/assets/images/wechat-qrcode.png" width="60" /> |

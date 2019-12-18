@@ -43,10 +43,14 @@ export default class StateManagementScene extends WeBaseScene {
           />
 
           <Button
-            text='Go To StateShareScene' onPress={() => {
+            text={`Go To StateShareScene`} onPress={() => {
               AppNavigator.example.StateShareScene()
             }}
           />
+
+          <Button text={'State Key Demo'} onPress={() => {
+            AppNavigator.example.StateKeyHomeScene()
+          }} />
         </EntryList>
 
         <ObjectView {...this.props} />

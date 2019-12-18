@@ -43,11 +43,6 @@ export default class HomeTab extends WeBaseScene {
             }}
           />
           <Button
-            text='State Key Demo' style={{ marginTop: 10 }} onPress={() => {
-              AppNavigator.example.StateKeyHomeScene()
-            }}
-          />
-          <Button
             text='Console log' onPress={() => {
               ActionSheet.show({
                 header: 'console不同格式log',
