@@ -13,6 +13,7 @@ const validHTTPMethod = ['put', 'post', 'patch', 'delete']
 
 class APIClient {
   defaults = {}
+
   _timeout = 5 * 60 * 1000
 
   constructor () {
@@ -96,7 +97,7 @@ class APIClient {
    */
   request (apiConfig, body, pathParams = {}, headers = {}, options = {}) {
     if (!apiConfig) {
-      return Promise.reject('invalid api config')
+      return Promise.reject(new Error('invalid api config'))
     }
     // TODO warn the api format
     this._checkCGIFormat(apiConfig)

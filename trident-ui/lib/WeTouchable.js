@@ -16,6 +16,7 @@ const PRESS_MODE = Object.freeze({
 
 class WeTouchable extends Component {
   static pressMode = PRESS_MODE
+
   static propTypes = {
     disabled: PropTypes.bool,
     activeOpacity: PropTypes.number,
@@ -38,6 +39,7 @@ class WeTouchable extends Component {
     isEnabled: true,
     rid: ''
   }
+
   static contextTypes = {
     moduleName: PropTypes.string,
     sceneName: PropTypes.string,
@@ -115,16 +117,16 @@ class WeTouchable extends Component {
         breakPoint = true
         result = _getDesc(vNode)
       } else if (_getChildren(vNode)) {
-        let child = _getChildren(vNode)
+        const child = _getChildren(vNode)
         if (_.isArray(child)) {
-          for (let key in child) {
+          for (const key in child) {
             !breakPoint && _resolveNode(child[key])
           }
         } else {
           !breakPoint && _resolveNode(child)
         }
       } else if (_.isArray(vNode)) {
-        for (let key in vNode) {
+        for (const key in vNode) {
           !breakPoint && _resolveNode(vNode[key])
         }
       } else {
@@ -146,13 +148,13 @@ class WeTouchable extends Component {
   }
 
   onPress () {
-    let {
+    const {
       onPress: originOnPress = () => {},
       throttleOnPress = true
     } = this.props
 
     if (throttleOnPress) {
-      if (!this .isEnabled) {
+      if (!this.isEnabled) {
         console.log('throttle!!')
         return
       }
@@ -172,6 +174,6 @@ class WeTouchable extends Component {
 }
 
 WeTouchable.PressMode = PRESS_MODE
-WeTouchable.pressMode= PRESS_MODE
+WeTouchable.pressMode = PRESS_MODE
 
 export default WeTouchable

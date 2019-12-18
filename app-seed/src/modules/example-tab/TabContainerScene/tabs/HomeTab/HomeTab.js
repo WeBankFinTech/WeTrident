@@ -5,7 +5,7 @@
  */
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
-import { WeBaseScene, Button, dimens, NavBar } from '@webank/trident'
+import { WeBaseScene, Button, NavBar } from '@webank/trident'
 
 export default class HomeTab extends WeBaseScene {
   onResume (fromScene, toScene) {
@@ -14,18 +14,19 @@ export default class HomeTab extends WeBaseScene {
 
   render () {
     return (
-      <View style={{ flex: 1}}>
+      <View style={{ flex: 1 }}>
         <NavBar
-          title={'HomeTab'}
+          title='HomeTab'
           hideLeftButton
         />
         <View style={styles.main}>
           <Button
-            text={'Open Drawer'}
+            text='Open Drawer'
             style={styles.button}
             onPress={() => {
               this.props.navigation.navigate('DrawerOpen')
-            }} />
+            }}
+          />
         </View>
       </View>
     )

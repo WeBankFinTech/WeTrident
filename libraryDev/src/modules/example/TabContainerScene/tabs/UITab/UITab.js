@@ -5,7 +5,7 @@
  */
 import React from 'react'
 import { View } from 'react-native'
-import { WeBaseScene, dimens, NavBar } from '@webank/trident'
+import { WeBaseScene, NavBar } from '@webank/trident'
 import TridentUIDemo from './components/TridentUIDemo'
 
 export default class UITab extends WeBaseScene {
@@ -13,7 +13,7 @@ export default class UITab extends WeBaseScene {
     return (
       <View>
         <NavBar
-          title={'UITab'}
+          title='UITab'
           hideLeftButton
         />
         <TridentUIDemo />

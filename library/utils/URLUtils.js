@@ -5,6 +5,7 @@ const URL = require('url')
 
 export default class {
   static appendParams (url, paramsToAppend = {}) {
+    // eslint-disable-next-line node/no-deprecated-api
     const parsed = URL.parse(url, true)
     parsed.query = {
       ...(parsed.query || {}),

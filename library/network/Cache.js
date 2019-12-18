@@ -1,9 +1,6 @@
 export default class Cache {
   storageEngine = new Map()
 
-  constructor (storageEngine, maxLimit) {
-  }
-
   read (key, cacheMaxAgeInMs) {
     // 判断createTime
     const value = this.storageEngine.get(key)

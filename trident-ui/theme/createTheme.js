@@ -12,4 +12,3 @@ export default function createTheme (baseTheme = {}, customComponentTheme = {}) 
   const customComponentThemePatch = customComponentTheme.createComponentTheme(mergedThemeConst)
   return _.merge({}, { ThemeConst: mergedThemeConst }, baseComponentTheme, customComponentThemePatch)
 }
-

@@ -52,7 +52,8 @@ const Sdk = `class Sdk {
   }
 }`
 
-export default TridentWebViewBridge = `
+const TridentWebViewBridge = `
   ${Sdk};
   window.TridentWebViewBridge = new Sdk();
 `
+export default TridentWebViewBridge

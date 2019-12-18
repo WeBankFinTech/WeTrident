@@ -1,34 +1,28 @@
 const fs = require('fs')
 const path = require('path')
-const execSync = (cmd) => require('child_process').execSync(cmd, {stdio: 'inherit'})
-const replaceInFile = require('replace-in-file')
+const execSync = (cmd) => require('child_process').execSync(cmd, { stdio: 'inherit' })
 const chalk = require('chalk')
-
-const shell = require('shelljs')
-// const inquirer = require('inquirer')
-const env = require('../config/npmConfig')
 
 function initEslint () {
   // 生成eslint 并初始化git 添加hook
   if (fs.existsSync('githooks/pre-commit')) {
-    console.log(chalk.red(`you have exist githooks/pre-commit. Please confirm if the file needs to be created`))
+    console.log(chalk.red('you have exist githooks/pre-commit. Please confirm if the file needs to be created'))
     return
   } else {
-    execSync(`mkdir githooks`)
-    fs.writeFileSync(path.join('./githooks','pre-commit'), githook, {encoding: 'utf-8', mode: 0o766})
+    execSync('mkdir githooks')
+    fs.writeFileSync(path.join('./githooks', 'pre-commit'), githook, { encoding: 'utf-8', mode: 0o766 })
   }
   if (fs.existsSync('.eslintrc.json')) {
-    console.log(chalk.red(`you have exist .eslintrc.json. Please confirm if the file needs to be created`))
+    console.log(chalk.red('you have exist .eslintrc.json. Please confirm if the file needs to be created'))
     return
   } else {
-    fs.writeFileSync(path.join('.eslintrc.json'), eslintrc, {encoding: 'utf-8', mode: 0o766})
+    fs.writeFileSync(path.join('.eslintrc.json'), eslintrc, { encoding: 'utf-8', mode: 0o766 })
   }
   if (fs.existsSync('.git')) {
-    console.log(chalk.red(`you have exist .git. Please confirm if the file needs to be created`))
-    return
+    console.log(chalk.red('you have exist .git. Please confirm if the file needs to be created'))
   } else {
-    execSync(`git init`)
-    execSync(`git config core.hooksPath ./githooks`)
+    execSync('git init')
+    execSync('git config core.hooksPath ./githooks')
   }
 }
 

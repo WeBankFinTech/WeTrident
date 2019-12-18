@@ -31,6 +31,5 @@ export default {
   borderImportant: '#DDD',
   borderInfo: '#DDD',
   borderWarning: '#DDD',
-  borderError: '#DDD',
+  borderError: '#DDD'
 }
-

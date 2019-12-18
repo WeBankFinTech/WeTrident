@@ -23,7 +23,7 @@ export default class NavMoreButton extends Component {
     return (
       <WeTouchable onPress={onPress}>
         <View
-          hitSlop={{top: 10, bottom: 10, left: 10, right: 10}}
+          hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
           style={{
             flexDirection: 'row',
             justifyContent: 'flex-end',
@@ -31,14 +31,16 @@ export default class NavMoreButton extends Component {
             flex: 1,
             alignSelf: 'stretch',
             paddingRight: 15
-          }}>
+          }}
+        >
           <View
             style={{
               width: dotSize,
               height: dotSize,
               borderRadius: dotSize / 2,
               backgroundColor: dotColor
-            }}/>
+            }}
+          />
           <View
             style={{
               width: dotSize,
@@ -47,14 +49,16 @@ export default class NavMoreButton extends Component {
               marginLeft: dotSize,
               marginRight: dotSize,
               backgroundColor: dotColor
-            }}/>
+            }}
+          />
           <View
             style={{
               width: dotSize,
               height: dotSize,
               borderRadius: dotSize / 2,
               backgroundColor: dotColor
-            }}/>
+            }}
+          />
         </View>
       </WeTouchable>
     )

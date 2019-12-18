@@ -3,10 +3,12 @@
  *
  * Created by {{author}} on {{createAt}}.
  */
-import React, { Component } from 'react'
+import React from 'react'
 import { View, Text } from 'react-native'
-import { AppNavigator, WeBaseScene } from '@webank/trident'
-
+import {
+  // AppNavigator,
+  WeBaseScene
+} from '@webank/trident'
 
 export default class TplScene extends WeBaseScene {
   static navigationOptions = ({ navigation: { state: { params = {} } } }) => ({

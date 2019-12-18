@@ -1,12 +1,12 @@
 export default [
-  require("./example").default("example"),
-  require("./tridentPluginWebView").default("tridentPluginWebView")
+  require('./example').default('example'),
+  require('./tridentPluginWebView').default('tridentPluginWebView')
 ]
 
 const dyModules = {
-  ui: () => require("./ui").default("ui"),
+  ui: () => require('./ui').default('ui'),
   tridentPluginFeedback: () =>
-    require("./tridentPluginFeedback").default("tridentPluginFeedback")
+    require('./tridentPluginFeedback').default('tridentPluginFeedback')
 }
 
 export { dyModules }

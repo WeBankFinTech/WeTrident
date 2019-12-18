@@ -5,5 +5,5 @@
  */
 
 export default [
-  require("./TabContainerScene").default
+  require('./TabContainerScene').default
 ]

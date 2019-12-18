@@ -1,11 +1,9 @@
 import React from 'react'
 import {
   View,
-  Text,
-  StyleSheet
+  Text
 } from 'react-native'
 import PropTypes from 'prop-types'
-import { ProUI } from '../../values'
 import ThemeableComponent from '../../theme/ThemeableComponent'
 import WePropTypes from '../../utils/WePropTypes'
 
@@ -14,11 +12,13 @@ const styleType = PropTypes.oneOfType([oneStyleType, PropTypes.arrayOf(oneStyleT
 
 class Tr extends ThemeableComponent {
   namespace = 'Table.Tr'
+
   themeStyleKeys = ['style', 'textStyle']
 
   static propTypes = {
     style: styleType
   }
+
   static childContextTypes = {
     textStyle: WePropTypes.textPropTypesStyle,
     borderStyle: WePropTypes.viewPropTypesStyle
@@ -26,11 +26,11 @@ class Tr extends ThemeableComponent {
 
   getChildContext () {
     const {
-      textStyle,
+      textStyle
     } = this.props
 
     return {
-      textStyle,
+      textStyle
     }
   }
 
@@ -38,7 +38,7 @@ class Tr extends ThemeableComponent {
     const {
       children,
 
-      style,
+      style
     } = this.getComponentTheme()
     return (
       <View style={[style]}>
@@ -50,6 +50,7 @@ class Tr extends ThemeableComponent {
 
 class Td extends ThemeableComponent {
   namespace = 'Table.Td'
+
   themeStyleKeys = ['style', 'textStyle', 'borderStyle']
 
   static propTypes = {
@@ -57,6 +58,7 @@ class Td extends ThemeableComponent {
 
     textStyle: WePropTypes.textPropTypesStyle
   }
+
   static contextTypes = {
     textStyle: WePropTypes.textPropTypesStyle,
     borderStyle: WePropTypes.viewPropTypesStyle,
@@ -65,7 +67,7 @@ class Td extends ThemeableComponent {
   }
 
   static defaultProps = {
-    row: 1,
+    row: 1
   }
 
   render () {
@@ -88,6 +90,7 @@ class Td extends ThemeableComponent {
 
 class Th extends ThemeableComponent {
   namespace = 'Table.Th'
+
   themeStyleKeys = ['style', 'textStyle']
 
   static propTypes = {
@@ -101,21 +104,27 @@ class Th extends ThemeableComponent {
       row,
 
       // move to style
-      textStyle,
+      textStyle
     } = this.getComponentTheme()
     return (
-      <Td row={row}
-          textStyle={[textStyle]}>{children}</Td>
+      <Td
+        row={row}
+        textStyle={[textStyle]}
+      >{children}
+      </Td>
     )
   }
 }
 
 export default class Table extends ThemeableComponent {
   namespace = 'Table'
+
   themeStyleKeys = ['style', 'textStyle', 'borderStyle']
 
   static Tr = Tr
+
   static Th = Th
+
   static Td = Td
 
   static propTypes = {
@@ -130,19 +139,19 @@ export default class Table extends ThemeableComponent {
 
   static childContextTypes = {
     textStyle: WePropTypes.textPropTypesStyle,
-    borderStyle: WePropTypes.viewPropTypesStyle,
+    borderStyle: WePropTypes.viewPropTypesStyle
   }
 
   // 为下层组件提供感知当前上下文的能力
   getChildContext () {
     const {
       textStyle,
-      borderStyle,
+      borderStyle
     } = this.getComponentTheme()
 
     return {
       borderStyle,
-      textStyle,
+      textStyle
     }
   }
 
@@ -161,4 +170,3 @@ export default class Table extends ThemeableComponent {
     )
   }
 }
-

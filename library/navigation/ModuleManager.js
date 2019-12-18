@@ -4,8 +4,11 @@ import { combineReducers } from 'redux'
 
 export default class ModuleManager {
   static moduleList = []
+
   static modules
+
   static container
+
   static connectedContainer
 
   static init (modules, container) {
@@ -74,7 +77,7 @@ export default class ModuleManager {
 
           if (sceneConfig.childComponent && sceneConfig.childComponent.length > 0) {
             const childComponents = {}
-            for (let childComponent of sceneConfig.childComponent) {
+            for (const childComponent of sceneConfig.childComponent) {
               const childComponentConfig = childComponent(connectedContainer, wrappedModule)
               const wrappedComponent = createSceneConnect(childComponentConfig)(childComponentConfig.component)
               childComponents[wrappedComponent] = wrappedComponent.reducer

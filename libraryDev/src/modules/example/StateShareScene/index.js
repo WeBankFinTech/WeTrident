@@ -42,7 +42,7 @@ export default (global, ModulePrivate) => ({
    * 将module级别的共享数据映射到props
    */
   mapModuleState: state => ({
-    moduleCount: state.moduleCount,
+    moduleCount: state.moduleCount
   }),
 
   /**

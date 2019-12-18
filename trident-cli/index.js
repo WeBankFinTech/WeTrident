@@ -9,7 +9,6 @@ const semver = require('semver')
 const inquirer = require('inquirer')
 const program = new commander.Command()
 
-const isDevMode = !(process.env.npmClient === undefined && process.env.useLocal === undefined)
 if (!['npm', 'wnpm', 'yarn'].includes(process.env.npmClient)) {
   process.env.npmClient = 'npm'
 }
@@ -18,11 +17,11 @@ process.env.useLocal = process.env.useLocal === undefined ? 'false' : process.en
 const chalk = require('chalk')
 
 let cli
-let cliPath = CLI_MODULE_PATH()
+const cliPath = CLI_MODULE_PATH()
 if (fs.existsSync(cliPath)) {
   cli = require(cliPath)
 }
-let commands = options._
+const commands = options._
 const { check, processCheckResult } = require('./env/index.js')
 const checkResult = check()
 
@@ -44,7 +43,7 @@ program
 // .version(require('./package.json').version)
   .description('A trident project')
   // 此库目前这里有问题暂时用自定义提示
-  //.command('init', 'init trident project', { executableFile: '' }).alias('i')
+  // .command('init', 'init trident project', { executableFile: '' }).alias('i')
   .on('--help', function () {
     console.log(`Commands:
   init         init trident project
@@ -278,7 +277,7 @@ function createNewProject (root, options, { projectName, bundleId, scheme, port,
   }
 
   // 安装完成这时候一定是有的
-  let cliPath = CLI_MODULE_PATH()
+  const cliPath = CLI_MODULE_PATH()
   cli = require(cliPath)
   cli.init(root, projectName, bundleId, scheme, port, eslint, template, options)
 }

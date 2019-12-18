@@ -18,12 +18,16 @@ export default class NavAScene extends WeBaseScene {
     return (
       <Column>
         <EntryList>
-          <Button text={`Go NavBScene`} onPress={() => {
-            AppNavigator.example.NavBScene()
-          }} />
-          <Button text={`Back`} onPress={() => {
-            AppNavigator.goBack()
-          }} />
+          <Button
+            text='Go NavBScene' onPress={() => {
+              AppNavigator.example.NavBScene()
+            }}
+          />
+          <Button
+            text='Back' onPress={() => {
+              AppNavigator.goBack()
+            }}
+          />
         </EntryList>
 
         <ObjectView ignoreKeys={[]} {...(this.params || {})} />

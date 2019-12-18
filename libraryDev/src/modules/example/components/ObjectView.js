@@ -9,20 +9,21 @@ export default class extends Component {
 
   render () {
     const filtered = Object.keys(this.props)
-      .filter(key => !this.props.ignoreKeys.includes(key)
-        && !['ignoreKeys'].includes(key)
-        && typeof this.props[key] !== 'function')
+      .filter(key => !this.props.ignoreKeys.includes(key) &&
+        !['ignoreKeys'].includes(key) &&
+        typeof this.props[key] !== 'function')
       .reduce((obj, key) => {
-          obj[key] = this.props[key]
-          return obj
-        }, {}
+        obj[key] = this.props[key]
+        return obj
+      }, {}
       )
     return (
       <ScrollView>
         <JSONTree
           shouldExpandNode={() => true}
           data={filtered}
-          hideRoot />
+          hideRoot
+        />
       </ScrollView>
     )
   }

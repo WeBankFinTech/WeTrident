@@ -25,8 +25,11 @@ const dyModuleCache = {}
  */
 class AppNavigator {
   pendingLifecycleCallback = {}
+
   WeNavigator
+
   store
+
   lifecycleCallback = {
     onPause: {},
     onResume: {}

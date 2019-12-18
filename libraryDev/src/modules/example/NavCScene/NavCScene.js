@@ -3,7 +3,7 @@
  *
  * Created by erichua on 2019-10-24T06:08:37.177Z.
  */
-import React, { Component } from 'react'
+import React from 'react'
 import { AppNavigator, WeBaseScene, Column, Button } from '@webank/trident'
 import EntryList from '../../../bizComponents/EntryList'
 import NavigationStackView from '../components/NavigationStackView'
@@ -17,9 +17,11 @@ export default class NavCScene extends WeBaseScene {
     return (
       <Column>
         <EntryList>
-          <Button text={`Back`} onPress={() => {
-            AppNavigator.goBack()
-          }} />
+          <Button
+            text='Back' onPress={() => {
+              AppNavigator.goBack()
+            }}
+          />
         </EntryList>
         <NavigationStackView routes={AppNavigator.getCurrentRoutes()} />
       </Column>

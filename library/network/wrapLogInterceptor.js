@@ -32,7 +32,6 @@ export default (axiosInstance, option) => {
     consoleGroup(`%c🌐[${config.desc}](${config._reqId}) Request`, '#00A', outputKeys, output)
     return config
   }, function (error) {
-    consoleGroup(`%c🌐[${config.desc}](${config._reqId}) Request Error`, '#00A', ['error'], { error })
     return Promise.reject(error)
   })
 

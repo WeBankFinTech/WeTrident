@@ -1,4 +1,4 @@
-import {AxiosMocker} from '@webank/trident'
+import { AxiosMocker } from '@webank/trident'
 
 const baseURL = 'http://47.75.152.113:3000/'
 
@@ -8,42 +8,42 @@ export default {
     method: 'post',
     url: '/comments',
     desc: '请求书籍列表',
-    request: {},
+    request: {}
   },
   postBookListException: {
     baseURL,
     method: 'post',
     url: '/books/error',
     desc: '请求书籍列表错误',
-    request: {},
+    request: {}
   },
   getBookListNormal: {
     baseURL,
     method: 'get',
     url: '/books',
     desc: '请求书籍列表',
-    request: {},
+    request: {}
   },
   getBookListException: {
     baseURL,
     method: 'get',
     url: '/books/error',
     desc: '请求书籍列表',
-    request: {},
+    request: {}
   },
   requestUseGlobalHeader: {
     baseURL,
     method: 'get',
     url: '/books',
     desc: '请求书籍列表',
-    request: {},
+    request: {}
   },
   requestUseSpecificHeader: {
     baseURL,
     method: 'get',
     url: '/books',
     desc: '请求书籍列表',
-    request: {},
+    request: {}
   },
   requestUseMock: {
     baseURL,
@@ -69,6 +69,6 @@ export default {
     method: 'get',
     url: '/books',
     desc: '请求书籍列表',
-    request: {},
+    request: {}
   }
 }

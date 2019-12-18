@@ -4,7 +4,7 @@
  * @created Lemorili
  */
 
-import React, { Component } from 'react'
+import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
 
@@ -22,6 +22,7 @@ import ThemeableComponent from '../../theme/ThemeableComponent'
 */
 export default class Item extends ThemeableComponent {
   namespace = 'List.Item'
+
   themeStyleKeys = [
     'style',
     'iconStyle',
@@ -92,7 +93,7 @@ export default class Item extends ThemeableComponent {
               {
                 data.loading ? <Indicator style={data.iconRight ? styles.mr10 : null} />
                   : data.status ? <Text style={[data.iconRight ? styles.mr10 : null, statusStyle]}>{data.status}</Text>
-                  : null
+                    : null
               }
               {
                 data.iconRight ? <Icon name={data.iconRight} /> : null
