@@ -13,5 +13,5 @@ export default {
   asyncActions: (actions) => ({}),
   reducers: {
     addGlobalCount: (state, action) => ({ ...state, globalCount: state.globalCount + action.payload })
-  },
+  }
 }

@@ -11,14 +11,14 @@ export default (global, ModulePrivate) => ({
    * 定义scene级别数据的初始值
    */
   initialState: {
-    count: 0,
+    count: 0
   },
 
   /**
    * 定义scene级别的actions
    */
   actions: {
-    addCount: v => v,
+    addCount: v => v
   },
 
   /**

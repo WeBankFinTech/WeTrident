@@ -17,10 +17,10 @@ function run (root, name) {
     fs.writeFile(readmePath, `Hello ${name}`, 'utf8', () => {})
   }
 
-  let initCommand = `npm init`
+  const initCommand = 'npm init'
   try {
     process.chdir(path.join(root, pathConfig.modulesPath + name))
-    execSync(initCommand, {stdio: 'inherit'})
+    execSync(initCommand, { stdio: 'inherit' })
     process.chdir(root)
   } catch (e) {
     console.log(e)

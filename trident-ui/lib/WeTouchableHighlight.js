@@ -8,13 +8,13 @@ import {
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-let CHILD_REF = 'childRef'
+const CHILD_REF = 'childRef'
 
 export default class WeTouchableHighlight extends Component {
   static propTypes = {
     activeColor: PropTypes.string, // 点击后组件高亮
     activeType: PropTypes.string,
-    needsOffscreenAlphaCompositing: PropTypes.bool  // 决定这个视图是否要先离屏渲染再进行半透明度处理，见官方文档
+    needsOffscreenAlphaCompositing: PropTypes.bool // 决定这个视图是否要先离屏渲染再进行半透明度处理，见官方文档
   }
 
   constructor (props) {
@@ -29,27 +29,29 @@ export default class WeTouchableHighlight extends Component {
   }
 
   _highlight () {
-    this.setState({active: true})
+    this.setState({ active: true })
   }
 
   _reset () {
-    this.setState({active: false})
+    this.setState({ active: false })
   }
 
   render () {
     return (
-      <TouchableOpacity activeOpacity={1} {...this.props} onPressIn={() => {
-        if (this.props.onPressIn) {
-          this.props.onPressIn()
-        }
-        this.highlight()
-      }} onPressOut={() => {
-        if (this.props.onPressOut) {
-          this.props.onPressOut()
-        }
-        this.reset()
-      }}>
-        <View needsOffscreenAlphaCompositing={this.props.needsOffscreenAlphaCompositing} style={{opacity: this.props.disabled ? 0.3 : 1}}>
+      <TouchableOpacity
+        activeOpacity={1} {...this.props} onPressIn={() => {
+          if (this.props.onPressIn) {
+            this.props.onPressIn()
+          }
+          this.highlight()
+        }} onPressOut={() => {
+          if (this.props.onPressOut) {
+            this.props.onPressOut()
+          }
+          this.reset()
+        }}
+      >
+        <View needsOffscreenAlphaCompositing={this.props.needsOffscreenAlphaCompositing} style={{ opacity: this.props.disabled ? 0.3 : 1 }}>
           {React.cloneElement(
             React.Children.only(this.props.children),
             {

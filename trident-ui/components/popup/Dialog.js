@@ -3,13 +3,13 @@
  * Created by vengeanliu on 17/3/4.
  * Updated by lemorili
  */
-import React, { Component } from 'react'
+import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
 import { PopupStub } from '@unpourtous/react-native-popup-stub'
 
-import {WeTouchable} from '@unpourtous/react-native-touchable'
-import {ProUI} from '../../values'
+import { WeTouchable } from '@unpourtous/react-native-touchable'
+import { ProUI } from '../../values'
 import PreDefinedAnimation from './PreDefinedAnimation'
 import PopupZIndex from './PopupZIndex'
 import ThemeableComponent from '../../theme/ThemeableComponent'
@@ -27,7 +27,9 @@ const DEFAULT_OPTIONS = {
 
 export default class Dialog extends ThemeableComponent {
   namespace = 'Dialog'
+
   themeStyleKeys = ['style', 'borderStyle', 'contentStyle', 'titleTextStyle', 'contentTextStyle', 'buttonTextStyle']
+
   static propTypes = {
     title: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
     texts: PropTypes.oneOfType([PropTypes.array, PropTypes.element]),
@@ -55,7 +57,7 @@ export default class Dialog extends ThemeableComponent {
       // 这种的动画不做默认值
       comp = data
       opt.position = 'none'
-      opt.wrapperStyle = {flex: 1}
+      opt.wrapperStyle = { flex: 1 }
     } else {
       opt.position = 'center'
       opt.wrapperStyle = null
@@ -91,14 +93,20 @@ export default class Dialog extends ThemeableComponent {
     return (
       <View style={[style]}>
         <View style={[contentStyle]}>
-          {this.props.icon && <View style={{alignItems: 'center', marginBottom: ProUI.spaceY.small}}>
-            {this.props.icon}
-          </View>}
+          {this.props.icon
+            ? <View style={{ alignItems: 'center', marginBottom: ProUI.spaceY.small }}>
+              {this.props.icon}
+            </View>
+            : null}
           {this.props.title ? <Text style={[titleTextStyle]}>{this.props.title}</Text> : null}
-          {React.isValidElement(this.props.texts) ? {...this.props.texts}
+          {React.isValidElement(this.props.texts) ? { ...this.props.texts }
             : this.props.texts && this.props.texts.length > 0 && this.props.texts.map((text, index) => (
-            <Text style={[contentTextStyle, {marginTop: index === 0 ? 0 : ProUI.spaceY.small}]} key={index}>{text}</Text>
-          ))}
+              <Text
+                style={[contentTextStyle, { marginTop: index === 0 ? 0 : ProUI.spaceY.small }]}
+                key={index}
+              >{text}
+              </Text>
+            ))}
           {this.props.renderContent && this.props.renderContent()}
         </View>
         <View style={this.props.vertical ? null : styles.flexRow}>
@@ -110,7 +118,8 @@ export default class Dialog extends ThemeableComponent {
               style={[
                 this.props.vertical ? styles.itemVertical : styles.item,
                 !this.props.vertical && index > 0 && borderStyle
-              ]}>
+              ]}
+            >
               <View key={index}>
                 <Text style={[buttonTextStyle, item.textStyle]}>{item.text}</Text>
               </View>

@@ -24,6 +24,7 @@ const generateRouteName = (moduleName, sceneName) => {
 const separateRouteName = (routeName) => {
   if (typeof routeName === 'string') {
     const URL = require('url')
+    // eslint-disable-next-line node/no-deprecated-api
     const url = URL.parse('https:///' + routeName, true)
     const temp = String(url.pathname).split(routeNameSeparator)
     if (url.pathname && /^\/\w+\/\w+$/.test(url.pathname)) {
@@ -70,7 +71,9 @@ const compareRoute = (routeA, routeB) => {
 
   const URL = require('url')
   const _ = require('lodash')
+  // eslint-disable-next-line node/no-deprecated-api
   const aURL = URL.parse('https:///' + routeA, true)
+  // eslint-disable-next-line node/no-deprecated-api
   const bURL = URL.parse('https:///' + routeB, true)
 
   if (aURL.pathname === bURL.pathname) {

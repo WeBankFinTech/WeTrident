@@ -48,5 +48,5 @@ export default {
   // 导航栏标题、按钮文字
   fontXL: 18,
   // 资产数字
-  fontXXL: 30,
+  fontXXL: 30
 }

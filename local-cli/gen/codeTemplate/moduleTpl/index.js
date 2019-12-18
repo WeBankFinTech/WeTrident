@@ -19,4 +19,3 @@ export default (moduleName) => ({
     // addModuleCount: (state, action) => ({ ...state, moduleCount: state.moduleCount + action.payload })
   }
 })
-

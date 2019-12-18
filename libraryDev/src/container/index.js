@@ -10,7 +10,7 @@ export default {
   },
   actions: {
     addGlobalCount: v => v,
-    changeTheme: v => v,
+    changeTheme: v => v
   },
   asyncActions: (actions) => ({
     addGlobalCountAsync: () => async dispatch => {
@@ -26,5 +26,5 @@ export default {
   reducers: {
     addGlobalCount: (state, action) => ({ ...state, globalCount: state.globalCount + action.payload }),
     changeTheme: (state, action) => ({ ...state, theme: action.payload })
-  },
+  }
 }

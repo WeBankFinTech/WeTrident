@@ -45,7 +45,7 @@ function run (root, name) {
 }
 
 function add (name) {
-  let installCommand = !_reinstall ? `${env.npm_install_xxx} ${name} --verbose` : `${env.npm_install_xxx} ${name}@latest --verbose`
+  const installCommand = !_reinstall ? `${env.npm_install_xxx} ${name} --verbose` : `${env.npm_install_xxx} ${name}@latest --verbose`
 
   try {
     execSync(installCommand, { stdio: 'inherit' })
@@ -69,7 +69,7 @@ function getModuleName (npmPluginName) {
     message: chalk.green(`\nPlease input moduleName! 💡 Press [Enter] to use default name: ${defaultName}\n`),
     name: 'moduleName'
   }]).then(answers => {
-    let { moduleName } = answers
+    const { moduleName } = answers
     // TODO moduleName 统一检查，通 genModule
     const finalName = moduleName || defaultName
 

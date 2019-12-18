@@ -13,7 +13,7 @@
     "npmLocalPublishAll": "npm version patch && npm publish --registry http://localhost:4873 && cd trident-cli && npm version patch && npm publish --registry http://localhost:4873",
     "test-tpl": "echo 'test the trident framework' && rm -rf WeBookStore && trident-cli init --name=WeBookStore --bundleId=com.trident.wbstore --scheme=wbstore --eslint && cd WeBookStore && bundle exec fastlane ios release --verbose && bundle exec fastlane android release --verbose && rm -rf ./WeBookStore",
     "syncLib": "watchman watch ./trident-ui && watchman watch ./library && wml add trident-ui libraryDev/node_modules/@webank/trident/trident-ui && wml add library libraryDev/node_modules/@webank/trident/library && wml start",
-    "standardjs": "node_modules/standard/bin/cmd.js library/**/*.js",
+    "styleCheck": "node_modules/standard/bin/cmd.js | node_modules/snazzy/bin/cmd.js",
     "devEnv": "echo npmClient=$npmClient && echo useLocal=$useLocal"
   },
   "repository": {
@@ -65,11 +65,12 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-react-native": "^4.0.1",
+    "eslint-config-standard-jsx": "^8.1.0",
     "husky": "^3.1.0",
     "jest": "^24.8.0",
     "metro-react-native-babel-preset": "^0.57.0",
     "snazzy": "^8.0.0",
-    "standard": "^14.3.1"
+    "standard": "^13.1.0"
   },
   "husky": {
     "hooks": {
@@ -77,8 +78,16 @@
     }
   },
   "standard": {
+    "extends": [
+      "standard",
+      "standard-jsx"
+    ],
     "env": [
       "jest"
+    ],
+    "ignore": [
+      "/website",
+      "/docs"
     ],
     "parser": "babel-eslint"
   }

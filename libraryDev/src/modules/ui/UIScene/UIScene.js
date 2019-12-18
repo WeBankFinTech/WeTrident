@@ -15,8 +15,7 @@ export default class UIScene extends WeBaseScene {
 
   render () {
     return (
-      <View style={{ flex: 1, backgroundColor: '#fff' }}>
-      </View>
+      <View style={{ flex: 1, backgroundColor: '#fff' }} />
     )
   }
 }

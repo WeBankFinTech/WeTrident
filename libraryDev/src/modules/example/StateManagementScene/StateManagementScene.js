@@ -18,25 +18,35 @@ export default class StateManagementScene extends WeBaseScene {
     return (
       <Column style={{ flex: 1 }}>
         <EntryList style={{ flex: 1 }}>
-          <Button text={`Scene Count Sync ${sceneCount}+1`} onPress={() => {
-            this.props.addCount(1)
-          }} />
+          <Button
+            text={`Scene Count Sync ${sceneCount}+1`} onPress={() => {
+              this.props.addCount(1)
+            }}
+          />
 
-          <Button text={`Scene Count Async ${sceneCount}+10`} onPress={() => {
-            this.props.addCountAsync(10)
-          }} />
+          <Button
+            text={`Scene Count Async ${sceneCount}+10`} onPress={() => {
+              this.props.addCountAsync(10)
+            }}
+          />
 
-          <Button text={`Module Count Sync ${moduleCount}+10`} onPress={() => {
-            this.props.addModuleCount(10)
-          }} />
+          <Button
+            text={`Module Count Sync ${moduleCount}+10`} onPress={() => {
+              this.props.addModuleCount(10)
+            }}
+          />
 
-          <Button text={`Global Count Sync ${globalCount}+10`} onPress={() => {
-            this.props.addGlobalCount(10)
-          }} />
+          <Button
+            text={`Global Count Sync ${globalCount}+10`} onPress={() => {
+              this.props.addGlobalCount(10)
+            }}
+          />
 
-          <Button text={`Go To StateShareScene`} onPress={() => {
-            AppNavigator.example.StateShareScene()
-          }} />
+          <Button
+            text='Go To StateShareScene' onPress={() => {
+              AppNavigator.example.StateShareScene()
+            }}
+          />
         </EntryList>
 
         <ObjectView {...this.props} />

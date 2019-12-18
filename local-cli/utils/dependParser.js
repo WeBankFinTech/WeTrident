@@ -5,7 +5,6 @@ const fs = require('fs')
 const Walker = require('iwalk')
 const _ = require('lodash')
 
-const requireReg = /require\(["']([^\.\/][^"']*?)["']\)/g
 const importReg = /from["']([^\.\/][^"']*?)["']/g
 
 // 系统模块，take from http://nodejs.org/api/index.json
@@ -69,10 +68,9 @@ DependParser.prototype.load = function (callback) {
     return callback(error)
   }
 
-  var packageInfo = require(packagePath)
   var blackList = defaultBlackList.concat(this.config.blackList)
 
-  //加上前缀
+  // 加上前缀
   blackList.map(function (v, i) {
     return (self.source + '/' + v).replace(/\/\//g, '/')
   })
@@ -90,7 +88,7 @@ DependParser.prototype.load = function (callback) {
   })
 
   walker.on('end', function (totalFile, totalFolder) {
-    //去重
+    // 去重
     self.dependList = _.uniq(self.requireList)
     // 过滤掉系统模块
       .filter(function (i) {
@@ -101,7 +99,7 @@ DependParser.prototype.load = function (callback) {
   })
 }
 
-//解析文件
+// 解析文件
 DependParser.prototype.parseFile = function (file) {
   // 过滤空格，去掉单行和多行注释
   var text = fs.readFileSync(file, 'utf8')

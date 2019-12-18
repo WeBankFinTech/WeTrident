@@ -1,13 +1,12 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import { StyleSheet } from 'react-native'
-import { AppNavigator, WeTouchable, Theme, dimens, Button } from '@webank/trident'
+import { Theme, dimens, Button } from '@webank/trident'
 import { SafeAreaView } from '@unpourtous/react-navigation'
 import EntryList from '../../../../bizComponents/EntryList'
 
 const sidebarWidth = dimens.WINDOW_WIDTH - 64
 
 export default class Sidebar extends Component {
-
   open () {
     this.props.navigation.navigate('DrawerOpen')
   }
@@ -22,15 +21,18 @@ export default class Sidebar extends Component {
 
   render () {
     return (
-      <SafeAreaView style={styles.container} forceInset={{top: 'always', horizontal: 'never'}}>
+      <SafeAreaView style={styles.container} forceInset={{ top: 'always', horizontal: 'never' }}>
         <EntryList style={[{
           backgroundColor: Theme.Color.backgroundPrimary
-        }, this.props.style]}>
+        }, this.props.style]}
+        >
 
-          <Button text={'Close Drawer'} onPress={() => {
-            console.log(this.props.navigation)
-            this.close()
-          }} />
+          <Button
+            text='Close Drawer' onPress={() => {
+              console.log(this.props.navigation)
+              this.close()
+            }}
+          />
 
         </EntryList>
       </SafeAreaView>

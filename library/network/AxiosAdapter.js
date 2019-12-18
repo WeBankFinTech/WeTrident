@@ -10,19 +10,21 @@ import Cache from './Cache'
  * @param next
  * @returns {Promise<*>}
  */
-const cachedResponse = {
-  // $url: {
-  //  createAt: '',
-  //  response: {},
-  // }
-}
+// const cachedResponse = {
+//   $url: {
+//    createAt: '',
+//    response: {},
+//   }
+// }
 
 const qs = require('qs')
 const _genUrlWithQuery = (path, params) => {
   return path + '?' + qs.stringify(params)
 }
 export default class AxiosAdapter {
-  defaultCacheTime = 5 * 60000 // 5分钟
+  defaultCacheTime = 5 * 60000
+
+  // 5分钟
   constructor () {
     this.cache = new Cache()
     this.adapter = this.adapter.bind(this)
@@ -69,5 +71,4 @@ export default class AxiosAdapter {
       }
     })
   }
-
 }
