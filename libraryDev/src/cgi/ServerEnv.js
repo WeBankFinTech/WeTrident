@@ -1,5 +1,6 @@
 class ServerEnv {
   static PREFIX = {}
+
   static envConfig = {
     mockio: {
       production: 'https://www.mocky.io/',

@@ -17,17 +17,23 @@ export default class NavBScene extends WeBaseScene {
     return (
       <Column>
         <EntryList>
-          <Button text={`Back`} onPress={() => {
-            AppNavigator.goBack()
-          }} />
+          <Button
+            text='Back' onPress={() => {
+              AppNavigator.goBack()
+            }}
+          />
 
-          <Button text={`Back to NavigationScene`} onPress={() => {
-            AppNavigator.goBack([AppNavigator.example.NavigationScene])
-          }} />
+          <Button
+            text='Back to NavigationScene' onPress={() => {
+              AppNavigator.goBack([AppNavigator.example.NavigationScene])
+            }}
+          />
 
-          <Button text={`Back Then Push`} onPress={() => {
-            AppNavigator.goBackThenPush([AppNavigator.example.NavigationScene], AppNavigator.example.NavCScene)
-          }} />
+          <Button
+            text='Back Then Push' onPress={() => {
+              AppNavigator.goBackThenPush([AppNavigator.example.NavigationScene], AppNavigator.example.NavCScene)
+            }}
+          />
         </EntryList>
         <NavigationStackView routes={AppNavigator.getCurrentRoutes()} />
       </Column>

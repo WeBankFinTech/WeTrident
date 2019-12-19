@@ -17,7 +17,6 @@ export default {
   // 浅色文字主色
   textLightPrimary: '#FFFFFF',
 
-
   backgroundPrimary: '#F29360',
   backgroundPrimaryDark: '#D98456',
   backgroundSecondary: '#DDD',
@@ -32,5 +31,5 @@ export default {
   borderImportant: '#DDD',
   borderInfo: '#DDD',
   borderWarning: '#DDD',
-  borderError: '#DDD',
+  borderError: '#DDD'
 }

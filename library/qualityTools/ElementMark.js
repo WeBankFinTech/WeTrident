@@ -20,18 +20,20 @@ export default class ElementMark extends Component {
 
   render () {
     return (
-      <View style={[{
-        position: 'absolute',
-        left: 0,
-        top: 0,
-        width: 0,
-        height: 0,
-        backgroundColor: 'transparent',
-        borderRadius: 5,
-        borderWidth: 0,
-        borderColor: '#E26B53',
-        borderStyle: 'dashed'
-      }, this.state.style || {}]} ref={_ref => { SceneTraversal.setRef(_ref) }} />
+      <View
+        style={[{
+          position: 'absolute',
+          left: 0,
+          top: 0,
+          width: 0,
+          height: 0,
+          backgroundColor: 'transparent',
+          borderRadius: 5,
+          borderWidth: 0,
+          borderColor: '#E26B53',
+          borderStyle: 'dashed'
+        }, this.state.style || {}]} ref={_ref => { SceneTraversal.setRef(_ref) }}
+      />
     )
   }
 

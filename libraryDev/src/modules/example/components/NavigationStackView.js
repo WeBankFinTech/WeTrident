@@ -17,20 +17,28 @@ export default class extends Component {
     return (
       <Column.MainStart.CrossStart style={{
         paddingHorizontal: 16
-      }}>
+      }}
+      >
         <Text style={{
           fontSize: 16,
           marginTop: 16
-        }}>Navigation Stack</Text>
+        }}
+        >Navigation Stack
+        </Text>
         <List style={{
           flex: 1,
           alignSelf: 'stretch',
           marginTop: 8
-        }}>
+        }}
+        >
           {[...routes].reverse().map((item, index) => {
-            return <Text
-              key={'key' + index}
-              style={{ paddingVertical: 4 }}>{routes.length - index - 1}. {item.routeName}</Text>
+            return (
+              <Text
+                key={'key' + index}
+                style={{ paddingVertical: 4 }}
+              >{routes.length - index - 1}. {item.routeName}
+              </Text>
+            )
           })}
         </List>
       </Column.MainStart.CrossStart>

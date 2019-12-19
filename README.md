@@ -1,4 +1,9 @@
+<img width="500" src="https://user-images.githubusercontent.com/1309744/70851262-db06b400-1ecd-11ea-9032-824385710e7d.png" />
 
+<br />
+
+[![npm version](https://badge.fury.io/js/%40webank%2Ftrident.svg)](https://badge.fury.io/js/%40webank%2Ftrident)
+[![travis status](https://api.travis-ci.org/WeBankFinTech/WeTrident.svg?branch=master)](https://travis-ci.org/WeBankFinTech/WeTrident)
 [![](https://img.shields.io/badge/node-%3E%3D8.3.0-brightgreen.svg)](https://nodejs.org/en/)
 [![](https://img.shields.io/badge/npm-%3E%3D5.8.0-brightgreen.svg)](https://nodejs.org/en/)
 [![](https://img.shields.io/badge/git-%3E%3D2.9.0-brightgreen.svg)](https://git-scm.com/)
@@ -7,7 +12,7 @@
 
 ## WeTrident的目标
 
-可快速开发、支持商业运营的App框架。
+一站式金融App开发套件。
 
 ## WeTrident的开发背景
 
@@ -26,7 +31,11 @@ PS：WeTrident在设计过程中会增加一些限制，作为一套通用框架
 
 ## 开发环境依赖
 
-WeTrident目前仅支持macOS操作系统。通过使用cli初始化项目，如果有任何相关问题，WeTrident会提示出来以便协助你解决。开发前需要先配置Android和iOS开发环境，具体配置方法可以参考Android和iOS官方文档。
+WeTrident目前仅支持macOS操作系统。通过使用 `@webank/trident-cli` 初始化项目，如果有任何相关问题，WeTrident会提示出来以便协助你解决。开发前需要先配置Android和iOS开发环境，具体配置方法可以参考Android和iOS官方文档。
+
+## Demo
+
+- [WeTrident demo apk](https://github.com/WeBankFinTech/WeTrident/releases/download/untagged-717cba61f6eb59513bf7/WeTrident-1.0.2.apk)
 
 ## 创建项目
 
@@ -94,7 +103,12 @@ maven{ url'http://maven.aliyun.com/nexus/content/repositories/jcenter'}
 maven{ url 'https://maven.google.com' }
 ```
 
-恭喜你，到这里你已经成功的创建并运行了一个新的WeTrident工程。需要调试可以使用React Native官方调试工具，调试前请先安装最新版本Chrome。具体使用方法见： [React Nativ调试方法](https://facebook.github.io/react-native/docs/0.51/debugging)
+恭喜你，到这里你已经成功的创建并运行了一个新的WeTrident工程。需要调试可以使用React Native官方调试工具，调试前请先安装最新版本Chrome。具体使用方法见： [React Native调试方法](https://facebook.github.io/react-native/docs/0.51/debugging)
 
 更多文档见 [快速开始](https://webankfintech.github.io/WeTrident/docs/getting-started)
 
+## 社区
+
+| Github Issue | 微信群 |
+| ------ | ------ |
+| [WeBankFinTech/WeTrident/issues](https://github.com/WeBankFinTech/WeTrident/issues) | <img src="https://webankfintech.github.io/WeTrident/docs/assets/images/wechat-qrcode.png" width="60" /> |

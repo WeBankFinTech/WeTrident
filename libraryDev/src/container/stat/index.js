@@ -1,5 +1,5 @@
 import { TridentStat } from '@webank/trident'
-import {WTConsoleView} from "../../bizComponents/WTConsoleView";
+import { WTConsoleView } from '../../bizComponents/WTConsoleView'
 
 export default (statData = {}) => {
   const TAG = '[TridentStat]'

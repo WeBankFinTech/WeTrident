@@ -3,7 +3,7 @@
  *
  * Created by rcrabwu on 2019-09-01T10:36:12.859Z.
  */
-import React, { Component } from 'react'
+import React from 'react'
 import {
   Platform,
   View,
@@ -43,14 +43,14 @@ export default class WebViewScene extends WeBaseScene {
   onReceiveWebViewMessage (event = {}) {
     console.log('[onReceiveWebViewMessage]:', event.nativeEvent)
     try {
-      let argsFromWeb = JSON.parse(event.nativeEvent.data)
-      const {targetFunc} = argsFromWeb
+      const argsFromWeb = JSON.parse(event.nativeEvent.data)
+      const { targetFunc } = argsFromWeb
       if (WebViewService.api[targetFunc]) {
         WebViewService.api[targetFunc](this, argsFromWeb)
       } else if (WebViewService.apiAsync[targetFunc]) {
         WebViewService.apiAsync[targetFunc](this, argsFromWeb)
       } else {
-        this.postMessageToWebView({...argsFromWeb, args: {message: 'nonsupport method'}, isSuccess: false})
+        this.postMessageToWebView({ ...argsFromWeb, args: { message: 'nonsupport method' }, isSuccess: false })
       }
     } catch (e) {
       console.warn(e.toString() + '\nCheck the "postMessage" method in your web app' + e.toString())
@@ -66,7 +66,7 @@ export default class WebViewScene extends WeBaseScene {
     console.groupCollapsed('[onNavigationStateChange] event %o', event)
 
     if (event.title && event.title !== this.params.title) {
-      this.setParams({title: event.title})
+      this.setParams({ title: event.title })
     }
 
     // update canGoBack
@@ -79,11 +79,14 @@ export default class WebViewScene extends WeBaseScene {
   render () {
     return (
       <KeyboardAvoidingView
-        style={{flex: 1}}
-        behavior={Platform.OS === 'android' ? 'padding' : undefined}>
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'android' ? 'padding' : undefined}
+      >
         <WebView
-          source={{uri: this.params.url}}
-          ref={ref => this.webView = ref}
+          source={{ uri: this.params.url }}
+          ref={ref => {
+            this.webView = ref
+          }}
           onMessage={this.onReceiveWebViewMessage.bind(this)}
           onNavigationStateChange={this.onNavigationStateChange.bind(this)}
           injectedJavaScript={TridentWebViewBridge}
@@ -102,7 +105,7 @@ export default class WebViewScene extends WeBaseScene {
       <View style={styles.error}>
         <Text>网络似乎遇到一些问题</Text>
         <Button
-          title={'重试'}
+          title='重试'
           onPress={() => {
             this.webView.reload()
           }}
@@ -121,10 +124,12 @@ export default class WebViewScene extends WeBaseScene {
     } = params
     if (showRightButton) {
       if (rightButtonText) {
-        return <NavRightButton title={rightButtonText}
-                               onPress={onPressRightButton} />
+        return <NavRightButton
+          title={rightButtonText}
+          onPress={onPressRightButton}
+        />
       } else {
-        return <NavMoreButton onPress={onPressRightButton}/>
+        return <NavMoreButton onPress={onPressRightButton} />
       }
     } else {
       return null

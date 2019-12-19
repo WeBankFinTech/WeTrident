@@ -12,14 +12,15 @@ import PropTypes from 'prop-types'
 import { PopupStub } from '@unpourtous/react-native-popup-stub'
 import WeTouchable from '../../lib/WeTouchable'
 import {
-  ProUI,
-  dimens
+  ProUI
 } from '../../values'
 import ThemeableComponent from '../../theme/ThemeableComponent'
 // 每个popup都有一个静态的show和hide方法，以及一个render
 export default class ActionSheet extends ThemeableComponent {
   namespace = 'ActionSheet'
+
   themeStyleKeys = ['style', 'titleTextStyle', 'itemTextStyle']
+
   static _id
 
   static propTypes = {
@@ -43,7 +44,7 @@ export default class ActionSheet extends ThemeableComponent {
     height += option.header ? 33 : 0
     height += option.items ? option.items.length * 50 : 0
 
-    let keyframes = {
+    const keyframes = {
       from: { translateY: height },
       to: { translateY: 0 }
     }
@@ -82,9 +83,11 @@ export default class ActionSheet extends ThemeableComponent {
 
     return (
       <View style={style}>
-        {header ? <View style={styles.header}>
-          <Text style={[titleTextStyle]}>{header}</Text>
-        </View> : null}
+        {header
+          ? <View style={styles.header}>
+            <Text style={[titleTextStyle]}>{header}</Text>
+          </View>
+          : null}
         {items.map((item, index) => (
           <WeTouchable pressMode='highlight' key={index} onPress={() => { item.onPress(item, index) }}>
             {item.subhead

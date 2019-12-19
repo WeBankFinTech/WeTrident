@@ -1,6 +1,7 @@
 class TridentStat {
   // 控制用户点击是否自动上报
   static pressAutoStat = true
+
   // 控制网络请求是否自动上报，默认为false
   static httpRequestAutoReport = false
 
@@ -11,8 +12,9 @@ class TridentStat {
 
     // nativeError: 'nativeError',
     renderError: 'renderError',
-    unhandlePromise: 'unhandlePromise',
+    unhandlePromise: 'unhandlePromise'
   }
+
   static statEventHandler = (statEvent) => statEvent
 
   static setOnStatEventHandler (customStatEventHandler) {
@@ -23,7 +25,7 @@ class TridentStat {
     }
   }
 
-  static emitStatEvent(statData) {
+  static emitStatEvent (statData) {
     this.statEventHandler && this.statEventHandler(statData)
   }
 

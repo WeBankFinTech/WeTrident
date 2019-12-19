@@ -11,7 +11,7 @@ const ThemeConst = {
   Font
 }
 const createComponentTheme = (Theme = ThemeConst) => ({
-  'Button': {
+  Button: {
     style: {
       justifyContent: 'center',
       alignItems: 'center',
@@ -30,7 +30,7 @@ const createComponentTheme = (Theme = ThemeConst) => ({
     },
     activeColor: Theme.Color.backgroundPrimaryDark
   },
-  'List': {
+  List: {
     style: {
       borderColor: Theme.Color.borderPrimary,
       borderWidth: 1 / PixelRatio.get()
@@ -39,7 +39,7 @@ const createComponentTheme = (Theme = ThemeConst) => ({
       backgroundColor: Theme.Color.borderPrimary,
       height: 1 / PixelRatio.get(),
       marginLeft: Theme.Size.spaceM
-    },
+    }
   },
   'List.Item': {
     style: {
@@ -92,7 +92,7 @@ const createComponentTheme = (Theme = ThemeConst) => ({
       paddingHorizontal: ProUI.spaceX.large
     }
   },
-  'Checkbox': {
+  Checkbox: {
     style: {
       width: Theme.Size.iconS,
       height: Theme.Size.iconS,
@@ -116,18 +116,18 @@ const createComponentTheme = (Theme = ThemeConst) => ({
       resizeMode: 'cover'
     }
   },
-  'Table': {
+  Table: {
     style: {},
     borderStyle: {
       borderWidth: 1 / PixelRatio.get(),
-      borderColor: Theme.Color.borderPrimary,
+      borderColor: Theme.Color.borderPrimary
     },
     textStyle: {
       lineHeight: ProUI.lineHeight.medium,
       fontSize: Theme.Size.fontM,
       textAlign: 'center',
       color: Theme.Color.textPrimary
-    },
+    }
   },
   'Table.Tr': {
     style: {
@@ -138,15 +138,15 @@ const createComponentTheme = (Theme = ThemeConst) => ({
     textStyle: {
       flexDirection: 'row',
       justifyContent: 'center',
-      alignItems: 'stretch',
-    },
+      alignItems: 'stretch'
+    }
   },
   'Table.Th': {
     style: {
       padding: Theme.Size.spaceM
     },
     textStyle: {
-      fontWeight: 'bold',
+      fontWeight: 'bold'
     }
   },
   'Table.Td': {
@@ -159,7 +159,7 @@ const createComponentTheme = (Theme = ThemeConst) => ({
     textStyle: {}
   },
 
-  'Loading': {
+  Loading: {
     style: {
       width: 80,
       height: 80,
@@ -169,7 +169,7 @@ const createComponentTheme = (Theme = ThemeConst) => ({
       borderRadius: 5
     }
   },
-  'Toast': {
+  Toast: {
     style: {
       backgroundColor: 'rgba(0, 0, 0, 0.6)',
       borderRadius: Theme.Size.radiusL,
@@ -187,7 +187,7 @@ const createComponentTheme = (Theme = ThemeConst) => ({
       lineHeight: Theme.Size.lineHeightM
     }
   },
-  'Dialog': {
+  Dialog: {
     style: {
       width: 270,
       backgroundColor: Theme.Color.backgroundNormal,
@@ -225,7 +225,7 @@ const createComponentTheme = (Theme = ThemeConst) => ({
       justifyContent: 'center'
     }
   },
-  'ActionSheet': {
+  ActionSheet: {
     style: {
       backgroundColor: ProUI.color.pageBackground,
       paddingBottom: dimens.PORTRAIT_UNSAFE_AREA_BOTTOM_HEIGHT
@@ -243,7 +243,7 @@ const createComponentTheme = (Theme = ThemeConst) => ({
       textAlign: 'center'
     }
   },
-  'NavBar': {
+  NavBar: {
     style: {
       backgroundColor: Theme.Color.backgroundPrimary,
       width: dimens.WINDOW_WIDTH,

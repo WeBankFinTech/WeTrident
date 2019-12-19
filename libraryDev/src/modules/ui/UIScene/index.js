@@ -16,7 +16,7 @@ export default (global, ModulePrivate) => ({
    * 定义scene级别的actions
    */
   actions: {
-    addCount: v => v,
+    addCount: v => v
   },
 
   /**

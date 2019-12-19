@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 const options = require('minimist')(process.argv.slice(2))
+const chalk = require('chalk')
 
 function run (root) {
   const cmd = options._[0]
@@ -107,4 +108,3 @@ module.exports = {
   init: require('./init').init,
   run
 }
-

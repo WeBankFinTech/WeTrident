@@ -40,7 +40,7 @@ class SceneTraversal {
 
   _getNodeKey (node, rootNode) {
     let attr = _.pick(node, ['index', 'key', 'tag'])
-    let type = node.type
+    const type = node.type
     if (_.isFunction(type) && _.isString(type.displayName)) {
       attr.type = type.displayName
     } else if (_.isFunction(type) && _.isString(type.name)) {
@@ -51,11 +51,11 @@ class SceneTraversal {
     attr._className = node.stateNode && node.stateNode.constructor.name || ''
     attr._parentKey = node !== rootNode && node.return && node.return._debugSource || ''
 
-    let memoizedProps = node.memoizedProps || {}
-    let props = _.omit(_.pickBy(memoizedProps, (value, key) => !_.isObject(value)), ['isEnabled'])
+    const memoizedProps = node.memoizedProps || {}
+    const props = _.omit(_.pickBy(memoizedProps, (value, key) => !_.isObject(value)), ['isEnabled'])
     // pick image uri attr from props
     if (_.isArray(memoizedProps.source) && memoizedProps.source.length > 0) {
-      let uri = _.get(memoizedProps, 'source[0].uri', null)
+      const uri = _.get(memoizedProps, 'source[0].uri', null)
       if (!_.isEmpty(uri)) {
         props.uri = uri
       }
@@ -84,10 +84,10 @@ class SceneTraversal {
 
   _markNodeKeys (rootNode) {
     let currentNode
-    let nodeQueue = [rootNode]
+    const nodeQueue = [rootNode]
     while (nodeQueue.length > 0) {
       currentNode = nodeQueue.shift()
-      let flag = this._getNodeKey(currentNode, rootNode)
+      const flag = this._getNodeKey(currentNode, rootNode)
       currentNode._debugSource = flag
       if (currentNode.alternate) {
         currentNode.alternate._debugSource = flag
@@ -102,11 +102,11 @@ class SceneTraversal {
   }
 
   _isTouchable (node) {
-    let onPress = _.get(node, 'memoizedProps.onPress', null)
+    const onPress = _.get(node, 'memoizedProps.onPress', null)
     // let isEnabled = _.get(node, 'memoizedProps.isEnabled', false)
-    let isEnabled = true
-    let disabled = _.get(node, 'memoizedProps.disabled', false)
-    let touchableObject = _.get(node, 'memoizedState.touchable', null)
+    const isEnabled = true
+    const disabled = _.get(node, 'memoizedProps.disabled', false)
+    const touchableObject = _.get(node, 'memoizedState.touchable', null)
     let type = node.type
     if (_.isFunction(type) && _.isString(type.displayName)) {
       type = type.displayName
@@ -160,8 +160,8 @@ class SceneTraversal {
 
     const rootNode = this._findRootNode(moduleName, sceneName, currentNode)
     this._markNodeKeys(rootNode)
-    let nodeList = []
-    let nodeQueue = [rootNode]
+    const nodeList = []
+    const nodeQueue = [rootNode]
 
     while (nodeQueue.length > 0) {
       currentNode = nodeQueue.shift()
@@ -180,8 +180,8 @@ class SceneTraversal {
     this.current.nodeList = nodeList
     // console.log('[start]: ' + this.current.moduleName + ' ' + this.current.sceneName + ' get nodes = ' + nodeList.length)
 
-    let formerModule = _.get(this.preorder, 'former.moduleName')
-    let formerScene = _.get(this.preorder, 'former.sceneName')
+    const formerModule = _.get(this.preorder, 'former.moduleName')
+    const formerScene = _.get(this.preorder, 'former.sceneName')
     if (this.replay &&
         !_.isEmpty(formerModule) &&
         !_.isEmpty(formerScene) &&
@@ -208,7 +208,7 @@ class SceneTraversal {
       return
     }
 
-    let _processElement = func => {
+    const _processElement = func => {
       this.dataRecorder.record(`[traversal]${this.current.moduleName}_${this.current.sceneName}_${this.current.nodeList[index]._debugSource}`)
       _.set(this.preorder, [this.current.moduleName, this.current.sceneName, 'nodeMark'], this.current.nodeList[index]._debugSource)
       _.set(this.preorder, 'former.moduleName', this.current.moduleName)
@@ -225,7 +225,7 @@ class SceneTraversal {
       }, 2000)
     }
 
-    let _replay = func => {
+    const _replay = func => {
       try {
         this.dataRecorder.record(`[replay]${this.current.moduleName}_${this.current.sceneName}_${this.current.nodeList[index]._debugSource}`)
         func()
@@ -235,16 +235,16 @@ class SceneTraversal {
     }
 
     if (this.current.nodeList && index < this.current.nodeList.length) {
-      let node = this.current.nodeList[index]
-      let isReplay = this.replay && !_.isEmpty(node._debugSource) && _.get(this.preorder, [this.current.moduleName, this.current.sceneName, 'nodeMark']) === node._debugSource
+      const node = this.current.nodeList[index]
+      const isReplay = this.replay && !_.isEmpty(node._debugSource) && _.get(this.preorder, [this.current.moduleName, this.current.sceneName, 'nodeMark']) === node._debugSource
 
       if (!this.isVisit[this.current.moduleName][this.current.sceneName][node._debugSource] ||
           isReplay
       ) {
         this.isVisit[this.current.moduleName][this.current.sceneName][node._debugSource] = true
-        let func = this._getTouchableMethod(node)
+        const func = this._getTouchableMethod(node)
         if (_.isFunction(func)) {
-          let measure = this._findMeasure(node)
+          const measure = this._findMeasure(node)
           if (measure) {
             try {
               measure((x, y, w, h, px, py) => {
@@ -297,29 +297,29 @@ class SceneTraversal {
   }
 
   _isCurrentScene (moduleName, sceneName) {
-      let routeName = _.get(AppNavigator, 'currentScene.routeName', '')
-      let currentScene
-      if (!_.isEmpty(routeName)) {
-        currentScene = routeName.split('/')
-      } else if (!_.isEmpty(InitialScene) && !_.isEmpty(InitialScene.moduleName) && !_.isEmpty(InitialScene.sceneName)) {
-        currentScene = [InitialScene.moduleName, InitialScene.sceneName]
-      }
+    const routeName = _.get(AppNavigator, 'currentScene.routeName', '')
+    let currentScene
+    if (!_.isEmpty(routeName)) {
+      currentScene = routeName.split('/')
+    } else if (!_.isEmpty(InitialScene) && !_.isEmpty(InitialScene.moduleName) && !_.isEmpty(InitialScene.sceneName)) {
+      currentScene = [InitialScene.moduleName, InitialScene.sceneName]
+    }
 
-      return !_.isEmpty(currentScene) &&
+    return !_.isEmpty(currentScene) &&
           !(TabConfig[currentScene[0]] && TabConfig[currentScene[0]][currentScene[1]]) &&
           (moduleName === currentScene[0] && sceneName === currentScene[1])
   }
 
   _isCurrentTab (moduleName, sceneName) {
-      let routeName = _.get(AppNavigator, 'currentScene.routeName', '')
-      let currentScene
-      if (!_.isEmpty(routeName)) {
-          currentScene = routeName.split('/')
-      } else if (!_.isEmpty(InitialTab) && !_.isEmpty(InitialTab.tabModule) && !_.isEmpty(InitialTab.tabName)) {
-          currentScene = [InitialTab.tabModule, InitialTab.tabName]
-      }
+    const routeName = _.get(AppNavigator, 'currentScene.routeName', '')
+    let currentScene
+    if (!_.isEmpty(routeName)) {
+      currentScene = routeName.split('/')
+    } else if (!_.isEmpty(InitialTab) && !_.isEmpty(InitialTab.tabModule) && !_.isEmpty(InitialTab.tabName)) {
+      currentScene = [InitialTab.tabModule, InitialTab.tabName]
+    }
 
-      return !_.isEmpty(currentScene) &&
+    return !_.isEmpty(currentScene) &&
           (!this.activeTab.tabModule && !this.activeTab.tabName) ||
           ((TabConfig[currentScene[0]] && TabConfig[currentScene[0]][currentScene[1]]) && moduleName === currentScene[0] && moduleName === this.activeTab.tabModule && sceneName === this.activeTab.tabName)
   }
@@ -334,7 +334,7 @@ class SceneTraversal {
 
   _isMatchConfig (config, defaultValue = false) {
     if (!_.isEmpty(config) && !_.isEmpty(this.current.moduleName) && !_.isEmpty(this.current.sceneName)) {
-      let moduleConfig = config[this.current.moduleName]
+      const moduleConfig = config[this.current.moduleName]
       return ((_.isString(moduleConfig) && moduleConfig === '*') ||
         (_.isArray(moduleConfig) && _.findIndex(moduleConfig, item => item === this.current.sceneName) >= 0))
     } else {
@@ -430,17 +430,17 @@ class SceneTraversal {
           this.isVisit = {}
           _.forEach(content.records, record => {
             if (!_.isEmpty(record)) {
-              let items = record
-                  .replace('[traversal]', '')
-                  .trim()
-                  .split('_')
+              const items = record
+                .replace('[traversal]', '')
+                .trim()
+                .split('_')
               if (items.length === 3 &&
                 !_.isEmpty(items[0]) &&
                 !_.isEmpty(items[1]) &&
                 !_.isEmpty(items[2])) {
-                let moduleName = items[0]
-                let sceneName = items[1]
-                let nodeMark = items[2]
+                const moduleName = items[0]
+                const sceneName = items[1]
+                const nodeMark = items[2]
                 _.set(this.isVisit, [moduleName, sceneName, nodeMark], true)
               }
             }
@@ -455,9 +455,9 @@ class SceneTraversal {
 
         this.isPrepared = true
         if (!_.isEmpty(this.cacheAction)) {
-          let cacheModuleName = this.cacheAction.moduleName
-          let cacheSceneName = this.cacheAction.sceneName
-          let cacheEntrance = this.cacheAction.entrance
+          const cacheModuleName = this.cacheAction.moduleName
+          const cacheSceneName = this.cacheAction.sceneName
+          const cacheEntrance = this.cacheAction.entrance
           this.cacheAction = null
           this.runTest(cacheModuleName, cacheSceneName, cacheEntrance)
         }
@@ -487,8 +487,8 @@ class DataRecorder {
     }
 
     this.websocket.onmessage = evt => {
-      let data = evt.data
-      let dataType = data && data.length > 0 && data[0] || ''
+      const data = evt.data
+      const dataType = data && data.length > 0 && data[0] || ''
       switch (dataType) {
         case '0':
           this._onHandShake()
@@ -513,7 +513,7 @@ class DataRecorder {
   }
 
   record (message) {
-    let _doSend = () => {
+    const _doSend = () => {
       try {
         this.websocket.send(`42["message", "${message}"]`)
       } catch (e) {
@@ -557,11 +557,11 @@ class DataRecorder {
     if (_.isEmpty(message)) {
       return
     }
-    let paramsLengthStr = _.join(_.takeWhile(message, char => char !== '['), '')
-    let paramsLength = parseInt(paramsLengthStr)
+    const paramsLengthStr = _.join(_.takeWhile(message, char => char !== '['), '')
+    const paramsLength = parseInt(paramsLengthStr)
     if (paramsLength > 0) {
       try {
-        let params = JSON.parse(message.slice(paramsLengthStr.length))
+        const params = JSON.parse(message.slice(paramsLengthStr.length))
         if (!_.isEmpty(params) && paramsLength === 2 && _.isFunction(this.messenger)) {
           this.messenger(params[0], params[1])
         }

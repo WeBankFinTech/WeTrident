@@ -35,54 +35,73 @@ export default class NetworkScene extends WeBaseScene {
     return (
       <EntryList style={[{
         backgroundColor: Theme.Color.backgroundPrimary
-      }, this.props.style]}>
-        <Button text={`正常POST请求`} onPress={() => {
-          Loading.wrap(APIClient.request(CGI.postBookListNormal).then(...requestProcessor))
-        }} />
-        <Button text={`异常POST请求`} onPress={() => {
-          Loading.wrap(APIClient.request(CGI.postBookListException).then(...requestProcessor))
-        }} />
-        <Button text={`正常GET请求`} onPress={() => {
-          Loading.wrap(APIClient.request(CGI.getBookListNormal).then(...requestProcessor))
-        }} />
-        <Button text={`异常GET请求`} onPress={() => {
-          Loading.wrap(APIClient.request(CGI.getBookListException).then(...requestProcessor))
-        }} />
-        <Button text={`全局增加自定义Header`} onPress={() => {
-          Loading.wrap(APIClient.request(CGI.requestUseGlobalHeader).then((response) => {
-            this._showDialog('请求的Header为' + JSON.stringify(response.config.headers))
-          }))
-        }} />
-        <Button text={`特定URL()增加自定义Header`} onPress={() => {
-          Loading.wrap(APIClient.request(CGI.requestUseSpecificHeader).then((response) => {
-            this._showDialog('请求的Header为' + JSON.stringify(response.config.headers))
-          }))
-        }} />
-        <Button text={`Mock使用(随机成功失败)`} onPress={() => {
-          Loading.wrap(APIClient.request(CGI.requestUseMock).then(...requestProcessor))
-        }} />
-        <Button text={`缓存设置(API级别)`} onPress={() => {
-          Loading.wrap(APIClient.request(CGI.requestUseCache).then((response) => {
-            let msg = ''
-            if (response.fromCache) {
-              msg = '读取缓存成功'
-            } else {
-              msg = '请求成功'
-            }
-            this._showDialog(msg + JSON.stringify(response.data))
-          }))
-        }} />
-        <Button text={`缓存设置(单次调用级别)`} onPress={() => {
-          Loading.wrap(APIClient.request(
-            CGI.requestUseCache,
-            undefined,
-            undefined,
-            undefined,
-            { cacheMaxAgeInMs: 10 }
-          ).then((response) => {
-            this._showDialog('请求成功(fromCache: ' + response.fromCache + ')' + JSON.stringify(response.data))
-          }))
-        }} />
+      }, this.props.style]}
+      >
+        <Button
+          text='正常POST请求' onPress={() => {
+            Loading.wrap(APIClient.request(CGI.postBookListNormal).then(...requestProcessor))
+          }}
+        />
+        <Button
+          text='异常POST请求' onPress={() => {
+            Loading.wrap(APIClient.request(CGI.postBookListException).then(...requestProcessor))
+          }}
+        />
+        <Button
+          text='正常GET请求' onPress={() => {
+            Loading.wrap(APIClient.request(CGI.getBookListNormal).then(...requestProcessor))
+          }}
+        />
+        <Button
+          text='异常GET请求' onPress={() => {
+            Loading.wrap(APIClient.request(CGI.getBookListException).then(...requestProcessor))
+          }}
+        />
+        <Button
+          text='全局增加自定义Header' onPress={() => {
+            Loading.wrap(APIClient.request(CGI.requestUseGlobalHeader).then((response) => {
+              this._showDialog('请求的Header为' + JSON.stringify(response.config.headers))
+            }))
+          }}
+        />
+        <Button
+          text='特定URL()增加自定义Header' onPress={() => {
+            Loading.wrap(APIClient.request(CGI.requestUseSpecificHeader).then((response) => {
+              this._showDialog('请求的Header为' + JSON.stringify(response.config.headers))
+            }))
+          }}
+        />
+        <Button
+          text='Mock使用(随机成功失败)' onPress={() => {
+            Loading.wrap(APIClient.request(CGI.requestUseMock).then(...requestProcessor))
+          }}
+        />
+        <Button
+          text='缓存设置(API级别)' onPress={() => {
+            Loading.wrap(APIClient.request(CGI.requestUseCache).then((response) => {
+              let msg = ''
+              if (response.fromCache) {
+                msg = '读取缓存成功'
+              } else {
+                msg = '请求成功'
+              }
+              this._showDialog(msg + JSON.stringify(response.data))
+            }))
+          }}
+        />
+        <Button
+          text='缓存设置(单次调用级别)' onPress={() => {
+            Loading.wrap(APIClient.request(
+              CGI.requestUseCache,
+              undefined,
+              undefined,
+              undefined,
+              { cacheMaxAgeInMs: 10 }
+            ).then((response) => {
+              this._showDialog('请求成功(fromCache: ' + response.fromCache + ')' + JSON.stringify(response.data))
+            }))
+          }}
+        />
       </EntryList>
     )
   }

@@ -2,7 +2,7 @@
  * Toast，支持icon
  * @author Lemorili
 */
-import React, { Component } from 'react'
+import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
 import { PopupStub } from '@unpourtous/react-native-popup-stub'
@@ -15,7 +15,9 @@ import WePropTypes from '../../utils/WePropTypes'
 
 export default class Toast extends ThemeableComponent {
   namespace = 'Toast'
+
   themeStyleKeys = ['style', 'styleWithIcon', 'textStyle']
+
   static propTypes = {
     icon: iconNamePropType,
     msg: PropTypes.string,
@@ -54,7 +56,8 @@ export default class Toast extends ThemeableComponent {
       <View style={[style, hasIcon ? styleWithIcon : null]}>
         {hasIcon && <Icon
           style={styles.toastIcon}
-          name={this.props.icon} />}
+          name={this.props.icon}
+        />}
         <View>
           <Text style={[textStyle, this.props.textStyle]}>{this.props.msg}</Text>
         </View>
@@ -81,5 +84,5 @@ const styles = StyleSheet.create({
   toastIcon: {
     alignSelf: 'center',
     marginBottom: ProUI.spaceY.medium
-  },
+  }
 })

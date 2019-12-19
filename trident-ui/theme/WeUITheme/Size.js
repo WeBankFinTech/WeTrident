@@ -58,5 +58,5 @@ export default {
   // 标题栏标题、按钮文字行高
   lineHeightXL: 27,
   // 资产数字
-  lineHeightXXL: 45,
+  lineHeightXXL: 45
 }

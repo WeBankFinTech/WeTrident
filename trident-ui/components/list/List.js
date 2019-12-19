@@ -1,29 +1,27 @@
-import {
-  View,
-  PixelRatio,
-  ViewPropTypes,
-  StyleSheet,
-  Text
-} from 'react-native'
-
 /**
  * Created by vengeanliu on 2017/7/6.
  */
 
+import {
+  View,
+  ViewPropTypes,
+  Text
+} from 'react-native'
 import PropTypes from 'prop-types'
 
-import React, { Component } from 'react'
+import React from 'react'
 import Item from './Item'
 import { ProUI } from '../../values'
 import WeTouchable from '../../lib/WeTouchable'
 import ThemeableComponent from '../../theme/ThemeableComponent'
 
-let SEPARATOR = 'we_list_separator'
-let TOP_SEPARATOR = 'top'
-let BOTTOM_SEPARATOR = 'bottom'
+const SEPARATOR = 'we_list_separator'
+const TOP_SEPARATOR = 'top'
+const BOTTOM_SEPARATOR = 'bottom'
 
 class Index extends ThemeableComponent {
   namespace = 'List'
+
   themeStyleKeys = ['style', 'separatorStyle']
 
   static Item = Item
@@ -79,8 +77,8 @@ class Index extends ThemeableComponent {
 
   // 这里需要处理列表按压态时，改变线的样式，以达到按压态是一个整体的概念
   _onItemPressIn (key) {
-    let topSeparator = this.refs[SEPARATOR + key]
-    let bottomSeparator = this.refs[SEPARATOR + (parseInt(key) + 1)]
+    const topSeparator = this.refs[SEPARATOR + key]
+    const bottomSeparator = this.refs[SEPARATOR + (parseInt(key) + 1)]
     if (this.props.renderBorder) {
       if (parseInt(key) === 0) {
         this.refs[SEPARATOR + TOP_SEPARATOR].setNativeProps({ style: { opacity: 0 } })
@@ -99,8 +97,8 @@ class Index extends ThemeableComponent {
 
   // 还原分割线
   _onItemPressOut (key) {
-    let topSeparator = this.refs[SEPARATOR + key]
-    let bottomSeparator = this.refs[SEPARATOR + (parseInt(key) + 1)]
+    const topSeparator = this.refs[SEPARATOR + key]
+    const bottomSeparator = this.refs[SEPARATOR + (parseInt(key) + 1)]
     if (this.props.renderBorder) {
       if (parseInt(key) === 0) {
         this.refs[SEPARATOR + TOP_SEPARATOR].setNativeProps({ style: { opacity: 1 } })
@@ -139,13 +137,13 @@ class Index extends ThemeableComponent {
 
   _renderRowByChildren () {
     // 这段变量声明不能放到constructor里面去，否则有一些动态渲染的列表无法刷新列表项
-    let { children } = this.props
-    let childrenArray = React.Children.toArray(children)
+    const { children } = this.props
+    const childrenArray = React.Children.toArray(children)
     this.account = childrenArray.length
     this.renderItems = []
 
-    for (let i in childrenArray) {
-      let child = childrenArray[i]
+    for (const i in childrenArray) {
+      const child = childrenArray[i]
       if (i > 0) {
         this.renderItems.push(this._renderSeparator(i))
       }
@@ -176,6 +174,7 @@ class Index extends ThemeableComponent {
 
 class Row extends ThemeableComponent {
   namespace = 'List.Row'
+
   static propTypes = {
     // 模式1， 简单纯文字，直接提供sting即可, 优先级别最低
     label: PropTypes.string,

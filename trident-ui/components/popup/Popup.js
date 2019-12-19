@@ -1,7 +1,6 @@
-import React, {Component} from 'react'
 import { PopupStub } from '@unpourtous/react-native-popup-stub'
 
-export default class Popup extends Component {
+export default class Popup {
   /**
    *
    * @param content - 任何可以渲染的React元素

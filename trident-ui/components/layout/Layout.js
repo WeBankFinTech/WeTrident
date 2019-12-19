@@ -16,19 +16,19 @@ const mergeStyle = (target, newStyle) => {
 }
 
 const flexDirectionMap = {
-  Row: {flexDirection: 'row'},
-  Column: {flexDirection: 'column'}
+  Row: { flexDirection: 'row' },
+  Column: { flexDirection: 'column' }
 }
 
 const styleMap = {
-  MainSpaceBetween: {justifyContent: 'space-between'},
-  MainCenter: {justifyContent: 'center'},
-  MainEnd: {justifyContent: 'flex-end'},
-  MainStart: {justifyContent: 'flex-start'},
+  MainSpaceBetween: { justifyContent: 'space-between' },
+  MainCenter: { justifyContent: 'center' },
+  MainEnd: { justifyContent: 'flex-end' },
+  MainStart: { justifyContent: 'flex-start' },
 
-  CrossCenter: {alignItems: 'center'},
-  CrossEnd: {alignItems: 'flex-end'},
-  CrossStart: {alignItems: 'flex-start'}
+  CrossCenter: { alignItems: 'center' },
+  CrossEnd: { alignItems: 'flex-end' },
+  CrossStart: { alignItems: 'flex-start' }
 }
 
 const getWrapper = () => {
@@ -45,7 +45,8 @@ const getWrapper = () => {
           style,
           target[__STYLE__]
         ]}
-      >{children}</View>
+      >{children}
+      </View>
     )
   }
   Object.assign(target, styleMap)
@@ -57,7 +58,7 @@ const getMainTarget = () => {
   target[__STYLE__] = {}
   Object.assign(target, styleMap)
   const proxy = new Proxy(target, {
-    get(target, p) {
+    get (target, p) {
       const style = styleMap[p]
       if (style) {
         mergeStyle(target, style)

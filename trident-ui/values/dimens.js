@@ -6,6 +6,7 @@ import {
   Platform,
   Dimensions
 } from 'react-native'
+import Device from '../utils/Device'
 
 const Navigator = {
   NavigationBar: {
@@ -18,8 +19,7 @@ const Navigator = {
   }
 }
 
-const {width, height} = Dimensions.get('window')
-import Device from '../utils/Device'
+const { width, height } = Dimensions.get('window')
 
 const statusBarHeight = Platform.select({ // 导航栏 + 状态栏的高度
   android: Platform.Version >= 21 ? StatusBar.currentHeight : 0,
@@ -35,7 +35,7 @@ export default {
   STATUS_BAR_HEIGHT: statusBarHeight,
   WINDOW_WIDTH: width, // 手机屏幕宽度
   get WINDOW_HEIGHT () {
-    let containerHeight = Device.getContainerHeight()
+    const containerHeight = Device.getContainerHeight()
     return Platform.select({ // 部分android因为虚拟按键会导致获取不到真实的可视化区域，动态设置Dimensions，动态获取
       android: containerHeight > height ? containerHeight : height,
       ios: height

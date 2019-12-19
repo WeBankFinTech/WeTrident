@@ -3,14 +3,13 @@
  *
  * Created by rcrabwu on 2019-12-09T09:46:43.725Z.
  */
-import React, { Component } from 'react'
+import React from 'react'
 import {
   Platform,
   KeyboardAvoidingView,
-  WebView,
-  StyleSheet
+  WebView
 } from 'react-native'
-import { AppNavigator, WeBaseScene } from '@webank/trident'
+import { WeBaseScene } from '@webank/trident'
 
 /**
  * Navigator数据传入
@@ -22,7 +21,6 @@ import { AppNavigator, WeBaseScene } from '@webank/trident'
  * 4. nickname 用户昵称
  * 5. avatar 用户头像
  */
-
 
 export default class FeedbackScene extends WeBaseScene {
   static navigationOptions = ({ navigation: { state: { params = {} } } }) => ({
@@ -56,10 +54,11 @@ export default class FeedbackScene extends WeBaseScene {
 
     return (
       <KeyboardAvoidingView
-        style={{flex: 1}}
-        behavior={Platform.OS === 'android' ? 'padding' : undefined}>
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'android' ? 'padding' : undefined}
+      >
         <WebView
-          source={require('./redirect.html')}
+          source={Platform.OS === 'android' ? { uri: `https://support.qq.com/product/${prodID}` } : require('./redirect.html')}
           injectedJavaScript={this.FEEDBACK_PARAMS}
         />
       </KeyboardAvoidingView>

@@ -22,7 +22,7 @@ export default (state, nextState, action) => {
   const oldTopSceneState = getCurrentRouteName(state)
   const newTopSceneState = getCurrentRouteName(nextState)
 
-  let fromRouteName, toRouteName, fromSceneKey, toSceneKey
+  let fromRouteName, fromSceneKey
 
   if (!oldTopSceneState || !oldTopSceneState.routeName) {
     fromRouteName = null
@@ -31,8 +31,8 @@ export default (state, nextState, action) => {
     fromRouteName = oldTopSceneState.routeName
     fromSceneKey = oldTopSceneState.key
   }
-  toRouteName = newTopSceneState.routeName
-  toSceneKey = newTopSceneState.key
+  const toRouteName = newTopSceneState.routeName
+  const toSceneKey = newTopSceneState.key
 
   // @@redux/INIT may triggered multiple times
   if (action.type === '@@redux/INIT' && AppNavigator.currentSceneURL === undefined) {
@@ -41,7 +41,6 @@ export default (state, nextState, action) => {
     } else {
       AppNavigator.addPendingLifecycleCallback(toSceneKey, { fromScene: 'null', toScene: toRouteName })
     }
-
 
     const lastSceneURL = 'null'
     AppNavigator.lastSceneURL = lastSceneURL
@@ -59,7 +58,7 @@ export default (state, nextState, action) => {
       payload: {
         from: lastSceneURL,
         to: currentSceneURL
-      },
+      }
     })
   }
 
@@ -79,7 +78,7 @@ export default (state, nextState, action) => {
       payload: {
         from: lastSceneURL,
         to: currentSceneURL
-      },
+      }
     })
 
     if (fromSceneKey && fromSceneKey !== toSceneKey) {
@@ -123,16 +122,16 @@ export default (state, nextState, action) => {
 
     // Traversal
     if (action.type === 'Navigation/NAVIGATE') {
-        if (action.routeName !== 'DrawerOpen' && action.routeName !== 'DrawerClose') {
-            let names = action.routeName && action.routeName.split('/')
-            if (names && names.length === 2) {
-                SceneTraversal.onNavigate(names[0], names[1])
-            }
-        } else if (action.routeName === 'DrawerOpen') {
-            SceneTraversal.onDrawerOpen()
+      if (action.routeName !== 'DrawerOpen' && action.routeName !== 'DrawerClose') {
+        const names = action.routeName && action.routeName.split('/')
+        if (names && names.length === 2) {
+          SceneTraversal.onNavigate(names[0], names[1])
         }
+      } else if (action.routeName === 'DrawerOpen') {
+        SceneTraversal.onDrawerOpen()
+      }
     } else if (action.type === 'Navigation/BACK') {
-        SceneTraversal.onBack()
+      SceneTraversal.onBack()
     }
   }
 }

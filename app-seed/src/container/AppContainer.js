@@ -7,10 +7,6 @@ import {
 import { AppNavigator } from '@webank/trident'
 
 export default class AppContainer extends Component {
-  constructor (props) {
-    super(props)
-  }
-
   componentDidMount () {
     Linking.addEventListener('url', ({ url }) => this._handleOpenURL(url))
 
@@ -36,8 +32,9 @@ export default class AppContainer extends Component {
       alignSelf: 'stretch',
       flexDirection: 'column',
       justifyContent: 'flex-start',
-      alignContent: 'center',
-    }}>
+      alignContent: 'center'
+    }}
+    >
       {this.props.children}
     </View>
   }

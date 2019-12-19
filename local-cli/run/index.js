@@ -10,8 +10,8 @@ const runAndroid = (options) => {
 }
 
 const runIOS = (options) => {
-  if (!options['scheme']) {
-    options['scheme'] = 'Build'
+  if (!options.scheme) {
+    options.scheme = 'Build'
   }
   execRNCmd('local-cli/cli.js run-ios ' + compositeArguments(options), 'node')
 }

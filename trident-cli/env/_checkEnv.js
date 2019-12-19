@@ -9,7 +9,7 @@ var compare = require('node-version-compare')
  * @param installGuide
  * @param installCmd
  */
-function checkCmdAndVersion ({cmd, versionCmd, min, max, installGuide, installCmd}) {
+function checkCmdAndVersion ({ cmd, versionCmd, min, max, installGuide, installCmd }) {
   var execSync = require('child_process').execSync
   const checkCmdExisted = execSync(`if ! type ${cmd} &> /dev/null; then echo "0"; else echo "-1"; fi`)
   if (checkCmdExisted.toString().trim() !== '-1') {
@@ -57,7 +57,7 @@ function checkCmdAndVersion ({cmd, versionCmd, min, max, installGuide, installCm
   return null
 }
 
-function checkEnvVar({varName, installGuide}) {
+function checkEnvVar ({ varName, installGuide }) {
   if (!varName) {
     return null
   }

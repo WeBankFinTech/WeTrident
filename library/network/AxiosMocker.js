@@ -6,9 +6,9 @@ export default class AxiosMocker {
    */
   static replay (response = {}) {
     return (config) => {
-      const response = response || {}
+      const mockResponse = response || {}
       return {
-        ...response,
+        ...mockResponse,
         config,
         fromMock: true
       }

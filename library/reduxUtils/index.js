@@ -96,53 +96,11 @@ function createSceneConnect (config = {}) {
 
   // origin component => a new component
   return (Scene) => {
-    let instanceCount1 = 0 // 当前页面实例存在的个数，以constructor为起点
-    const instanceCount2 = 0 // 当前页面实例存在的个数，以DidMount为起点
-
     // 拦截 Scene 做一些处理
     const HookScene = class extends React.Component {
       static childContextTypes = {
         moduleName: PropTypes.string,
         sceneName: PropTypes.string
-      }
-
-      constructor (props) {
-        super(props)
-        instanceCount1 += 1
-      }
-
-      componentWillMount () {
-        if (autoResetState === true) {
-          // this.props.resetState()
-        }
-      }
-
-      componentDidMount () {
-        // instanceCount2 += 1
-        // // 组装页面通知需要的key
-        // let pathname = `${moduleName}/${sceneName}`
-        // let query = {}
-        // if (this.props && this.props.navigation && this.props.navigation.state && this.props.navigation.state.params) {
-        //   query = this.props.navigation.state.params
-        // }
-        // let notifyKey = URL.format({pathname, query})
-
-        // TODO 页面切换通知
-        // setTimeout(() => {
-        //   NotifyHelper.triggerNotify(notifyKey)
-        // }, 100)
-      }
-
-      componentWillUnmount () {
-        // instanceCount1 -= 1
-        // instanceCount2 -= 1
-        //
-        // let routeNames = AppNavigator.getCurrentRoutes()
-        // let routeStack = 'unknow'
-        // if (Array.isArray(routeNames)) {
-        //   routeStack = routeNames.map((route) => route && route.routeName).join(',')
-        // }
-        // let moreDetail = `${instanceCount1}|${instanceCount2}|${moduleName}/${sceneName}|${routeStack}`
       }
 
       // 为下层组件提供感知当前上下文的能力

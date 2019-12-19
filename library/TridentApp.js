@@ -74,23 +74,26 @@ export default class TridentApp extends Component {
 
   _renderWTConsole () {
     if (this.props.showWTConsole) {
-      let WTConsole = require('@unpourtous/wt-console').default
+      const WTConsole = require('@unpourtous/wt-console').default
       if (this.props.customWTConsoleTab) {
         const { name, view } = this.props.customWTConsoleTab
-        let Dashboard = require('@unpourtous/wt-console').Dashboard
+        const Dashboard = require('@unpourtous/wt-console').Dashboard
         Dashboard.register({}, { tabLabel: name || '自定义' }, view)
       }
-      return <WTConsole
-        options={{
-          logServerUrl: 'http://wt-console-server.com/upload',
-          maxLogLine: 1000,
-          ignoreFilter: function () {
-            const filterRule = /%c prev state|%c next state|%c action|%c CHANGED|[action] Navigation\/|%c ADDED/g
-            return ((arguments && typeof arguments[0] === 'string' && arguments[0].match(filterRule)) ||
-              (typeof arguments[1] === 'string' && arguments[1].match(filterRule)))
-          },
-          ...(this.props.wtConsoleOptions || {})
-        }} />
+      return (
+        <WTConsole
+          options={{
+            logServerUrl: 'http://wt-console-server.com/upload',
+            maxLogLine: 1000,
+            ignoreFilter: function () {
+              const filterRule = /%c prev state|%c next state|%c action|%c CHANGED|[action] Navigation\/|%c ADDED/g
+              return ((arguments && typeof arguments[0] === 'string' && arguments[0].match(filterRule)) ||
+                (typeof arguments[1] === 'string' && arguments[1].match(filterRule)))
+            },
+            ...(this.props.wtConsoleOptions || {})
+          }}
+        />
+      )
     }
   }
 
@@ -103,9 +106,10 @@ export default class TridentApp extends Component {
           <this.connectedContainer>
             <StatusBar translucent backgroundColor='transparent' />
             <Navigator />
-            <PopupStub maskColor='rgba(0,0,0,0.75)' ref={_ref => {
-              if (_ref) PopupStub.init(_ref)
-            }}
+            <PopupStub
+              maskColor='rgba(0,0,0,0.75)' ref={_ref => {
+                if (_ref) PopupStub.init(_ref)
+              }}
             />
             {this._renderWTConsole()}
 

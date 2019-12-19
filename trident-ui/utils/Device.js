@@ -9,6 +9,7 @@ import {
 
 export default class Device {
   static containerHeight = Dimensions.get('window').height
+
   static isPhoneX () {
     return Platform.OS === 'ios' && (Dimensions.get('window').height === 812 || Dimensions.get('window').height === 896)
   }

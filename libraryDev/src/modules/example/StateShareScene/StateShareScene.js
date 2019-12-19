@@ -21,10 +21,12 @@ export default class StateShareScene extends WeBaseScene {
     return (
       <Column style={{ flex: 1 }}>
         <Column.MainCenter.CrossCenter style={{ flex: 1 }}>
-          <Text style={{ fontSize: 20 }}>moduleCount(Share between module): <Text
-            style={{ color: 'green' }}>{moduleCount}</Text></Text>
-          <Text style={{ fontSize: 20, marginTop: 30 }}>globalCount(Share global): <Text
-            style={{ color: 'green' }}>{globalCount}</Text></Text>
+          <Text style={{ fontSize: 20 }}>
+            moduleCount(Share between module): <Text style={{ color: 'green' }}>{moduleCount} </Text>
+          </Text>
+          <Text style={{ fontSize: 20, marginTop: 30 }}>
+            globalCount(Share global): <Text style={{ color: 'green' }}>{globalCount} </Text>
+          </Text>
         </Column.MainCenter.CrossCenter>
         <ObjectView {...this.props} />
       </Column>
