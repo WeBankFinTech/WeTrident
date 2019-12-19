@@ -39,9 +39,9 @@ WeTrident目前仅支持macOS操作系统。通过使用 `@webank/trident-cli` �
 
 ## 创建项目
 
-为了快速的理解WeTrident的使用，我们从一个简单应用开始，逐步的说明各种基础用法。整个讲解过程中一些UI细节实现不会详细描述，所以建议你把WeBookStore的git库clone下来，跟着尝试会有比较不错的效果。
+为了快速的理解WeTrident的使用，我们从一个简单应用开始，逐步的说明各种基础用法。整个讲解过程中一些UI细节实现不会详细描述，你可以通过阅读[快速入门](https://webankfintech.github.io/WeTrident/docs/getting-started)，来完成一个简单的图书管理App。
 
-我们开发一个简单的图书管理App，App的页面如下：
+App的页面大致如下：
 
 ![](assets/images/webook-store.png)
 
@@ -103,9 +103,9 @@ maven{ url'http://maven.aliyun.com/nexus/content/repositories/jcenter'}
 maven{ url 'https://maven.google.com' }
 ```
 
-恭喜你，到这里你已经成功的创建并运行了一个新的WeTrident工程。需要调试可以使用React Native官方调试工具，调试前请先安装最新版本Chrome。具体使用方法见： [React Native调试方法](https://facebook.github.io/react-native/docs/0.51/debugging)
+恭喜你，到这里你已经成功的创建并运行了一个新的WeTrident工程。需要调试可以使用React Native官方调试工具，调试前请先安装最新版本Chrome。具体使用方法见： [React Native调试方法](https://facebook.github.io/react-native/docs/0.51/debugging)。
 
-更多文档见 [快速开始](https://webankfintech.github.io/WeTrident/docs/getting-started)
+WeTrident的完整文档请访问：https://webankfintech.github.io/WeTrident
 
 ## 社区
 
