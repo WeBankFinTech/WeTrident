@@ -1,7 +1,6 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import _ from 'lodash'
 import PropTypes from 'prop-types'
-import WePropTypes from '../utils/WePropTypes'
 
 export default class ThemeableComponent extends Component {
   static contextTypes = {
@@ -9,6 +8,7 @@ export default class ThemeableComponent extends Component {
   }
 
   themeStyleKeys = ['style']
+
   themeValueKeys = []
 
   getComponentTheme () {
@@ -19,7 +19,7 @@ export default class ThemeableComponent extends Component {
         styles[key] = [theme[this.namespace][key], this.context[key], this.props[key]]
       });
       (this.themeValueKeys || []).forEach(key => {
-        styles[key]  = this.props[key] || this.context[key] || theme[this.namespace][key]
+        styles[key] = this.props[key] || this.context[key] || theme[this.namespace][key]
       })
       return {
         theme: {},
@@ -31,14 +31,5 @@ export default class ThemeableComponent extends Component {
       theme: {},
       ...this.props
     }
-  }
-
-  /**
-   * 检查属性是否是样式
-   * @param value
-   * @private
-   */
-  _isStyle (value) {
-    return PropTypes.checkPropTypes(WePropTypes.oneOfType(WePropTypes.viewPropTypesStyle, WePropTypes.textPropTypesStyle), value)
   }
 }

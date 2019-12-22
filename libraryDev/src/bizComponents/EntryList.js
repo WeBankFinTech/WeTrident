@@ -9,7 +9,8 @@ export default class EntryList extends Component {
         <View style={{
           marginVertical: 10,
           paddingHorizontal: 16
-        }}>
+        }}
+        >
           {this.props.children}
         </View>
       )
@@ -18,13 +19,18 @@ export default class EntryList extends Component {
       <View style={{
         flexDirection: 'column',
         paddingHorizontal: 16
-      }}>
+      }}
+      >
         {this.props.children.map((child, index) => {
-          return <View key={'i' + index} style={{
-            marginVertical: 10
-          }}>
-            {child}
-          </View>
+          return (
+            <View
+              key={'i' + index} style={{
+                marginVertical: 10
+              }}
+            >
+              {child}
+            </View>
+          )
         })}
       </View>
     )

@@ -2,17 +2,13 @@ import React, { Component } from 'react'
 
 import {
   View
+  , Linking
 } from 'react-native'
 import { AppNavigator, TridentStat } from '@webank/trident'
-import { Linking } from 'react-native'
 
 TridentStat.setOnStatEventHandler(require('./stat').default)
 
 export default class AppContainer extends Component {
-  constructor (props) {
-    super(props)
-  }
-
   componentDidMount () {
     Linking.addEventListener('url', ({ url }) => this._handleOpenURL(url))
 
@@ -39,8 +35,9 @@ export default class AppContainer extends Component {
         alignSelf: 'stretch',
         flexDirection: 'column',
         justifyContent: 'flex-start',
-        alignContent: 'center',
-      }}>
+        alignContent: 'center'
+      }}
+      >
         {this.props.children}
       </View>
     )

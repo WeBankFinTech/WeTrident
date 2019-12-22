@@ -1,4 +1,4 @@
-import {AxiosMocker} from '@webank/trident'
+import { AxiosMocker } from '@webank/trident'
 import ServerEnv from '../../../cgi/ServerEnv'
 // import {Mocker, Types} from '@unpourtous/mocker'
 
@@ -12,8 +12,8 @@ export default {
     response: [
       AxiosMocker.success({}),
       AxiosMocker.networkError(),
-      AxiosMocker.timeout(),
-    ],
+      AxiosMocker.timeout()
+    ]
   },
   requestTopicMock: {
     mockable: true,
@@ -24,7 +24,7 @@ export default {
     response: [
       AxiosMocker.success({}),
       AxiosMocker.networkError(),
-      AxiosMocker.timeout(),
+      AxiosMocker.timeout()
     ]
   },
   requestTopicCache: {
@@ -58,5 +58,5 @@ export default {
     desc: '请求消息列表(服务器错误)',
     request: {},
     response: []
-  },
+  }
 }

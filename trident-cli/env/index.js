@@ -1,7 +1,7 @@
 const { checkCmdAndVersion, checkEnvVar } = require('./_checkEnv')
 const chalk = require('chalk')
 const inquirer = require('inquirer')
-const execSync = (cmd) => require('child_process').execSync(cmd, {stdio: 'inherit'})
+const execSync = (cmd) => require('child_process').execSync(cmd, { stdio: 'inherit' })
 
 function checkAllVersion () {
   return [
@@ -84,11 +84,11 @@ function processCheckResult (checkResult) {
         resolve()
       } else {
         logGuide(installCmdList, installGuideList)
-        reject()
+        reject(new Error())
       }
     }, () => {
       logGuide(installCmdList, installGuideList)
-      reject()
+      reject(new Error())
     })
   })
 }
@@ -105,7 +105,7 @@ function autoInstallAndLogGuide (installCmdList, installGuideList) {
   })
 }
 
-function logGuide(installCmdList, installGuideList) {
+function logGuide (installCmdList, installGuideList) {
   installCmdList.forEach(item => {
     console.log(chalk.red(`请运行 ${item.installCmd} 安装${item.cmd}`))
   })
@@ -119,4 +119,3 @@ module.exports = {
   check: checkAllVersion,
   processCheckResult
 }
-

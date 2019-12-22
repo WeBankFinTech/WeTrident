@@ -10,7 +10,7 @@ export default (global, ModulePrivate) => ({
    * 定义scene级别数据的初始值
    */
   initialState: {
-    sceneCount: 0,
+    sceneCount: 0
   },
 
   /**
@@ -46,7 +46,7 @@ export default (global, ModulePrivate) => ({
    * 将module级别的共享数据映射到props
    */
   mapModuleState: state => ({
-    moduleCount: state.moduleCount,
+    moduleCount: state.moduleCount
   }),
 
   /**

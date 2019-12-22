@@ -26,12 +26,12 @@ export default class TabContainerScene extends WeBaseScene {
 
     // 自定义样式请参考 https://reactnavigation.org/docs/en/1.x/tab-based-navigation.html#customizing-the-appearance
     const MyTabNavigator = TabNavigator({
-      'Home': createSceneConnect(homeTabConfig)(homeTabConfig.component),
-      'UI': createSceneConnect(uiTabConfig)(uiTabConfig.component)
+      Home: createSceneConnect(homeTabConfig)(homeTabConfig.component),
+      UI: createSceneConnect(uiTabConfig)(uiTabConfig.component)
     }, {
-      navigationOptions: ({navigation}) => ({
-        tabBarIcon: ({focused, tintColor}) => {
-          const {routeName} = navigation.state
+      navigationOptions: ({ navigation }) => ({
+        tabBarIcon: ({ focused, tintColor }) => {
+          const { routeName } = navigation.state
           let iconSource
           if (routeName === 'Home') {
             iconSource = focused ? require('../images/icon-home-focus.png') : require('../images/icon-home.png')
@@ -41,8 +41,8 @@ export default class TabContainerScene extends WeBaseScene {
 
           // You can return any component that you like here! We usually use an
           // icon component from react-native-vector-icons
-          return <Image style={{width: 25, height: 25}} source={iconSource} resizeMode='cover' />
-        },
+          return <Image style={{ width: 25, height: 25 }} source={iconSource} resizeMode='cover' />
+        }
       }),
       tabBarComponent: TabBarBottom,
       tabBarPosition: 'bottom',

@@ -6,18 +6,19 @@ import {
 } from 'react-native'
 import PropTypes from 'prop-types'
 
-import React, { Component } from 'react'
-import { ProUI } from '../../values'
+import React from 'react'
 import ThemeableComponent from '../../theme/ThemeableComponent'
 
 export default class Checkbox extends ThemeableComponent {
   namespace = 'Checkbox'
+
   themeStyleKeys = [
     'style',
     'iconStyle',
     'activeStyle',
     'disabledStyle'
   ]
+
   static propTypes = {
     onPress: PropTypes.func,
     checked: PropTypes.bool,
@@ -62,7 +63,8 @@ export default class Checkbox extends ThemeableComponent {
       disabled={this.props.disabled}
       accessibilityTraits={this._getAccessibilityTraits()}
       accessibilityComponentType={this._getAccessibilityTraitsAndroid()}
-      accessibilityLabel={this.props.label}>
+      accessibilityLabel={this.props.label}
+    >
       <View style={[style, checked ? activeStyle : {}, disabled ? disabledStyle : {}]}>
         {checked ? <Image
           style={iconStyle}

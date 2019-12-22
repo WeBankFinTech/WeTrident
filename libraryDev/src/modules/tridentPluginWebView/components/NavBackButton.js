@@ -10,7 +10,6 @@ import {
 import { WeTouchable } from '@unpourtous/react-native-touchable'
 import { AppNavigator } from '@webank/trident'
 
-
 export default class NavBackButton extends Component {
   static propTypes = {
     onPress: PropTypes.func
@@ -23,10 +22,11 @@ export default class NavBackButton extends Component {
   render () {
     return (
       <WeTouchable
-        hitSlop={{top: 10, left: 20, bottom: 10, right: 20}}
-        onPress={this.props.onPress}>
+        hitSlop={{ top: 10, left: 20, bottom: 10, right: 20 }}
+        onPress={this.props.onPress}
+      >
         <View style={styles.backContainer}>
-          <Image style={styles.icon} source={require('../images/back-icon.png')}/>
+          <Image style={styles.icon} source={require('../images/back-icon.png')} />
         </View>
       </WeTouchable>
     )
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   backContainer: {
     alignItems: 'center',
     flexDirection: 'row',
-    backgroundColor: 'transparent',
+    backgroundColor: 'transparent'
   },
   icon:
     Platform.OS === 'ios'
@@ -48,13 +48,13 @@ const styles = StyleSheet.create({
         marginRight: 22,
         marginVertical: 12,
         resizeMode: 'contain',
-        transform: [{ scaleX: I18nManager.isRTL ? -1 : 1 }],
+        transform: [{ scaleX: I18nManager.isRTL ? -1 : 1 }]
       }
       : {
         height: 24,
         width: 24,
         margin: 16,
         resizeMode: 'contain',
-        transform: [{ scaleX: I18nManager.isRTL ? -1 : 1 }],
-      },
+        transform: [{ scaleX: I18nManager.isRTL ? -1 : 1 }]
+      }
 })

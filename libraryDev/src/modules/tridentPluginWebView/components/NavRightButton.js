@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import {
   View,
   Text
@@ -19,24 +19,27 @@ export default class NavRightButton extends Component {
   render () {
     const {
       onPress,
-      titleColor = '#007AFF',
+      titleColor = '#007AFF'
     } = this.props
     return (
       <WeTouchable onPress={onPress}>
         <View
-          hitSlop={{top: 10, bottom: 10, left: 10, right: 10}}
+          hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
           style={[{
             flex: 1,
             alignItems: 'flex-end',
             justifyContent: 'center',
             paddingRight: 10,
             width: 70
-          }, this.props.titleWrapperStyle]}>
+          }, this.props.titleWrapperStyle]}
+        >
           <Text
             style={{
               fontSize: 14,
               color: titleColor
-            }}>{this.props.title}</Text>
+            }}
+          >{this.props.title}
+          </Text>
         </View>
       </WeTouchable>
     )

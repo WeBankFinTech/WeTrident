@@ -5,7 +5,6 @@ const installAll = () => {
   process.chdir('ios')
   execSync('pod install')
   process.chdir('..')
-
 }
 
 module.exports = {

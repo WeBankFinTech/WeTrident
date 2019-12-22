@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types'
-import React, {Component} from 'react'
-import {Image, View} from 'react-native'
+import React, { Component } from 'react'
+import { Image, View } from 'react-native'
 import IconNames from './IconNames'
-import {iconNamePropType} from '../../propTypeUtils'
+import { iconNamePropType } from '../../propTypeUtils'
 
 export default class Icon extends Component {
   static Names = IconNames
+
   static propTypes = {
     name: iconNamePropType.isRequired,
     style: PropTypes.any,
@@ -57,7 +58,7 @@ export default class Icon extends Component {
     return (
       <View style={style}>
         <Image
-          style={{width: size.width, height: size.height}}
+          style={{ width: size.width, height: size.height }}
           source={src.uri}
         />
       </View>

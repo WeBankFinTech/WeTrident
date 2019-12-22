@@ -8,7 +8,7 @@ const AppContainerConfig = {
   asyncActions: (actions) => ({
   }),
   reducers: {
-    addGlobalCount: (state, action) => ({...state, globalCount: state.globalCount + action.payload})
+    addGlobalCount: (state, action) => ({ ...state, globalCount: state.globalCount + action.payload })
   }
 }
 

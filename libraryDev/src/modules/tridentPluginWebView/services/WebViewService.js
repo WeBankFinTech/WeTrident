@@ -24,11 +24,10 @@ class WebViewService {
           data
         } = argsFromWeb
         handler(data)
-        sceneContext.postMessageToWebView({...argsFromWeb, args: null, isSuccess: true})
+        sceneContext.postMessageToWebView({ ...argsFromWeb, args: null, isSuccess: true })
       }
     }
   }
-
 
   addAsyncApiHandler (key, handler) {
     if (typeof key === 'string' && typeof handler === 'function') {
@@ -37,10 +36,10 @@ class WebViewService {
           data
         } = argsFromWeb
         handler(data).then(res => {
-          sceneContext.postMessageToWebView({...argsFromWeb, args: res, isSuccess: true})
+          sceneContext.postMessageToWebView({ ...argsFromWeb, args: res, isSuccess: true })
         }, err => {
           console.log('[WebViewService.addAsyncApiHandler] reject %o', err)
-          sceneContext.postMessageToWebView({...argsFromWeb, args: err, isSuccess: false})
+          sceneContext.postMessageToWebView({ ...argsFromWeb, args: err, isSuccess: false })
         })
       }
     }
@@ -54,9 +53,9 @@ class WebViewService {
     } = argsFromWeb
     if (text) {
       Toast.show(text)
-      sceneContext.postMessageToWebView({...argsFromWeb, args: null, isSuccess: true})
+      sceneContext.postMessageToWebView({ ...argsFromWeb, args: null, isSuccess: true })
     } else {
-      sceneContext.postMessageToWebView({...argsFromWeb, args: {message: 'text can\' be null'}, isSuccess: false})
+      sceneContext.postMessageToWebView({ ...argsFromWeb, args: { message: 'text can\' be null' }, isSuccess: false })
     }
   }
 
@@ -67,7 +66,7 @@ class WebViewService {
       } = {}
     } = argsFromWeb
     show ? Loading.show() : Loading.hide()
-    sceneContext.postMessageToWebView({...argsFromWeb, args: null, isSuccess: true})
+    sceneContext.postMessageToWebView({ ...argsFromWeb, args: null, isSuccess: true })
   }
 
   setNavBarRightButton (sceneContext, argsFromWeb) {
@@ -81,7 +80,7 @@ class WebViewService {
       showRightButton: show,
       rightButtonText: text,
       onPressRightButton: show ? () => {
-        sceneContext.postMessageToWebView({...argsFromWeb, args: null, isSuccess: true})
+        sceneContext.postMessageToWebView({ ...argsFromWeb, args: null, isSuccess: true })
       } : null
     })
   }

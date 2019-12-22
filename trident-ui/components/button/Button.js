@@ -1,26 +1,26 @@
-import {
-  View,
-  StyleSheet,
-  Text,
-  Keyboard
-} from 'react-native'
-
 /**
  * Created by vengeanliu on 17/3/1.
  */
 
 import PropTypes from 'prop-types'
 
-import React, { Component } from 'react'
+import {
+  View,
+  Text,
+  Keyboard
+} from 'react-native'
+
+import React from 'react'
 import WeTouchable from '../../lib/WeTouchable'
-import { ProUI } from '../../values'
 import ThemeableComponent from '../../theme/ThemeableComponent'
 
 export default class Button extends ThemeableComponent {
   namespace = 'Button'
+
   themeStyleKeys = [
     'style', 'textStyle'
   ]
+
   themeValueKeys = ['activeColor']
 
   static propTypes = {
@@ -39,14 +39,14 @@ export default class Button extends ThemeableComponent {
       style,
 
       textStyle,
-      activeColor,
+      activeColor
     } = this.getComponentTheme()
 
     const {
       disabled,
       onPress,
       text,
-      rid,
+      rid
     } = this.props
 
     return (
@@ -61,7 +61,8 @@ export default class Button extends ThemeableComponent {
             Keyboard.dismiss()
             onPress()
           }
-        }}>
+        }}
+      >
         <View style={[style, this.props.style]}>
           <Text style={[{ color: '#fff', backgroundColor: 'transparent' }, textStyle]}>{text}</Text>
         </View>

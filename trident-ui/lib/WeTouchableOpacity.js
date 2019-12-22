@@ -13,6 +13,7 @@ export default class WeTouchableOpacity extends Component {
     activeOpacity: PropTypes.number,
     onPress: PropTypes.func.isRequired
   }
+
   static defaultProps = {
     activeOpacity: 0.6,
     type: 'opacity'
@@ -25,8 +26,9 @@ export default class WeTouchableOpacity extends Component {
         onPress={() => {
           this.props.onPress()
         }}
-        activeOpacity={this.props.activeOpacity || WeTouchableOpacity.defaultProps.activeOpacity}>
-        {this.props.disabled ? <View style={{opacity: 0.3}}>{this.props.children}</View> : this.props.children}
+        activeOpacity={this.props.activeOpacity || WeTouchableOpacity.defaultProps.activeOpacity}
+      >
+        {this.props.disabled ? <View style={{ opacity: 0.3 }}>{this.props.children}</View> : this.props.children}
       </TouchableOpacity>
     )
   }

@@ -7,7 +7,6 @@ const releaseAndroid = () => {
 const releaseIOS = () => {
   execSync('node ./node_modules/react-native/local-cli/cli.js bundle --entry-file index.js --platform ios --dev false --reset-cache --bundle-output ./ios/main.jsbundle --assets-dest "./ios"')
   execSync('bundle exec fastlane ios release --verbose')
-
 }
 
 module.exports = {

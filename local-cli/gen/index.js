@@ -38,7 +38,7 @@ function checkNameValid (moduleName) {
   }
 
   if (!moduleName) {
-    console.log(chalk.red(`Empty module name`))
+    console.log(chalk.red('Empty module name'))
     return false
   }
   return true
@@ -105,7 +105,7 @@ function _generateScene (moduleName, options = {}) {
         sceneName = _.upperFirst(sceneName)
 
         if (!sceneName) {
-          console.log(chalk.red(`Empty scene name`))
+          console.log(chalk.red('Empty scene name'))
           process.exit()
         }
 
@@ -167,7 +167,7 @@ function _generateModule (options) {
       }])
     }
     moduleNamePromise.then(answers => {
-      let { moduleName } = answers
+      const { moduleName } = answers
 
       if (!checkNameValid(moduleName)) {
         process.exit()

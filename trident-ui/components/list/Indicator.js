@@ -11,8 +11,8 @@ import {
   ViewPropTypes
   // Easing
 } from 'react-native'
-import React, {Component} from 'react'
-import {ProUI} from '../../values'
+import React, { Component } from 'react'
+import { ProUI } from '../../values'
 
 export default class Indicator extends Component {
   static propTypes = {

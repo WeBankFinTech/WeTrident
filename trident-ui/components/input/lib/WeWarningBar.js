@@ -2,7 +2,7 @@
  * 组件功能：警告的橙色bar 多用于表单填写不符时显示的警告信息
  * created by raganyayoung on 2018/03/23
  */
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import { View, Text, StyleSheet, Platform } from 'react-native'
 
 import PropTypes from 'prop-types'
@@ -26,7 +26,7 @@ export default class WeWarningBar extends Component {
 
     return (
       <View style={[styles.warning, this.props.style]}>
-        <View style={[styles.triangleWrapper, Platform.OS === 'android' ? {bottom: -0.5} : null]}>
+        <View style={[styles.triangleWrapper, Platform.OS === 'android' ? { bottom: -0.5 } : null]}>
           <View style={[styles.triangle]} />
         </View>
         {this.props.renderContent ? (

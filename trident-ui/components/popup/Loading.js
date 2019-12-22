@@ -2,13 +2,14 @@
  * Created by vengeanliu on 2017/7/28.
  * Updated by lemorili
  */
-import React, { Component } from 'react'
-import { View, Animated, StyleSheet, Image } from 'react-native'
+import React from 'react'
+import { View, Animated, StyleSheet } from 'react-native'
 import { PopupStub } from '@unpourtous/react-native-popup-stub'
 import ThemeableComponent from '../../theme/ThemeableComponent'
 
 export default class Loading extends ThemeableComponent {
   namespace = 'Loading'
+
   static _id = null
 
   constructor (props) {
@@ -80,24 +81,30 @@ export default class Loading extends ThemeableComponent {
     return (
       <View style={style}>
         <View style={styles.dotContainer}>
-          <Animated.View renderToHardwareTextureAndroid style={[styles.dot, {
-            opacity: this.state.rotate.interpolate({
-              inputRange: [0, 1, 2, 3],
-              outputRange: [0.2, 1, 0.2, 0.2]
-            })
-          }]} />
-          <Animated.View renderToHardwareTextureAndroid style={[styles.dot, {
-            opacity: this.state.rotate.interpolate({
-              inputRange: [0, 1, 2, 3],
-              outputRange: [0.2, 0.2, 1, 0.2]
-            })
-          }]} />
-          <Animated.View renderToHardwareTextureAndroid style={[styles.dot, {
-            opacity: this.state.rotate.interpolate({
-              inputRange: [0, 1, 2, 3],
-              outputRange: [0.2, 0.2, 0.2, 1]
-            })
-          }]} />
+          <Animated.View
+            renderToHardwareTextureAndroid style={[styles.dot, {
+              opacity: this.state.rotate.interpolate({
+                inputRange: [0, 1, 2, 3],
+                outputRange: [0.2, 1, 0.2, 0.2]
+              })
+            }]}
+          />
+          <Animated.View
+            renderToHardwareTextureAndroid style={[styles.dot, {
+              opacity: this.state.rotate.interpolate({
+                inputRange: [0, 1, 2, 3],
+                outputRange: [0.2, 0.2, 1, 0.2]
+              })
+            }]}
+          />
+          <Animated.View
+            renderToHardwareTextureAndroid style={[styles.dot, {
+              opacity: this.state.rotate.interpolate({
+                inputRange: [0, 1, 2, 3],
+                outputRange: [0.2, 0.2, 0.2, 1]
+              })
+            }]}
+          />
         </View>
       </View>
     )

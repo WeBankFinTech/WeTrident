@@ -3,7 +3,7 @@ const fs = require('fs')
 const chalk = require('chalk')
 
 module.exports = (relativeCmdPath) => {
-  let rnPath = undefined
+  let rnPath
   if (fs.existsSync('node_modules/react-native/')) {
     rnPath = 'node_modules/react-native/'
   } else if (fs.existsSync('node_modules/@webank/trident/node_modules/react-native/')) {

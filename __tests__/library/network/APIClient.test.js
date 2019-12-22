@@ -6,7 +6,7 @@ beforeEach(() => {
   console.log('Starting the APIClient test server')
   const startServer = require('./APIClient.server')
   httpServer = startServer()
-});
+})
 
 afterEach(() => {
   if (httpServer) {
@@ -20,13 +20,13 @@ test('APIClient test global addHeaders', () => {
 
   const postCommonHeader = { testHeader: 'testHeader' }
   APIClient.addHeaders(postCommonHeader, /.*/)
-  let mergeHeaders = APIClient._mergeHeaders({
+  const mergeHeaders = APIClient._mergeHeaders({
     method: 'post',
     url: '/url1',
     desc: 'request a error url(post)',
     request: {}
   })
-  expect(mergeHeaders['testHeader']).toBe(postCommonHeader['testHeader'])
+  expect(mergeHeaders.testHeader).toBe(postCommonHeader.testHeader)
   expect(Object.keys(mergeHeaders)).toEqual(expect.arrayContaining(['Accept', 'testHeader']))
 })
 
@@ -55,20 +55,20 @@ test('APIClient addHeaders with match rule', () => {
     desc: 'request hostb.com(post)',
     request: {}
   })
-  expect(mergeHeadersA['testHeaderA']).toBe(postHostAHeader['testHeaderA'])
-  expect(mergeHeadersB['testHeaderB']).toBe(postHostBHeader['testHeaderB'])
+  expect(mergeHeadersA.testHeaderA).toBe(postHostAHeader.testHeaderA)
+  expect(mergeHeadersB.testHeaderB).toBe(postHostBHeader.testHeaderB)
   expect(Object.keys(mergeHeadersA)).toEqual(['Accept', 'testHeaderA'])
   expect(Object.keys(mergeHeadersB)).toEqual(['Accept', 'testHeaderB'])
 
   APIClient.addHeaders({ aaaa: 'bbbb' }, 'post', undefined)
-  let postMergeHeaders = APIClient._mergeHeaders({
+  const postMergeHeaders = APIClient._mergeHeaders({
     method: 'post',
     baseURL: 'https://hosta.com',
     url: '/url1',
     desc: 'request hosta.com(post)',
     request: {}
   })
-  let getMergeHeaders = APIClient._mergeHeaders({
+  const getMergeHeaders = APIClient._mergeHeaders({
     method: 'get',
     baseURL: 'https://hosta.com',
     url: '/url1',
@@ -147,25 +147,25 @@ test('APIClient _checkCGIFormat', () => {
 describe('network request', () => {
   test('normal request', async () => {
     const APIClient = new APIClientCls()
-      await APIClient.request().then(() => {}, (error) => {
-        expect(error).toEqual('invalid api config')
-      })
+    await APIClient.request().then(() => {}, (error) => {
+      expect(error).toEqual(new Error('invalid api config'))
+    })
 
     await APIClient.request({
       baseURL: 'http://localhost:4444',
       method: 'get',
       url: '/v1/bookList',
       desc: 'request book list',
-      request: {},
+      request: {}
     }).then((response) => {
       expect(response.data).toEqual([{
-        'title': '算法导论',
-        'author': '[美] Thomas H.Cormen / Charles E.Leiserson / Ronald L.Rivest / Clifford Stein',
-        'ISBN': '9787111187776'
+        title: '算法导论',
+        author: '[美] Thomas H.Cormen / Charles E.Leiserson / Ronald L.Rivest / Clifford Stein',
+        ISBN: '9787111187776'
       }, {
-        'title': '代码大全',
-        'author': '[美] 史蒂夫·迈克康奈尔',
-        'ISBN': '9787121022982'
+        title: '代码大全',
+        author: '[美] 史蒂夫·迈克康奈尔',
+        ISBN: '9787121022982'
       }])
     }, (error) => {
       expect(error).toEqual(null)
@@ -176,16 +176,16 @@ describe('network request', () => {
       method: 'post',
       url: '/v1/bookList',
       desc: 'request book list',
-      request: {},
+      request: {}
     }).then((response) => {
       expect(response.data).toEqual([{
-        'title': '算法导论',
-        'author': '[美] Thomas H.Cormen / Charles E.Leiserson / Ronald L.Rivest / Clifford Stein',
-        'ISBN': '9787111187776'
+        title: '算法导论',
+        author: '[美] Thomas H.Cormen / Charles E.Leiserson / Ronald L.Rivest / Clifford Stein',
+        ISBN: '9787111187776'
       }, {
-        'title': '代码大全',
-        'author': '[美] 史蒂夫·迈克康奈尔',
-        'ISBN': '9787121022982'
+        title: '代码大全',
+        author: '[美] 史蒂夫·迈克康奈尔',
+        ISBN: '9787121022982'
       }])
     }, (error) => {
       expect(error).toEqual(null)
@@ -199,12 +199,12 @@ describe('network request', () => {
       method: 'get',
       url: '/v1/book/:id',
       desc: 'request book detail',
-      request: {},
+      request: {}
     }, undefined, { id: '9787111187776' }).then((response) => {
       expect(response.data).toEqual({
-        'title': '算法导论',
-        'author': '[美] Thomas H.Cormen / Charles E.Leiserson / Ronald L.Rivest / Clifford Stein',
-        'ISBN': '9787111187776'
+        title: '算法导论',
+        author: '[美] Thomas H.Cormen / Charles E.Leiserson / Ronald L.Rivest / Clifford Stein',
+        ISBN: '9787111187776'
       })
     }, (error) => {
       expect(error).toEqual(null)
@@ -263,14 +263,14 @@ describe('network request', () => {
       console.log(response)
       expect(response.data).toEqual([
         {
-          'ISBN': '9787111187776',
-          'author': '[美] Thomas H.Cormen / Charles E.Leiserson / Ronald L.Rivest / Clifford Stein',
-          'title': '算法导论'
+          ISBN: '9787111187776',
+          author: '[美] Thomas H.Cormen / Charles E.Leiserson / Ronald L.Rivest / Clifford Stein',
+          title: '算法导论'
         },
         {
-          'ISBN': '9787121022982',
-          'author': '[美] 史蒂夫·迈克康奈尔',
-          'title': '代码大全'
+          ISBN: '9787121022982',
+          author: '[美] 史蒂夫·迈克康奈尔',
+          title: '代码大全'
         }
       ])
     }, error => {
@@ -313,9 +313,9 @@ describe('network request', () => {
       cacheMaxAgeInMs: 10000
     }).then((response) => {
       expect(response.data).toEqual([{
-        'title': '代码大全',
-        'author': '[美] 史蒂夫·迈克康奈尔',
-        'ISBN': '9787121022982'
+        title: '代码大全',
+        author: '[美] 史蒂夫·迈克康奈尔',
+        ISBN: '9787121022982'
       }])
 
       expect(response.fromCache).toEqual(undefined)
@@ -335,9 +335,9 @@ describe('network request', () => {
     }).then((response) => {
       console.log('response.data: ', response.data)
       expect(response.data).toEqual([{
-        'title': '代码大全',
-        'author': '[美] 史蒂夫·迈克康奈尔',
-        'ISBN': '9787121022982'
+        title: '代码大全',
+        author: '[美] 史蒂夫·迈克康奈尔',
+        ISBN: '9787121022982'
       }])
 
       expect(response.fromCache).toEqual(true)
@@ -354,9 +354,9 @@ describe('network request', () => {
       cacheMaxAgeInMs: 0
     }).then((response) => {
       expect(response.data).toEqual([{
-        'title': '代码大全',
-        'author': '[美] 史蒂夫·迈克康奈尔',
-        'ISBN': '9787121022982'
+        title: '代码大全',
+        author: '[美] 史蒂夫·迈克康奈尔',
+        ISBN: '9787121022982'
       }])
       expect(response.fromCache).toEqual(undefined)
     })
@@ -371,9 +371,9 @@ describe('network request', () => {
     }, undefined, undefined, undefined).then((response) => {
       console.log('response.data: ', response.data)
       expect(response.data).toEqual([{
-        'title': '代码大全',
-        'author': '[美] 史蒂夫·迈克康奈尔',
-        'ISBN': '9787121022982'
+        title: '代码大全',
+        author: '[美] 史蒂夫·迈克康奈尔',
+        ISBN: '9787121022982'
       }])
 
       expect(response.fromCache).toEqual(undefined)
@@ -389,13 +389,12 @@ describe('network request', () => {
     }, undefined, undefined, undefined).then((response) => {
       console.log('response.data: ', response.data)
       expect(response.data).toEqual([{
-        'title': '代码大全',
-        'author': '[美] 史蒂夫·迈克康奈尔',
-        'ISBN': '9787121022982'
+        title: '代码大全',
+        author: '[美] 史蒂夫·迈克康奈尔',
+        ISBN: '9787121022982'
       }])
 
       expect(response.fromCache).toEqual(true)
     })
   })
-
 })
