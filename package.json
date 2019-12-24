@@ -26,7 +26,7 @@
     "url": "http://github.com/WeBankFinTech/WeTrident/issues"
   },
   "homepage": "http://github.com/WeBankFinTech/WeTrident",
-  "description": "可快速开发支持商业运营App的框架。",
+  "description": "一站式金融App开发套件。",
   "dependencies": {
     "@babel/parser": "^7.4.3",
     "@babel/traverse": "^7.4.3",
