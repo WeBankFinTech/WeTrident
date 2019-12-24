@@ -48,8 +48,8 @@ class SceneTraversal {
     } else if (_.isString(type)) {
       attr.type = type
     }
-    attr._className = node.stateNode && node.stateNode.constructor.name || ''
-    attr._parentKey = node !== rootNode && node.return && node.return._debugSource || ''
+    attr._className = (node.stateNode && node.stateNode.constructor.name) || ''
+    attr._parentKey = (node !== rootNode && node.return && node.return._debugSource) || ''
 
     const memoizedProps = node.memoizedProps || {}
     const props = _.omit(_.pickBy(memoizedProps, (value, key) => !_.isObject(value)), ['isEnabled'])
@@ -320,8 +320,8 @@ class SceneTraversal {
     }
 
     return !_.isEmpty(currentScene) &&
-          (!this.activeTab.tabModule && !this.activeTab.tabName) ||
-          ((TabConfig[currentScene[0]] && TabConfig[currentScene[0]][currentScene[1]]) && moduleName === currentScene[0] && moduleName === this.activeTab.tabModule && sceneName === this.activeTab.tabName)
+      ((!this.activeTab.tabModule && !this.activeTab.tabName) ||
+        ((TabConfig[currentScene[0]] && TabConfig[currentScene[0]][currentScene[1]]) && moduleName === currentScene[0] && moduleName === this.activeTab.tabModule && sceneName === this.activeTab.tabName))
   }
 
   _isMatchWhitelist () {
@@ -488,7 +488,7 @@ class DataRecorder {
 
     this.websocket.onmessage = evt => {
       const data = evt.data
-      const dataType = data && data.length > 0 && data[0] || ''
+      const dataType = (data && data.length > 0 && data[0]) || ''
       switch (dataType) {
         case '0':
           this._onHandShake()
