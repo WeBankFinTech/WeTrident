@@ -107,6 +107,15 @@ maven{ url 'https://maven.google.com' }
 
 WeTrident的完整文档请访问：https://webankfintech.github.io/WeTrident
 
+## Contributors
+<div>
+  <a href="https://github.com/erichua23"><img width="60" height="60" src="https://avatars0.githubusercontent.com/u/1309744?s=460&v=4" /></a>
+  <a href="https://github.com/rcrab"><img width="60" height="60" src="https://avatars3.githubusercontent.com/u/58885868?s=460&v=4" /></a>
+  <a href="https://github.com/lhtin"><img width="60" height="60" src="https://avatars0.githubusercontent.com/u/13173904?s=460&v=4" /></a>
+  <a href="https://github.com/yatessss"><img width="60" height="60" src="https://avatars2.githubusercontent.com/u/13636879?s=460&v=4" /></a>
+  <a href="https://github.com/AKB48"><img width="60" height="60" src="https://avatars2.githubusercontent.com/u/4182867?s=460&v=4" /></a>
+</div>
+
 ## 社区
 
 | Github Issue | 微信群 |
