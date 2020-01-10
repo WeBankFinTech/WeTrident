@@ -451,6 +451,7 @@ class SceneTraversal {
           this.blacklist = _.get(content.strategy, 'blacklist', null)
         }
 
+        this.defaultGlobalErrorHandler = global.ErrorUtils.getGlobalHandler()
         global.ErrorUtils.setGlobalHandler((error, isFatal) => this.recordError(error))
 
         this.isPrepared = true
@@ -464,7 +465,7 @@ class SceneTraversal {
         break
       case 'close':
         this.isPrepared = false
-        global.ErrorUtils.setGlobalHandler(e => { throw e })
+        global.ErrorUtils.setGlobalHandler(this.defaultGlobalErrorHandler)
         break
     }
   }
