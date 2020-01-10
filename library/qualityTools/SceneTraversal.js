@@ -34,8 +34,6 @@ class SceneTraversal {
     this.cacheAction = null
     this.replay = false
     this.finishMarkOnBack = false
-
-    global.ErrorUtils.setGlobalHandler((error, isFatal) => this.recordError(error))
   }
 
   _getNodeKey (node, rootNode) {
@@ -453,6 +451,8 @@ class SceneTraversal {
           this.blacklist = _.get(content.strategy, 'blacklist', null)
         }
 
+        global.ErrorUtils.setGlobalHandler((error, isFatal) => this.recordError(error))
+
         this.isPrepared = true
         if (!_.isEmpty(this.cacheAction)) {
           const cacheModuleName = this.cacheAction.moduleName
@@ -464,6 +464,7 @@ class SceneTraversal {
         break
       case 'close':
         this.isPrepared = false
+        global.ErrorUtils.setGlobalHandler(e => { throw e })
         break
     }
   }
