@@ -87,3 +87,5 @@ website/release/*.zip
 .tridentTemp/
 
 coverage/
+
+package-lock.json
