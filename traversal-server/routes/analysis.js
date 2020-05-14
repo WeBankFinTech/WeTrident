@@ -3,7 +3,7 @@ var router = express.Router()
 
 /* GET analysis page. */
 router.get('/', function (req, res, next) {
-  const fileName = req.query && req.query.file || ''
+  const fileName = (req.query && req.query.file) || ''
   const title = `[${fileName.replace('.txt', '')}] Traversal Results`
   let traversingRecords
   let finishedRecords
@@ -26,7 +26,7 @@ router.get('/', function (req, res, next) {
           })
         }
       },
-      error => {
+      () => {
         res.render('analysis', {
           title,
           error: 'Encounter some errors! Try it again later please.'
@@ -65,28 +65,28 @@ function parseTraversingRecords (sourceData) {
         targetData[record[0]][record[1]][record[2]] = []
       }
     } else if (sourceData[index].trim().startWith('\\[error\\]') && index > 0 && sourceData[index - 1].trim().startWith('\\[traversal\\]')) {
-      const t_record = sourceData[index - 1].trim().replace('[traversal]', '').split('_')
-      const e_record = sourceData[index].trim().replace('[error]', '').split('_')
+      const tRecord = sourceData[index - 1].trim().replace('[traversal]', '').split('_')
+      const eRecord = sourceData[index].trim().replace('[error]', '').split('_')
 
       if (!targetData) {
         targetData = {}
       }
 
-      if (t_record[0] !== e_record[0] || t_record[1] !== e_record[1]) {
+      if (tRecord[0] !== eRecord[0] || tRecord[1] !== eRecord[1]) {
         continue
       }
 
-      if (!targetData[t_record[0]]) {
-        targetData[t_record[0]] = {}
+      if (!targetData[tRecord[0]]) {
+        targetData[tRecord[0]] = {}
       }
-      if (!targetData[t_record[0]][t_record[1]]) {
-        targetData[t_record[0]][t_record[1]] = {}
+      if (!targetData[tRecord[0]][tRecord[1]]) {
+        targetData[tRecord[0]][tRecord[1]] = {}
       }
-      if (!targetData[t_record[0]][t_record[1]][t_record[2]]) {
-        targetData[t_record[0]][t_record[1]][t_record[2]] = []
+      if (!targetData[tRecord[0]][tRecord[1]][tRecord[2]]) {
+        targetData[tRecord[0]][tRecord[1]][tRecord[2]] = []
       }
 
-      targetData[t_record[0]][t_record[1]][t_record[2]].push(e_record[2])
+      targetData[tRecord[0]][tRecord[1]][tRecord[2]].push(eRecord[2])
     }
   }
   return targetData
@@ -113,12 +113,12 @@ function parseFinishedRecords (sourceData) {
 function loadRecords (fileName) {
   const fs = require('fs')
   return new Promise((resolve, reject) => {
-    fs.exists(getFilePath(fileName), exists => {
-      if (exists) {
-        fs.readFile(getFilePath(fileName), (error, data) => {
-          if (error) {
-            console.log(error)
-            reject()
+    fs.access(getFilePath(fileName), fileNotExsitsError => {
+      if (!fileNotExsitsError) {
+        fs.readFile(getFilePath(fileName), (readFileError, data) => {
+          if (readFileError) {
+            console.log(readFileError)
+            reject(readFileError)
           } else {
             const traversingRecords = data.toString().trim().split('\n').filter(item => !!item && (item.trim().startWith('\\[traversal\\]') || item.trim().startWith('\\[error\\]')))
             const finishedRecords = data.toString().trim().split('\n').filter(item => !!item && item.trim().startWith('\\[finished\\]'))
