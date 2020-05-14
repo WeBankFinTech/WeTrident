@@ -3,7 +3,7 @@ var router = express.Router()
 
 /* GET analysis page. */
 router.get('/', function (req, res, next) {
-  const fileName = (req.query && req.query.file) || ''
+  const fileName = ((req.query && req.query.file) || '').replace(new RegExp('.+/', 'g'), '')
   const title = `[${fileName.replace('.txt', '')}] Traversal Results`
   let traversingRecords
   let finishedRecords
