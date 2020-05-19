@@ -161,18 +161,84 @@ class SceneTraversal {
     const nodeList = []
     const nodeQueue = [rootNode]
 
-    while (nodeQueue.length > 0) {
-      currentNode = nodeQueue.shift()
-      if (!this._isIgnored(currentNode) && this._isTouchable(currentNode)) {
-        nodeList.push(currentNode)
+    const _isTabRootNode = node => !_.isEmpty(node) && !_.isEmpty(node.stateNode) && node.stateNode.constructor.name === 'TabView'
+    const _flattenTabViewElements = tabRootNode => {
+      const results = []
+      const _tabViews = {}
+      let _tabNode
+      let tabNodeQueue = [tabRootNode]
+
+      // find out mathed tabs and contents
+      while (tabNodeQueue.length > 0) {
+        _tabNode = tabNodeQueue.shift()
+        if (!this._isIgnored(_tabNode)) {
+          if (!_.isEmpty(_tabNode.key) && !_.isEmpty(_tabNode.stateNode) && _tabNode.stateNode.constructor.name === 'TouchableItem') {
+            if (_.isEmpty(_tabViews[_tabNode.key])) {
+              _tabViews[_tabNode.key] = {}
+            }
+            _tabViews[_tabNode.key].tab = _tabNode
+          } else if (!_.isEmpty(_tabNode.key) && !_.isEmpty(_tabNode.stateNode) && _tabNode.stateNode.constructor.name === 'ResourceSavingSceneView') {
+            if (_.isEmpty(_tabViews[_tabNode.key])) {
+              _tabViews[_tabNode.key] = {}
+            }
+            _tabViews[_tabNode.key].content = _tabNode
+          }
+
+          _tabNode.child && tabNodeQueue.push(_tabNode.child)
+        }
+
+        if (_tabNode !== tabRootNode && _tabNode.sibling) {
+          tabNodeQueue.push(_tabNode.sibling)
+        }
       }
 
-      if (!this._isIgnored(currentNode) && currentNode.child) { // 父节点被屏蔽，子节点同样被屏蔽
-        nodeQueue.push(currentNode.child)
+      _.forEach(_tabViews, tabView => {
+        if (!_.isEmpty(tabView.tab) && !_.isEmpty(tabView.content)) {
+          // tab
+          tabNodeQueue = [tabView.tab]
+          while (tabNodeQueue.length > 0) {
+            _tabNode = tabNodeQueue.shift()
+            if (!this._isIgnored(_tabNode)) {
+              this._isTouchable(_tabNode) && results.push(_tabNode)
+              _tabNode.child && tabNodeQueue.push(_tabNode.child)
+            }
+
+            if (_tabNode !== tabView.tab && _tabNode.sibling) {
+              tabNodeQueue.push(_tabNode.sibling)
+            }
+          }
+
+          // content
+          tabNodeQueue = [tabView.content]
+          while (tabNodeQueue.length > 0) {
+            _tabNode = tabNodeQueue.shift()
+            if (!this._isIgnored(_tabNode)) {
+              this._isTouchable(_tabNode) && results.push(_tabNode)
+              _tabNode.child && tabNodeQueue.push(_tabNode.child)
+            }
+
+            if (_tabNode !== tabView.content && _tabNode.sibling) {
+              tabNodeQueue.push(_tabNode.sibling)
+            }
+          }
+        }
+      })
+
+      return results
+    }
+
+    while (nodeQueue.length > 0) {
+      currentNode = nodeQueue.shift()
+      if (!this._isIgnored(currentNode)) {
+        if (_isTabRootNode(currentNode)) {
+          nodeList.push(..._flattenTabViewElements(currentNode))
+        } else {
+          this._isTouchable(currentNode) && nodeList.push(currentNode)
+          currentNode.child && nodeQueue.push(currentNode.child) // 若父节点被屏蔽，子节点同样被屏蔽
+        }
       }
-      if (currentNode.sibling) {
-        nodeQueue.push(currentNode.sibling)
-      }
+
+      currentNode.sibling && nodeQueue.push(currentNode.sibling)
     }
 
     this.current.nodeList = nodeList
