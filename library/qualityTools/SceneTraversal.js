@@ -458,10 +458,12 @@ class SceneTraversal {
     }
   }
 
-  onDrawerOpen () {
+  onDrawerOpen (navigation = this.current.navigation) {
     try {
-      if (this.current.navigation) {
-        this.current.navigation.navigate('DrawerClose')
+      if (navigation) {
+        setTimeout(() => {
+          navigation.navigate('DrawerClose')
+        }, 10)
       }
     } catch (e) {
 

@@ -10,9 +10,10 @@ import {
   ModuleManager,
   createModuleConnect,
   createSceneConnect,
-  Theme
+  Theme,
+  WeDrawerNavigator
 } from '@webank/trident'
-import { TabNavigator, DrawerNavigator, TabBarBottom } from '@unpourtous/react-navigation'
+import { TabNavigator, TabBarBottom } from '@unpourtous/react-navigation'
 import ModulePrivate from '../'
 import HomeTab from './tabs/HomeTab'
 import SettingTab from './tabs/SettingTab'
@@ -54,7 +55,7 @@ export default class TabContainerScene extends WeBaseScene {
       initialRouteName: this.params.initialTab
     })
 
-    this.MyDrawerNavigator = new DrawerNavigator(
+    this.MyDrawerNavigator = new WeDrawerNavigator(
       {
         TabContainer: MyTabNavigator,
         TabContainer2: MyTabNavigator
