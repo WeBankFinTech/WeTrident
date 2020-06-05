@@ -14,10 +14,6 @@ const TabConfig = {
   //   HomeScene: []
   // }
 }
-const InitialScene = {
-  moduleName: 'example',
-  sceneName: 'DemoScene'
-}
 const InitialTab = {}
 
 class SceneTraversal {
@@ -342,7 +338,7 @@ class SceneTraversal {
   }
 
   _onTraversalEnd () {
-    if (this.current.moduleName === 'home') {
+    if (AppNavigator.getCurrentRoutes().length <= 1) {
       return
     }
 
@@ -361,12 +357,12 @@ class SceneTraversal {
   }
 
   _isCurrentScene (moduleName, sceneName) {
-    const routeName = _.get(AppNavigator, 'currentScene.routeName', '')
+    const routeName = _.get(AppNavigator,
+      'currentScene.routeName',
+      _.get(_.last(AppNavigator.getCurrentRoutes()), 'routeName', ''))
     let currentScene
     if (!_.isEmpty(routeName)) {
       currentScene = routeName.split('/')
-    } else if (!_.isEmpty(InitialScene) && !_.isEmpty(InitialScene.moduleName) && !_.isEmpty(InitialScene.sceneName)) {
-      currentScene = [InitialScene.moduleName, InitialScene.sceneName]
     }
 
     return !_.isEmpty(currentScene) &&
