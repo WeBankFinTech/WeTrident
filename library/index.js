@@ -1,5 +1,6 @@
 import TridentApp from './TridentApp'
 import AppNavigator from './navigation/AppNavigator'
+import WeDrawerNavigator from './navigation/react-navigation-ext/WeDrawerNavigator'
 import WeBaseScene from './base/WeBaseScene'
 import TridentStat from './statistics/TridentStat'
 import RNEnv from './utils/RNEnv'
@@ -12,6 +13,8 @@ export {
   TridentApp,
 
   AppNavigator,
+
+  WeDrawerNavigator,
 
   WeBaseScene,
 
