@@ -1,0 +1,89 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>界面开发 · WeTrident</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;p&gt;前一部分我们已经可以通过网络请求获取数据，那接下来我们为了体验更好，防止误操作，我们希望在点击&lt;code&gt;借阅&lt;/code&gt;的时候弹窗提示用户确认。并且在请求后台的过程中增加Loading，如果失败显示Toast。这些弹出层的内容，因为RN原生支持得不够好，所以WeTrident也支持来基础的几类组件。&lt;/p&gt;
+"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="界面开发 · WeTrident"/><meta property="og:type" content="website"/><meta property="og:url" content="undefined/WeTrident/"/><meta property="og:description" content="&lt;p&gt;前一部分我们已经可以通过网络请求获取数据，那接下来我们为了体验更好，防止误操作，我们希望在点击&lt;code&gt;借阅&lt;/code&gt;的时候弹窗提示用户确认。并且在请求后台的过程中增加Loading，如果失败显示Toast。这些弹出层的内容，因为RN原生支持得不够好，所以WeTrident也支持来基础的几类组件。&lt;/p&gt;
+"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/WeTrident/undefined"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css"/><script type="text/javascript" src="./scripts/codeblock.js"></script><script type="text/javascript" src="./scripts/buttons.js"></script><script type="text/javascript" src="./scripts/mta.js"></script><script src="/WeTrident/js/scrollSpy.js"></script><link rel="stylesheet" href="/WeTrident/css/main.css"/><script src="/WeTrident/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/WeTrident/"><h2 class="headerTitle">WeTrident</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/WeTrident/docs/getting-started" target="_self">使用文档</a></li><li class=""><a href="http://github.com/WeBankFinTech/WeTrident" target="_self">WeTrident@Github</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">界面开发</h1></header><article><div><span><p>前一部分我们已经可以通过网络请求获取数据，那接下来我们为了体验更好，防止误操作，我们希望在点击<code>借阅</code>的时候弹窗提示用户确认。并且在请求后台的过程中增加Loading，如果失败显示Toast。这些弹出层的内容，因为RN原生支持得不够好，所以WeTrident也支持来基础的几类组件。</p>
+<p>通过WeTrident提供的Dialog组件我们可以轻松的改造达到我们想要的效果。下面分别展示来Dialog、Loading、Toast的用法。</p>
+<pre><code class="hljs css language-js"><span class="hljs-comment">// modules/book/BookDetailScene/BookDetailScene.js</span>
+render () {
+  <span class="hljs-keyword">const</span> bookDetail = (<span class="hljs-keyword">this</span>.props.bookList || []).find(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> item.ISBN === <span class="hljs-keyword">this</span>.params.ISBN)
+
+  <span class="hljs-keyword">if</span> (!bookDetail) {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>
+  }
+  <span class="hljs-keyword">return</span> (
+    &lt;View&gt;
+      &lt;BookDetail {...bookDetail} /&gt;
+      &lt;SimpleButton
+        style={{
+          marginTop: 8,
+          paddingHorizontal: 8
+        }}
+        onPress={() =&gt; {
+          const id = Dialog.show({
+            texts: [`你确定借阅《${bookDetail.title}》吗？`],
+            items: [
+              {
+                text: '确定',
+                onItemPress: () =&gt; {
+                  Dialog.hide(id)
+
+                  Loading.show()
+                  BookDetailService.requestBorrowBook().then(response =&gt; {
+                    Loading.hide()
+                    Toast.show(response.data.ret_msg)
+                    AppNavigator.book.ResultScene({ISBN: this.params.ISBN})
+                  }, error =&gt; {
+                    Loading.hide()
+                    Toast.show('network error')
+                  })
+                }
+              },
+              {
+                text: '取消',
+                onItemPress: () =&gt; {
+                  Dialog.hide(id)
+                }
+              }
+            ]
+          })
+        }} title={'借阅'} /&gt;
+    &lt;/View&gt;
+  )
+}
+</code></pre>
+<p>紧接着根据<code>导航系统</code>部分介绍的内容，补充<code>ResultScene</code>中自定义导航栏的内容，到此基础的功能已经都完成了。</p>
+<p>接下来我们需要继续完成版本信息页面，也就是我们之前创建的<code>about/VersionScene</code>。这个页面需要获取App的版本号显示，所以需要原生模块的接入，所以我们继续学习如何在WeTrident项目中引入第三方带原生能力的组件。</p>
+<h2><a class="anchor" aria-hidden="true" id="trident-ui介绍"></a><a href="#trident-ui介绍" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>trident-ui介绍</h2>
+<p>trident-ui提供了基础的弹出层组件供开发者使用。可以直接通过接口调用方式显示和关闭Dialog、Toast、Loading等组件。</p>
+<h3><a class="anchor" aria-hidden="true" id="dialog"></a><a href="#dialog" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Dialog</h3>
+<pre><code class="hljs css language-js"><span class="hljs-comment">// 展示Dialog</span>
+<span class="hljs-keyword">const</span> dialogId = Dialog.show({
+  <span class="hljs-attr">texts</span>: [
+    <span class="hljs-string">'Hello...'</span>,
+    <span class="hljs-string">'WeTrident'</span>,
+  ],
+  <span class="hljs-attr">items</span>: [
+    {
+      <span class="hljs-attr">text</span>: <span class="hljs-string">'Confirm'</span>,
+      <span class="hljs-attr">onItemPress</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        <span class="hljs-comment">// 关闭Dialog</span>
+        Dialog.hide(dialogId)
+      }
+    }
+  ]
+})
+
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="loading"></a><a href="#loading" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Loading</h3>
+<pre><code class="hljs css language-js"><span class="hljs-comment">// 展示Loading</span>
+Loading.show()
+
+<span class="hljs-comment">// 关闭Loading</span>
+Loading.hide()
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="toast"></a><a href="#toast" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Toast</h3>
+<pre><code class="hljs css language-js"><span class="hljs-comment">// 展示Toast</span>
+Toast.show(<span class="hljs-string">'This is a Toast'</span>)
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="wetouchable"></a><a href="#wetouchable" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>WeTouchable</h3>
+<p>支持高亮、半透明、遮罩等效果的按压态组件。</p>
+</span></div></article></div><div class="docs-prevnext"></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#trident-ui介绍">trident-ui介绍</a><ul class="toc-headings"><li><a href="#dialog">Dialog</a></li><li><a href="#loading">Loading</a></li><li><a href="#toast">Toast</a></li><li><a href="#wetouchable">WeTouchable</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="copyright">Copyright © 2019 WeBank App Team</section></footer></div></body></html>

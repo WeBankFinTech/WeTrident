@@ -1,0 +1,97 @@
+{
+  "name": "@webank/trident",
+  "version": "1.0.2",
+  "main": "library/index.js",
+  "scripts": {
+    "test": "node_modules/jest/bin/jest.js",
+    "e2e": "./__tests__/scripts/test-manual-e2e.sh",
+    "patchVersion": "npm version patch && cd trident-cli && npm version patch && cd ..",
+    "publishAll": "npm config set registry=http://localhost:4873/ && npm unpublish @webank/trident --force && npm unpublish @webank/trident-cli --force && npm publish && cd trident-cli && npm publish",
+    "wpublishAll": "wnpm publish && cd trident-cli && wnpm publish",
+    "reinstallCli": "echo 'reinstall the newest trident-cli' && npm uninstall @webank/trident-cli -g && npm install @webank/trident-cli -g --verbose",
+    "wreinstallCli": "echo 'reinstall the newest trident-cli' && wnpm uninstall @webank/trident-cli -g && wnpm install @webank/trident-cli -g",
+    "npmLocalPublishAll": "npm version patch && npm publish --registry http://localhost:4873 && cd trident-cli && npm version patch && npm publish --registry http://localhost:4873",
+    "test-tpl": "echo 'test the trident framework' && rm -rf WeBookStore && trident-cli init --name=WeBookStore --bundleId=com.trident.wbstore --scheme=wbstore --eslint && cd WeBookStore && bundle exec fastlane ios release --verbose && bundle exec fastlane android release --verbose && rm -rf ./WeBookStore",
+    "syncLib": "watchman watch ./trident-ui && watchman watch ./library && wml add trident-ui libraryDev/node_modules/@webank/trident/trident-ui && wml add library libraryDev/node_modules/@webank/trident/library && wml start",
+    "styleCheck": "node_modules/standard/bin/cmd.js | node_modules/snazzy/bin/cmd.js",
+    "devEnv": "echo npmClient=$npmClient && echo useLocal=$useLocal"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+http://github.com/WeBankFinTech/WeTrident.git"
+  },
+  "author": "erichua",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "http://github.com/WeBankFinTech/WeTrident/issues"
+  },
+  "homepage": "http://github.com/WeBankFinTech/WeTrident",
+  "description": "一站式金融App开发套件。",
+  "dependencies": {
+    "@babel/parser": "^7.4.3",
+    "@babel/traverse": "^7.4.3",
+    "@babel/types": "^7.4.0",
+    "@unpourtous/react-native-popup-stub": "1.4.12",
+    "@unpourtous/react-native-touchable": "^1.0.3",
+    "@unpourtous/react-navigation": "1.2.6",
+    "axios": "0.18.0",
+    "babel-generator": "^6.26.1",
+    "inquirer": "^6.3.1",
+    "iwalk": "0.0.5",
+    "md5": "2.2.1",
+    "minimist": "^1.2.0",
+    "node-version-compare": "^1.0.2",
+    "prettier": "1.18.2",
+    "prop-types": "^15.7.2",
+    "proxy-polyfill": "^0.3.0",
+    "qs": "^6.9.1",
+    "react-native-animatable": "https://github.com/UnPourTous/react-native-animatable.git#v1.2.5",
+    "react-navigation-redux-helpers": "1.0.1",
+    "react-redux": "5.0.6",
+    "redux": "3.6.0",
+    "redux-actions": "2.2.1",
+    "redux-logger": "3.0.6",
+    "redux-thunk": "2.3.0",
+    "replace-in-file": "^3.4.4",
+    "route-parser": "0.0.5",
+    "shelljs": "^0.8.3",
+    "url": "0.11.0"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.7.0",
+    "@babel/runtime": "^7.7.2",
+    "@commitlint/cli": "^8.2.0",
+    "@commitlint/config-conventional": "^8.2.0",
+    "babel-eslint": "^10.0.3",
+    "babel-jest": "^24.8.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-react-native": "^4.0.1",
+    "eslint-config-standard-jsx": "^8.1.0",
+    "husky": "^3.1.0",
+    "jest": "^24.8.0",
+    "metro-react-native-babel-preset": "^0.57.0",
+    "snazzy": "^8.0.0",
+    "standard": "^13.1.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "./scripts/githooks/pre-commit.sh",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "standard": {
+    "extends": [
+      "standard",
+      "standard-jsx"
+    ],
+    "env": [
+      "jest"
+    ],
+    "ignore": [
+      "/website",
+      "/docs"
+    ],
+    "parser": "babel-eslint"
+  }
+}

@@ -1,0 +1,101 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>WeTrident简介 · WeTrident</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;p&gt;&lt;a href=&quot;https://nodejs.org/en/&quot;&gt;&lt;img src=&quot;https://img.shields.io/badge/node-%3E%3D8.3.0-brightgreen.svg&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="WeTrident简介 · WeTrident"/><meta property="og:type" content="website"/><meta property="og:url" content="undefined/WeTrident/"/><meta property="og:description" content="&lt;p&gt;&lt;a href=&quot;https://nodejs.org/en/&quot;&gt;&lt;img src=&quot;https://img.shields.io/badge/node-%3E%3D8.3.0-brightgreen.svg&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/WeTrident/undefined"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css"/><script type="text/javascript" src="./scripts/codeblock.js"></script><script type="text/javascript" src="./scripts/buttons.js"></script><script type="text/javascript" src="./scripts/mta.js"></script><script src="/WeTrident/js/scrollSpy.js"></script><link rel="stylesheet" href="/WeTrident/css/main.css"/><script src="/WeTrident/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/WeTrident/"><h2 class="headerTitle">WeTrident</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/WeTrident/docs/getting-started" target="_self">使用文档</a></li><li class=""><a href="http://github.com/WeBankFinTech/WeTrident" target="_self">WeTrident@Github</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>背景介绍</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">背景介绍</h3><ul class=""><li class="navListItem navListItemActive"><a class="navItem" href="/WeTrident/docs/introduction">WeTrident简介</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">快速入门</h3><ul class=""><li class="navListItem"><a class="navItem" href="/WeTrident/docs/getting-started">创建项目</a></li><li class="navListItem"><a class="navItem" href="/WeTrident/docs/navigation">页面间导航</a></li><li class="navListItem"><a class="navItem" href="/WeTrident/docs/state-management">数据状态管理</a></li><li class="navListItem"><a class="navItem" href="/WeTrident/docs/network">使用网络</a></li><li class="navListItem"><a class="navItem" href="/WeTrident/docs/native-modules">使用原生组件</a></li><li class="navListItem"><a class="navItem" href="/WeTrident/docs/debug-skill">调试方法和技巧</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">发布</h3><ul class=""><li class="navListItem"><a class="navItem" href="/WeTrident/docs/release-ios">iOS 发布参考</a></li><li class="navListItem"><a class="navItem" href="/WeTrident/docs/release-android">Android 发布参考</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Trident-cli</h3><ul class=""><li class="navListItem"><a class="navItem" href="/WeTrident/docs/trident-cli">trident-cli使用</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">测试工具</h3><ul class=""><li class="navListItem"><a class="navItem" href="/WeTrident/docs/test/Traversal">自动化遍历使用指南</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Plugin Store</h3><ul class=""><li class="navListItem"><a class="navItem" href="/WeTrident/docs/pluginStore/WebView">WebView</a></li><li class="navListItem"><a class="navItem" href="/WeTrident/docs/pluginStore/feedback">Feedback</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">API Reference</h3><ul class=""><li class="navListItem"><a class="navItem" href="/WeTrident/docs/api/TridentApp">TridentApp</a></li><li class="navListItem"><a class="navItem" href="/WeTrident/docs/api/AppNavigator">AppNavigator</a></li><li class="navListItem"><a class="navItem" href="/WeTrident/docs/api/APIClient">APIClient</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">CONTRIBUTING</h3><ul class=""><li class="navListItem"><a class="navItem" href="/WeTrident/docs/CONTRIBUTING">CONTRIBUTING</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">FAQ</h3><ul class=""><li class="navListItem"><a class="navItem" href="/WeTrident/docs/faq">常见问题</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">WeTrident简介</h1></header><article><div><span><p><a href="https://nodejs.org/en/"><img src="https://img.shields.io/badge/node-%3E%3D8.3.0-brightgreen.svg" alt=""></a></p>
+<h2><a class="anchor" aria-hidden="true" id="wetrident的目标"></a><a href="#wetrident的目标" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>WeTrident的目标</h2>
+<p>可快速开发支持商业运营App的框架。</p>
+<h2><a class="anchor" aria-hidden="true" id="wetrident的开发背景"></a><a href="#wetrident的开发背景" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>WeTrident的开发背景</h2>
+<p>WeTrident由微众银行App团队开发，开发过程中我们通过调研其他一些RN的开发框架发现发现大部分适合比较小的项目，或者是用到后期要真实运营的适合还需要补充很多运营相关的基础能力。
+要开发真正商业运营的App，需要很多打磨，没有办法做到快速开发高质量产品，以此为出发点我们开发了WeTrident，希望在开发、运营、测试几方面提供更好的基础开发设施。</p>
+<p>WeTrident的技术选型风格如我们团队一样，稳健为第一要求，不盲目追求新技术炫技而随意使用不稳定的技术方案。
+在时尚前沿和稳定实用中我们毫不犹豫会选择稳定实用，这也是WeTrident作为一套开发可商业运营App的框架的基础原则。
+如果你的团队也需要快速开发稳定高质量的产品，那WeTrident应该会成为你的选择。</p>
+<h2><a class="anchor" aria-hidden="true" id="wetrident给你提供了什么"></a><a href="#wetrident给你提供了什么" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>WeTrident给你提供了什么</h2>
+<ol>
+<li>一套经过时间验证的技术栈，免去你选择各种技术尝试各种新技术踩坑额外耗费的时间。</li>
+<li>一套规范的App架构定义，即使新人也可以快速的开发出高质量代码</li>
+<li>丰富完整的调试信息，简化调试的难度</li>
+<li>一套完善的构建和发布环境，帮你避开各种构建环境的坑。</li>
+</ol>
+<p>PS: WeTrident在设计过程中会增加一些限制，作为一套通用框架，我们深知应该留给使用者足够的扩展空间，所以我们在设计过程中尽可能的控制限制的数量。
+并且做到，&quot;框架增加一项限制，就至少给使用者带来一批好处&quot;。</p>
+<h2><a class="anchor" aria-hidden="true" id="基础认知"></a><a href="#基础认知" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>基础认知</h2>
+<p>了解下面这些基础内容可以帮助你更快的理解WeTrident的使用和设计思路。</p>
+<h3><a class="anchor" aria-hidden="true" id="app开发中的几大核心模块"></a><a href="#app开发中的几大核心模块" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>App开发中的几大核心模块</h3>
+<ol>
+<li>UI库</li>
+</ol>
+<p>任何App一定设计到界面的开发，每个页面会由大量的视觉组件组成，目前在WeTrident中暂时没有提供界面库，使用者可以自由使用其他优秀的组件库或者自己按需开发自己的组件。</p>
+<ol>
+<li>导航系统</li>
+</ol>
+<p>界面开发完成以后需要把界面串联起来完成确定的业务流程，这也是每个App 不能缺少的重要部分，例如web应用通过URL的方式来实现来页面的定位和跳转，
+Android和iOS原生也有自己导航的支持。</p>
+<ol start="2">
+<li>数据状态管理</li>
+</ol>
+<p>以状态为核心的界面开发模式近年是非常受欢迎的一种方式，其核心就是 <code>View = f(State)</code> ，我们在界面开发过程中去实现其中的<code>f</code>函数，在逻辑开发过程中去完成 <code>State</code>的维护即可。React已经天然的支持了数据更新和重新渲染这些底层能力。所以我们最关心的就是整个App数据状态的管理，Facebook提出的Flux思想和Redux库是解决数据状态管理的一种不错的方案，但是从社区的反馈来看，开发者对于Redux的使用各种各样没有形成固定的模式，WeTrident中就通过明确的定义Redux Store上的数据结构，解决了数据共享和隔离的矛盾。</p>
+<ol start="3">
+<li>网络层</li>
+</ol>
+<p>前面的几个部分的关注点都是App客户端数据或者界面的处理，但是现在几乎没有离线的App，所以和服务器端的交互是必不可少的，这也决定了一个App的网络模块的重要性，这个模块的特殊之处在于真正的业务开发过程中，我们会通过服务器接口和后台由非常多联调工作，所以这一块的设计好坏直接影响开发联调效率。另外发布以后，这个模块的设计也直接影响了整个App的基础体验，很多时候需要在网络层开发排队、复用、缓存等功能。</p>
+<ol start="4">
+<li>运营支持模块</li>
+</ol>
+<p>除了上面这些更业务功能直接相关的模块，最容易被忽略的就是这个部分，但是每个真正线上运行的App这个模块是绝对不能少的。数据上报、错误监控、质量监控、推送、版本升级等基础功能几乎是每个希望长期运营App的必须。</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-next button" href="/WeTrident/docs/getting-started"><span>创建项目</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#wetrident的目标">WeTrident的目标</a></li><li><a href="#wetrident的开发背景">WeTrident的开发背景</a></li><li><a href="#wetrident给你提供了什么">WeTrident给你提供了什么</a></li><li><a href="#基础认知">基础认知</a><ul class="toc-headings"><li><a href="#app开发中的几大核心模块">App开发中的几大核心模块</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="copyright">Copyright © 2019 WeBank App Team</section></footer></div></body></html>

@@ -1,0 +1,40 @@
+{
+  "docs": {
+    "背景介绍": [
+      "introduction"
+    ],
+    "快速入门": [
+      "getting-started",
+      "navigation",
+      "state-management",
+      "network",
+      "native-modules",
+      "debug-skill"
+    ],
+    "发布": [
+      "release-ios",
+      "release-android"
+    ],
+    "Trident-cli": [
+      "trident-cli"
+    ],
+    "测试工具": [
+      "test/Traversal"
+    ],
+    "Plugin Store": [
+      "pluginStore/WebView",
+      "pluginStore/feedback"
+    ],
+    "API Reference": [
+      "api/TridentApp",
+      "api/AppNavigator",
+      "api/APIClient"
+    ],
+    "CONTRIBUTING": [
+      "CONTRIBUTING"
+    ],
+    "FAQ": [
+      "faq"
+    ]
+  }
+}

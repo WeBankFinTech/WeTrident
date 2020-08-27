@@ -1,0 +1,20 @@
+{
+  "name": "@webank/trident-plugin-webview",
+  "version": "1.0.0",
+  "description": "trident plugin - WebView",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "WebView"
+  ],
+  "author": "rcrabwu@163.com",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "react": "16.0.0",
+    "react-native": "https://github.com/UnPourTous/react-native.git#release/0.51.8",
+    "@webank/trident": "^1.0.0",
+    "@unpourtous/react-native-touchable": "1.0.3"
+  }
+}

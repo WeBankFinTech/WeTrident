@@ -1,0 +1,255 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>使用网络 · WeTrident</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;h3&gt;&lt;a class=&quot;anchor&quot; aria-hidden=&quot;true&quot; id=&quot;配置及调用&quot;&gt;&lt;/a&gt;&lt;a href=&quot;#配置及调用&quot; aria-hidden=&quot;true&quot; class=&quot;hash-link&quot;&gt;&lt;svg class=&quot;hash-link-icon&quot; aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;配置及调用&lt;/h3&gt;
+"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="使用网络 · WeTrident"/><meta property="og:type" content="website"/><meta property="og:url" content="undefined/WeTrident/"/><meta property="og:description" content="&lt;h3&gt;&lt;a class=&quot;anchor&quot; aria-hidden=&quot;true&quot; id=&quot;配置及调用&quot;&gt;&lt;/a&gt;&lt;a href=&quot;#配置及调用&quot; aria-hidden=&quot;true&quot; class=&quot;hash-link&quot;&gt;&lt;svg class=&quot;hash-link-icon&quot; aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;配置及调用&lt;/h3&gt;
+"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/WeTrident/undefined"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css"/><script type="text/javascript" src="./scripts/codeblock.js"></script><script type="text/javascript" src="./scripts/buttons.js"></script><script type="text/javascript" src="./scripts/mta.js"></script><script src="/WeTrident/js/scrollSpy.js"></script><link rel="stylesheet" href="/WeTrident/css/main.css"/><script src="/WeTrident/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/WeTrident/"><h2 class="headerTitle">WeTrident</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/WeTrident/docs/getting-started" target="_self">使用文档</a></li><li class=""><a href="http://github.com/WeBankFinTech/WeTrident" target="_self">WeTrident@Github</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>快速入门</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">背景介绍</h3><ul class=""><li class="navListItem"><a class="navItem" href="/WeTrident/docs/introduction">WeTrident简介</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">快速入门</h3><ul class=""><li class="navListItem"><a class="navItem" href="/WeTrident/docs/getting-started">创建项目</a></li><li class="navListItem"><a class="navItem" href="/WeTrident/docs/navigation">页面间导航</a></li><li class="navListItem"><a class="navItem" href="/WeTrident/docs/state-management">数据状态管理</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/WeTrident/docs/network">使用网络</a></li><li class="navListItem"><a class="navItem" href="/WeTrident/docs/native-modules">使用原生组件</a></li><li class="navListItem"><a class="navItem" href="/WeTrident/docs/debug-skill">调试方法和技巧</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">发布</h3><ul class=""><li class="navListItem"><a class="navItem" href="/WeTrident/docs/release-ios">iOS 发布参考</a></li><li class="navListItem"><a class="navItem" href="/WeTrident/docs/release-android">Android 发布参考</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Trident-cli</h3><ul class=""><li class="navListItem"><a class="navItem" href="/WeTrident/docs/trident-cli">trident-cli使用</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">测试工具</h3><ul class=""><li class="navListItem"><a class="navItem" href="/WeTrident/docs/test/Traversal">自动化遍历使用指南</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Plugin Store</h3><ul class=""><li class="navListItem"><a class="navItem" href="/WeTrident/docs/pluginStore/WebView">WebView</a></li><li class="navListItem"><a class="navItem" href="/WeTrident/docs/pluginStore/feedback">Feedback</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">API Reference</h3><ul class=""><li class="navListItem"><a class="navItem" href="/WeTrident/docs/api/TridentApp">TridentApp</a></li><li class="navListItem"><a class="navItem" href="/WeTrident/docs/api/AppNavigator">AppNavigator</a></li><li class="navListItem"><a class="navItem" href="/WeTrident/docs/api/APIClient">APIClient</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">CONTRIBUTING</h3><ul class=""><li class="navListItem"><a class="navItem" href="/WeTrident/docs/CONTRIBUTING">CONTRIBUTING</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">FAQ</h3><ul class=""><li class="navListItem"><a class="navItem" href="/WeTrident/docs/faq">常见问题</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">使用网络</h1></header><article><div><span><h3><a class="anchor" aria-hidden="true" id="配置及调用"></a><a href="#配置及调用" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>配置及调用</h3>
+<p>WeTrident 推荐将服务器端的API统一管理，相比于把api接口直接零散的写入代码，配置的方式可以为后续针对接口的数据分析提供诸多便利。WeTrident中网络的配置如下:</p>
+<pre><code class="hljs css language-js"><span class="hljs-comment">// modules/book/cgi/index.js</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
+  <span class="hljs-attr">requestBookList</span>: {
+    <span class="hljs-attr">baseURL</span>: <span class="hljs-string">'https://www.mocky.io/'</span>,
+    <span class="hljs-attr">url</span>: <span class="hljs-string">'/v2/5cedf70f300000bd1f6e97fd'</span>,
+    <span class="hljs-attr">desc</span>: <span class="hljs-string">'请求书籍列表'</span>,
+  }
+}
+</code></pre>
+<p>WeTrident App中建议统一管理后台的API，每个模块强相关的后台API，都放到 <code>modules/$moduleName/cgi/</code>目录统一管理，并且通过配置都方式配置每个API需要的信息。
+主要出于如下几点考虑：</p>
+<ol>
+<li>统一的存放方便后期维护</li>
+<li>统一的配置格式要求每个接口要填写一些关键字段，方便以后理解。所有字段的说明见 <a href="/WeTrident/docs/api/APIClient#api配置">API配置</a>：</li>
+</ol>
+<table>
+<thead>
+<tr><th>字段名</th><th>说明</th><th>是否必须</th></tr>
+</thead>
+<tbody>
+<tr><td>desc</td><td>API的描述,可以用于调试日志/数据分析</td><td>是</td></tr>
+<tr><td>baseURL</td><td>API的baseURL</td><td>是</td></tr>
+<tr><td>url</td><td>API的接口路径，和baseURL拼接成完成的API路径哦</td><td>是</td></tr>
+<tr><td>mockable</td><td>表示此接口是否直接返回mock数据</td><td>否</td></tr>
+<tr><td>request</td><td>API的请求结构</td><td>否</td></tr>
+<tr><td>response</td><td>API的响应结构，用于定义Mock的响应</td><td>否</td></tr>
+</tbody>
+</table>
+<p>定义完接口以后，我们在BookListScene中通过<code>APIClient</code>使用此接口。</p>
+<pre><code class="hljs css language-js"><span class="hljs-comment">// modules/book/BookListScene/BookListScene.js</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BookListScene</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">WeBaseScene</span> </span>{
+  <span class="hljs-comment">// ...</span>
+  componentDidMount () {
+    <span class="hljs-comment">// 请求</span>
+    APIClient.request(CGI.requestBookList, {
+      <span class="hljs-attr">start</span>: <span class="hljs-number">0</span>,
+      <span class="hljs-attr">pageSize</span>: <span class="hljs-number">10</span>
+    }).then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> {
+      <span class="hljs-built_in">console</span>.log(response)
+    }, error =&gt; {
+      <span class="hljs-built_in">console</span>.warning(error)
+    })
+  }
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="使用mock"></a><a href="#使用mock" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>使用Mock</h3>
+<p>开发过程中，可能会需要再服务器端接口开发完之前开始开发前端，为了解决没有接口可用的问题，WeTrident支持了mock的功能，只需要简单的再接口配置中配置mock的返回即可，例如上面的拉去书籍列表的接口如下配置以后即可支持mock，<code>APIClient</code>发出请求以后会直接返回mock数据。response是一个数组，这个数组里面的内容随机返回，用于模拟调试失败或者多种返回数据的情况。</p>
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">// modules/book/cgi/index.js</span>
+<span class="hljs-keyword">import</span> {AxiosMocker} <span class="hljs-keyword">from</span> <span class="hljs-string">'@webank/trident'</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
+  <span class="hljs-attr">requestBookList</span>: {
+    <span class="hljs-attr">baseURL</span>: <span class="hljs-string">'https://www.mocky.io/'</span>,
+    <span class="hljs-attr">url</span>: <span class="hljs-string">'/v2/5185415ba171ea3a00704eed'</span>,
+    <span class="hljs-attr">desc</span>: <span class="hljs-string">'请求书籍列表'</span>,
+
+    <span class="hljs-comment">// set true to return mock data for this api</span>
+    mockable: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">request</span>: {},
+    <span class="hljs-attr">response</span>: [
+      <span class="hljs-comment">// mock network error</span>
+      AxiosMocker.networkError(),
+      <span class="hljs-comment">// mock network timeout</span>
+      AxiosMocker.timeout(),
+      <span class="hljs-comment">// mock a normal response, it show the normal response data structure too</span>
+      AxiosMocker.success([
+        {
+          <span class="hljs-attr">title</span>: <span class="hljs-string">'经济学原理'</span>,
+          <span class="hljs-attr">author</span>: <span class="hljs-string">'曼昆'</span>,
+          <span class="hljs-attr">coverURL</span>: <span class="hljs-string">'https://img3.doubanio.com/view/subject/l/public/s3802186.jpg'</span>,
+          <span class="hljs-attr">publishTime</span>: <span class="hljs-string">'2009-4-1'</span>,
+          <span class="hljs-attr">pages</span>: <span class="hljs-number">540</span>,
+          <span class="hljs-attr">ISBN</span>: <span class="hljs-string">'9787301150894'</span>
+        },
+        {
+          <span class="hljs-attr">title</span>: <span class="hljs-string">'失控-全人类的最终命运和结局'</span>,
+          <span class="hljs-attr">author</span>: <span class="hljs-string">'[美] 凯文·凯利 '</span>,
+          <span class="hljs-attr">coverURL</span>: <span class="hljs-string">'https://img3.doubanio.com/view/subject/l/public/s4554820.jpg'</span>,
+          <span class="hljs-attr">publishTime</span>: <span class="hljs-string">'2010-12'</span>,
+          <span class="hljs-attr">pages</span>: <span class="hljs-number">707</span>,
+          <span class="hljs-attr">ISBN</span>: <span class="hljs-string">'9787513300711'</span>
+        }
+      ])
+    ]
+  }
+}
+</code></pre>
+<p>在WeBookStore中，我们按照要求把<code>BookDetailScene</code>的逻辑补充完整。这里主要是完善界面和添加借阅接口的请求，这里略过，补充完以后，<code>BookDetailScene</code>内容如下：</p>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>
+<span class="hljs-keyword">import</span> { View, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-native'</span>
+<span class="hljs-keyword">import</span> { AppNavigator, WeBaseScene, Toast } <span class="hljs-keyword">from</span> <span class="hljs-string">'@webank/trident'</span>
+<span class="hljs-keyword">import</span> BookDetail <span class="hljs-keyword">from</span> <span class="hljs-string">'./components/BookDetail'</span>
+<span class="hljs-keyword">import</span> SimpleButton <span class="hljs-keyword">from</span> <span class="hljs-string">'./components/SimpleButton'</span>
+<span class="hljs-keyword">import</span> BookDetailService <span class="hljs-keyword">from</span> <span class="hljs-string">'./BookDetailService'</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BookDetailScene</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">WeBaseScene</span> </span>{
+  <span class="hljs-keyword">static</span> navigationOptions = <span class="hljs-function">(<span class="hljs-params">{ navigation: { state: { params = {} } } }</span>) =&gt;</span> ({
+    <span class="hljs-attr">headerTitle</span>: params.title
+  })
+
+  render () {
+    <span class="hljs-keyword">const</span> bookDetail = (<span class="hljs-keyword">this</span>.props.bookList || []).find(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> item.ISBN === <span class="hljs-keyword">this</span>.params.ISBN)
+
+    <span class="hljs-keyword">if</span> (!bookDetail) {
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>
+    }
+    <span class="hljs-keyword">return</span> (
+      &lt;View&gt;
+        &lt;BookDetail {...bookDetail} /&gt;
+        &lt;SimpleButton
+          style={{
+            marginTop: 8,
+            paddingHorizontal: 8
+          }}
+          onPress={() =&gt; {
+            BookDetailService.requestBorrowBook().then(response =&gt; {
+              Toast.show(response.data.ret_msg)
+              AppNavigator.book.ResultScene({ISBN: this.params.ISBN})
+            }, error =&gt; {
+              Toast.show('network error' + JSON.stringify(error))
+            })
+          }} title={'借阅'} /&gt;
+      &lt;/View&gt;
+    )
+  }
+}
+</code></pre>
+<p>如果请求后台成功，直接跳转<code>ResultScene</code>，这里也把<code>ResultScene</code>的界面补充完成，完成以后 <code>ResultScene</code> 代码如下：</p>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>
+<span class="hljs-keyword">import</span> { View, Text, Image } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-native'</span>
+<span class="hljs-keyword">import</span> { AppNavigator, WeBaseScene } <span class="hljs-keyword">from</span> <span class="hljs-string">'@webank/trident'</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ResultScene</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">WeBaseScene</span> </span>{
+  render () {
+    <span class="hljs-keyword">const</span> bookDetail = (<span class="hljs-keyword">this</span>.props.bookList || []).find(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> item.ISBN === <span class="hljs-keyword">this</span>.params.ISBN)
+
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{[{</span>
+        <span class="hljs-attr">flexDirection:</span> '<span class="hljs-attr">column</span>',
+        <span class="hljs-attr">justifyContent:</span> '<span class="hljs-attr">flex-start</span>',
+        <span class="hljs-attr">alignItems:</span> '<span class="hljs-attr">center</span>',
+      }, <span class="hljs-attr">this.props.style</span>]}&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">Image</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{</span>
+          <span class="hljs-attr">marginTop:</span> <span class="hljs-attr">80</span>,
+          <span class="hljs-attr">marginBottom:</span> <span class="hljs-attr">20</span>,
+          <span class="hljs-attr">width:</span> <span class="hljs-attr">120</span>,
+          <span class="hljs-attr">height:</span> <span class="hljs-attr">120</span>,
+        }} <span class="hljs-attr">source</span>=<span class="hljs-string">{require(</span>'<span class="hljs-attr">assets</span>/<span class="hljs-attr">images</span>/<span class="hljs-attr">success.png</span>')} /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">Text</span>&gt;</span>{`借阅《${bookDetail.title}》成功`}<span class="hljs-tag">&lt;/<span class="hljs-name">Text</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span>
+    )
+  }
+}
+</span></code></pre>
+<h3><a class="anchor" aria-hidden="true" id="使用cache"></a><a href="#使用cache" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>使用Cache</h3>
+<p>除了可以发起正常请求，WeTrident的APIClient还支持了客户端的缓存。
+目前的缓存支持三种模式配置缓存时间：</p>
+<ol>
+<li>全局缓存时间配置</li>
+</ol>
+<pre><code class="hljs">APIClient.setDefaultCacheMaxAgeInMs(<span class="hljs-number">5</span> * <span class="hljs-number">60</span> * <span class="hljs-number">1000</span>)
+</code></pre>
+<ol start="2">
+<li>API静态配置缓存时间</li>
+</ol>
+<pre><code class="hljs"><span class="hljs-comment">// modules/book/cgi/index.js </span>
+<span class="hljs-keyword">import</span> {AxiosMocker} <span class="hljs-keyword">from</span> <span class="hljs-string">'@webank/trident'</span>
+<span class="hljs-comment">// 接口定义</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
+  <span class="hljs-attr">requestBookListUseCache</span>: {
+    <span class="hljs-comment">// 通过配置设置缓存时间</span>
+    cacheMaxAgeInMs: <span class="hljs-number">60000</span>,
+    <span class="hljs-attr">baseURL</span>: <span class="hljs-string">'https://www.mocky.io/'</span>,
+    <span class="hljs-attr">method</span>: <span class="hljs-string">'get'</span>,
+    <span class="hljs-attr">url</span>: <span class="hljs-string">'/v2/5dc964632f0000760073ec4b'</span>,
+    <span class="hljs-attr">desc</span>: <span class="hljs-string">'请求书籍列表'</span>,
+    <span class="hljs-attr">request</span>: {
+    },
+  }
+}
+
+
+APIClient.request(CGI.requestBookListUseCache).then(...)
+</code></pre>
+<ol start="3">
+<li>API调用动态设置缓存时间</li>
+</ol>
+<pre><code class="hljs"><span class="hljs-selector-tag">APIClient</span><span class="hljs-selector-class">.request</span>(
+  <span class="hljs-selector-tag">CGI</span><span class="hljs-selector-class">.requestBookListUseCache</span>,
+  <span class="hljs-selector-tag">undefined</span>,
+  <span class="hljs-selector-tag">undefined</span>,
+  <span class="hljs-selector-tag">undefined</span>,
+  { <span class="hljs-attribute">cacheMaxAgeInMs</span>: <span class="hljs-number">10</span> }
+)<span class="hljs-selector-class">.then</span>(...)
+</code></pre>
+<p>更多用法见：<a href="/WeTrident/docs/api/APIClient">APIClient API</a></p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/WeTrident/docs/state-management"><span class="arrow-prev">← </span><span>数据状态管理</span></a><a class="docs-next button" href="/WeTrident/docs/native-modules"><span>使用原生组件</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"></nav></div><footer class="nav-footer" id="footer"><section class="copyright">Copyright © 2019 WeBank App Team</section></footer></div></body></html>

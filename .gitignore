@@ -1,0 +1,91 @@
+# OSX
+#
+.DS_Store
+
+# Xcode
+#
+build/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata
+*.xccheckout
+*.moved-aside
+DerivedData
+*.hmap
+*.ipa
+*.xcuserstate
+project.xcworkspace
+
+# Android/IntelliJ
+#
+build/
+.idea/
+.gradle
+local.properties
+*.iml
+
+# node.js
+#
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# BUCK
+buck-out/
+\.buckd/
+*.keystore
+
+# fastlane
+#
+# It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the
+# screenshots whenever they are needed.
+# For more information about the recommended setup visit:
+# https://docs.fastlane.tools/best-practices/source-control/
+
+*/fastlane/report.xml
+*/fastlane/Preview.html
+*/fastlane/screenshots
+
+# Bundle artifact
+*.jsbundle
+
+ios/Pods/
+app-seed/ios/Pods/
+app-seed/package-lock.json
+app-seed/yarn.lock
+app-seed/ios/Podfile.lock
+app-seed/ios/build/
+
+libraryDev/ios/Pods/
+libraryDev/package-lock.json
+libraryDev/yarn.lock
+libraryDev/ios/Podfile.lock
+libraryDev/ios/main.jsbundle.meta
+libraryDev/ios/main.jsbundle
+libraryDev/ios/build/
+libraryDev/node_modules/
+
+
+trident-cli/package-lock.json
+
+fastlane/report.xml
+
+lab/
+tmp/
+app-seed/fastlane/README.md
+
+website/release/*.tar.gz
+website/release/*.tgz
+website/release/*.zip
+
+.tridentTemp/
+
+coverage/
+
+package-lock.json

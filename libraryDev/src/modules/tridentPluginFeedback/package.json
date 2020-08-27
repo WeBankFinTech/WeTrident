@@ -1,0 +1,19 @@
+{
+  "name": "@webank/trident-plugin-feedback",
+  "version": "1.0.0",
+  "description": "Trident plugin - feedback",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "feedback"
+  ],
+  "author": "rcrabwu@163.com",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "react": "16.0.0",
+    "react-native": "https://github.com/UnPourTous/react-native.git#release/0.51.8",
+    "@webank/trident": "^1.0.0"
+  }
+}

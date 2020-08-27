@@ -1,0 +1,32 @@
+{
+  "name": "@webank/trident-cli",
+  "version": "1.0.2",
+  "description": "",
+  "main": "index.js",
+  "bin": {
+    "trident-cli": "index.js",
+    "tdt": "index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "run": "export useLocal=true && node index.js init",
+    "npmPublish": "npm version patch && npm publish --registry http://localhost:4873"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "commander": "3.0.1",
+    "inquirer": "6.5.2",
+    "iwalk": "0.0.5",
+    "minimist": "1.2.0",
+    "node-version-compare": "1.0.2",
+    "prompt": "1.0.0",
+    "replace-in-file": "4.0.0",
+    "semver": "6.3.0",
+    "shelljs": "0.8.3"
+  },
+  "engines": {
+    "node": ">=8.3"
+  }
+}

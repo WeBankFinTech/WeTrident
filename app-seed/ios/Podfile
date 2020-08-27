@@ -1,0 +1,48 @@
+# Uncomment the next line to define a global platform for your project
+platform :ios, '9.0'
+require 'json'
+
+def deps_pods
+  # Your 'node_modules' directory is probably in the root of your project,
+  # but if not, adjust the `:path` accordingly
+  pod 'React', :path => '../node_modules/react-native', :subspecs => [
+    'Core',
+    'CxxBridge', # Include this for RN >= 0.47
+    'DevSupport', # Include this to enable In-App Devmenu if RN >= 0.43
+    'RCTText',
+    'RCTImage',
+    'RCTNetwork',
+    'RCTLinkingIOS',
+    'RCTWebSocket', # Needed for debugging
+    'RCTAnimation', # Needed for FlatList and animations running on native UI thread
+    # Add any other subspecs you want to use in your project
+  ]
+  # Explicitly include Yoga if you are using RN >= 0.42.0
+  pod 'yoga', :path => '../node_modules/react-native/ReactCommon/yoga'
+
+  # Third party deps podspec link
+  pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
+  pod 'GLog', :podspec => '../node_modules/react-native/third-party-podspecs/GLog.podspec'
+  pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
+
+  pod 'AFNetworking'
+  pod 'SSZipArchive'
+end
+
+post_install do |installer|
+  tridentConfig = JSON.parse(File.read('../trident-config.json'))
+  port = tridentConfig["port"] || "8081"
+  puts port
+
+  installer.pods_project.build_configurations.each do |config|
+    if config.name == 'Debug'
+        config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)']
+        config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] << "RCT_METRO_PORT=#{port}"
+        puts "Pods project #{config.name}:  #{config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'].inspect}"
+    end
+  end
+end
+
+target 'Develop' do
+  deps_pods
+end

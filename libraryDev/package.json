@@ -1,0 +1,58 @@
+{
+  "name": "libraryDev",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "test": "jest"
+  },
+  "dependencies": {
+    "@babel/core": "7.0.0-beta.56",
+    "@babel/parser": "7.4.2",
+    "@babel/traverse": "7.4.0",
+    "@unpourtous/react-native-touchable": "1.0.3",
+    "@unpourtous/react-navigation": "1.2.6",
+    "@unpourtous/rn-console-polyfill": "^1.0.1",
+    "@unpourtous/wt-console": "^1.1.47",
+    "@webank/trident": "^1.0.0",
+    "axios": "0.18.0",
+    "axios-cache-adapter": "^2.5.0",
+    "babel-generator": "6.26.1",
+    "babel-plugin-transform-remove-console": "^6.9.4",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-react-native": "^1.9.2",
+    "md5": "2.2.1",
+    "minimist": "1.2.0",
+    "moment": "2.23.0",
+    "qs": "^6.9.1",
+    "react": "16.0.0",
+    "react-native": "https://github.com/UnPourTous/react-native.git#release/0.51.10",
+    "react-native-cookies": "3.3.0",
+    "react-native-json-tree": "^1.2.0",
+    "react-navigation-redux-helpers": "1.0.1",
+    "react-redux": "5.0.6",
+    "redux": "3.6.0",
+    "redux-actions": "2.2.1",
+    "redux-logger": "3.0.6",
+    "redux-thunk": "2.3.0",
+    "route-parser": "0.0.5",
+    "stacktrace-parser": "^0.1.4",
+    "url": "0.11.0"
+  },
+  "devDependencies": {
+    "@babel/types": "7.4.0",
+    "babel-jest": "23.6.0",
+    "gulp-eslint": "5.0.0",
+    "gulp-rename": "1.4.0",
+    "gulp-replace-src": "0.0.1",
+    "gulp-shell": "0.6.5",
+    "hogan.js": "3.0.2",
+    "jest": "23.6.0",
+    "metro-react-native-babel-preset": "0.51.1",
+    "react-test-renderer": "16.6.3",
+    "yargs": "12.0.5"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
