@@ -7,17 +7,20 @@ router.get('/', function (req, res, next) {
   const title = `[${fileName.replace('.txt', '')}] Traversal Results`
   let traversingRecords
   let finishedRecords
+  let names
   if (fileName) {
     loadRecords(fileName).then(
       result => {
         if (result) {
           traversingRecords = parseTraversingRecords(result.traversingRecords)
           finishedRecords = parseFinishedRecords(result.finishedRecords)
+          names = parseNamingRecords(result.namingRecords)
           res.render('analysis', {
             title,
             error: '',
             traversingRecords,
-            finishedRecords
+            finishedRecords,
+            names
           })
         } else {
           res.render('analysis', {
@@ -110,6 +113,21 @@ function parseFinishedRecords (sourceData) {
   return targetData
 }
 
+function parseNamingRecords (sourceData) {
+  let targetData
+  for (let index = 0; index < sourceData.length; index++) {
+    const record = sourceData[index].trim().replace('[naming]', '').split('_')
+    if (!targetData) {
+      targetData = {}
+    }
+    if (record.length !== 2) {
+      continue
+    }
+    targetData[record[0]] = record[1]
+  }
+  return targetData
+}
+
 function loadRecords (fileName) {
   const fs = require('fs')
   return new Promise((resolve, reject) => {
@@ -122,9 +140,11 @@ function loadRecords (fileName) {
           } else {
             const traversingRecords = data.toString().trim().split('\n').filter(item => !!item && (item.trim().startWith('\\[traversal\\]') || item.trim().startWith('\\[error\\]')))
             const finishedRecords = data.toString().trim().split('\n').filter(item => !!item && item.trim().startWith('\\[finished\\]'))
+            const namingRecords = data.toString().trim().split('\n').filter(item => !!item && item.trim().startWith('\\[naming\\]'))
             resolve({
               traversingRecords,
-              finishedRecords
+              finishedRecords,
+              namingRecords
             })
           }
         })

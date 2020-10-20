@@ -32,7 +32,8 @@ class SceneTraversal {
     this.finishMarkOnBack = false
   }
 
-  _getNodeKey (node, rootNode) {
+  _getNodeKey (VTTNode, VTTRootNode) {
+    const node = VTTNode.element
     let attr = _.pick(node, ['index', 'key', 'tag'])
     const type = node.type
     if (_.isFunction(type) && _.isString(type.displayName)) {
@@ -43,7 +44,7 @@ class SceneTraversal {
       attr.type = type
     }
     attr._className = (node.stateNode && node.stateNode.constructor.name) || ''
-    attr._parentKey = (node !== rootNode && node.return && node.return._debugSource) || ''
+    attr._parentKey = (VTTNode.return && VTTNode.return.child !== VTTRootNode && VTTNode.return.hash) || ''
 
     const memoizedProps = node.memoizedProps || {}
     const props = _.omit(_.pickBy(memoizedProps, (value, key) => !_.isObject(value)), ['isEnabled'])
@@ -76,23 +77,25 @@ class SceneTraversal {
     }
   }
 
-  _markNodeKeys (rootNode) {
+  _constructVTT (rootNode) {
+    const VTTRootNode = { element: rootNode }
     let currentNode
-    const nodeQueue = [rootNode]
+    const nodeQueue = [VTTRootNode]
     while (nodeQueue.length > 0) {
       currentNode = nodeQueue.shift()
-      const flag = this._getNodeKey(currentNode, rootNode)
-      currentNode._debugSource = flag
-      if (currentNode.alternate) {
-        currentNode.alternate._debugSource = flag
-      }
-      if (currentNode.child) {
+      currentNode.hash = this._getNodeKey(currentNode, VTTRootNode)
+
+      if (currentNode.element.child) {
+        currentNode.child = { element: currentNode.element.child, return: currentNode }
         nodeQueue.push(currentNode.child)
       }
-      if (currentNode.sibling) {
+      if (currentNode.element.sibling) {
+        currentNode.sibling = { element: currentNode.element.sibling, return: currentNode.return }
         nodeQueue.push(currentNode.sibling)
       }
     }
+
+    return VTTRootNode
   }
 
   _isTouchable (node) {
@@ -134,9 +137,9 @@ class SceneTraversal {
   }
 
   _findNodes (moduleName, sceneName, entrance) {
-    let currentNode
+    let entranceNode
     try {
-      currentNode = ReactNativeComponentTree.getInstanceFromNode(findNodeHandle(entrance))
+      entranceNode = ReactNativeComponentTree.getInstanceFromNode(findNodeHandle(entrance))
     } catch (e) {
       this._onBreakOldTraversal()
       return
@@ -152,10 +155,10 @@ class SceneTraversal {
       return
     }
 
-    const rootNode = this._findRootNode(moduleName, sceneName, currentNode)
-    this._markNodeKeys(rootNode)
+    const rootNode = this._constructVTT(this._findRootNode(moduleName, sceneName, entranceNode))
     const nodeList = []
     const nodeQueue = [rootNode]
+    let currentNode
 
     const _isTabRootNode = node => !_.isEmpty(node) && !_.isEmpty(node.stateNode) && node.stateNode.constructor.name === 'TabView'
     const _flattenTabViewElements = tabRootNode => {
@@ -167,17 +170,18 @@ class SceneTraversal {
       // find out mathed tabs and contents
       while (tabNodeQueue.length > 0) {
         _tabNode = tabNodeQueue.shift()
-        if (!this._isIgnored(_tabNode)) {
-          if (!_.isEmpty(_tabNode.key) && !_.isEmpty(_tabNode.stateNode) && _tabNode.stateNode.constructor.name === 'TouchableItem') {
-            if (_.isEmpty(_tabViews[_tabNode.key])) {
-              _tabViews[_tabNode.key] = {}
+        if (!this._isIgnored(_tabNode.element)) {
+          const _tabName = _tabNode.element.key
+          if (!_.isEmpty(_tabName) && _.get(_tabNode, 'element.type.displayName') === 'TouchableWithoutFeedback') {
+            if (_.isEmpty(_tabViews[_tabName])) {
+              _tabViews[_tabName] = {}
             }
-            _tabViews[_tabNode.key].tab = _tabNode
-          } else if (!_.isEmpty(_tabNode.key) && !_.isEmpty(_tabNode.stateNode) && _tabNode.stateNode.constructor.name === 'ResourceSavingSceneView') {
-            if (_.isEmpty(_tabViews[_tabNode.key])) {
-              _tabViews[_tabNode.key] = {}
+            _tabViews[_tabName].tab = _tabNode
+          } else if (!_.isEmpty(_tabName) && _.get(_tabNode, 'element.type.displayName') === 'ResourceSavingSceneView') {
+            if (_.isEmpty(_tabViews[_tabName])) {
+              _tabViews[_tabName] = {}
             }
-            _tabViews[_tabNode.key].content = _tabNode
+            _tabViews[_tabName].content = _tabNode
           }
 
           _tabNode.child && tabNodeQueue.push(_tabNode.child)
@@ -194,8 +198,8 @@ class SceneTraversal {
           tabNodeQueue = [tabView.tab]
           while (tabNodeQueue.length > 0) {
             _tabNode = tabNodeQueue.shift()
-            if (!this._isIgnored(_tabNode)) {
-              this._isTouchable(_tabNode) && results.push(_tabNode)
+            if (!this._isIgnored(_tabNode.element)) {
+              this._isTouchable(_tabNode.element) && results.push(_tabNode)
               _tabNode.child && tabNodeQueue.push(_tabNode.child)
             }
 
@@ -208,8 +212,8 @@ class SceneTraversal {
           tabNodeQueue = [tabView.content]
           while (tabNodeQueue.length > 0) {
             _tabNode = tabNodeQueue.shift()
-            if (!this._isIgnored(_tabNode)) {
-              this._isTouchable(_tabNode) && results.push(_tabNode)
+            if (!this._isIgnored(_tabNode.element)) {
+              this._isTouchable(_tabNode.element) && results.push(_tabNode)
               _tabNode.child && tabNodeQueue.push(_tabNode.child)
             }
 
@@ -225,11 +229,11 @@ class SceneTraversal {
 
     while (nodeQueue.length > 0) {
       currentNode = nodeQueue.shift()
-      if (!this._isIgnored(currentNode)) {
-        if (_isTabRootNode(currentNode)) {
+      if (!this._isIgnored(currentNode.element)) {
+        if (_isTabRootNode(currentNode.element)) {
           nodeList.push(..._flattenTabViewElements(currentNode))
         } else {
-          this._isTouchable(currentNode) && nodeList.push(currentNode)
+          this._isTouchable(currentNode.element) && nodeList.push(currentNode)
           currentNode.child && nodeQueue.push(currentNode.child) // 若父节点被屏蔽，子节点同样被屏蔽
         }
       }
@@ -268,9 +272,60 @@ class SceneTraversal {
       return
     }
 
+    const _getNodeDesc = node => {
+      const _nodeLabel = _.get(node, 'memoizedProps.accessibilityLabel')
+      if (!_.isEmpty(_nodeLabel)) {
+        return `${_nodeLabel}`
+      }
+
+      const _getChildrenDesc = children => {
+        while (!_.isEmpty(children)) {
+          if (_.isString(children)) {
+            return `${children}`
+          } else if (_.isArray(children)) {
+            return _.reduce(children, (result, _child) => result + _getChildrenDesc(_child), '')
+          } else if (_.isObjectLike(children)) {
+            let _itemLabel = _.get(children, 'props.data.label')
+            if (!_.isEmpty(_itemLabel)) {
+              return `${_itemLabel}`
+            }
+
+            _itemLabel = _.get(children, 'props.accessibilityLabel')
+            if (!_.isEmpty(_itemLabel)) {
+              return `${_itemLabel}`
+            }
+
+            let _itemName = _.get(children, 'props.name')
+            if (!_.isEmpty(_itemName)) {
+              return `[图标][${_itemName}]`
+            }
+
+            _itemName = _.get(children, 'props.title')
+            if (!_.isEmpty(_itemName)) {
+              return `${_itemName} ${_.get(children, 'props.subTitle', '')}`
+            }
+
+            const _itemLink = _.get(children, 'props.source.uri')
+            if (!_.isEmpty(_itemLink)) {
+              return `[图标][${_itemLink}]`
+            }
+
+            children = _.get(children, 'props.children')
+          } else {
+            children = null
+          }
+        }
+
+        return ''
+      }
+
+      return `${_getChildrenDesc(_.get(node, 'memoizedProps.children'))}`
+    }
+
     const _processElement = func => {
-      this.dataRecorder.record(`[traversal]${this.current.moduleName}_${this.current.sceneName}_${this.current.nodeList[index]._debugSource}`)
-      _.set(this.preorder, [this.current.moduleName, this.current.sceneName, 'nodeMark'], this.current.nodeList[index]._debugSource)
+      this.dataRecorder.record(`[traversal]${this.current.moduleName}_${this.current.sceneName}_${this.current.nodeList[index].hash}`)
+      this.dataRecorder.record(`[naming]${this.current.nodeList[index].hash}_${_getNodeDesc(this.current.nodeList[index].element)}`)
+      _.set(this.preorder, [this.current.moduleName, this.current.sceneName, 'nodeMark'], this.current.nodeList[index].hash)
       _.set(this.preorder, 'former.moduleName', this.current.moduleName)
       _.set(this.preorder, 'former.sceneName', this.current.sceneName)
 
@@ -287,7 +342,7 @@ class SceneTraversal {
 
     const _replay = func => {
       try {
-        this.dataRecorder.record(`[replay]${this.current.moduleName}_${this.current.sceneName}_${this.current.nodeList[index]._debugSource}`)
+        this.dataRecorder.record(`[replay]${this.current.moduleName}_${this.current.sceneName}_${this.current.nodeList[index].hash}`)
         func()
       } catch (e) {
 
@@ -296,15 +351,15 @@ class SceneTraversal {
 
     if (this.current.nodeList && index < this.current.nodeList.length) {
       const node = this.current.nodeList[index]
-      const isReplay = this.replay && !_.isEmpty(node._debugSource) && _.get(this.preorder, [this.current.moduleName, this.current.sceneName, 'nodeMark']) === node._debugSource
+      const isReplay = this.replay && !_.isEmpty(node.hash) && _.get(this.preorder, [this.current.moduleName, this.current.sceneName, 'nodeMark']) === node.hash
 
-      if (!this.isVisit[this.current.moduleName][this.current.sceneName][node._debugSource] ||
+      if (!this.isVisit[this.current.moduleName][this.current.sceneName][node.hash] ||
           isReplay
       ) {
-        this.isVisit[this.current.moduleName][this.current.sceneName][node._debugSource] = true
-        const func = this._getTouchableMethod(node)
+        this.isVisit[this.current.moduleName][this.current.sceneName][node.hash] = true
+        const func = this._getTouchableMethod(node.element)
         if (_.isFunction(func)) {
-          const measure = this._findMeasure(node)
+          const measure = this._findMeasure(node.element)
           if (measure) {
             try {
               measure((x, y, w, h, px, py) => {
