@@ -31,7 +31,7 @@
 							<ul>
 								<% if (traversingRecords[module][scene][element] && traversingRecords[module][scene][element].length > 0) { %>
 								<!-- 遍历异常信息 -->
-								<li>🙅<font color="red">【ERROR】</font><%-element %></li>
+								<li>🙅<font color="red">【ERROR】</font><%-names[element] %>-<%-element %></li>
 								<ul>
 									<% for(let index = 0; index < traversingRecords[module][scene][element].length; index++) {%>
 									<li><font color="red">[<%-index + 1 %>]  <%-traversingRecords[module][scene][element][index] %></font></li>
@@ -39,7 +39,7 @@
 								</ul>
 								<% } else { %>
 								<!-- 正常遍历结果 -->
-								<li>🙆‍♂️<font color="green">【PASS】</font><%-element %></li>
+								<li>🙆‍♂️<font color="green">【PASS】</font><%-names[element] %>-<%-element %></li>
 								<% } %>
 							</ul>
 						<% } %>
