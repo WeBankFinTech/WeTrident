@@ -74,10 +74,10 @@ export default class TridentApp extends Component {
 
   _renderWTConsole () {
     if (this.props.showWTConsole) {
-      const WTConsole = require('@unpourtous/wt-console').default
+      const WTConsole = require('@webank/wt-console').default
       if (this.props.customWTConsoleTab) {
         const { name, view } = this.props.customWTConsoleTab
-        const Dashboard = require('@unpourtous/wt-console').Dashboard
+        const Dashboard = require('@webank/wt-console').Dashboard
         Dashboard.register({}, { tabLabel: name || '自定义' }, view)
       }
       return (

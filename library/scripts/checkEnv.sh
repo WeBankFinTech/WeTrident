@@ -30,6 +30,10 @@ compareVersion () {
     return 0
 }
 
+if [[ -f "${HOME}/.bash_profile" ]]; then
+  source ${HOME}/.bash_profile
+fi
+
 requireNodeVersion=`cat ../.nvmrc`
 currentNodeVersion=`node --version | cut -d " " -f 3 | sed -e "s/[ |v]//g"`
 

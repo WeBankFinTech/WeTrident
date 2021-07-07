@@ -57,8 +57,7 @@ export default class TabContainerScene extends WeBaseScene {
 
     this.MyDrawerNavigator = new WeDrawerNavigator(
       {
-        TabContainer: MyTabNavigator,
-        TabContainer2: MyTabNavigator
+        TabContainer: MyTabNavigator
       },
       {
         drawerBackgroundColor: 'rgba(255,255,255,.9)',
