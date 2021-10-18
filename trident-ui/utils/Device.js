@@ -11,7 +11,8 @@ export default class Device {
   static containerHeight = Dimensions.get('window').height
 
   static isPhoneX () {
-    return Platform.OS === 'ios' && (Dimensions.get('window').height === 812 || Dimensions.get('window').height === 896)
+    const { height, width } = Dimensions.get('window')
+    return Platform.OS === 'ios' && parseInt((height / width) * 100) === 216
   }
 
   static isiOSDevice () {
